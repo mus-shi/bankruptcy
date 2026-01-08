@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, jsonify
 import os
 import requests
 
@@ -44,20 +44,21 @@ def thanks():
 @app.route('/consult', methods=['POST'])
 def consult():
     try:
-        # Получаем данные из формы
-        name = request.form.get('name', '—')
-        phone = request.form.get('phone', '—')
-        agree = request.form.get('agree', 'Нет')
-        total_debt_key = request.form.get('total_debt', 'under200k')
-        arrests = request.form.get('arrests', 'Не указано')
-        extra_property = request.form.get('extra_property', 'Не указано')
-        extra_car = request.form.get('extra_car', 'Не указано')
-        recaptcha_token = request.form.get('g-recaptcha-response', '')
+        # Получаем данные из JSON
+        data = request.get_json()
+        recaptcha_token = data.get('g-recaptcha-response')
+        name = data.get('name', '—')
+        phone = data.get('phone', '—')
+        agree = data.get('agree', 'Нет')
+        total_debt_key = data.get('total_debt', 'under200k')
+        arrests = data.get('arrests', 'Не указано')
+        extra_property = data.get('extra_property', 'Не указано')
+        extra_car = data.get('extra_car', 'Не указано')
 
         # Проверяем reCAPTCHA
         if not verify_recaptcha(recaptcha_token):
             print("reCAPTCHA failed for:", phone)
-            return "reCAPTCHA failed", 400
+            return jsonify({'error': 'reCAPTCHA failed'}), 400
 
         # Сопоставление ключей долгов
         debt_map = {
@@ -96,14 +97,14 @@ def consult():
                     raise Exception(f"Telegram error: {response.text}")
             except Exception as e:
                 print("Ошибка Telegram:", e)
-                return "Telegram send failed", 500
+                return jsonify({'error': 'Telegram send failed'}), 500
 
-        # Перенаправляем на /thanks
-        return redirect(url_for('thanks'))
+        # Успешно
+        return '', 204
 
     except Exception as e:
         print("Ошибка в /consult:", str(e))
-        return "Internal server error", 500
+        return jsonify({'error': 'Internal server error'}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
