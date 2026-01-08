@@ -1,12 +1,20 @@
-/* === ПЕРЕМЕННЫЕ И ОСНОВНЫЕ НАСТРОЙКИ === */
+/* === 1. ПЕРЕМЕННЫЕ И ОСНОВНЫЕ НАСТРОЙКИ === */
 :root {
     --primary-color: #1a2a3a;
-    --accent-color: #2d5e4a;    /* Ваш зеленый */
-    --quiz-theme-color: #1e3a5f; /* Синий для квиза */
+    --accent-color: #2d5e4a;    /* Зеленый для акцентов */
+    --quiz-theme-color: #1e3a5f; /* Темно-синий для квиза */
     --text-muted: #6c757d;
-    --bg-light: #f8f9fa;       /* Светлый фон карточек */
+    --bg-light: #f8f9fa;       /* Светло-серый фон блоков */
     --bg-body: #ffffff;
     --text-main: #1a2a3a;
+}
+
+/* Переменные для темной темы (применяются через класс .dark-mode) */
+body.dark-mode {
+    --bg-body: #121212;
+    --bg-light: #1e1e1e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
 }
 
 body {
@@ -14,7 +22,9 @@ body {
     color: var(--text-main);
     background-color: var(--bg-body);
     line-height: 1.6;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    margin: 0;
+    padding: 0;
 }
 
 h1, h2, h3 {
@@ -22,62 +32,93 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
-/* === HERO SECTION === */
-.hero { padding: 60px 0 20px; }
-.hero h1 { font-size: 2.5rem; margin-bottom: 40px; }
+/* === 2. КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ === */
+.theme-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--bg-light);
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
 
-/* === КАРТОЧКИ ПРЕИМУЩЕСТВ === */
+.theme-btn:hover {
+    transform: rotate(15deg) scale(1.1);
+}
+
+body.dark-mode .theme-btn { border-color: #444; }
+body.dark-mode .sun { display: block; }
+body.dark-mode .moon { display: none; }
+body:not(.dark-mode) .sun { display: none; }
+body:not(.dark-mode) .moon { display: block; }
+
+/* === 3. HERO SECTION И ПРЕИМУЩЕСТВА === */
+.hero { padding: 80px 0 40px; }
+.hero h1 { font-size: 2.8rem; margin-bottom: 20px; }
+
+/* Настройка пропорций блоков преимуществ */
+.col-feature-side { flex: 0 0 38%; }
+.col-feature-center { flex: 0 0 24%; }
+
 .feature-card {
     background-color: var(--bg-light);
     border: 1px solid #e9ecef;
-    border-radius: 4px;
-    padding: 30px 20px;
+    border-radius: 6px;
+    padding: 35px 25px;
     height: 100%;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-align: center;
 }
 
 .feature-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
     background-color: var(--bg-body);
     border-color: var(--accent-color);
 }
 
-/* Пропорции: боковые по 38%, центр 24% */
-.col-feature-side { flex: 0 0 38%; }
-.col-feature-center { flex: 0 0 24%; }
+.feature-card img { margin-bottom: 20px; }
+.feature-card strong { display: block; margin-bottom: 10px; font-size: 1.15rem; }
+.feature-card .small { color: var(--text-muted); font-size: 0.95rem; }
 
-.feature-card strong { display: block; margin: 15px 0 5px; font-size: 1.1rem; }
-.feature-card .small { color: var(--text-muted); font-size: 0.9rem; }
-
-/* === КНОПКА С ПУЛЬСАЦИЕЙ (ЗЕЛЕНАЯ) === */
+/* === 4. ГЛАВНАЯ КНОПКА И АНИМАЦИЯ === */
 .btn-accent {
     background-color: var(--accent-color);
-    color: #fff;
+    color: #fff !important;
     border: none;
     border-radius: 4px;
-    padding: 15px 45px;
+    padding: 16px 50px;
     font-weight: 600;
     font-size: 1.1rem;
-    transition: 0.3s;
-    box-shadow: 0 4px 15px rgba(45, 94, 74, 0.2);
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(45, 94, 74, 0.2);
 }
 
 .btn-accent:hover {
     background-color: #244b3b;
-    color: #fff !important;
-    transform: translateY(-2px);
-    animation: none; /* Остановка анимации при наведении */
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(45, 94, 74, 0.3);
 }
 
-/* Анимация сердцебиения каждые 3 секунды */
+/* Анимация пульсации каждые 3 секунды */
 @keyframes heartBeat {
     0% { transform: scale(1); }
-    5% { transform: scale(1.05); }
-    10% { transform: scale(1); }
-    15% { transform: scale(1.05); }
-    20% { transform: scale(1); }
+    7% { transform: scale(1.06); }
+    12% { transform: scale(1); }
+    17% { transform: scale(1.06); }
+    25% { transform: scale(1); }
     100% { transform: scale(1); }
 }
 
@@ -85,24 +126,24 @@ h1, h2, h3 {
     animation: heartBeat 3s infinite ease-in-out;
 }
 
-/* === КАК ПРОХОДИТ ПРОЦЕДУРА === */
+/* === 5. КАК ПРОХОДИТ ПРОЦЕДУРА === */
 .process-step {
     background: var(--bg-light);
     border: 1px solid #eee;
-    padding: 30px 15px;
-    border-radius: 4px;
+    padding: 30px 20px;
+    border-radius: 6px;
     position: relative;
     flex: 1;
-    min-width: 200px;
+    min-width: 220px;
     transition: all 0.3s ease;
 }
 
 .process-step:hover {
-    border-color: var(--accent-color);
     transform: scale(1.05);
     background-color: var(--bg-body);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    z-index: 5;
+    border-color: var(--accent-color);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    z-index: 10;
 }
 
 .step-number {
@@ -112,84 +153,91 @@ h1, h2, h3 {
     transform: translateX(-50%);
     background: var(--accent-color);
     color: #fff;
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
 }
 
-/* === КВИЗ (ОПРОС) === */
+/* === 6. КВИЗ (ОПРОС) === */
+#quiz-section { background: transparent; }
 #quiz-container {
     border: 1px solid #eee;
-    border-radius: 8px;
+    border-radius: 12px;
     background: var(--bg-body);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.05);
 }
 
-.progress { height: 8px; background-color: #eee; border-radius: 10px; margin-bottom: 20px; }
-.progress-bar { background-color: var(--quiz-theme-color); }
+.progress { height: 10px; background-color: #eee; border-radius: 20px; margin-bottom: 30px; }
+.progress-bar { background-color: var(--quiz-theme-color); transition: width 0.5s ease; }
+
+.quiz-icon-small {
+    width: 28px !important;
+    height: 28px !important;
+    margin-bottom: 15px;
+    display: inline-block;
+}
 
 .btn-success { 
     background-color: var(--quiz-theme-color); 
     border: none; 
     border-radius: 4px; 
-    padding: 15px; 
+    padding: 16px; 
     font-weight: 600; 
-    transition: 0.3s;
 }
 
-.quiz-icon-small {
-    width: 24px !important;
-    height: 24px !important;
-    margin-bottom: 10px;
-}
-
-/* === КАРТА И ОФИС === */
+/* === 7. КАРТА И КОНТАКТЫ === */
 .map-container {
     border-radius: 8px;
     overflow: hidden;
     border: 1px solid #eee;
+    height: 400px;
 }
 
-/* === ФУТЕР === */
-footer { padding: 40px 0; border-top: 1px solid #eee; color: var(--text-muted); font-size: 0.85rem; }
-
-/* === ТЕМНАЯ ТЕМА (AUTO DARK MODE) === */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-body: #121212;      /* Глубокий черный фон */
-        --bg-light: #1e1e1e;     /* Светло-черный (антрацит) */
-        --text-main: #e0e0e0;    /* Светлый текст */
-        --text-muted: #a0a0a0;
-    }
-
-    body { background-color: var(--bg-body); color: var(--text-main); }
-    
-    .feature-card, .process-step, .bg-light, footer { 
-        background-color: var(--bg-light) !important; 
-        border-color: #333 !important; 
-    }
-
-    h1, h2, h3, strong { color: #ffffff !important; }
-    
-    #quiz-container { background-color: #1e1e1e; border-color: #333; }
-    
-    .form-control { 
-        background-color: #2d2d2d; 
-        border-color: #444; 
-        color: #fff; 
-    }
-    
-    .btn-outline-dark { border-color: #fff; color: #fff; }
-
-    img[src*="icons8"] { filter: brightness(0.9) contrast(1.2); }
+/* === 8. ТЕМНАЯ ТЕМА (ДОПОЛНИТЕЛЬНЫЕ ПРАВИЛА) === */
+body.dark-mode .feature-card, 
+body.dark-mode .process-step, 
+body.dark-mode footer,
+body.dark-mode .bg-light {
+    background-color: var(--bg-light) !important;
+    border-color: #333 !important;
 }
 
-/* === МОБИЛЬНАЯ АДАПТАЦИЯ === */
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode strong {
+    color: #ffffff !important;
+}
+
+body.dark-mode .form-control {
+    background-color: #2d2d2d;
+    border-color: #444;
+    color: #fff;
+}
+
+body.dark-mode .form-control::placeholder { color: #888; }
+
+body.dark-mode .btn-outline-dark {
+    border-color: #e0e0e0;
+    color: #e0e0e0;
+}
+
+body.dark-mode footer { border-top-color: #333; }
+
+/* === 9. АДАПТИВНОСТЬ === */
+@media (max-width: 992px) {
+    .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
+    .hero h1 { font-size: 2.2rem; }
+}
+
 @media (max-width: 768px) {
-    .col-feature-side, .col-feature-center { flex: 0 0 100%; }
-    .process-steps { flex-direction: column; gap: 20px; }
+    .process-steps { flex-direction: column; gap: 25px; }
+    .hero { padding: 40px 0; }
+    .btn-accent { width: 100%; padding: 15px 20px; }
+    .theme-btn { top: 10px; right: 10px; width: 40px; height: 40px; }
 }
+
+/* Плавный скролл */
+html { scroll-behavior: smooth; }
