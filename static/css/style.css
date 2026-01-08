@@ -135,6 +135,19 @@ footer a, footer p { color: var(--text-muted) !important; }
     color: #fff;
 }
 
+/* Соцсети в футере */
+.social-link {
+    color: var(--text-main);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.875rem;
+}
+.social-link:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 992px) {
     .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
 }
