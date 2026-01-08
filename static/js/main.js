@@ -12,35 +12,53 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // === МАСКА ТЕЛЕФОНА ===
+    // === ИСПРАВЛЕННАЯ МАСКА ТЕЛЕФОНА ===
     function applyPhoneMask(input) {
         input.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, ''); // только цифры
-            if (value.startsWith('8')) value = '7' + value.slice(1); // 8 → 7
-            if (value.length > 11) value = value.slice(0, 11);
-
-            let formatted = '+7 ';
-            if (value.length > 1) {
-                formatted += '(' + value.slice(1, 4);
-                if (value.length > 4) {
-                    formatted += ') ' + value.slice(4, 7);
-                    if (value.length > 7) {
-                        formatted += '-' + value.slice(7, 9);
-                        if (value.length > 9) {
-                            formatted += '-' + value.slice(9, 11);
-                        }
-                    }
-                }
-            } else if (value) {
-                formatted += value;
+            let value = input.value.replace(/\D/g, ''); // Только цифры
+            
+            // Если пользователь удалил всё, оставляем +7
+            if (!value || value.length === 0) {
+                input.value = '+7 ';
+                return;
             }
-            e.target.value = formatted;
+
+            // Если первая цифра 8 или 7, мы её пропускаем для форматирования
+            if (value[0] === '7' || value[0] === '8') {
+                value = value.substring(1);
+            }
+
+            // Ограничиваем длину (10 цифр после +7)
+            value = value.substring(0, 10);
+
+            let result = '+7 ';
+            if (value.length > 0) result += '(' + value.substring(0, 3);
+            if (value.length > 3) result += ') ' + value.substring(3, 6);
+            if (value.length > 6) result += '-' + value.substring(6, 8);
+            if (value.length > 8) result += '-' + value.substring(8, 10);
+
+            input.value = result;
+        });
+
+        // Блокируем удаление префикса +7
+        input.addEventListener('keydown', function(e) {
+            if (e.target.selectionStart <= 3 && (e.keyCode === 8 || e.keyCode === 46)) {
+                e.preventDefault();
+            }
+        });
+
+        // При клике ставим курсор в конец, если там только +7
+        input.addEventListener('click', function() {
+            if (input.value === '+7 ') {
+                input.setSelectionRange(3, 3);
+            }
         });
     }
 
     function initPhoneMask() {
         const phoneInput = document.getElementById('final-phone');
         if (phoneInput && !phoneInput.dataset.masked) {
+            phoneInput.value = '+7 ';
             applyPhoneMask(phoneInput);
             phoneInput.dataset.masked = 'true';
         }
@@ -57,7 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
         5: { text: "Последний шаг: Ваши контакты", type: "final" }
     };
 
-    // === ПОКАЗ ШАГА ===
     function showStep(step) {
         if (!questions[step]) return;
 
@@ -76,11 +93,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="text-start" style="max-width: 400px; margin: 0 auto;">
                     <div class="mb-3">
                         <label class="form-label small fw-bold">Ваше имя</label>
-                        <input type="text" id="final-name" class="form-control" placeholder="Иван" required>
+                        <input type="text" id="final-name" class="form-control" placeholder="Алексей" required>
                     </div>
                     <div class="mb-3">
                         <label class="form-label small fw-bold">Телефон или WhatsApp</label>
-                        <input type="tel" id="final-phone" class="form-control" placeholder="+7 (   )   -  -  " required>
+                        <input type="tel" id="final-phone" class="form-control" required>
                     </div>
                     <div class="form-check mb-4">
                         <input class="form-check-input" type="checkbox" id="agree-step" checked required>
@@ -104,11 +121,10 @@ document.addEventListener('DOMContentLoaded', function() {
         quizContainer.innerHTML = html;
 
         if (step === 5) {
-            setTimeout(initPhoneMask, 100);
+            setTimeout(initPhoneMask, 50);
         }
     }
 
-    // === ФУНКЦИИ ===
     window.goBackToMain = function() {
         quizSection.style.display = 'none';
     };
