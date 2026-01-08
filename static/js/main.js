@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </label>
                     </div>
                     <div class="mb-3">
-                        <div class="g-recaptcha" data-sitekey="6Lc_4kIsAAAAABoxguHakNk3gp3xBTKplzgoduqB"></div>
+                        <div class="g-recaptcha" data-sitekey="6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></div>
                     </div>
                     <button class="btn btn-success w-100 py-2 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
                     <p class="text-center small text-muted mt-3">🔒 Ваши данные защищены и не будут переданы третьим лицам</p>
@@ -198,6 +198,19 @@ document.addEventListener('DOMContentLoaded', function() {
             step.style.transform = 'translateY(0)';
             step.style.boxShadow = 'none';
         });
+    });
+
+    // === 4. БЛОК ОЧНАЯ КОНСУЛЬТАЦИЯ — ПОКАЗЫВАЕТСЯ ПРИ СКРОЛЛЕ ===
+    const offlineConsultSection = document.getElementById('offline-consult-section');
+
+    window.addEventListener('scroll', () => {
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const sectionTop = offlineConsultSection.offsetTop;
+        const sectionHeight = offlineConsultSection.offsetHeight;
+
+        if (scrollPosition > sectionTop + sectionHeight / 2) {
+            offlineConsultSection.style.display = 'block';
+        }
     });
 
 });
