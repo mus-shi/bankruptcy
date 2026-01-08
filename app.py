@@ -44,21 +44,15 @@ def thanks():
 @app.route('/consult', methods=['POST'])
 def consult():
     try:
-        # Проверяем Content-Type
-        if request.is_json:
-            data = request.get_json()
-        else:
-            data = request.form.to_dict()
-
-        # Извлекаем данные
-        name = data.get('name', '—')
-        phone = data.get('phone', '—')
-        agree = data.get('agree', 'Нет')
-        total_debt_key = data.get('total_debt', 'under200k')
-        arrests = data.get('arrests', 'Не указано')
-        extra_property = data.get('extra_property', 'Не указано')
-        extra_car = data.get('extra_car', 'Не указано')
-        recaptcha_token = data.get('g-recaptcha-response', '')
+        # Получаем данные из формы
+        name = request.form.get('name', '—')
+        phone = request.form.get('phone', '—')
+        agree = request.form.get('agree', 'Нет')
+        total_debt_key = request.form.get('total_debt', 'under200k')
+        arrests = request.form.get('arrests', 'Не указано')
+        extra_property = request.form.get('extra_property', 'Не указано')
+        extra_car = request.form.get('extra_car', 'Не указано')
+        recaptcha_token = request.form.get('g-recaptcha-response', '')
 
         # Проверяем reCAPTCHA
         if not verify_recaptcha(recaptcha_token):
