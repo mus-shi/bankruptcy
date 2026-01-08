@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, redirect, url_for
 import os
 import requests
 
@@ -19,7 +19,7 @@ def verify_recaptcha(token):
             data={'secret': RECAPTCHA_SECRET_KEY, 'response': token}
         )
         result = resp.json()
-        print("reCAPTCHA response:", result)  # Логируем для отладки
+        print("reCAPTCHA response:", result)
         return result.get('success', False)
     except Exception as e:
         print("Ошибка reCAPTCHA:", e)
@@ -57,7 +57,7 @@ def consult():
         # Проверяем reCAPTCHA
         if not verify_recaptcha(recaptcha_token):
             print("reCAPTCHA failed for:", phone)
-            return jsonify({'error': 'reCAPTCHA failed'}), 400
+            return "reCAPTCHA failed", 400
 
         # Сопоставление ключей долгов
         debt_map = {
@@ -96,14 +96,14 @@ def consult():
                     raise Exception(f"Telegram error: {response.text}")
             except Exception as e:
                 print("Ошибка Telegram:", e)
-                return jsonify({'error': 'Telegram send failed'}), 500
+                return "Telegram send failed", 500
 
-        # Успешно
-        return '', 204
+        # Перенаправляем на /thanks
+        return redirect(url_for('thanks'))
 
     except Exception as e:
         print("Ошибка в /consult:", str(e))
-        return jsonify({'error': 'Internal server error'}), 500
+        return "Internal server error", 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
