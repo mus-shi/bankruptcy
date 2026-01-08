@@ -14,22 +14,22 @@ body {
     color: var(--text-main);
     background-color: var(--bg-body);
     line-height: 1.6;
+    transition: background-color 0.4s, color 0.4s;
 }
 
 h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
 
-/* === 2. КНОПКА НАЧАТЬ ОНЛАЙН === */
-.btn-accent {
-    background-color: var(--accent-color);
-    color: #fff !important; border: none; border-radius: 4px;
-    padding: 16px 50px; font-weight: 600; font-size: 1.1rem;
-    box-shadow: 0 6px 20px rgba(45, 94, 74, 0.3);
+/* === 2. КНОПКА ТЕМЫ === */
+.theme-btn {
+    position: fixed; top: 20px; right: 20px; z-index: 1100;
+    background: var(--bg-light); border: 1px solid #ddd;
+    border-radius: 50%; width: 45px; height: 45px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
 }
-@keyframes heartBeat {
-    0%, 20%, 100% { transform: scale(1); }
-    5%, 15% { transform: scale(1.06); }
-}
-.btn-animate-pulse { animation: heartBeat 3s infinite ease-in-out; }
+body.dark-mode .sun { display: block; }
+body.dark-mode .moon { display: none; }
+body:not(.dark-mode) .sun { display: none; }
+body:not(.dark-mode) .moon { display: block; }
 
 /* === 3. КАРТОЧКИ === */
 .col-feature-side { flex: 0 0 38%; }
@@ -43,14 +43,26 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
 }
 .feature-card:hover { transform: translateY(-8px); border-color: var(--accent-color); }
 
-/* === 4. ШАГИ (НУМЕРАЦИЯ) === */
+/* === 4. КНОПКА И АНИМАЦИЯ === */
+.btn-accent {
+    background-color: var(--accent-color);
+    color: #fff !important; border: none; border-radius: 4px;
+    padding: 16px 50px; font-weight: 600; font-size: 1.1rem;
+    box-shadow: 0 6px 20px rgba(45, 94, 74, 0.3);
+}
+@keyframes heartBeat {
+    0%, 20%, 100% { transform: scale(1); }
+    5%, 15% { transform: scale(1.06); }
+}
+.btn-animate-pulse { animation: heartBeat 3s infinite ease-in-out; }
+
+/* === 5. ШАГИ (НУМЕРАЦИЯ) === */
 .process-step {
     background: var(--bg-light); 
     border: 1px solid rgba(0,0,0,0.1);
     padding: 30px 20px; border-radius: 6px; 
     flex: 1; min-width: 200px;
     position: relative;
-    transition: all 0.3s ease;
 }
 
 .step-number {
@@ -72,15 +84,14 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-.process-step:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-/* === 5. ОЧНАЯ КОНСУЛЬТАЦИЯ === */
+/* === 6. ОЧНАЯ КОНСУЛЬТАЦИЯ === */
 .consultation-block {
     background-color: var(--bg-light) !important;
     border: 1px solid rgba(0,0,0,0.1);
+}
+
+body.dark-mode .consultation-block {
+    border-color: #555;
 }
 
 .consultation-block h3, 
@@ -89,7 +100,7 @@ h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
     color: var(--text-main) !important;
 }
 
-/* === 6. ФУТЕР === */
+/* === 7. ФУТЕР === */
 footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
 footer a, footer p { color: var(--text-muted) !important; }
 
@@ -112,12 +123,6 @@ footer a, footer p { color: var(--text-muted) !important; }
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
     line-height: 1.5;
-}
-
-/* Кнопка "Скрыть опрос" */
-#hide-quiz-btn {
-    font-size: 0.875rem;
-    padding: 0.25rem 0.5rem;
 }
 
 /* Голубые кнопки ответов */
