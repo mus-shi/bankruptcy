@@ -3,142 +3,69 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Банкротство физических лиц под ключ. Дистанционно — от 200 000 ₽. Оплата — после списания долгов.">
     <title>Банкротство без стресса</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Lora:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
 </head>
 <body>
 
-<section class="hero">
+<section class="hero py-5">
     <div class="container text-center">
-        <h1>Оформите банкротство — не выходя из дома</h1>
-        <div class="row justify-content-center mb-4">
-            <div class="col-md-11">
-                <div class="d-flex flex-column flex-md-row justify-content-center gap-4">
-                    <div class="feature-card flex-fill">
-                        <div class="icon">🛡️</div>
-                        <strong>Вы ничем не рискуете</strong>
-                        <div>Оплата — только после вынесения судебного акта и официального признания банкротом</div>
-                    </div>
-                    <div class="feature-card flex-fill">
-                        <div class="icon">🔇</div>
-                        <strong>Стоп звонки коллекторов</strong>
-                        <div>С первого дня процедуры — тишина</div>
-                    </div>
-                    <div class="feature-card flex-fill">
-                        <div class="icon">🏠</div>
-                        <strong>Жильё и доход в безопасности</strong>
-                        <div>Единственное жильё не арестуют, а доход — в размере прожиточного минимума</div>
-                    </div>
-                </div>
+        <h1 class="mb-4">Оформите банкротство — не выходя из дома</h1>
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-10 d-flex flex-column flex-md-row gap-3">
+                <div class="p-3 border rounded shadow-sm bg-white flex-fill">🛡️ <br><small>Без риска</small></div>
+                <div class="p-3 border rounded shadow-sm bg-white flex-fill">🔇 <br><small>Стоп звонки</small></div>
+                <div class="p-3 border rounded shadow-sm bg-white flex-fill">🏠 <br><small>Жилье в сохранности</small></div>
             </div>
         </div>
-
-        <div class="text-center">
-            <div style="padding: 10px 0; font-size: 1.1rem; line-height: 1.5; color: #333;">
-                Проверьте, подходит ли вам банкротство. Ответьте на несколько вопросов — и я подскажу ваш путь.
-            </div>
-            <small class="text-muted">Работаем при долгах от 200 000 ₽.</small>
-            <br><br>
-            <button id="show-form-btn" class="btn btn-primary">Начать онлайн →</button>
-        </div>
+        <button id="show-form-btn" class="btn btn-primary btn-lg px-5" style="border-radius: 50px;">Начать опрос →</button>
     </div>
 </section>
 
-<section id="quiz-section" class="py-4" style="display: none;">
+<section id="quiz-section" class="py-5" style="display: none; background-color: #f8f9fa;">
     <div class="container">
-        <h2 class="section-title text-center">Определите свой путь к банкротству</h2>
-        <div id="quiz-container" class="bg-white p-4 rounded shadow-sm" style="max-width: 600px; margin: 0 auto;">
-            </div>
+        <div id="quiz-container" class="bg-white p-4 p-md-5 rounded shadow-sm" style="max-width: 600px; margin: 0 auto;"></div>
     </div>
 </section>
 
-<section class="py-5 bg-light">
+<section class="py-5">
+    <div class="container text-center">
+        <h2 class="mb-5" style="font-family: 'Playfair Display', serif;">Как проходит процедура</h2>
+        <div class="row g-4">
+            <div class="col-6 col-md-3">
+                <div style="font-size: 1.5rem;">📞</div>
+                <div class="small fw-bold">Консультация</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div style="font-size: 1.5rem;">📄</div>
+                <div class="small fw-bold">Сбор бумаг</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div style="font-size: 1.5rem;">⚖️</div>
+                <div class="small fw-bold">Суд</div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div style="font-size: 1.5rem;">🙌</div>
+                <div class="small fw-bold">Свобода</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="py-5 text-center border-top bg-white">
     <div class="container">
-        <h2 class="section-title text-center">Как проходит процедура</h2>
-        <div class="process-steps d-flex flex-column flex-md-row justify-content-center align-items-center gap-4 mt-4">
-            <div class="process-step">
-                <div class="step-number">1</div>
-                <div class="step-icon">📞</div>
-                <div class="step-label">Консультация</div>
-            </div>
-            <div class="process-arrow">→</div>
-            <div class="process-step">
-                <div class="step-number">2</div>
-                <div class="step-icon">📄</div>
-                <div class="step-label">Сбор документов</div>
-            </div>
-            <div class="process-arrow">→</div>
-            <div class="process-step">
-                <div class="step-number">3</div>
-                <div class="step-icon">⚖️</div>
-                <div class="step-label">Подача в суд</div>
-            </div>
-            <div class="process-arrow">→</div>
-            <div class="process-step">
-                <div class="step-number">4</div>
-                <div class="step-icon">🙌</div>
-                <div class="step-label">Списание долгов</div>
-            </div>
+        <p class="mb-1 fw-bold">© 2026 Мусаев Ш.И.</p>
+        <p class="text-muted small mb-3">Банкротство физических лиц дистанционно по РФ</p>
+        <div>
+            <a href="/offer" class="text-muted small mx-2 text-decoration-none">Оферта</a>
+            <a href="/privacy" class="text-muted small mx-2 text-decoration-none">Конфиденциальность</a>
         </div>
     </div>
-</section>
-
-<div class="container text-center mt-3 mb-4">
-    <small class="text-muted">
-        Сроки: консультация — сегодня, сбор документов — 1–3 дня, подача в суд — 1 день, списание долгов — 6–9 месяцев.
-    </small>
-</div>
-
-<h2 class="section-title">Очная консультация</h2>
-<div class="container">
-    <div class="row g-4 align-items-center">
-        <div class="col-lg-6">
-            <div class="p-4 bg-light rounded h-100 d-flex flex-column justify-content-center">
-                <h3 class="text-dark mb-3">Для жителей Ставропольского края</h3>
-                <p class="mb-3">
-                    Вы можете прийти на очную консультацию в наш офис в г. Железноводск.
-                </p>
-                <div class="mb-3">
-                    <strong>Адрес:</strong><br>
-                    <div class="address-line">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</div>
-                </div>
-                <div class="mb-3 text-muted small">
-                    <strong>Рабочее время:</strong><br>
-                    Пн–Пт: 09:00 – 18:00<br>
-                    Сб–Вс: выходной
-                </div>
-                <div class="d-flex align-items-center gap-3 mt-auto">
-                    <span class="text-muted small"><strong>Телефон:</strong></span>
-                    <a href="tel:+79991234567" class="btn btn-sm btn-outline-primary">📞 Позвонить</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="map-container">
-                <iframe 
-                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c&amp;source=constructor" 
-                    width="100%" 
-                    height="300" 
-                    frameborder="0" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-    </div>
-</div>
-
-<footer>
-    © 2026 Банкротство под ключ.<br>
-    Работаем дистанционно по всей России
 </footer>
 
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-
 </body>
 </html>
