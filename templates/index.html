@@ -18,7 +18,7 @@
             padding: 30px 15px !important;
         }
         .icon-box {
-            height: 50px; /* Фиксированная высота для выравнивания */
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -36,26 +36,21 @@
             font-weight: 700;
         }
 
-        /* 3. Управление отступами для эффекта "Пустоты" */
-        .section-procedure {
-            padding-top: 20px !important; /* Поднимаем выше */
-            margin-bottom: 120px !important; /* Пустое пространство в несколько строк снизу */
+        /* 3. Анимированная стрелка-подсказка */
+        .scroll-hint {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #6c757d;
+            font-size: 0.9rem;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
         }
 
-        /* 4. Стили мессенджеров */
-        .social-link .img-grayscale {
-            filter: grayscale(100%);
-            opacity: 0.7;
-            transition: all 0.3s ease;
-        }
-        .social-link:hover .img-grayscale {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-        .social-link:hover .icon-telegram { fill: #0088cc !important; }
-        .social-link:hover .icon-whatsapp { fill: #25d366 !important; }
-
-        /* 5. Появление при скролле */
+        /* 4. Появление при скролле */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -66,7 +61,17 @@
             transform: translateY(0);
         }
 
-        .button-spacer { padding: 30px 0; }
+        /* 5. Центрирование кнопки ниже текста */
+        .button-container {
+            margin-top: 40px;
+            padding-bottom: 20px;
+        }
+
+        /* 6. Цвета иконок при наведении в футере */
+        .social-link .img-grayscale { filter: grayscale(100%); opacity: 0.7; transition: 0.3s; }
+        .social-link:hover .img-grayscale { filter: grayscale(0%); opacity: 1; }
+        .social-link:hover .icon-telegram { fill: #0088cc !important; }
+        .social-link:hover .icon-whatsapp { fill: #25d366 !important; }
     </style>
 
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
@@ -125,17 +130,17 @@
             </div>
 
             <p class="text-muted mb-2">Проверьте, подходит ли вам банкротство. Ответьте на вопросы — и я подскажу ваш путь.</p>
-            <div class="fw-bold mb-0">
+            <div class="fw-bold mb-4">
                 Работаем при долгах от 200 000 ₽. — Консультация бесплатно.
             </div>
             
-            <div class="button-spacer">
+            <div class="button-container">
                 <button id="show-form-btn" class="btn-accent btn-animate-pulse">Начать онлайн →</button>
             </div>
         </div>
     </section>
 
-    <section class="py-5 section-procedure">
+    <section class="py-5">
         <div class="container text-center">
             <h2 class="mb-5"><span class="process-title-frame">Как проходит процедура</span></h2>
             <div class="d-flex flex-wrap justify-content-center gap-4">
@@ -159,6 +164,13 @@
                     <img src="https://img.icons8.com/color/48/handshake.png" width="32" class="mb-2">
                     <div class="small fw-bold">Списание долгов</div>
                 </div>
+            </div>
+
+            <div class="scroll-hint">
+                <div>Очная консультация ниже</div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5"></path>
+                </svg>
             </div>
         </div>
     </section>
@@ -184,7 +196,7 @@
         </div>
     </section>
 
-    <footer class="text-center py-4">
+    <footer class="text-center py-5">
         <div class="container">
             <p class="mb-1">© 2026 Мусаев Ш.И.</p>
             <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
