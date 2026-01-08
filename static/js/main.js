@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Проверка сохраненной темы
     if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
+    } else {
+        body.classList.remove('dark-mode'); // Убедимся, что светлая тема по умолчанию
     }
 
     themeBtn.addEventListener('click', () => {
@@ -16,16 +18,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // === 2. ИНТЕРАКТИВНЫЙ КОЛОКОЛЬЧИК ===
     const stopCallsCard = document.getElementById('stop-calls-card');
     const bellImg = document.getElementById('bell-img');
-    
-    const iconNormal = "https://img.icons8.com/color/48/appointment-reminders.png";
-    const iconMuted = "https://img.icons8.com/color/48/silent.png";
 
     if (stopCallsCard && bellImg) {
+        const iconNormal = "https://img.icons8.com/color/48/appointment-reminders.png";
+        const iconMuted = "https://img.icons8.com/color/48/silent.png";
+
         stopCallsCard.addEventListener('click', function() {
-            // Переключаем картинку
-            bellImg.src = (bellImg.src === iconNormal) ? iconMuted : iconNormal;
-            // Добавляем класс для доп. эффектов если нужно
-            this.classList.toggle('muted-active');
+            if (bellImg.src.includes('appointment-reminders')) {
+                bellImg.src = iconMuted;
+                this.querySelector('strong').textContent = 'Звонки отключены';
+                this.querySelector('.text-muted').textContent = 'Тишина гарантирована';
+            } else {
+                bellImg.src = iconNormal;
+                this.querySelector('strong').textContent = 'Стоп звонки коллекторов';
+                this.querySelector('.text-muted').textContent = 'С первого дня — тишина';
+            }
+            // Анимация подсветки
+            this.classList.add('muted-active');
+            setTimeout(() => this.classList.remove('muted-active'), 300);
         });
     }
 
@@ -100,6 +110,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         <label class="form-label small text-muted">Номер телефона</label>
                         <input type="tel" id="user-phone" class="form-control form-control-lg" value="+7 ">
                     </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="agreeCheckbox" required>
+                        <label class="form-check-label small" for="agreeCheckbox">
+                            Я ознакомился с <a href="/offer" target="_blank">публичной офертой</a> и <a href="/privacy" target="_blank">политикой конфиденциальности</a>
+                        </label>
+                    </div>
                     <button class="btn btn-success w-100 py-3 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
                     <p class="text-center small text-muted mt-3">🔒 Ваши данные защищены и не будут переданы третьим лицам</p>
                 </div>
@@ -119,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.submitQuiz = () => {
         const name = document.getElementById('user-name').value;
         const phone = document.getElementById('user-phone').value;
+        const agreeCheckbox = document.getElementById('agreeCheckbox');
 
         if (name.length < 2) {
             alert("Пожалуйста, введите ваше имя");
@@ -128,16 +145,46 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("Пожалуйста, введите корректный номер телефона");
             return;
         }
+        if (!agreeCheckbox.checked) {
+            alert("Пожалуйста, подтвердите, что вы ознакомились с офертой и политикой конфиденциальности");
+            return;
+        }
 
-        // Финальный экран
-        quizContainer.innerHTML = `
-            <div class="text-center py-5">
-                <img src="https://img.icons8.com/color/96/ok--v1.png" class="mb-4">
-                <h2 class="fw-bold">Заявка принята!</h2>
-                <p class="text-muted">Спасибо, ${name}. Я изучу ваши ответы и перезвоню вам в течение 15 минут для консультации.</p>
-                <button class="btn btn-link mt-3" onclick="location.reload()">Вернуться на главную</button>
-            </div>
-        `;
+        // Отправка данных на сервер
+        fetch('/consult', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                phone: phone,
+                agree: "Да",
+                total_debt: "under200k", // можно сделать динамичным
+                arrests: "Не указано",
+                extra_property: "Не указано",
+                extra_car: "Не указано",
+                'g-recaptcha-response': '' // если нужен reCAPTCHA — добавьте его
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                quizContainer.innerHTML = `
+                    <div class="text-center py-5">
+                        <img src="https://img.icons8.com/color/96/ok--v1.png" class="mb-4">
+                        <h2 class="fw-bold">Заявка принята!</h2>
+                        <p class="text-muted">Спасибо, ${name}. Я изучу ваши ответы и перезвоню вам в течение 15 минут для консультации.</p>
+                        <a href="/thanks" class="btn btn-link mt-3">← Вернуться на главную</a>
+                    </div>
+                `;
+            } else {
+                throw new Error('Ошибка отправки');
+            }
+        })
+        .catch(err => {
+            alert("Произошла ошибка. Попробуйте ещё раз или позвоните нам.");
+            console.error(err);
+        });
     };
 
     function applyPhoneMask() {
