@@ -9,12 +9,12 @@
     --text-main: #1a2a3a;
 }
 
-/* ТЕМНАЯ ТЕМА: Цвет Оникс #353839 */
+/* ТЕМНАЯ ТЕМА: Оникс #353839 */
 body.dark-mode {
-    --bg-body: #353839;      /* Цвет Оникс */
-    --bg-light: #3f4344;     /* Чуть светлее для карточек */
-    --text-main: #ffffff;    /* Чистый белый для заголовков */
-    --text-muted: #d1d1d1;   /* Светло-серый для второстепенного текста */
+    --bg-body: #353839;
+    --bg-light: #3f4344;
+    --text-main: #ffffff;
+    --text-muted: #d1d1d1;
 }
 
 body {
@@ -22,48 +22,40 @@ body {
     color: var(--text-main);
     background-color: var(--bg-body);
     line-height: 1.6;
-    transition: background-color 0.4s ease, color 0.4s ease;
+    transition: background-color 0.4s, color 0.4s;
 }
 
 h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
 
 /* === 2. КНОПКА ТЕМЫ === */
 .theme-btn {
-    position: fixed; top: 20px; right: 20px; z-index: 1000;
+    position: fixed; top: 20px; right: 20px; z-index: 1100;
     background: var(--bg-light); border: 1px solid #ddd;
     border-radius: 50%; width: 45px; height: 45px; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 body.dark-mode .sun { display: block; }
 body.dark-mode .moon { display: none; }
 body:not(.dark-mode) .sun { display: none; }
 body:not(.dark-mode) .moon { display: block; }
 
-/* === 3. КАРТОЧКИ И ПРОПОРЦИИ === */
+/* === 3. КАРТОЧКИ === */
 .col-feature-side { flex: 0 0 38%; }
 .col-feature-center { flex: 0 0 24%; }
 
 .feature-card {
     background-color: var(--bg-light);
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0,0,0,0.08);
     border-radius: 6px; padding: 35px 25px; height: 100%;
-    transition: all 0.3s ease; text-align: center; cursor: pointer;
+    transition: 0.3s; text-align: center; cursor: pointer;
 }
 .feature-card:hover { transform: translateY(-8px); border-color: var(--accent-color); }
 
-/* Стили для зачеркнутого колокольчика */
-.bell-icon { transition: transform 0.3s ease; }
-.feature-card.muted-bell .bell-icon {
-    content: url("https://img.icons8.com/color/48/silent.png"); /* Иконка без звука */
-}
-
-/* === 4. КНОПКА "НАЧАТЬ ОНЛАЙН" === */
+/* === 4. КНОПКА И АНИМАЦИЯ === */
 .btn-accent {
     background-color: var(--accent-color);
     color: #fff !important; border: none; border-radius: 4px;
     padding: 16px 50px; font-weight: 600; font-size: 1.1rem;
-    display: inline-block; transition: 0.3s;
     box-shadow: 0 6px 20px rgba(45, 94, 74, 0.3);
 }
 @keyframes heartBeat {
@@ -72,23 +64,58 @@ body:not(.dark-mode) .moon { display: block; }
 }
 .btn-animate-pulse { animation: heartBeat 3s infinite ease-in-out; }
 
-/* === 5. ШАГИ ПРОЦЕДУРЫ === */
+/* === 5. ШАГИ (НУМЕРАЦИЯ) — ИСПРАВЛЕНО === */
 .process-step {
-    background: var(--bg-light); border: 1px solid rgba(0,0,0,0.05);
-    padding: 30px 20px; border-radius: 6px; flex: 1; min-width: 220px;
+    background: var(--bg-light); 
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 30px 20px; border-radius: 6px; 
+    flex: 1; min-width: 200px;
+    position: relative; /* Для позиционирования номера */
 }
+
 .step-number {
-    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-    background: var(--accent-color); color: #fff; width: 26px; height: 26px;
-    border-radius: 50%; font-size: 0.85rem; display: flex; align-items: center; justify-content: center;
+    position: absolute;
+    top: -13px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-color);
+    color: #ffffff !important;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* === 6. ФУТЕР И ТЕКСТЫ (ИСПРАВЛЕНИЕ ВИДИМОСТИ) === */
-.text-muted { color: var(--text-muted) !important; }
-footer { padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.1); }
-footer a { color: var(--text-muted) !important; }
+/* === 6. ОЧНАЯ КОНСУЛЬТАЦИЯ — ИСПРАВЛЕНО === */
+.consultation-block {
+    background-color: var(--bg-light) !important;
+    border: 1px solid rgba(0,0,0,0.1);
+}
 
+body.dark-mode .consultation-block {
+    border-color: #555;
+}
+
+/* Принудительная видимость текстов в блоке */
+.consultation-block h3, 
+.consultation-block p, 
+.consultation-block strong {
+    color: var(--text-main) !important;
+}
+
+/* === 7. ФУТЕР === */
+footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
+footer a, footer p { color: var(--text-muted) !important; }
+
+/* КВИЗ И ФОРМЫ */
 body.dark-mode .form-control { background-color: #4a4e4f; border-color: #555; color: #fff; }
+body.dark-mode .form-control::placeholder { color: #bbb; }
 
 @media (max-width: 992px) {
     .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
