@@ -3,7 +3,7 @@ import os
 import requests
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'dev')
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret')
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
@@ -12,7 +12,7 @@ RECAPTCHA_SECRET_KEY = os.environ.get('SECRET_KEY')
 
 def verify_recaptcha(token):
     try:
-        r = requests.post(
+        response = requests.post(
             'https://www.google.com/recaptcha/api/siteverify',
             data={
                 'secret': RECAPTCHA_SECRET_KEY,
@@ -20,13 +20,22 @@ def verify_recaptcha(token):
             },
             timeout=5
         )
-        return r.json().get('success', False)
-    except:
+        return response.json().get('success', False)
+    except Exception as e:
+        print("reCAPTCHA error:", e)
         return False
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/offer')
+def offer():
+    return render_template('offer.html')
+
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
 
 @app.route('/thanks')
 def thanks():
@@ -42,15 +51,22 @@ def consult():
     message = f"""
 🆕 Новая заявка
 
-👤 Имя: {data['name']}
-📞 Телефон: {data['phone']}
-📊 Долг: {data['total_debt']}
+👤 Имя: {data.get('name')}
+📞 Телефон: {data.get('phone')}
+📊 Долг: {data.get('total_debt')}
 """
 
-    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
-    requests.post(url, data={
-        'chat_id': TELEGRAM_CHAT_ID,
-        'text': message
-    })
+    try:
+        url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+        requests.post(url, data={
+            'chat_id': TELEGRAM_CHAT_ID,
+            'text': message
+        })
+    except Exception as e:
+        print("Telegram error:", e)
+        return jsonify({'error': 'telegram'}), 500
 
     return jsonify({'ok': True})
+
+if __name__ == '__main__':
+    app.run()
