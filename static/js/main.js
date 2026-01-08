@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const progress = (step / 4) * 100;
         
         let html = `
-            <div class="progress mb-4" style="height: 10px; border-radius: 10px;">
+            <div class="progress mb-3" style="height: 6px; border-radius: 3px;">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" 
                      role="progressbar" style="width: ${progress}%; background-color: #1e3a5f;"></div>
             </div>
@@ -67,23 +67,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (questions[step].type === "boolean") {
             html += `
-                <div class="d-grid gap-3 col-md-10 mx-auto">
-                    <button class="btn btn-outline-dark py-3 fw-medium" onclick="nextQuizStep('Да')">Да, подходит</button>
-                    <button class="btn btn-outline-dark py-3 fw-medium" onclick="nextQuizStep('Нет / Не знаю')">Нет / Не знаю</button>
+                <div class="d-grid gap-2 col-md-6 mx-auto">
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('Да')">Да, подходит</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('Нет / Не знаю')">Нет / Не знаю</button>
                 </div>
             `;
         } else {
             html += `
-                <div class="col-md-10 mx-auto">
+                <div class="col-md-8 mx-auto">
                     <div class="mb-3">
                         <label class="form-label small text-muted">Ваше имя</label>
-                        <input type="text" id="user-name" class="form-control form-control-lg" placeholder="Напр: Иван">
+                        <input type="text" id="user-name" class="form-control form-control-sm" placeholder="Напр: Иван">
                     </div>
                     <div class="mb-4">
                         <label class="form-label small text-muted">Номер телефона</label>
-                        <input type="tel" id="user-phone" class="form-control form-control-lg" value="+7 ">
+                        <input type="tel" id="user-phone" class="form-control form-control-sm" value="+7 ">
                     </div>
-                    <button class="btn btn-success w-100 py-3 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
+                    <button class="btn btn-success w-100 py-2 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
                     <p class="text-center small text-muted mt-3">🔒 Ваши данные защищены и не будут переданы третьим лицам</p>
                 </div>
             `;
