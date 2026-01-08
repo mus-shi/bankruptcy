@@ -108,9 +108,9 @@ footer a, footer p { color: var(--text-muted) !important; }
 }
 
 /* Миниатюрные кнопки в квизе */
-.btn-sm {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
+.btn-xs {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
     line-height: 1.5;
 }
 
@@ -118,6 +118,16 @@ footer a, footer p { color: var(--text-muted) !important; }
 #hide-quiz-btn {
     font-size: 0.875rem;
     padding: 0.25rem 0.5rem;
+}
+
+/* Голубые кнопки ответов */
+.btn-outline-primary {
+    border-color: #1e3a5f;
+    color: #1e3a5f;
+}
+.btn-outline-primary:hover {
+    background-color: #1e3a5f;
+    color: #fff;
 }
 
 @media (max-width: 992px) {
