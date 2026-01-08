@@ -9,14 +9,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     <style>
+        /* Стили для PNG иконки МАКС (черно-белая до наведения) */
         .social-link .img-grayscale {
             filter: grayscale(100%);
-            opacity: 0.7; /* Немного приглушаем, чтобы соответствовать тону SVG иконок */
+            opacity: 0.7;
             transition: all 0.3s ease;
         }
         .social-link:hover .img-grayscale {
             filter: grayscale(0%);
             opacity: 1;
+        }
+
+        /* Цвет при наведении для Telegram (голубой) */
+        .social-link:hover .icon-telegram {
+            fill: #0088cc !important; /* Фирменный голубой цвет TG */
+            transition: fill 0.3s ease;
+        }
+        
+        /* Цвет при наведении для WhatsApp (зеленый) */
+        .social-link:hover .icon-whatsapp {
+            fill: #25d366 !important; /* Фирменный зеленый цвет WA */
+            transition: fill 0.3s ease;
         }
     </style>
 
@@ -40,7 +53,7 @@
             <div class="row g-4 justify-content-center mb-5">
                 <div class="col-md-4 col-feature-side">
                     <div class="feature-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-3">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                         </svg>
                         <strong>Вы ничем не рискуете</strong>
@@ -49,22 +62,19 @@
                 </div>
                 <div class="col-md-4 col-feature-center">
                     <div class="feature-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-3">
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                            <path d="M18.63 13A17.89 17.89 0 0 1 18 8"></path>
-                            <path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"></path>
-                            <path d="M18 8a6 6 0 0 0-9.33-5"></path>
-                            <line x1="1" y1="1" x2="23" y2="23"></line>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" class="icon mb-3">
+                             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0" stroke="#6c757d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+                             <line x1="1" y1="1" x2="23" y2="23" stroke="#dc3545" stroke-width="2" stroke-linecap="round"></line>
                         </svg>
                         <strong>Стоп звонки<br>коллекторов</strong>
-                        <div class="small text-muted">С первого дня — тишина</div>
+                        <div class="small text-muted">С первого дня<br>процедуры — тишина</div>
                     </div>
                 </div>
                 <div class="col-md-4 col-feature-side">
                     <div class="feature-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-3">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-3">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#795548"></path>
+                            <polyline points="9 22 9 12 15 12 15 22" stroke="#2196f3"></polyline>
                         </svg>
                         <strong>Жильё и доход в безопасности</strong>
                         <div class="small text-muted">Единственное жильё не арестуют</div>
@@ -144,27 +154,11 @@
                     VK
                 </a>
                 <a href="https://t.me/your_telegram" target="_blank" class="social-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-telegram">
                         <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-1.897 8.941c-.143.647-.526.808-1.07.505l-2.887-2.128-1.392 1.339c-.153.153-.28.28-.572.28l.205-2.924 5.319-4.805c.232-.206-.05-.32-.361-.114l-6.574 4.14-2.831-.886c-.615-.192-.627-.615.128-.908l11.071-4.265c.513-.186.96.12.76.896z"></path>
                     </svg>
                     Telegram
                 </a>
                 <a href="https://wa.me/79991234567" target="_blank" class="social-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon">
-                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.887.002-5.462-4.415-9.89-9.881-9.891-5.446 0-9.884 4.438-9.887 9.887-.001 2.22.634 4.385 1.841 6.202l-1.013 3.7 3.809-1.003zm10.146-7.534c-.269-.135-1.594-.786-1.841-.876-.247-.09-.427-.135-.607.135-.18.27-.697.876-.854 1.057-.158.18-.315.203-.585.068-.269-.135-1.138-.42-2.167-1.338-.802-.715-1.342-1.599-1.5-1.869-.158-.27-.017-.417.118-.552.122-.122.269-.315.405-.473.135-.158.18-.27.27-.45.09-.18.045-.338-.023-.473-.068-.135-.607-1.463-.832-2.003-.219-.529-.441-.458-.607-.466-.157-.008-.338-.009-.518-.009-.18 0-.473.068-.72.338-.247.27-.945.923-.945 2.25s.967 2.61 1.102 2.79c.135.18 1.902 2.903 4.608 4.07.643.277 1.146.442 1.538.566.646.205 1.233.176 1.697.107.518-.077 1.594-.653 1.82-1.283.226-.63.226-1.171.157-1.283-.069-.113-.247-.18-.517-.315z"></path>
-                    </svg>
-                    WhatsApp
-                </a>
-                <a href="https://max.messenger/your_max" target="_blank" class="social-link">
-                    <img width="24" height="24" alt="Max logo 2025" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png?20250627170007" class="icon img-grayscale">
-                    MAX
-                </a>
-            </div>
-            <a href="/offer" class="small mx-2">Оферта</a>
-            <a href="/privacy" class="small mx-2">Приватность</a>
-        </div>
-    </footer>
-
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-</body>
-</html>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-whatsapp">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338
