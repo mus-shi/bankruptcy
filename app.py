@@ -3,7 +3,7 @@ import os
 import requests
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret')
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key-for-consult')
 
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
@@ -12,7 +12,7 @@ RECAPTCHA_SECRET_KEY = os.environ.get('SECRET_KEY')
 
 def verify_recaptcha(token):
     try:
-        response = requests.post(
+        resp = requests.post(
             'https://www.google.com/recaptcha/api/siteverify',
             data={
                 'secret': RECAPTCHA_SECRET_KEY,
@@ -20,7 +20,7 @@ def verify_recaptcha(token):
             },
             timeout=5
         )
-        return response.json().get('success', False)
+        return resp.json().get('success', False)
     except Exception as e:
         print("reCAPTCHA error:", e)
         return False
@@ -48,20 +48,22 @@ def consult():
     if not verify_recaptcha(data.get('g-recaptcha-response')):
         return jsonify({'error': 'captcha'}), 400
 
-    message = f"""
-🆕 Новая заявка
-
-👤 Имя: {data.get('name')}
-📞 Телефон: {data.get('phone')}
-📊 Долг: {data.get('total_debt')}
-"""
+    message = (
+        "🆕 Новая заявка\n\n"
+        f"👤 Имя: {data.get('name')}\n"
+        f"📱 Телефон: {data.get('phone')}\n"
+        f"💰 Долг: {data.get('total_debt')}\n"
+        f"📌 Аресты: {data.get('arrests')}\n"
+        f"🏠 Имущество: {data.get('extra_property')}\n"
+        f"🚗 Авто: {data.get('extra_car')}"
+    )
 
     try:
         url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
         requests.post(url, data={
             'chat_id': TELEGRAM_CHAT_ID,
             'text': message
-        })
+        }, timeout=5)
     except Exception as e:
         print("Telegram error:", e)
         return jsonify({'error': 'telegram'}), 500
@@ -69,4 +71,4 @@ def consult():
     return jsonify({'ok': True})
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
