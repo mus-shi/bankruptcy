@@ -1,182 +1,67 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
 
-    // === 1. КНОПКА "НАЧАТЬ ОНЛАЙН" ===
     const startBtn = document.getElementById('show-form-btn');
     const quizSection = document.getElementById('quiz-section');
-    const hideQuizBtn = document.getElementById('hide-quiz-btn');
-
-    if (startBtn) {
-        startBtn.addEventListener('click', () => {
-            quizSection.style.display = 'block';
-            quizSection.scrollIntoView({ behavior: 'smooth' });
-            showStep(1);
-        });
-    }
-
-    if (hideQuizBtn) {
-        hideQuizBtn.addEventListener('click', () => {
-            quizSection.style.display = 'none';
-        });
-    }
-
-    // === 2. ПОЛНАЯ ЛОГИKA КВИЗА ===
     const quizContainer = document.getElementById('quiz-container');
 
-    const questions = {
-        1: { 
-            text: "Какова общая сумма ваших задолженностей?", 
-            type: "boolean", 
-            icon: "https://img.icons8.com/color/48/coins.png" 
-        },
-        2: { 
-            text: "Имеются ли у вас открытые просрочки?", 
-            type: "boolean", 
-            icon: "https://img.icons8.com/color/48/calendar.png" 
-        },
-        3: { 
-            text: "Есть ли имущество в собственности (кроме единственного жилья)?", 
-            type: "boolean", 
-            icon: "https://img.icons8.com/color/48/real-estate.png" 
-        },
-        4: { 
-            text: "Оставьте ваши контакты для бесплатного анализа ситуации", 
-            type: "final" 
-        }
-    };
+    let step = 1;
 
-    let currentStep = 1;
-    let userAnswers = {};
+    startBtn.addEventListener('click', () => {
+        quizSection.style.display = 'block';
+        quizSection.scrollIntoView({behavior: 'smooth'});
+        renderStep();
+    });
 
-    function showStep(step) {
-        currentStep = step;
-        const progress = (step / 4) * 100;
-        
-        let html = `
-            <div class="progress mb-4" style="height: 10px; border-radius: 10px;">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" 
-                     role="progressbar" style="width: ${progress}%; background-color: #1e3a5f;"></div>
-            </div>
-            <div class="text-center mb-4">
-                ${questions[step].icon ? `<img src="${questions[step].icon}" class="quiz-icon-small mb-3" style="width:40px;">` : ''}
-                <h4 class="fw-bold">${questions[step].text}</h4>
-            </div>
-        `;
-
-        if (questions[step].type === "boolean") {
-            html += `
-                <div class="d-grid gap-3 col-md-10 mx-auto">
-                    <button class="btn btn-outline-dark py-3 fw-medium" onclick="nextQuizStep('Да')">Да, подходит</button>
-                    <button class="btn btn-outline-dark py-3 fw-medium" onclick="nextQuizStep('Нет / Не знаю')">Нет / Не знаю</button>
-                </div>
+    function renderStep() {
+        if (step < 3) {
+            quizContainer.innerHTML = `
+                <h4 class="mb-4">Вопрос ${step}</h4>
+                <button class="btn btn-outline-dark m-2" onclick="nextStep()">Да</button>
+                <button class="btn btn-outline-dark m-2" onclick="nextStep()">Нет</button>
             `;
         } else {
-            html += `
-                <div class="col-md-10 mx-auto">
-                    <div class="mb-3">
-                        <label class="form-label small text-muted">Ваше имя</label>
-                        <input type="text" id="user-name" class="form-control form-control-lg" placeholder="Напр: Иван">
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label small text-muted">Номер телефона</label>
-                        <input type="tel" id="user-phone" class="form-control form-control-lg" value="+7 ">
-                    </div>
-                    <button class="btn btn-success w-100 py-3 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
-                    <p class="text-center small text-muted mt-3">🔒 Ваши данные защищены и не будут переданы третьим лицам</p>
-                </div>
+            quizContainer.innerHTML = `
+                <input id="name" class="form-control mb-3" placeholder="Ваше имя">
+                <input id="phone" class="form-control mb-4" placeholder="+7 (___) ___-__-__">
+                <button class="btn btn-success w-100" onclick="submitQuiz()">Отправить</button>
             `;
         }
-        
-        quizContainer.innerHTML = html;
-        if (step === 4) applyPhoneMask();
     }
 
-    // Глобальные функции для кнопок в HTML (через onclick)
-    window.nextQuizStep = (answer) => {
-        userAnswers[currentStep] = answer;
-        showStep(currentStep + 1);
+    window.nextStep = () => {
+        step++;
+        renderStep();
     };
 
     window.submitQuiz = () => {
-        const name = document.getElementById('user-name').value;
-        const phone = document.getElementById('user-phone').value;
+        const name = document.getElementById('name').value.trim();
+        const phone = document.getElementById('phone').value.trim();
 
-        if (name.length < 2) {
-            alert("Пожалуйста, введите ваше имя");
-            return;
-        }
-        if (phone.length < 16) {
-            alert("Пожалуйста, введите корректный номер телефона");
+        if (name.length < 2 || phone.length < 10) {
+            alert('Заполните имя и телефон');
             return;
         }
 
-        // Получаем reCAPTCHA token
-        grecaptcha.ready(function() {
+        grecaptcha.ready(() => {
             grecaptcha.execute('6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK', {action: 'submit'})
-                .then(function(token) {
-                    // Отправка данных на сервер
+                .then(token => {
                     fetch('/consult', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
+                        headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({
-                            name: name,
-                            phone: phone,
-                            agree: "Да",
-                            total_debt: "under200k",
-                            arrests: "Не указано",
-                            extra_property: "Не указано",
-                            extra_car: "Не указано",
+                            name,
+                            phone,
+                            total_debt: 'Менее 200 тыс ₽',
                             'g-recaptcha-response': token
                         })
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            quizContainer.innerHTML = `
-                                <div class="text-center py-5">
-                                    <img src="https://img.icons8.com/color/96/ok--v1.png" class="mb-4">
-                                    <h2 class="fw-bold">Заявка принята!</h2>
-                                    <p class="text-muted">Спасибо, ${name}. Я изучу ваши ответы и перезвоню вам в течение 15 минут для консультации.</p>
-                                    <a href="/thanks" class="btn btn-link mt-3">← Вернуться на главную</a>
-                                </div>
-                            `;
+                    }).then(res => {
+                        if (res.ok) {
+                            window.location.href = '/thanks';
                         } else {
-                            throw new Error('Ошибка сервера');
+                            alert('Ошибка отправки');
                         }
-                    })
-                    .catch(err => {
-                        alert("Произошла ошибка. Попробуйте ещё раз или позвоните нам.");
-                        console.error("Ошибка отправки:", err);
                     });
                 });
         });
     };
-
-    function applyPhoneMask() {
-        const input = document.getElementById('user-phone');
-        input.addEventListener('input', function(e) {
-            let matrix = "+7 (___) ___ - __ - __",
-                i = 0,
-                def = matrix.replace(/\D/g, ""),
-                val = this.value.replace(/\D/g, "");
-            if (def.length >= val.length) val = def;
-            this.value = matrix.replace(/./g, function(a) {
-                return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a
-            });
-        });
-    }
-
-    // === 3. АНИМАЦИЯ ДЛЯ ШАГОВ ПРОЦЕДУРЫ ===
-    const processSteps = document.querySelectorAll('.process-step');
-    processSteps.forEach(step => {
-        step.addEventListener('mouseenter', () => {
-            step.style.transform = 'translateY(-8px)';
-            step.style.boxShadow = '0 8px 20px rgba(0,0,0,0.1)';
-        });
-        step.addEventListener('mouseleave', () => {
-            step.style.transform = 'translateY(0)';
-            step.style.boxShadow = 'none';
-        });
-    });
-
 });
