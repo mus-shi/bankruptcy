@@ -17,52 +17,70 @@ body {
     transition: background-color 0.4s, color 0.4s;
 }
 
-h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
-
-/* === 2. КНОПКА ТЕМЫ === */
-.theme-btn {
-    position: fixed; top: 20px; right: 20px; z-index: 1100;
-    background: var(--bg-light); border: 1px solid #ddd;
-    border-radius: 50%; width: 45px; height: 45px; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
+h1, h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
 }
-body.dark-mode .sun { display: block; }
-body.dark-mode .moon { display: none; }
-body:not(.dark-mode) .sun { display: none; }
-body:not(.dark-mode) .moon { display: block; }
 
-/* === 3. КАРТОЧКИ === */
+/* === 2. КАРТОЧКИ ПРЕИМУЩЕСТВ === */
 .col-feature-side { flex: 0 0 38%; }
 .col-feature-center { flex: 0 0 24%; }
 
 .feature-card {
     background-color: var(--bg-light);
     border: 1px solid rgba(0,0,0,0.08);
-    border-radius: 6px; padding: 35px 25px; height: 100%;
-    transition: 0.3s; text-align: center; cursor: pointer;
+    border-radius: 6px;
+    padding: 35px 25px;
+    height: 100%;
+    transition: 0.3s;
+    text-align: center;
+    cursor: pointer;
 }
-.feature-card:hover { transform: translateY(-8px); border-color: var(--accent-color); }
+.feature-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--accent-color);
+}
 
-/* === 4. КНОПКА И АНИМАЦИЯ === */
+/* Иконки внутри карточек */
+.feature-card .icon {
+    fill: currentColor;
+    vertical-align: middle;
+    margin-bottom: 0.75rem;
+}
+
+/* === 3. КНОПКА "НАЧАТЬ ОНЛАЙН" === */
 .btn-accent {
     background-color: var(--accent-color);
-    color: #fff !important; border: none; border-radius: 4px;
-    padding: 16px 50px; font-weight: 600; font-size: 1.1rem;
+    color: #fff !important;
+    border: none;
+    border-radius: 4px;
+    padding: 16px 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
     box-shadow: 0 6px 20px rgba(45, 94, 74, 0.3);
 }
 @keyframes heartBeat {
     0%, 20%, 100% { transform: scale(1); }
     5%, 15% { transform: scale(1.06); }
 }
-.btn-animate-pulse { animation: heartBeat 3s infinite ease-in-out; }
+.btn-animate-pulse {
+    animation: heartBeat 3s infinite ease-in-out;
+}
 
-/* === 5. ШАГИ (НУМЕРАЦИЯ) === */
+/* === 4. ШАГИ ПРОЦЕДУРЫ === */
 .process-step {
-    background: var(--bg-light); 
+    background: var(--bg-light);
     border: 1px solid rgba(0,0,0,0.1);
-    padding: 30px 20px; border-radius: 6px; 
-    flex: 1; min-width: 200px;
+    padding: 30px 20px;
+    border-radius: 6px;
+    flex: 1;
+    min-width: 200px;
     position: relative;
+    transition: all 0.3s ease;
+}
+.process-step:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .step-number {
@@ -84,55 +102,24 @@ body:not(.dark-mode) .moon { display: block; }
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* === 6. ОЧНАЯ КОНСУЛЬТАЦИЯ === */
+/* === 5. БЛОК ОЧНОЙ КОНСУЛЬТАЦИИ === */
 .consultation-block {
     background-color: var(--bg-light) !important;
     border: 1px solid rgba(0,0,0,0.1);
 }
-
-body.dark-mode .consultation-block {
-    border-color: #555;
-}
-
-.consultation-block h3, 
-.consultation-block p, 
+.consultation-block h3,
+.consultation-block p,
 .consultation-block strong {
     color: var(--text-main) !important;
 }
 
-/* === 7. ФУТЕР === */
-footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
-footer a, footer p { color: var(--text-muted) !important; }
-
-/* КВИЗ И ФОРМЫ */
-.form-control { background-color: #fff; border-color: #ddd; color: #1a1a1a; }
-.form-control::placeholder { color: #bbb; }
-
-/* Чекбокс */
-.form-check-input {
-    background-color: #fff;
-    border-color: #ddd;
+/* === 6. ФУТЕР === */
+footer {
+    padding: 40px 0;
+    border-top: 1px solid rgba(128,128,128,0.2);
 }
-.form-check-input:checked {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-}
-
-/* Миниатюрные кнопки в квизе */
-.btn-xs {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    line-height: 1.5;
-}
-
-/* Голубые кнопки ответов */
-.btn-outline-primary {
-    border-color: #1e3a5f;
-    color: #1e3a5f;
-}
-.btn-outline-primary:hover {
-    background-color: #1e3a5f;
-    color: #fff;
+footer a, footer p {
+    color: var(--text-muted) !important;
 }
 
 /* Соцсети в футере */
@@ -147,7 +134,71 @@ footer a, footer p { color: var(--text-muted) !important; }
 .social-link:hover {
     text-decoration: underline;
 }
+.social-link .icon {
+    fill: currentColor;
+    vertical-align: middle;
+    margin-right: 4px;
+}
+.social-link:hover .icon {
+    fill: var(--quiz-theme-color); /* #1e3a5f */
+}
 
+/* === 7. КВИЗ === */
+#quiz-section {
+    background-color: var(--bg-body);
+}
+
+/* Шкала загрузки — укорочена до 6px */
+.progress {
+    height: 6px !important;
+    border-radius: 3px !important;
+}
+.progress-bar {
+    background-color: var(--quiz-theme-color) !important;
+}
+
+/* Миниатюрные кнопки ответов */
+.btn-xs {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+/* Синие кнопки ответов */
+.btn-outline-primary {
+    border-color: var(--quiz-theme-color);
+    color: var(--quiz-theme-color);
+}
+.btn-outline-primary:hover {
+    background-color: var(--quiz-theme-color);
+    color: #fff;
+}
+
+/* Формы в квизе */
+.form-control {
+    background-color: #fff;
+    border-color: #ddd;
+    color: #1a1a1a;
+}
+.form-control::placeholder {
+    color: #bbb;
+}
+
+/* Чекбокс согласия */
+.form-check-input {
+    background-color: #fff;
+    border-color: #ddd;
+}
+.form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* === 8. АДАПТИВНОСТЬ === */
 @media (max-width: 992px) {
-    .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
+    .col-feature-side,
+    .col-feature-center {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }
