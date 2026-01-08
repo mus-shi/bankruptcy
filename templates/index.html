@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     <style>
-        /* 1. Выравнивание иконок на одном уровне */
+        /* 1. Выравнивание иконок преимуществ */
         .feature-card {
             display: flex !important;
             flex-direction: column !important;
@@ -36,13 +36,19 @@
             font-weight: 700;
         }
 
-        /* 3. Анимированная стрелка-подсказка */
-        .scroll-hint {
-            margin-top: 40px;
-            margin-bottom: 20px;
-            color: #6c757d;
-            font-size: 0.9rem;
+        /* 3. Кликабельная анимированная стрелка */
+        .scroll-arrow-btn {
+            background: none;
+            border: none;
+            color: #1e3a5f;
+            cursor: pointer;
+            margin-top: 30px;
+            padding: 10px;
+            transition: 0.3s;
             animation: bounce 2s infinite;
+        }
+        .scroll-arrow-btn:hover {
+            color: #0d6efd;
         }
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
@@ -50,24 +56,25 @@
             60% {transform: translateY(-5px);}
         }
 
-        /* 4. Появление при скролле */
+        /* 4. Появление блока консультации */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(30px);
             transition: all 1s ease-out;
+            margin-bottom: 150px; /* Пустое пространство под блоком */
         }
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* 5. Центрирование кнопки ниже текста */
+        /* 5. Кнопка "Начать онлайн" */
         .button-container {
-            margin-top: 40px;
-            padding-bottom: 20px;
+            margin-top: 45px;
+            margin-bottom: 20px;
         }
 
-        /* 6. Цвета иконок при наведении в футере */
+        /* Соцсети */
         .social-link .img-grayscale { filter: grayscale(100%); opacity: 0.7; transition: 0.3s; }
         .social-link:hover .img-grayscale { filter: grayscale(0%); opacity: 1; }
         .social-link:hover .icon-telegram { fill: #0088cc !important; }
@@ -140,7 +147,7 @@
         </div>
     </section>
 
-    <section class="py-5">
+    <section class="py-5" id="steps-section">
         <div class="container text-center">
             <h2 class="mb-5"><span class="process-title-frame">Как проходит процедура</span></h2>
             <div class="d-flex flex-wrap justify-content-center gap-4">
@@ -166,16 +173,15 @@
                 </div>
             </div>
 
-            <div class="scroll-hint">
-                <div>Очная консультация ниже</div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <button class="scroll-arrow-btn" onclick="document.getElementById('office-block').scrollIntoView({behavior: 'smooth'})">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M7 13l5 5 5-5M7 6l5 5 5-5"></path>
                 </svg>
-            </div>
+            </button>
         </div>
     </section>
 
-    <section class="py-5 reveal">
+    <section class="py-5 reveal" id="office-block">
         <div class="container">
             <h2 class="text-center mb-3">Очная консультация</h2>
             <div class="text-center mb-4">⬇️</div>
@@ -196,7 +202,7 @@
         </div>
     </section>
 
-    <footer class="text-center py-5">
+    <footer class="text-center py-5 border-top">
         <div class="container">
             <p class="mb-1">© 2026 Мусаев Ш.И.</p>
             <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
