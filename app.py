@@ -51,27 +51,41 @@ def consult():
         recaptcha_token = data.get('g-recaptcha-response')
         name = data.get('name', '—')
         phone = data.get('phone', '—')
+        agree = data.get('agree', 'Нет')
+        total_debt_key = data.get('total_debt', 'under200k')
+        arrests = data.get('arrests', 'Не указано')
+        extra_property = data.get('extra_property', 'Не указано')
+        extra_car = data.get('extra_car', 'Не указано')
 
         # 1. Проверяем reCAPTCHA
         if not verify_recaptcha(recaptcha_token):
             print("❌ reCAPTCHA failed")
             return jsonify({'error': 'reCAPTCHA failed'}), 400
 
-        # 2. Формируем сообщение
+        # 2. Сопоставление ключей долгов
+        debt_map = {
+            'under200k': 'Менее 200 тыс. ₽',
+            '200k-500k': 'От 200 до 500 тыс. ₽',
+            '500k-1m': 'От 500 тыс. до 1 млн ₽',
+            'over1m': 'Свыше 1 млн ₽'
+        }
+        total_debt = debt_map.get(total_debt_key, 'Не указано')
+
+        # 3. Формируем сообщение
         message = f"""
 🆕 Новая заявка!
 
 👤 Имя: {name}
 📱 Телефон: {phone}
-✅ Согласен: Да
+✅ Согласен: {agree}
 
-1. Долг: Менее 200 тыс. ₽
-2. Аресты: Не указано
-3. Недвижимость: Не указано
-4. Автомобиль: Не указано
+1. Долг: {total_debt}
+2. Аресты: {arrests}
+3. Недвижимость: {extra_property}
+4. Автомобиль: {extra_car}
         """
 
-        # 3. Отправляем в Telegram
+        # 4. Отправляем в Telegram
         if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
             try:
                 url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
