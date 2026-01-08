@@ -1,66 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // === 1. ЛОГИКА ТЕМНОЙ ТЕМЫ — ВСЕГДА СВЕТЛАЯ ПРИ ПЕРВОМ ОТКРЫТИИ ===
-    const themeBtn = document.getElementById('theme-toggle');
-    const body = document.body;
 
-    // Принудительно устанавливаем светлую тему при первом открытии
-    if (!localStorage.getItem('theme')) {
-        localStorage.setItem('theme', 'light');
-        body.classList.remove('dark-mode');
-    } else if (localStorage.getItem('theme') === 'dark') {
-        body.classList.add('dark-mode');
-    }
-
-    themeBtn.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-    });
-
-    // === 2. ИНТЕРАКТИВНЫЙ КОЛОКОЛЬЧИК ===
-    const stopCallsCard = document.getElementById('stop-calls-card');
-    const bellImg = document.getElementById('bell-img');
-
-    if (stopCallsCard && bellImg) {
-        const iconNormal = "https://img.icons8.com/color/48/appointment-reminders.png";
-        const iconMuted = "https://img.icons8.com/color/48/silent.png";
-
-        stopCallsCard.addEventListener('click', function() {
-            if (bellImg.src.includes('appointment-reminders')) {
-                bellImg.src = iconMuted;
-                this.querySelector('strong').textContent = 'Звонки отключены';
-                this.querySelector('.text-muted').textContent = 'Тишина гарантирована';
-            } else {
-                bellImg.src = iconNormal;
-                this.querySelector('strong').textContent = 'Стоп звонки коллекторов';
-                this.querySelector('.text-muted').textContent = 'С первого дня — тишина';
-            }
-            this.classList.add('muted-active');
-            setTimeout(() => this.classList.remove('muted-active'), 300);
-        });
-    }
-
-    // === 3. АНИМАЦИЯ ДЛЯ ШАГОВ ПРОЦЕДУРЫ ===
-    const processSteps = document.querySelectorAll('.process-step');
-    processSteps.forEach(step => {
-        step.addEventListener('mouseenter', () => {
-            step.style.transform = 'translateY(-8px)';
-            step.style.boxShadow = '0 8px 20px rgba(0,0,0,0.1)';
-        });
-        step.addEventListener('mouseleave', () => {
-            step.style.transform = 'translateY(0)';
-            step.style.boxShadow = 'none';
-        });
-    });
-
-    // === 4. ПОЛНАЯ ЛОГИКА КВИЗА ===
+    // === 1. КНОПКА "НАЧАТЬ ОНЛАЙН" ===
     const startBtn = document.getElementById('show-form-btn');
     const quizSection = document.getElementById('quiz-section');
+    const hideQuizBtn = document.getElementById('hide-quiz-btn');
+
+    if (startBtn) {
+        startBtn.addEventListener('click', () => {
+            quizSection.style.display = 'block';
+            quizSection.scrollIntoView({ behavior: 'smooth' });
+            showStep(1);
+        });
+    }
+
+    if (hideQuizBtn) {
+        hideQuizBtn.addEventListener('click', () => {
+            quizSection.style.display = 'none';
+        });
+    }
+
+    // === 2. ПОЛНАЯ ЛОГИКА КВИЗА ===
     const quizContainer = document.getElementById('quiz-container');
 
     const questions = {
         1: { 
             text: "Какова общая сумма ваших задолженностей?", 
-            type: "boolean", 
+            type: "debt", 
             icon: "https://img.icons8.com/color/48/coins.png" 
         },
         2: { 
@@ -82,20 +47,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentStep = 1;
     let userAnswers = {};
 
-    if (startBtn) {
-        startBtn.addEventListener('click', () => {
-            quizSection.style.display = 'block';
-            quizSection.scrollIntoView({ behavior: 'smooth' });
-            showStep(1);
-        });
-    }
-
     function showStep(step) {
         currentStep = step;
         const progress = (step / 4) * 100;
         
         let html = `
-            <div class="progress mb-4" style="height: 10px; border-radius: 10px;">
+            <div class="progress mb-3" style="height: 6px; border-radius: 3px;">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" 
                      role="progressbar" style="width: ${progress}%; background-color: #1e3a5f;"></div>
             </div>
@@ -105,11 +62,20 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        if (questions[step].type === "boolean") {
+        if (questions[step].type === "debt") {
+            html += `
+                <div class="d-grid gap-2 col-md-8 mx-auto">
+                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('under200k')">Менее 200 тыс. ₽</button>
+                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('200k-500k')">От 200 до 500 тыс. ₽</button>
+                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('500k-1m')">От 500 тыс. до 1 млн ₽</button>
+                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('over1m')">Свыше 1 млн ₽</button>
+                </div>
+            `;
+        } else if (questions[step].type === "boolean") {
             html += `
                 <div class="d-grid gap-2 col-md-6 mx-auto">
-                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('Да')">Да, подходит</button>
-                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('Нет / Не знаю')">Нет / Не знаю</button>
+                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('Да')">Да</button>
+                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('Нет')">Нет</button>
                 </div>
             `;
         } else {
@@ -173,9 +139,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 name: name,
                 phone: phone,
                 agree: "Да",
-                total_debt: "under200k",
-                arrests: "Не указано",
-                extra_property: "Не указано",
+                total_debt: userAnswers[1] || "under200k",
+                arrests: userAnswers[2] || "Не указано",
+                extra_property: userAnswers[3] || "Не указано",
                 extra_car: "Не указано",
                 'g-recaptcha-response': ''
             })
@@ -213,4 +179,18 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // === 3. АНИМАЦИЯ ДЛЯ ШАГОВ ПРОЦЕДУРЫ ===
+    const processSteps = document.querySelectorAll('.process-step');
+    processSteps.forEach(step => {
+        step.addEventListener('mouseenter', () => {
+            step.style.transform = 'translateY(-8px)';
+            step.style.boxShadow = '0 8px 20px rgba(0,0,0,0.1)';
+        });
+        step.addEventListener('mouseleave', () => {
+            step.style.transform = 'translateY(0)';
+            step.style.boxShadow = 'none';
+        });
+    });
+
 });
