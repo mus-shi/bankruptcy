@@ -34,13 +34,12 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (value) {
                 formatted += value;
             }
-
             e.target.value = formatted;
         });
     }
 
     function initPhoneMask() {
-        const phoneInput = document.getElementById('answer-6');
+        const phoneInput = document.getElementById('final-phone');
         if (phoneInput && !phoneInput.dataset.masked) {
             applyPhoneMask(phoneInput);
             phoneInput.dataset.masked = 'true';
@@ -55,8 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         2: { text: "2. Есть ли у вас аресты на счетах или картах?", type: "boolean" },
         3: { text: "3. Есть ли у вас недвижимость, кроме единственного жилья?", type: "boolean" },
         4: { text: "4. Есть ли у вас автомобиль?", type: "boolean" },
-        5: { text: "5. Как вас зовут?", type: "text" },
-        6: { text: "6. Ваш телефон или WhatsApp", type: "phone" }
+        5: { text: "Последний шаг: Ваши контакты", type: "final" }
     };
 
     // === ПОКАЗ ШАГА ===
@@ -69,45 +67,43 @@ document.addEventListener('DOMContentLoaded', function() {
         if (questions[step].type === "boolean") {
             html += `
                 <div class="d-grid gap-2" style="max-width: 300px; margin: 0 auto;">
-                    <button class="btn btn-primary" style="padding: 8px 16px; font-size: 1rem;" onclick="recordAnswer(${step}, 'Да')">
-                        Да
-                    </button>
-                    <button class="btn btn-outline-secondary" style="padding: 8px 16px; font-size: 1rem;" onclick="recordAnswer(${step}, 'Нет')">
-                        Нет
-                    </button>
+                    <button class="btn btn-primary" style="padding: 10px 16px;" onclick="recordAnswer(${step}, 'Да')">Да</button>
+                    <button class="btn btn-outline-secondary" style="padding: 10px 16px;" onclick="recordAnswer(${step}, 'Нет')">Нет</button>
                 </div>
-                <button class="btn btn-sm btn-link text-muted mt-3" onclick="goBackToMain()">
-                    ← Вернуться к заполнению позже
-                </button>
             `;
-        } else if (questions[step].type === "text") {
+        } else if (questions[step].type === "final") {
             html += `
-                <input type="text" id="answer-${step}" class="form-control mb-3" placeholder="Ваше имя" required>
-                <button class="btn btn-primary" onclick="recordTextAnswer(${step})">Продолжить</button>
-                <button class="btn btn-sm btn-link text-muted mt-2" onclick="goBackToMain()">
-                    ← Вернуться к заполнению позже
-                </button>
-            `;
-        } else if (questions[step].type === "phone") {
-            html += `
-                <input type="tel" id="answer-${step}" class="form-control mb-3" placeholder="+7 (   )    -  -  " required>
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="agree-step" required>
-                    <label class="form-check-label" for="agree-step">
-                        Я принимаю условия <a href="/offer" target="_blank">публичной оферты</a>
-                    </label>
+                <div class="text-start" style="max-width: 400px; margin: 0 auto;">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Ваше имя</label>
+                        <input type="text" id="final-name" class="form-control" placeholder="Иван" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold">Телефон или WhatsApp</label>
+                        <input type="tel" id="final-phone" class="form-control" placeholder="+7 (   )   -  -  " required>
+                    </div>
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" type="checkbox" id="agree-step" checked required>
+                        <label class="form-check-label small" for="agree-step">
+                            Я принимаю условия <a href="/offer" target="_blank">публичной оферты</a>
+                        </label>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-success btn-lg" onclick="submitQuiz()">Получить консультацию</button>
+                    </div>
                 </div>
-                <button class="btn btn-success" onclick="submitQuiz()">Получить консультацию</button>
-                <button class="btn btn-sm btn-link text-muted mt-2" onclick="goBackToMain()">
-                    ← Вернуться к заполнению позже
-                </button>
             `;
         }
 
-        html += `</div>`;
+        html += `
+            <button class="btn btn-sm btn-link text-muted mt-4" onclick="goBackToMain()">
+                ← Вернуться позже
+            </button>
+        </div>`;
+        
         quizContainer.innerHTML = html;
 
-        if (step === 6) {
+        if (step === 5) {
             setTimeout(initPhoneMask, 100);
         }
     }
@@ -122,51 +118,37 @@ document.addEventListener('DOMContentLoaded', function() {
         showStep(step + 1);
     };
 
-    window.recordTextAnswer = function(step) {
-        const input = document.getElementById(`answer-${step}`);
-        if (input.value.trim()) {
-            answers[step] = input.value.trim();
-            showStep(step + 1);
-        } else {
-            alert('Пожалуйста, введите имя.');
-        }
-    };
-
     window.submitQuiz = function() {
+        const nameVal = document.getElementById('final-name').value.trim();
+        const phoneVal = document.getElementById('final-phone').value.trim();
         const agree = document.getElementById('agree-step').checked;
+
+        if (!nameVal) {
+            alert('Пожалуйста, введите имя.');
+            return;
+        }
+        if (phoneVal.replace(/\D/g, '').length < 11) {
+            alert('Пожалуйста, укажите полный номер телефона.');
+            return;
+        }
         if (!agree) {
             alert('Пожалуйста, примите оферту.');
             return;
         }
 
-        const phoneInput = document.getElementById('answer-6');
-        if (!phoneInput.value.trim() || phoneInput.value.replace(/\D/g, '').length < 11) {
-            alert('Пожалуйста, укажите полный номер телефона (11 цифр).');
-            phoneInput.focus();
-            return;
-        }
-
-        answers.agree = agree ? 'Да' : 'Нет';
-        answers.phone = phoneInput.value.trim();
-        answers.name = answers[5];
-
-        const total_debt = answers[1] === 'Да' ? '200k-500k' : 'under200k';
         const payload = {
-            name: answers.name,
-            phone: answers.phone,
-            agree: answers.agree,
-            total_debt: total_debt,
+            name: nameVal,
+            phone: phoneVal,
+            agree: 'Да',
+            total_debt: (answers[1] === 'Да' ? '200k-500k' : 'under200k'),
             arrests: answers[2],
             extra_property: answers[3],
             extra_car: answers[4],
             'g-recaptcha-response': ''
         };
 
-        // 👇 ОТЛАДКА: Выводим токен в консоль
-        console.log("🔍 Отправляем форму с токеном:");
         grecaptcha.ready(() => {
             grecaptcha.execute('6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK', {action: 'submit'}).then(token => {
-                console.log("✅ Токен reCAPTCHA:", token);
                 payload['g-recaptcha-response'] = token;
                 fetch('/consult', {
                     method: 'POST',
@@ -174,12 +156,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     body: JSON.stringify(payload)
                 }).then(res => {
                     if (res.ok) {
-                        setTimeout(() => {
-                            window.location.href = '/thanks';
-                        }, 800);
+                        window.location.href = '/thanks';
                     } else {
                         alert('Ошибка отправки. Попробуйте ещё раз.');
-                        quizSection.style.display = 'none';
                     }
                 });
             });
