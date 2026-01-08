@@ -71,6 +71,7 @@ body:not(.dark-mode) .moon { display: block; }
     padding: 30px 20px; border-radius: 6px; 
     flex: 1; min-width: 200px;
     position: relative; /* Для позиционирования номера */
+    transition: all 0.3s ease;
 }
 
 .step-number {
@@ -90,6 +91,12 @@ body:not(.dark-mode) .moon { display: block; }
     justify-content: center;
     z-index: 10;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Анимация при наведении на шаг */
+.process-step:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 /* === 6. ОЧНАЯ КОНСУЛЬТАЦИЯ — ИСПРАВЛЕНО === */
@@ -125,6 +132,13 @@ body.dark-mode .form-check-input {
 body.dark-mode .form-check-input:checked {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
+}
+
+/* Миниатюрные кнопки в квизе */
+.btn-sm {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
 }
 
 @media (max-width: 992px) {
