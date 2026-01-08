@@ -1,9 +1,9 @@
 :root {
     --primary-color: #1a2a3a;
     --accent-color: #2d5e4a;
-    --quiz-theme-color: #1e3a5f; /* Тёмно-синий цвет для квиза */
+    --quiz-theme-color: #1e3a5f;
     --text-muted: #6c757d;
-    --bg-light: #f8f9fa;
+    --bg-light: #f8f9fa; /* Тот самый цвет из образца */
 }
 
 body {
@@ -22,26 +22,25 @@ h1, h2, h3 {
 .hero { padding: 60px 0 40px; }
 .hero h1 { font-size: 2.5rem; margin-bottom: 40px; }
 
-/* Карточки преимуществ */
+/* Карточки преимуществ с фоновым цветом как в образце */
 .feature-card {
-    background: #fff;
+    background-color: var(--bg-light); /* Фоновый цвет блоков */
     border: 1px solid #e9ecef;
     border-radius: 4px;
     padding: 30px 20px;
     height: 100%;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
 }
 
-/* Анимация при наведении на преимущества */
+/* Анимация при наведении */
 .feature-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    background-color: #fff; /* При наведении карточка становится белой */
     border-color: var(--accent-color);
 }
 
-/* Пропорции колонок преимуществ */
 .col-feature-side { flex: 0 0 38%; }
 .col-feature-center { flex: 0 0 24%; }
 
@@ -61,7 +60,7 @@ h1, h2, h3 {
 
 /* Как проходит процедура */
 .process-step {
-    background: #fff;
+    background: var(--bg-light); /* Фоновый цвет шагов как в образце */
     border: 1px solid #eee;
     padding: 30px 15px;
     border-radius: 4px;
@@ -71,11 +70,10 @@ h1, h2, h3 {
     transition: all 0.3s ease;
 }
 
-/* Анимация шагов при наведении */
 .process-step:hover {
     border-color: var(--accent-color);
     transform: scale(1.05);
-    background-color: var(--bg-light);
+    background-color: #fff;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     z-index: 5;
 }
@@ -97,13 +95,12 @@ h1, h2, h3 {
     font-weight: bold;
 }
 
-/* Опрос (Квиз) */
+/* Квиз */
 #quiz-container {
     border: 1px solid #eee;
     border-radius: 8px;
     background: #fff;
 }
-
 .progress { height: 8px; background-color: #eee; border-radius: 10px; margin-bottom: 20px; }
 .progress-bar { background-color: var(--quiz-theme-color); }
 
@@ -117,7 +114,7 @@ h1, h2, h3 {
 }
 .btn-success:hover { background-color: #142844; }
 
-/* Карта и Контакты */
+/* Карта */
 .map-container {
     border-radius: 8px;
     overflow: hidden;
@@ -127,7 +124,6 @@ h1, h2, h3 {
 /* Футер */
 footer { padding: 40px 0; border-top: 1px solid #eee; color: var(--text-muted); font-size: 0.85rem; }
 
-/* Адаптивность */
 @media (max-width: 768px) {
     .col-feature-side, .col-feature-center { flex: 0 0 100%; }
     .process-steps { flex-direction: column; gap: 20px; }
