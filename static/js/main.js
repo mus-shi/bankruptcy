@@ -65,17 +65,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (questions[step].type === "debt") {
             html += `
                 <div class="d-grid gap-2 col-md-8 mx-auto">
-                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('under200k')">Менее 200 тыс. ₽</button>
-                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('200k-500k')">От 200 до 500 тыс. ₽</button>
-                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('500k-1m')">От 500 тыс. до 1 млн ₽</button>
-                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('over1m')">Свыше 1 млн ₽</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('under200k')">Менее 200 тыс. ₽</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('200k-500k')">От 200 до 500 тыс. ₽</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('500k-1m')">От 500 тыс. до 1 млн ₽</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('over1m')">Свыше 1 млн ₽</button>
                 </div>
             `;
         } else if (questions[step].type === "boolean") {
             html += `
                 <div class="d-grid gap-2 col-md-6 mx-auto">
-                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('Да')">Да</button>
-                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('Нет')">Нет</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('Да')">Да</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('Нет')">Нет</button>
                 </div>
             `;
         } else {
@@ -129,40 +129,46 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Отправка данных на сервер
-        fetch('/consult', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: name,
-                phone: phone,
-                agree: "Да",
-                total_debt: userAnswers[1] || "under200k",
-                arrests: userAnswers[2] || "Не указано",
-                extra_property: userAnswers[3] || "Не указано",
-                extra_car: "Не указано",
-                'g-recaptcha-response': ''
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                quizContainer.innerHTML = `
-                    <div class="text-center py-5">
-                        <img src="https://img.icons8.com/color/96/ok--v1.png" class="mb-4">
-                        <h2 class="fw-bold">Заявка принята!</h2>
-                        <p class="text-muted">Спасибо, ${name}. Я изучу ваши ответы и перезвоню вам в течение 15 минут для консультации.</p>
-                        <a href="/thanks" class="btn btn-link mt-3">← Вернуться на главную</a>
-                    </div>
-                `;
-            } else {
-                throw new Error('Ошибка отправки');
-            }
-        })
-        .catch(err => {
-            alert("Произошла ошибка. Попробуйте ещё раз или позвоните нам.");
-            console.error(err);
+        // Получаем reCAPTCHA token
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6Lc_4kIsAAAAABoxguHakNk3gp3xBTKplzgoduqB', {action: 'submit'})
+                .then(function(token) {
+                    // Отправка данных на сервер
+                    fetch('/consult', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            phone: phone,
+                            agree: "Да",
+                            total_debt: userAnswers[1] || "under200k",
+                            arrests: userAnswers[2] || "Не указано",
+                            extra_property: userAnswers[3] || "Не указано",
+                            extra_car: "Не указано",
+                            'g-recaptcha-response': token
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            quizContainer.innerHTML = `
+                                <div class="text-center py-5">
+                                    <img src="https://img.icons8.com/color/96/ok--v1.png" class="mb-4">
+                                    <h2 class="fw-bold">Заявка принята!</h2>
+                                    <p class="text-muted">Спасибо, ${name}. Я изучу ваши ответы и перезвоню вам в течение 15 минут для консультации.</p>
+                                    <a href="/thanks" class="btn btn-link mt-3">← Вернуться на главную</a>
+                                </div>
+                            `;
+                        } else {
+                            throw new Error('Ошибка сервера');
+                        }
+                    })
+                    .catch(err => {
+                        alert("Произошла ошибка. Попробуйте ещё раз или позвоните нам.");
+                        console.error("Ошибка отправки:", err);
+                    });
+                });
         });
     };
 
