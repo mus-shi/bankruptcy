@@ -9,12 +9,12 @@
     --text-main: #1a2a3a;
 }
 
-/* ТЕМНАЯ ТЕМА: Оникс #353839 */
+/* ТЕМНАЯ ТЕМА: Оникс #353839 → сделаем светлее: #2d3134 */
 body.dark-mode {
-    --bg-body: #353839;
-    --bg-light: #3f4344;
+    --bg-body: #2d3134; /* Темно-серый, но не черный */
+    --bg-light: #3a3f42; /* Слегка светлее фона */
     --text-main: #ffffff;
-    --text-muted: #d1d1d1;
+    --text-muted: #cccccc; /* Более светлый серый для второстепенного текста */
 }
 
 body {
@@ -116,6 +116,16 @@ footer a, footer p { color: var(--text-muted) !important; }
 /* КВИЗ И ФОРМЫ */
 body.dark-mode .form-control { background-color: #4a4e4f; border-color: #555; color: #fff; }
 body.dark-mode .form-control::placeholder { color: #bbb; }
+
+/* Чекбокс в темной теме */
+body.dark-mode .form-check-input {
+    background-color: #4a4e4f;
+    border-color: #555;
+}
+body.dark-mode .form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
 
 @media (max-width: 992px) {
     .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
