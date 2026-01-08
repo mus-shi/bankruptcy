@@ -10,10 +10,15 @@
 </head>
 <body>
 
-    <button id="theme-toggle" class="theme-btn">
-        <span class="sun">☀️</span>
-        <span class="moon">🌙</span>
-    </button>
+    <!-- Контейнер для квиза -->
+    <section id="quiz-section" class="py-5" style="display: none;">
+        <div class="container">
+            <div class="d-flex justify-content-end mb-3">
+                <button id="hide-quiz-btn" class="btn btn-sm btn-outline-secondary">✕ Закрыть опрос</button>
+            </div>
+            <div id="quiz-container"></div>
+        </div>
+    </section>
 
     <section class="hero text-center py-5">
         <div class="container">
@@ -22,14 +27,14 @@
             <div class="row g-4 justify-content-center mb-5">
                 <div class="col-md-4 col-feature-side">
                     <div class="feature-card">
-                        <img src="https://img.icons8.com/color/48/shield.png" width="32" class="mb-3">
+                        <img src="https://img.icons8.com/color/48/shield.png" width="32" class="mb-3" style="filter: hue-rotate(210deg);">
                         <strong>Вы ничем не рискуете</strong>
                         <div class="small text-muted">Оплата — только после результата</div>
                     </div>
                 </div>
                 <div class="col-md-4 col-feature-center">
                     <div class="feature-card" id="stop-calls-card">
-                        <img src="https://img.icons8.com/color/48/appointment-reminders.png" id="bell-img" width="32" class="mb-3">
+                        <img src="https://img.icons8.com/color/48/appointment-reminders.png" width="32" class="mb-3">
                         <strong>Стоп звонки коллекторов</strong>
                         <div class="small text-muted">С первого дня — тишина</div>
                     </div>
@@ -49,13 +54,6 @@
             </div>
             
             <button id="show-form-btn" class="btn-accent btn-animate-pulse">Начать онлайн →</button>
-        </div>
-    </section>
-
-    <!-- Контейнер для квиза -->
-    <section id="quiz-section" class="py-5" style="display: none;">
-        <div class="container">
-            <div id="quiz-container"></div>
         </div>
     </section>
 
