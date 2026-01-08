@@ -12,16 +12,6 @@
 </head>
 <body>
 
-    <!-- Контейнер для квиза -->
-    <section id="quiz-section" class="py-5" style="display: none;">
-        <div class="container">
-            <div class="d-flex justify-content-end mb-3">
-                <button id="hide-quiz-btn" class="btn btn-sm btn-outline-secondary">✕ Закрыть опрос</button>
-            </div>
-            <div id="quiz-container"></div>
-        </div>
-    </section>
-
     <section class="hero text-center py-5">
         <div class="container">
             <h1 class="mb-5">Оформите банкротство — не выходя из дома</h1>
@@ -35,7 +25,7 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-feature-center">
-                    <div class="feature-card" id="stop-calls-card">
+                    <div class="feature-card">
                         <img src="https://img.icons8.com/color/48/appointment-reminders.png" width="32" class="mb-3">
                         <strong>Стоп звонки<br>коллекторов</strong>
                         <div class="small text-muted">С первого дня — тишина</div>
@@ -55,35 +45,64 @@
                 Работаем при долгах от 200 000 ₽. — Консультация бесплатно.
             </div>
             
-            <button id="show-form-btn" class="btn-accent btn-animate-pulse">Начать онлайн →</button>
+            <button id="show-form-btn" class="btn-accent btn-animate-pulse" onclick="document.getElementById('quiz-section').style.display='block';">Начать онлайн →</button>
         </div>
     </section>
 
-    <section class="py-5">
-        <div class="container text-center">
-            <h2 class="mb-5">Как проходит процедура</h2>
-            <div class="d-flex flex-wrap justify-content-center gap-4">
-                <div class="process-step" data-step="1">
-                    <div class="step-number">1</div>
-                    <img src="https://img.icons8.com/color/48/phone.png" width="32" class="mb-2">
-                    <div class="small fw-bold">Консультация</div>
+    <!-- Контейнер для формы -->
+    <section id="quiz-section" class="py-5" style="display: none;">
+        <div class="container">
+            <h3 class="text-center mb-4">Ответьте на несколько вопросов</h3>
+            <form method="POST" action="/consult" class="col-md-6 mx-auto">
+                <div class="mb-3">
+                    <label class="form-label">Ваше имя</label>
+                    <input type="text" name="name" class="form-control" required placeholder="Напр: Иван">
                 </div>
-                <div class="process-step" data-step="2">
-                    <div class="step-number">2</div>
-                    <img src="https://img.icons8.com/color/48/document.png" width="32" class="mb-2">
-                    <div class="small fw-bold">Сбор документов</div>
+                <div class="mb-3">
+                    <label class="form-label">Номер телефона</label>
+                    <input type="tel" name="phone" class="form-control" required value="+7 ">
                 </div>
-                <div class="process-step" data-step="3">
-                    <div class="step-number">3</div>
-                    <img src="https://img.icons8.com/color/48/law.png" width="32" class="mb-2">
-                    <div class="small fw-bold">Подача в суд</div>
+                <div class="mb-3">
+                    <label class="form-label">Общая сумма задолженностей</label>
+                    <select name="total_debt" class="form-select" required>
+                        <option value="under200k">Менее 200 тыс. ₽</option>
+                        <option value="200k-500k">От 200 до 500 тыс. ₽</option>
+                        <option value="500k-1m">От 500 тыс. до 1 млн ₽</option>
+                        <option value="over1m">Свыше 1 млн ₽</option>
+                    </select>
                 </div>
-                <div class="process-step" data-step="4">
-                    <div class="step-number">4</div>
-                    <img src="https://img.icons8.com/color/48/handshake.png" width="32" class="mb-2">
-                    <div class="small fw-bold">Списание долгов</div>
+                <div class="mb-3">
+                    <label class="form-label">Есть ли открытые просрочки?</label>
+                    <select name="arrests" class="form-select" required>
+                        <option value="Да">Да</option>
+                        <option value="Нет">Нет</option>
+                    </select>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label class="form-label">Есть ли имущество (кроме единственного жилья)?</label>
+                    <select name="extra_property" class="form-select" required>
+                        <option value="Да">Да</option>
+                        <option value="Нет">Нет</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Есть ли автомобиль?</label>
+                    <select name="extra_car" class="form-select" required>
+                        <option value="Да">Да</option>
+                        <option value="Нет">Нет</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <div class="g-recaptcha" data-sitekey="6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></div>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="agree" id="agreeCheckbox" required>
+                    <label class="form-check-label" for="agreeCheckbox">
+                        Я ознакомился с <a href="/offer" target="_blank">публичной офертой</a> и <a href="/privacy" target="_blank">политикой конфиденциальности</a>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-success w-100 py-2 fw-bold shadow-sm">Получить результат анализа →</button>
+            </form>
         </div>
     </section>
 
@@ -119,6 +138,38 @@
         </div>
     </footer>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Показываем блок "Очная консультация" при скролле
+        window.addEventListener('scroll', function() {
+            const section = document.getElementById('offline-consult-section');
+            const position = section.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.5;
+
+            if (position < screenPosition) {
+                section.style.display = 'block';
+            }
+        });
+
+        // При отправке формы — перенаправляем на /thanks
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch('/consult', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/thanks';
+                } else {
+                    alert('Произошла ошибка. Попробуйте ещё раз или позвоните нам.');
+                }
+            })
+            .catch(err => {
+                alert('Произошла ошибка. Попробуйте ещё раз или позвоните нам.');
+                console.error(err);
+            });
+        });
+    </script>
 </body>
 </html>
