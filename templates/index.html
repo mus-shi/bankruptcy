@@ -4,47 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Банкротство под ключ | Мусаев Ш.И.</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
     <!-- reCAPTCHA v3 -->
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
 </head>
 <body>
 
-<section class="hero text-center py-5">
-    <div class="container">
-        <h1 class="mb-5">Оформите банкротство — не выходя из дома</h1>
+    <!-- Контейнер для квиза -->
+    <section id="quiz-section" class="py-5" style="display: none;">
+        <div class="container">
+            <div class="d-flex justify-content-end mb-3">
+                <button id="hide-quiz-btn" class="btn btn-sm btn-outline-secondary">✕ Закрыть опрос</button>
+            </div>
+            <div id="quiz-container"></div>
+        </div>
+    </section>
 
-        <button id="show-form-btn" class="btn-accent btn-animate-pulse">
-            Начать онлайн →
-        </button>
-    </div>
-</section>
+    <section class="hero text-center py-5">
+        <div class="container">
+            <h1 class="mb-5">Оформите банкротство — не выходя из дома</h1>
+            
+            <div class="row g-4 justify-content-center mb-5">
+                <div class="col-md-4 col-feature-side">
+                    <div class="feature-card">
+                        <img src="https://img.icons8.com/color/48/shield.png" width="32" class="mb-3">
+                        <strong>Вы ничем не рискуете</strong>
+                        <div class="small text-muted">Оплата — только после результата</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-feature-center">
+                    <div class="feature-card">
+                        <img src="https://img.icons8.com/color/48/silent.png" width="32" class="mb-3">
+                        <strong>Стоп звонки<br>коллекторов</strong>
+                        <div class="small text-muted">С первого дня — тишина</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-feature-side">
+                    <div class="feature-card">
+                        <img src="https://img.icons8.com/color/48/home.png" width="32" class="mb-3">
+                        <strong>Жильё и доход в безопасности</strong>
+                        <div class="small text-muted">Единственное жильё не арестуют</div>
+                    </div>
+                </div>
+            </div>
 
-<!-- === КВИЗ (БЫЛО НУЖНО ДОБАВИТЬ) === -->
-<section id="quiz-section" class="py-5" style="display:none">
-    <div class="container">
-        <div id="quiz-container" class="bg-white p-4 rounded shadow"></div>
-    </div>
-</section>
+            <p class="text-muted mb-2">Проверьте, подходит ли вам банкротство. Ответьте на вопросы — и я подскажу ваш путь.</p>
+            <div class="fw-bold mb-4">
+                Работаем при долгах от 200 000 ₽. — Консультация бесплатно.
+            </div>
+            
+            <button id="show-form-btn" class="btn-accent btn-animate-pulse">Начать онлайн →</button>
+        </div>
+    </section>
 
-<section class="py-5">
-    <div class="container text-center">
-        <h2>Очная консультация</h2>
-        <a href="tel:+79991234567" class="btn btn-outline-dark d-inline-flex align-items-center gap-2 mt-3">
-            <img src="https://img.icons8.com/ios-filled/20/000000/phone.png">
-            Позвонить
-        </a>
-    </div>
-</section>
+    <section class="py-5">
+        <div class="container text-center">
+            <h2 class="mb-5">Как проходит процедура</h2>
+            <div class="d-flex flex-wrap justify-content-center gap-4">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <img src="https://img.icons8.com/color/48/phone.png" width="32" class="mb-2">
+                    <div class="small fw-bold">Консультация</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <img src="https://img.icons8.com/color/48/document.png" width="32" class="mb-2">
+                    <div class="small fw-bold">Сбор документов</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <img src="https://img.icons8.com/color/48/law.png" width="32" class="mb-2">
+                    <div class="small fw-bold">Подача в суд</div>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <img src="https://img.icons8.com/color/48/handshake.png" width="32" class="mb-2">
+                    <div class="small fw-bold">Списание долгов</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<footer class="text-center py-4">
-    <a href="/offer">Оферта</a> · <a href="/privacy">Приватность</a>
-</footer>
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Очная консультация</h2>
+            <div class="row g-0 shadow border rounded overflow-hidden">
+                <div class="col-md-6 p-5 consultation-block">
+                    <h3 class="h4 mb-4">Для жителей Ставропольского края</h3>
+                    <p class="mb-3">Вы можете прийти на очную консультацию в наш офис в г. Железноводск.</p>
+                    <p class="mb-1"><strong>Адрес:</strong></p>
+                    <p class="small mb-3">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
+                    <p class="mb-1"><strong>Рабочее время:</strong></p>
+                    <p class="small mb-3">Пн–Пт: 09:00 – 18:00<br>Сб–Вс: выходной</p>
+                    <a href="tel:+79991234567" class="btn btn-outline-dark d-inline-flex align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="me-2" viewBox="0 0 16 16">
+                            <path d="M3.669 14.5c0 .7-.5 1.2-1.2 1.2S1.2 15.2 1.2 14.5s.5-1.2 1.2-1.2 1.2.5 1.2 1.2zm10.5-1.2c0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2.5-1.2 1.2-1.2 1.2.5 1.2 1.2zM8 14.5c0 .7-.5 1.2-1.2 1.2s-1.2-.5-1.2-1.2.5-1.2 1.2-1.2 1.2.5 1.2 1.2z"/>
+                        </svg>
+                        Позвонить
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c&amp;source=constructor" width="100%" height="400" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-1">© 2026 Мусаев Ш.И.</p>
+            <p class="small text-muted mb-3">Работаем дистанционно по всей России</p>
+            <a href="/offer" class="small mx-2">Оферта</a>
+            <a href="/privacy" class="small mx-2">Приватность</a>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
