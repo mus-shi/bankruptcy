@@ -371,4 +371,29 @@ footer {
     .form-buttons {
         flex-direction: column;
     }
+/* Анимация плавного появления шага */
+.step-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Стилизация прогресс-бара */
+.quiz-progress-wrapper .progress-bar {
+    border-radius: 10px;
+    background-color: #2d5e4a !important; /* Ваш фирменный зеленый */
+}
+
+/* Крупные кнопки в квизе */
+.btn-lg {
+    border-radius: 12px;
+    letter-spacing: 0.5px;
+    transition: transform 0.2s;
+}
+
+.btn-lg:active {
+    transform: scale(0.98);
 }
