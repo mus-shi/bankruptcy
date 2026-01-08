@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
 </head>
 <body>
 
@@ -25,27 +24,27 @@
                     <div class="feature-card">
                         <img src="https://img.icons8.com/color/48/shield.png" alt="shield" width="32">
                         <strong>Вы ничем не рискуете</strong>
-                        <div class="small">Оплата — только после вынесения судебного акта и официального признания банкротом</div>
+                        <div class="small text-muted">Оплата — только после результата</div>
                     </div>
                 </div>
                 <div class="col-md-4 col-feature-center">
-                    <div class="feature-card">
-                        <img src="https://img.icons8.com/color/48/appointment-reminders.png" alt="bell" width="32">
+                    <div class="feature-card" id="stop-calls-card">
+                        <img src="https://img.icons8.com/color/48/appointment-reminders.png" class="bell-icon" alt="bell" width="32">
                         <strong>Стоп звонки коллекторов</strong>
-                        <div class="small">С первого дня процедуры — тишина</div>
+                        <div class="small text-muted">С первого дня — тишина</div>
                     </div>
                 </div>
                 <div class="col-md-4 col-feature-side">
                     <div class="feature-card">
                         <img src="https://img.icons8.com/color/48/home.png" alt="home" width="32">
                         <strong>Жильё и доход в безопасности</strong>
-                        <div class="small">Единственное жильё не арестуют, а доход — в размере прожиточного минимума</div>
+                        <div class="small text-muted">Единственное жильё не арестуют</div>
                     </div>
                 </div>
             </div>
 
             <p class="text-muted mb-2">Проверьте, подходит ли вам банкротство. Ответьте на несколько вопросов — и я подскажу ваш путь.</p>
-            <div class="fw-bold mb-4 text-main-color">
+            <div class="fw-bold mb-4">
                 Работаем при долгах от 200 000 ₽. — Консультация бесплатно.
             </div>
             
@@ -57,8 +56,7 @@
 
     <section id="quiz-section" class="py-5" style="display: none;">
         <div class="container">
-            <div id="quiz-container" class="p-4 p-md-5 mx-auto" style="max-width: 650px;">
-                </div>
+            <div id="quiz-container" class="p-4 p-md-5 mx-auto" style="max-width: 650px;"></div>
         </div>
     </section>
 
@@ -75,13 +73,13 @@
                 <div class="process-step">
                     <div class="step-number">2</div>
                     <img src="https://img.icons8.com/color/48/document.png" width="32" class="mb-2">
-                    <div class="small fw-bold">Сбор документов</div>
+                    <div class="small fw-bold">Сбор бумаг</div>
                 </div>
                 <div class="align-self-center text-muted d-none d-md-block">→</div>
                 <div class="process-step">
                     <div class="step-number">3</div>
                     <img src="https://img.icons8.com/color/48/law.png" width="32" class="mb-2">
-                    <div class="small fw-bold">Подача в суд</div>
+                    <div class="small fw-bold">Суд</div>
                 </div>
                 <div class="align-self-center text-muted d-none d-md-block">→</div>
                 <div class="process-step">
@@ -93,24 +91,19 @@
         </div>
     </section>
 
-    <section class="py-5">
+    <section class="py-5 bg-white-custom">
         <div class="container">
             <h2 class="text-center mb-5">Очная консультация</h2>
-            <div class="row g-0 shadow-sm border rounded overflow-hidden card-row">
-                <div class="col-md-6 p-5 bg-light-section">
+            <div class="row g-0 shadow-sm border rounded overflow-hidden">
+                <div class="col-md-6 p-5 bg-light-card">
                     <h3 class="h4 mb-4">Для жителей Ставропольского края</h3>
-                    <p class="small text-muted mb-4">Вы можете прийти на очную консультацию в наш офис в г. Железноводск.</p>
-                    <p class="mb-1"><strong>Адрес:</strong></p>
-                    <p class="small mb-4">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
-                    <p class="mb-1"><strong>Рабочее время:</strong></p>
-                    <p class="small mb-4">Пн–Пт: 09:00 – 18:00<br>Сб-Вс: выходной</p>
+                    <p class="small text-muted mb-4">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
                     <div class="d-flex align-items-center">
-                        <span class="me-3 small">Телефон:</span>
                         <a href="tel:+79991234567" class="btn btn-outline-dark btn-sm">📞 Позвонить</a>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="map-container h-100">
+                    <div class="map-container">
                         <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c&amp;source=constructor" width="100%" height="400" frameborder="0"></iframe>
                     </div>
                 </div>
@@ -121,10 +114,10 @@
     <footer class="text-center">
         <div class="container">
             <p class="mb-1">© 2026 Мусаев Ш.И.</p>
-            <p class="small mb-0 text-muted">Работаем дистанционно по всей России</p>
-            <div class="mt-2">
-                <a href="/offer" class="text-decoration-none text-muted small mx-2">Публичная оферта</a>
-                <a href="/privacy" class="text-decoration-none text-muted small mx-2">Политика конфиденциальности</a>
+            <p class="small text-muted mb-3">Работаем дистанционно по всей России</p>
+            <div>
+                <a href="/offer" class="small mx-2">Оферта</a>
+                <a href="/privacy" class="small mx-2">Приватность</a>
             </div>
         </div>
     </footer>
