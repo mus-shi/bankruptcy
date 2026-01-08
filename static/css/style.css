@@ -1,16 +1,20 @@
+/* === ПЕРЕМЕННЫЕ И ОСНОВНЫЕ НАСТРОЙКИ === */
 :root {
     --primary-color: #1a2a3a;
-    --accent-color: #2d5e4a;
-    --quiz-theme-color: #1e3a5f;
+    --accent-color: #2d5e4a;    /* Ваш зеленый */
+    --quiz-theme-color: #1e3a5f; /* Синий для квиза */
     --text-muted: #6c757d;
-    --bg-light: #f8f9fa;
+    --bg-light: #f8f9fa;       /* Светлый фон карточек */
+    --bg-body: #ffffff;
+    --text-main: #1a2a3a;
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    color: #1a2a3a;
-    background-color: #fff;
+    color: var(--text-main);
+    background-color: var(--bg-body);
     line-height: 1.6;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 h1, h2, h3 {
@@ -18,11 +22,11 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
-/* Hero Section */
+/* === HERO SECTION === */
 .hero { padding: 60px 0 20px; }
 .hero h1 { font-size: 2.5rem; margin-bottom: 40px; }
 
-/* Карточки преимуществ */
+/* === КАРТОЧКИ ПРЕИМУЩЕСТВ === */
 .feature-card {
     background-color: var(--bg-light);
     border: 1px solid #e9ecef;
@@ -36,17 +40,18 @@ h1, h2, h3 {
 .feature-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-    background-color: #fff;
+    background-color: var(--bg-body);
     border-color: var(--accent-color);
 }
 
+/* Пропорции: боковые по 38%, центр 24% */
 .col-feature-side { flex: 0 0 38%; }
 .col-feature-center { flex: 0 0 24%; }
 
 .feature-card strong { display: block; margin: 15px 0 5px; font-size: 1.1rem; }
 .feature-card .small { color: var(--text-muted); font-size: 0.9rem; }
 
-/* Кнопка "Начать онлайн" с анимацией */
+/* === КНОПКА С ПУЛЬСАЦИЕЙ (ЗЕЛЕНАЯ) === */
 .btn-accent {
     background-color: var(--accent-color);
     color: #fff;
@@ -61,12 +66,12 @@ h1, h2, h3 {
 
 .btn-accent:hover {
     background-color: #244b3b;
-    color: #fff;
+    color: #fff !important;
     transform: translateY(-2px);
-    animation: none; /* Останавливаем авто-анимацию при наведении */
+    animation: none; /* Остановка анимации при наведении */
 }
 
-/* Автоматическая анимация кнопки каждые 3 секунды */
+/* Анимация сердцебиения каждые 3 секунды */
 @keyframes heartBeat {
     0% { transform: scale(1); }
     5% { transform: scale(1.05); }
@@ -80,14 +85,7 @@ h1, h2, h3 {
     animation: heartBeat 3s infinite ease-in-out;
 }
 
-/* Квиз иконки (уменьшение) */
-.quiz-icon-small {
-    width: 24px !important;
-    height: 24px !important;
-    margin-bottom: 10px;
-}
-
-/* Как проходит процедура */
+/* === КАК ПРОХОДИТ ПРОЦЕДУРА === */
 .process-step {
     background: var(--bg-light);
     border: 1px solid #eee;
@@ -102,7 +100,7 @@ h1, h2, h3 {
 .process-step:hover {
     border-color: var(--accent-color);
     transform: scale(1.05);
-    background-color: #fff;
+    background-color: var(--bg-body);
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     z-index: 5;
 }
@@ -124,7 +122,13 @@ h1, h2, h3 {
     font-weight: bold;
 }
 
-/* Прогресс-бар */
+/* === КВИЗ (ОПРОС) === */
+#quiz-container {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: var(--bg-body);
+}
+
 .progress { height: 8px; background-color: #eee; border-radius: 10px; margin-bottom: 20px; }
 .progress-bar { background-color: var(--quiz-theme-color); }
 
@@ -137,6 +141,54 @@ h1, h2, h3 {
     transition: 0.3s;
 }
 
+.quiz-icon-small {
+    width: 24px !important;
+    height: 24px !important;
+    margin-bottom: 10px;
+}
+
+/* === КАРТА И ОФИС === */
+.map-container {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #eee;
+}
+
+/* === ФУТЕР === */
+footer { padding: 40px 0; border-top: 1px solid #eee; color: var(--text-muted); font-size: 0.85rem; }
+
+/* === ТЕМНАЯ ТЕМА (AUTO DARK MODE) === */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-body: #121212;      /* Глубокий черный фон */
+        --bg-light: #1e1e1e;     /* Светло-черный (антрацит) */
+        --text-main: #e0e0e0;    /* Светлый текст */
+        --text-muted: #a0a0a0;
+    }
+
+    body { background-color: var(--bg-body); color: var(--text-main); }
+    
+    .feature-card, .process-step, .bg-light, footer { 
+        background-color: var(--bg-light) !important; 
+        border-color: #333 !important; 
+    }
+
+    h1, h2, h3, strong { color: #ffffff !important; }
+    
+    #quiz-container { background-color: #1e1e1e; border-color: #333; }
+    
+    .form-control { 
+        background-color: #2d2d2d; 
+        border-color: #444; 
+        color: #fff; 
+    }
+    
+    .btn-outline-dark { border-color: #fff; color: #fff; }
+
+    img[src*="icons8"] { filter: brightness(0.9) contrast(1.2); }
+}
+
+/* === МОБИЛЬНАЯ АДАПТАЦИЯ === */
 @media (max-width: 768px) {
     .col-feature-side, .col-feature-center { flex: 0 0 100%; }
     .process-steps { flex-direction: column; gap: 20px; }
