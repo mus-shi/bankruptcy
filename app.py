@@ -28,6 +28,10 @@ def index():
 @app.route('/offer')
 def offer():
     return render_template('offer.html')
+    
+    @app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
 
 @app.route('/thanks')
 def thanks():
