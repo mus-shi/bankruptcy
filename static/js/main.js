@@ -19,13 +19,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // === 2. ПОЛНАЯ ЛОГИКА КВИЗА ===
+    // === 2. ПОЛНАЯ ЛОГИKA КВИЗА ===
     const quizContainer = document.getElementById('quiz-container');
 
     const questions = {
         1: { 
             text: "Какова общая сумма ваших задолженностей?", 
-            type: "debt", 
+            type: "boolean", 
             icon: "https://img.icons8.com/color/48/coins.png" 
         },
         2: { 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const progress = (step / 4) * 100;
         
         let html = `
-            <div class="progress mb-3" style="height: 6px; border-radius: 3px;">
+            <div class="progress mb-4" style="height: 10px; border-radius: 10px;">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" 
                      role="progressbar" style="width: ${progress}%; background-color: #1e3a5f;"></div>
             </div>
@@ -62,43 +62,25 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        if (questions[step].type === "debt") {
+        if (questions[step].type === "boolean") {
             html += `
-                <div class="d-grid gap-2 col-md-8 mx-auto">
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('under200k')">Менее 200 тыс. ₽</button>
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('200k-500k')">От 200 до 500 тыс. ₽</button>
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('500k-1m')">От 500 тыс. до 1 млн ₽</button>
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('over1m')">Свыше 1 млн ₽</button>
-                </div>
-            `;
-        } else if (questions[step].type === "boolean") {
-            html += `
-                <div class="d-grid gap-2 col-md-6 mx-auto">
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('Да')">Да</button>
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('Нет')">Нет</button>
+                <div class="d-grid gap-3 col-md-10 mx-auto">
+                    <button class="btn btn-outline-dark py-3 fw-medium" onclick="nextQuizStep('Да')">Да, подходит</button>
+                    <button class="btn btn-outline-dark py-3 fw-medium" onclick="nextQuizStep('Нет / Не знаю')">Нет / Не знаю</button>
                 </div>
             `;
         } else {
             html += `
-                <div class="col-md-8 mx-auto">
+                <div class="col-md-10 mx-auto">
                     <div class="mb-3">
                         <label class="form-label small text-muted">Ваше имя</label>
-                        <input type="text" id="user-name" class="form-control form-control-sm" placeholder="Напр: Иван">
+                        <input type="text" id="user-name" class="form-control form-control-lg" placeholder="Напр: Иван">
                     </div>
                     <div class="mb-4">
                         <label class="form-label small text-muted">Номер телефона</label>
-                        <input type="tel" id="user-phone" class="form-control form-control-sm" value="+7 ">
+                        <input type="tel" id="user-phone" class="form-control form-control-lg" value="+7 ">
                     </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="agreeCheckbox" required>
-                        <label class="form-check-label small" for="agreeCheckbox">
-                            Я ознакомился с <a href="/offer" target="_blank">публичной офертой</a> и <a href="/privacy" target="_blank">политикой конфиденциальности</a>
-                        </label>
-                    </div>
-                    <div class="mb-3">
-                        <div class="g-recaptcha" data-sitekey="6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></div>
-                    </div>
-                    <button class="btn btn-success w-100 py-2 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
+                    <button class="btn btn-success w-100 py-3 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
                     <p class="text-center small text-muted mt-3">🔒 Ваши данные защищены и не будут переданы третьим лицам</p>
                 </div>
             `;
@@ -117,8 +99,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.submitQuiz = () => {
         const name = document.getElementById('user-name').value;
         const phone = document.getElementById('user-phone').value;
-        const agreeCheckbox = document.getElementById('agreeCheckbox');
-        const recaptchaResponse = grecaptcha.getResponse();
 
         if (name.length < 2) {
             alert("Пожалуйста, введите ваше имя");
@@ -128,48 +108,47 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("Пожалуйста, введите корректный номер телефона");
             return;
         }
-        if (!agreeCheckbox.checked) {
-            alert("Пожалуйста, подтвердите, что вы ознакомились с офертой и политикой конфиденциальности");
-            return;
-        }
-        if (!recaptchaResponse) {
-            alert("Пожалуйста, пройдите reCAPTCHA");
-            return;
-        }
 
-        // Создаем FormData
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('phone', phone);
-        formData.append('agree', "Да");
-        formData.append('total_debt', userAnswers[1] || "under200k");
-        formData.append('arrests', userAnswers[2] || "Не указано");
-        formData.append('extra_property', userAnswers[3] || "Не указано");
-        formData.append('extra_car', "Не указано");
-        formData.append('g-recaptcha-response', recaptchaResponse);
-
-        // Отправка данных на сервер
-        fetch('/consult', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (response.ok) {
-                quizContainer.innerHTML = `
-                    <div class="text-center py-5">
-                        <img src="https://img.icons8.com/color/96/ok--v1.png" class="mb-4">
-                        <h2 class="fw-bold">Заявка принята!</h2>
-                        <p class="text-muted">Спасибо, ${name}. Я изучу ваши ответы и перезвоню вам в течение 15 минут для консультации.</p>
-                        <a href="/thanks" class="btn btn-link mt-3">← Вернуться на главную</a>
-                    </div>
-                `;
-            } else {
-                throw new Error('Ошибка сервера');
-            }
-        })
-        .catch(err => {
-            alert("Произошла ошибка. Попробуйте ещё раз или позвоните нам.");
-            console.error("Ошибка отправки:", err);
+        // Получаем reCAPTCHA token
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK', {action: 'submit'})
+                .then(function(token) {
+                    // Отправка данных на сервер
+                    fetch('/consult', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: name,
+                            phone: phone,
+                            agree: "Да",
+                            total_debt: "under200k",
+                            arrests: "Не указано",
+                            extra_property: "Не указано",
+                            extra_car: "Не указано",
+                            'g-recaptcha-response': token
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            quizContainer.innerHTML = `
+                                <div class="text-center py-5">
+                                    <img src="https://img.icons8.com/color/96/ok--v1.png" class="mb-4">
+                                    <h2 class="fw-bold">Заявка принята!</h2>
+                                    <p class="text-muted">Спасибо, ${name}. Я изучу ваши ответы и перезвоню вам в течение 15 минут для консультации.</p>
+                                    <a href="/thanks" class="btn btn-link mt-3">← Вернуться на главную</a>
+                                </div>
+                            `;
+                        } else {
+                            throw new Error('Ошибка сервера');
+                        }
+                    })
+                    .catch(err => {
+                        alert("Произошла ошибка. Попробуйте ещё раз или позвоните нам.");
+                        console.error("Ошибка отправки:", err);
+                    });
+                });
         });
     };
 
@@ -198,19 +177,6 @@ document.addEventListener('DOMContentLoaded', function() {
             step.style.transform = 'translateY(0)';
             step.style.boxShadow = 'none';
         });
-    });
-
-    // === 4. БЛОК ОЧНАЯ КОНСУЛЬТАЦИЯ — ПОКАЗЫВАЕТСЯ ПРИ СКРОЛЛЕ ===
-    const offlineConsultSection = document.getElementById('offline-consult-section');
-
-    window.addEventListener('scroll', () => {
-        const scrollPosition = window.scrollY + window.innerHeight;
-        const sectionTop = offlineConsultSection.offsetTop;
-        const sectionHeight = offlineConsultSection.offsetHeight;
-
-        if (scrollPosition > sectionTop + sectionHeight / 2) {
-            offlineConsultSection.style.display = 'block';
-        }
     });
 
 });
