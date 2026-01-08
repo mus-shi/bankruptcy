@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const questions = {
         1: { 
             text: "Какова общая сумма ваших задолженностей?", 
-            type: "boolean", 
+            type: "debt", 
             icon: "https://img.icons8.com/color/48/coins.png" 
         },
         2: { 
-            text: "Имеются ли у вас открытые просрочки?", 
+            text: "Есть ли у вас аресты на счетах (картах)?", 
             type: "boolean", 
             icon: "https://img.icons8.com/color/48/calendar.png" 
         },
@@ -65,11 +65,20 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        if (questions[step].type === "boolean") {
+        if (questions[step].type === "debt") {
+            html += `
+                <div class="d-grid gap-2 col-md-8 mx-auto">
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('under200k')">Менее 200 тыс. ₽</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('200k-500k')">От 200 до 500 тыс. ₽</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('500k-1m')">От 500 тыс. до 1 млн ₽</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('over1m')">Свыше 1 млн ₽</button>
+                </div>
+            `;
+        } else if (questions[step].type === "boolean") {
             html += `
                 <div class="d-grid gap-2 col-md-6 mx-auto">
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('Да')">Да, подходит</button>
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('Нет / Не знаю')">Нет / Не знаю</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('Да')">Да</button>
+                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('Нет')">Нет</button>
                 </div>
             `;
         } else {
@@ -82,6 +91,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="mb-4">
                         <label class="form-label small text-muted">Номер телефона</label>
                         <input type="tel" id="user-phone" class="form-control form-control-sm" value="+7 ">
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="agreeCheckbox" required>
+                        <label class="form-check-label small" for="agreeCheckbox">
+                            Я ознакомился с <a href="/offer" target="_blank">публичной офертой</a> и <a href="/privacy" target="_blank">политикой конфиденциальности</a>
+                        </label>
                     </div>
                     <button class="btn btn-success w-100 py-2 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
                     <p class="text-center small text-muted mt-3">🔒 Ваши данные защищены и не будут переданы третьим лицам</p>
@@ -101,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.submitQuiz = () => {
         const name = document.getElementById('user-name').value;
         const phone = document.getElementById('user-phone').value;
+        const agreeCheckbox = document.getElementById('agreeCheckbox');
 
         if (name.length < 2) {
             alert("Пожалуйста, введите ваше имя");
@@ -108,6 +124,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         if (phone.length < 16) {
             alert("Пожалуйста, введите корректный номер телефона");
+            return;
+        }
+        if (!agreeCheckbox.checked) {
+            alert("Пожалуйста, подтвердите, что вы ознакомились с офертой и политикой конфиденциальности");
             return;
         }
 
@@ -121,9 +141,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         name: name,
                         phone: phone,
                         agree: "Да",
-                        total_debt: "under200k",
-                        arrests: "Не указано",
-                        extra_property: "Не указано",
+                        total_debt: userAnswers[1] || "under200k",
+                        arrests: userAnswers[2] || "Не указано",
+                        extra_property: userAnswers[3] || "Не указано",
                         extra_car: "Не указано",
                         'g-recaptcha-response': token
                     })
