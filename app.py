@@ -11,7 +11,7 @@ RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY', '6Lc_4kIsAAAAABoxg
 
 def verify_recaptcha(token):
     if not RECAPTCHA_SECRET_KEY:
-        return True  # отключено в dev
+        return True
     try:
         resp = requests.post(
             'https://www.google.com/recaptcha/api/siteverify',
@@ -28,8 +28,8 @@ def index():
 @app.route('/offer')
 def offer():
     return render_template('offer.html')
-    
-    @app.route('/privacy')
+
+@app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
 
@@ -39,7 +39,6 @@ def thanks():
 
 @app.route('/consult', methods=['POST'])
 def consult():
-    # Общий debt_map
     debt_map = {
         'under200k': 'До 200 тыс. ₽',
         '200k-500k': '200 тыс. – 500 тыс. ₽',
@@ -47,7 +46,6 @@ def consult():
         'over1m': 'Более 1 млн ₽'
     }
 
-    # Определяем тип данных
     if request.is_json:
         data = request.get_json()
         recaptcha_token = data.get('g-recaptcha-response')
@@ -60,7 +58,6 @@ def consult():
         extra_car = data.get('extra_car', 'Не указано')
         total_debt = debt_map.get(total_debt_key, 'Не указано')
     else:
-        # Старый способ (form-data)
         recaptcha_token = request.form.get('g-recaptcha-response')
         name = request.form.get('name', '—')
         phone = request.form.get('phone', '—')
@@ -71,12 +68,7 @@ def consult():
         extra_car = request.form.get('extra_car', 'Не указано')
         total_debt = debt_map.get(total_debt_key, 'Не указано')
 
-    # 👇 ОТЛАДКА: Выводим в логи
-    print(f"🔍 reCAPTCHA token: {recaptcha_token}")
-    print(f"📊 Score: N/A (v3 не возвращает score напрямую)")
-
     if not verify_recaptcha(recaptcha_token):
-        print("❌ reCAPTCHA failed!")
         return 'reCAPTCHA failed', 400
 
     message = f"""
@@ -84,7 +76,7 @@ def consult():
 
 👤 Имя: {name}
 📱 Телефон: {phone}
-✅ Согласен с офертой: {agree}
+✅ Согласен: {agree}
 
 1. Долг: {total_debt}
 2. Аресты: {arrests}
