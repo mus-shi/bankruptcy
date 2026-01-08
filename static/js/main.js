@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // === 1. ЛОГИКА ТЕМНОЙ ТЕМЫ ===
+    // === 1. ЛОГИКА ТЕМНОЙ ТЕМЫ — ВСЕГДА СВЕТЛАЯ ПРИ ПЕРВОМ ОТКРЫТИИ ===
     const themeBtn = document.getElementById('theme-toggle');
     const body = document.body;
 
-    // Проверка сохраненной темы
-    if (localStorage.getItem('theme') === 'dark') {
+    // Принудительно устанавливаем светлую тему при первом открытии
+    if (!localStorage.getItem('theme')) {
+        localStorage.setItem('theme', 'light');
+        body.classList.remove('dark-mode');
+    } else if (localStorage.getItem('theme') === 'dark') {
         body.classList.add('dark-mode');
-    } else {
-        body.classList.remove('dark-mode'); // Убедимся, что светлая тема по умолчанию
     }
 
     themeBtn.addEventListener('click', () => {
@@ -33,13 +34,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.querySelector('strong').textContent = 'Стоп звонки коллекторов';
                 this.querySelector('.text-muted').textContent = 'С первого дня — тишина';
             }
-            // Анимация подсветки
             this.classList.add('muted-active');
             setTimeout(() => this.classList.remove('muted-active'), 300);
         });
     }
 
-    // === 3. ПОЛНАЯ ЛОГИКА КВИЗА ===
+    // === 3. АНИМАЦИЯ ДЛЯ ШАГОВ ПРОЦЕДУРЫ ===
+    const processSteps = document.querySelectorAll('.process-step');
+    processSteps.forEach(step => {
+        step.addEventListener('mouseenter', () => {
+            step.style.transform = 'translateY(-8px)';
+            step.style.boxShadow = '0 8px 20px rgba(0,0,0,0.1)';
+        });
+        step.addEventListener('mouseleave', () => {
+            step.style.transform = 'translateY(0)';
+            step.style.boxShadow = 'none';
+        });
+    });
+
+    // === 4. ПОЛНАЯ ЛОГИКА КВИЗА ===
     const startBtn = document.getElementById('show-form-btn');
     const quizSection = document.getElementById('quiz-section');
     const quizContainer = document.getElementById('quiz-container');
@@ -94,21 +107,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (questions[step].type === "boolean") {
             html += `
-                <div class="d-grid gap-3 col-md-10 mx-auto">
-                    <button class="btn btn-outline-dark py-3 fw-medium" onclick="nextQuizStep('Да')">Да, подходит</button>
-                    <button class="btn btn-outline-dark py-3 fw-medium" onclick="nextQuizStep('Нет / Не знаю')">Нет / Не знаю</button>
+                <div class="d-grid gap-2 col-md-6 mx-auto">
+                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('Да')">Да, подходит</button>
+                    <button class="btn btn-outline-dark btn-sm py-2 fw-medium" onclick="nextQuizStep('Нет / Не знаю')">Нет / Не знаю</button>
                 </div>
             `;
         } else {
             html += `
-                <div class="col-md-10 mx-auto">
+                <div class="col-md-8 mx-auto">
                     <div class="mb-3">
                         <label class="form-label small text-muted">Ваше имя</label>
-                        <input type="text" id="user-name" class="form-control form-control-lg" placeholder="Напр: Иван">
+                        <input type="text" id="user-name" class="form-control form-control-sm" placeholder="Напр: Иван">
                     </div>
                     <div class="mb-4">
                         <label class="form-label small text-muted">Номер телефона</label>
-                        <input type="tel" id="user-phone" class="form-control form-control-lg" value="+7 ">
+                        <input type="tel" id="user-phone" class="form-control form-control-sm" value="+7 ">
                     </div>
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" id="agreeCheckbox" required>
@@ -116,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             Я ознакомился с <a href="/offer" target="_blank">публичной офертой</a> и <a href="/privacy" target="_blank">политикой конфиденциальности</a>
                         </label>
                     </div>
-                    <button class="btn btn-success w-100 py-3 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
+                    <button class="btn btn-success w-100 py-2 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
                     <p class="text-center small text-muted mt-3">🔒 Ваши данные защищены и не будут переданы третьим лицам</p>
                 </div>
             `;
@@ -160,11 +173,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 name: name,
                 phone: phone,
                 agree: "Да",
-                total_debt: "under200k", // можно сделать динамичным
+                total_debt: "under200k",
                 arrests: "Не указано",
                 extra_property: "Не указано",
                 extra_car: "Не указано",
-                'g-recaptcha-response': '' // если нужен reCAPTCHA — добавьте его
+                'g-recaptcha-response': ''
             })
         })
         .then(response => {
