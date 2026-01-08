@@ -86,3 +86,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }).then(() => window.location.href = '/thanks');
     };
 });
+// Логика переключения темы
+const themeBtn = document.getElementById('theme-toggle');
+const body = document.body;
+
+// Проверяем, сохранена ли тема в браузере
+if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-mode');
+}
+
+themeBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    
+    // Сохраняем выбор
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+});
