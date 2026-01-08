@@ -9,7 +9,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     <style>
-        /* Стили для PNG иконки МАКС (черно-белая до наведения) */
+        /* 1. Вертикальное расположение иконок в карточках */
+        .feature-card {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+        }
+
+        /* 2. Стили для соцсетей и мессенджеров */
         .social-link .img-grayscale {
             filter: grayscale(100%);
             opacity: 0.7;
@@ -19,17 +28,42 @@
             filter: grayscale(0%);
             opacity: 1;
         }
-
-        /* Цвет при наведении для Telegram (голубой) */
         .social-link:hover .icon-telegram {
-            fill: #0088cc !important; /* Фирменный голубой цвет TG */
+            fill: #0088cc !important;
             transition: fill 0.3s ease;
         }
-        
-        /* Цвет при наведении для WhatsApp (зеленый) */
         .social-link:hover .icon-whatsapp {
-            fill: #25d366 !important; /* Фирменный зеленый цвет WA */
+            fill: #25d366 !important;
             transition: fill 0.3s ease;
+        }
+
+        /* 3. Эффект появления при скролле для консультации */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 4. Рамка для заголовка процедур */
+        .process-title-frame {
+            display: inline-block;
+            padding: 10px 40px;
+            border: 2px solid #1e3a5f;
+            border-radius: 50px;
+            color: #1e3a5f;
+            background-color: rgba(30, 58, 95, 0.03);
+        }
+
+        /* 5. Центрирование кнопки между секциями */
+        .button-spacer {
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 
@@ -53,29 +87,35 @@
             <div class="row g-4 justify-content-center mb-5">
                 <div class="col-md-4 col-feature-side">
                     <div class="feature-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-3">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                        </svg>
+                        <div class="mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
                         <strong>Вы ничем не рискуете</strong>
                         <div class="small text-muted">Оплата — только после результата</div>
                     </div>
                 </div>
                 <div class="col-md-4 col-feature-center">
                     <div class="feature-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" class="icon mb-3">
-                             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0" stroke="#6c757d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
-                             <line x1="1" y1="1" x2="23" y2="23" stroke="#dc3545" stroke-width="2" stroke-linecap="round"></line>
-                        </svg>
+                        <div class="mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" class="icon">
+                                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0" stroke="#6c757d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+                                 <line x1="1" y1="1" x2="23" y2="23" stroke="#dc3545" stroke-width="2" stroke-linecap="round"></line>
+                            </svg>
+                        </div>
                         <strong>Стоп звонки<br>коллекторов</strong>
                         <div class="small text-muted">С первого дня<br>процедуры — тишина</div>
                     </div>
                 </div>
                 <div class="col-md-4 col-feature-side">
                     <div class="feature-card">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-3">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#795548"></path>
-                            <polyline points="9 22 9 12 15 12 15 22" stroke="#2196f3"></polyline>
-                        </svg>
+                        <div class="mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#795548"></path>
+                                <polyline points="9 22 9 12 15 12 15 22" stroke="#2196f3"></polyline>
+                            </svg>
+                        </div>
                         <strong>Жильё и доход в безопасности</strong>
                         <div class="small text-muted">Единственное жильё не арестуют</div>
                     </div>
@@ -83,17 +123,19 @@
             </div>
 
             <p class="text-muted mb-2">Проверьте, подходит ли вам банкротство. Ответьте на вопросы — и я подскажу ваш путь.</p>
-            <div class="fw-bold mb-4">
+            <div class="fw-bold mb-0">
                 Работаем при долгах от 200 000 ₽. — Консультация бесплатно.
             </div>
             
-            <button id="show-form-btn" class="btn-accent btn-animate-pulse">Начать онлайн →</button>
+            <div class="button-spacer">
+                <button id="show-form-btn" class="btn-accent btn-animate-pulse">Начать онлайн →</button>
+            </div>
         </div>
     </section>
 
     <section class="py-5">
         <div class="container text-center">
-            <h2 class="mb-5">Как проходит процедура</h2>
+            <h2 class="mb-5"><span class="process-title-frame">Как проходит процедура</span></h2>
             <div class="d-flex flex-wrap justify-content-center gap-4">
                 <div class="process-step">
                     <div class="step-number">1</div>
@@ -119,7 +161,7 @@
         </div>
     </section>
 
-    <section class="py-5">
+    <section class="py-5 reveal">
         <div class="container">
             <h2 class="text-center mb-3">Очная консультация</h2>
             <div class="text-center mb-4">⬇️</div>
@@ -174,6 +216,23 @@
             <a href="/privacy" class="small mx-2">Приватность</a>
         </div>
     </footer>
+
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Запуск один раз при загрузке, если пользователь уже внизу
+        reveal();
+    </script>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
