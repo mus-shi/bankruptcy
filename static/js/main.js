@@ -95,6 +95,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             Я ознакомился с <a href="/offer" target="_blank">публичной офертой</a> и <a href="/privacy" target="_blank">политикой конфиденциальности</a>
                         </label>
                     </div>
+                    <div class="mb-3">
+                        <div class="g-recaptcha" data-sitekey="6Lc_4kIsAAAAABoxguHakNk3gp3xBTKplzgoduqB"></div>
+                    </div>
                     <button class="btn btn-success w-100 py-2 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
                     <p class="text-center small text-muted mt-3">🔒 Ваши данные защищены и не будут переданы третьим лицам</p>
                 </div>
@@ -115,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const name = document.getElementById('user-name').value;
         const phone = document.getElementById('user-phone').value;
         const agreeCheckbox = document.getElementById('agreeCheckbox');
+        const recaptchaResponse = grecaptcha.getResponse();
 
         if (name.length < 2) {
             alert("Пожалуйста, введите ваше имя");
@@ -128,47 +132,44 @@ document.addEventListener('DOMContentLoaded', function() {
             alert("Пожалуйста, подтвердите, что вы ознакомились с офертой и политикой конфиденциальности");
             return;
         }
+        if (!recaptchaResponse) {
+            alert("Пожалуйста, пройдите reCAPTCHA");
+            return;
+        }
 
-        // Получаем reCAPTCHA token
-        grecaptcha.ready(function() {
-            grecaptcha.execute('6Lc_4kIsAAAAABoxguHakNk3gp3xBTKplzgoduqB', {action: 'submit'})
-                .then(function(token) {
-                    // Отправка данных на сервер
-                    fetch('/consult', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            name: name,
-                            phone: phone,
-                            agree: "Да",
-                            total_debt: userAnswers[1] || "under200k",
-                            arrests: userAnswers[2] || "Не указано",
-                            extra_property: userAnswers[3] || "Не указано",
-                            extra_car: "Не указано",
-                            'g-recaptcha-response': token
-                        })
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            quizContainer.innerHTML = `
-                                <div class="text-center py-5">
-                                    <img src="https://img.icons8.com/color/96/ok--v1.png" class="mb-4">
-                                    <h2 class="fw-bold">Заявка принята!</h2>
-                                    <p class="text-muted">Спасибо, ${name}. Я изучу ваши ответы и перезвоню вам в течение 15 минут для консультации.</p>
-                                    <a href="/thanks" class="btn btn-link mt-3">← Вернуться на главную</a>
-                                </div>
-                            `;
-                        } else {
-                            throw new Error('Ошибка сервера');
-                        }
-                    })
-                    .catch(err => {
-                        alert("Произошла ошибка. Попробуйте ещё раз или позвоните нам.");
-                        console.error("Ошибка отправки:", err);
-                    });
-                });
+        // Создаем FormData
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('phone', phone);
+        formData.append('agree', "Да");
+        formData.append('total_debt', userAnswers[1] || "under200k");
+        formData.append('arrests', userAnswers[2] || "Не указано");
+        formData.append('extra_property', userAnswers[3] || "Не указано");
+        formData.append('extra_car', "Не указано");
+        formData.append('g-recaptcha-response', recaptchaResponse);
+
+        // Отправка данных на сервер
+        fetch('/consult', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                quizContainer.innerHTML = `
+                    <div class="text-center py-5">
+                        <img src="https://img.icons8.com/color/96/ok--v1.png" class="mb-4">
+                        <h2 class="fw-bold">Заявка принята!</h2>
+                        <p class="text-muted">Спасибо, ${name}. Я изучу ваши ответы и перезвоню вам в течение 15 минут для консультации.</p>
+                        <a href="/thanks" class="btn btn-link mt-3">← Вернуться на главную</a>
+                    </div>
+                `;
+            } else {
+                throw new Error('Ошибка сервера');
+            }
+        })
+        .catch(err => {
+            alert("Произошла ошибка. Попробуйте ещё раз или позвоните нам.");
+            console.error("Ошибка отправки:", err);
         });
     };
 
