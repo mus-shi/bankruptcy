@@ -9,10 +9,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     <style>
-        /* Глобальные настройки стабильности */
         html { 
             zoom: 0.9; 
-            scrollbar-gutter: stable; /* Резерв места под скроллбар */
+            scrollbar-gutter: stable; 
         }
 
         /* Унифицированные блоки */
@@ -35,23 +34,20 @@
         }
 
         .icon-wrapper {
-            height: 60px;
-            margin-bottom: 20px;
+            height: 65px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        /* Центрирование кнопки */
         .action-divider {
             padding: 100px 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
             flex-direction: column;
+            align-items: center;
         }
 
-        /* Заголовок в рамке */
         .process-title-frame {
             display: inline-block;
             padding: 12px 45px;
@@ -63,16 +59,39 @@
             margin-bottom: 50px;
         }
 
-        /* Отступ после шагов для симметрии */
+        /* Секция шагов с увеличенным отступом и намеком на скролл */
         #steps-section {
-            padding-bottom: 100px; 
+            padding-bottom: 120px; /* Тот самый margin для симметрии */
+            position: relative;
         }
 
-        /* Анимация появления */
+        /* Визуальный намек на контент внизу */
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: #1e3a5f;
+            opacity: 0.6;
+            text-align: center;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-10px) translateX(-50%);}
+            60% {transform: translateY(-5px) translateX(-50%);}
+        }
+
+        /* Анимация появления очной консультации */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease-out;
+            transform: translateY(40px);
+            transition: all 1.2s ease-out;
+            margin-bottom: 100px;
         }
         .reveal.active {
             opacity: 1;
@@ -87,9 +106,9 @@
         .social-link .img-grayscale { filter: grayscale(100%); opacity: 0.7; transition: 0.3s; }
         .social-link:hover .img-grayscale { filter: grayscale(0%); opacity: 1; }
 
-        /* Адаптивность под планшеты и мобилки */
         @media (max-width: 992px) {
-            .equal-block { height: auto; min-height: 200px; margin-bottom: 10px; }
+            .equal-block { height: auto; min-height: 210px; }
+            .action-divider { padding: 60px 0; }
         }
     </style>
 
@@ -113,7 +132,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                         </div>
                         <strong class="d-block mb-2">Вы ничем не рискуете</strong>
                         <div class="small text-muted">Оплата — только после результата</div>
@@ -122,7 +141,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0"></path><line x1="1" y1="1" x2="23" y2="23" stroke="#dc3545"></line></svg>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0" stroke="#6c757d"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
                         </div>
                         <strong class="d-block mb-2">Стоп звонки коллекторов</strong>
                         <div class="small text-muted">С первого дня процедуры — тишина</div>
@@ -131,7 +150,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#795548" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#795548" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                         </div>
                         <strong class="d-block mb-2">Жильё в безопасности</strong>
                         <div class="small text-muted">Единственное жильё не арестуют</div>
@@ -140,7 +159,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                         </div>
                         <strong class="d-block mb-2">Полная анонимность</strong>
                         <div class="small text-muted">Ваши данные защищены законом РФ</div>
@@ -165,7 +184,11 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" fill="#E3F2FD"/>
+                                <path d="M15.05 15.05c-.78.78-2.05.78-2.83 0l-1.41-1.41a5.002 5.002 0 0 1 0-7.07l1.41-1.41c.78-.78 2.05-.78 2.83 0l1.41 1.41c.78.78.78 2.05 0 2.83l-1.41 1.41" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M9.5 14.5l-3 3M11.5 16.5l-2-2" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
                         </div>
                         <div class="fw-bold">1. Консультация</div>
                         <div class="small text-muted mt-2">Разбор вашей ситуации</div>
@@ -174,7 +197,11 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                <rect x="4" y="3" width="16" height="18" rx="2" fill="#FFF9C4"/>
+                                <path d="M8 7h8M8 11h8M8 15h5" stroke="#FBC02D" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M16 15l2 2 4-4" stroke="#2E7D32" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
                         </div>
                         <div class="fw-bold">2. Сбор документов</div>
                         <div class="small text-muted mt-2">Вся бюрократия на нас</div>
@@ -183,7 +210,11 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M8 11l3 3 5-5"></path></svg>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L3 7v9c0 5 9 7 9 7s9-2 9-7V7l-9-5z" fill="#E8EAF6"/>
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#3F51B5" stroke-width="2"/>
+                                <path d="M9 12l2 2 4-4" stroke="#3F51B5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                         </div>
                         <div class="fw-bold">3. Подача в суд</div>
                         <div class="small text-muted mt-2">Защита ваших интересов</div>
@@ -192,17 +223,25 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#1e3a5f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" fill="#E8F5E9"/>
+                                <path d="M16 8l-6 6-2-2" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="#2E7D32" stroke-width="2"/>
+                            </svg>
                         </div>
                         <div class="fw-bold">4. Списание долгов</div>
                         <div class="small text-muted mt-2">Получение решения суда</div>
                     </div>
                 </div>
             </div>
+            <div class="scroll-hint">
+                <span class="d-block mb-1">Офис и контакты</span>
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16"><path d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/></svg>
+            </div>
         </div>
     </section>
 
-    <section class="reveal py-2" id="office-block">
+    <section class="reveal" id="office-block">
         <div class="container">
             <h2 class="text-center mb-5">Очная консультация</h2>
             <div class="row g-0 shadow border rounded overflow-hidden bg-white">
