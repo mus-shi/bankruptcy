@@ -9,79 +9,96 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     <style>
-        html, body { overflow-x: hidden; margin: 0; padding: 0; }
-        
-        /* Сжатие первого экрана для видимости стрелки */
-        .hero { padding: 30px 0 10px 0 !important; }
-        .action-divider { padding: 20px 0 !important; }
-        
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; color: #333; }
+
+        /* Эффекты для блоков */
         .equal-block {
             background-color: #f8f9fa;
-            border: 1px solid rgba(0,0,0,0.06);
+            border: 1px solid rgba(0,0,0,0.08);
             border-radius: 12px;
-            padding: 20px 15px !important;
-            height: 160px; /* Компактная высота */
+            padding: 35px 25px !important;
+            height: 220px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
+            transition: all 0.3s ease-in-out;
+            cursor: default;
+        }
+        /* ВОЗВРАЩЕНА АНИМАЦИЯ ПРИ НАВЕДЕНИИ */
+        .equal-block:hover { 
+            transform: translateY(-10px); 
+            background-color: #ffffff;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: #0d6efd;
         }
 
-        .icon-circle {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
+        .icon-wrapper {
+            height: 60px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
         }
 
-        /* Заголовок этапов - уменьшен отступ снизу */
+        /* Оформление заголовков как в образце */
         .process-title-frame {
             display: inline-block;
-            padding: 6px 30px;
+            padding: 12px 45px;
             border: 2px solid #1e3a5f;
             border-radius: 50px;
             color: #1e3a5f;
+            background-color: rgba(30, 58, 95, 0.04);
             font-weight: 700;
-            margin-bottom: 25px;
-            font-size: 1.1rem;
+            margin-bottom: 50px;
+            font-family: 'Playfair Display', serif;
         }
 
-        /* Секция шагов максимально компактная */
-        #steps-section {
-            padding: 20px 0 60px 0; 
-            position: relative;
-            background: #fff;
-        }
-
-        /* СТРЕЛКА - ТЕПЕРЬ ОНА ПОДТЯНУТА ВЫШЕ */
-        .scroll-down-link {
+        /* ПЕРВЫЙ ЭКРАН - фиксируем, чтобы карта не лезла */
+        .first-screen-container {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            justify-content: space-between;
+            padding: 40px 0;
+        }
+
+        /* СТРЕЛКА ВНИЗ */
+        .scroll-down-link {
             text-decoration: none;
             color: #1e3a5f;
-            margin-top: 30px;
-            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+            padding-bottom: 20px;
             transition: 0.3s;
         }
-        .scroll-down-link:hover { color: #0d6efd; transform: translateY(3px); }
-        .scroll-hint {
-            font-size: 9px;
+        .scroll-down-link:hover { color: #0d6efd; }
+        .scroll-hint-text {
+            display: block;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-bottom: 4px;
-            font-weight: 700;
-            opacity: 0.7;
+            margin-bottom: 8px;
+            font-weight: 600;
         }
 
-        .reveal { opacity: 0; transform: translateY(20px); transition: 0.8s ease-out; }
+        /* Карта и очная консультация */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Соцсети */
+        .btn-accent {
+            background-color: #1e3a5f;
+            color: white;
+            border: none;
+            padding: 15px 45px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-accent:hover { background-color: #2c5282; transform: scale(1.05); }
+
         .social-link .icon { fill: #6c757d; transition: 0.3s; }
         .social-link:hover .icon-telegram { fill: #0088cc; }
     </style>
@@ -90,128 +107,138 @@
 </head>
 <body>
 
-    <section id="quiz-section" class="py-4" style="display: none;">
-        <div class="container">
-            <div id="quiz-container"></div>
-        </div>
-    </section>
+    <div class="first-screen-container">
+        <section class="hero-section">
+            <div class="container text-center">
+                <h1 class="mb-5" style="font-family: 'Playfair Display', serif;">Оформите банкротство — не выходя из дома</h1>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="equal-block">
+                            <div class="icon-wrapper">
+                                <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            </div>
+                            <strong class="d-block mb-2">Вы ничем не рискуете</strong>
+                            <div class="small text-muted">Оплата — только после вынесения судебного акта и официального признания банкротом</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="equal-block">
+                            <div class="icon-wrapper">
+                                <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                            </div>
+                            <strong class="d-block mb-2">Стоп звонки коллекторов</strong>
+                            <div class="small text-muted">С первого дня процедуры — тишина. Мы берем общение с кредиторами на себя.</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="equal-block">
+                            <div class="icon-wrapper">
+                                <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                            </div>
+                            <strong class="d-block mb-2">Жильё и доход в безопасности</strong>
+                            <div class="small text-muted">Единственное жильё не арестуют, а доход сохраним в размере прожиточного минимума.</div>
+                        </div>
+                    </div>
+                </div>
 
-    <section class="hero">
-        <div class="container text-center">
-            <h1 class="mb-4" style="font-size: 1.8rem;">Оформите банкротство — не выходя из дома</h1>
-            <div class="row g-3 justify-content-center">
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0d6efd" stroke-width="2" class="mb-2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        <strong class="small d-block mb-1">Вы ничем не рискуете</strong>
-                        <div style="font-size: 0.75rem;" class="text-muted">Оплата — только после результата</div>
+                <div class="mt-5">
+                    <p class="text-muted mb-4">Проверьте, подходит ли вам банкротство. Ответьте на несколько вопросов — и я подскажу ваш путь.</p>
+                    <button id="show-form-btn" class="btn-accent">Начать онлайн →</button>
+                    <p class="small text-muted mt-3">Работаем при долгах от 200 000 ₽. Консультация бесплатно.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="steps-section">
+            <div class="container text-center">
+                <h2 class="mb-4"><span class="process-title-frame">Как проходит процедура</span></h2>
+                <div class="row g-4 justify-content-center">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="equal-block">
+                            <div class="icon-wrapper" style="background: #fff0f3; border-radius: 50%; width: 60px; height: 60px; margin: 0 auto 15px;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#ff4d6d"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                            </div>
+                            <strong class="d-block">1. Консультация</strong>
+                            <div class="small text-muted mt-2">Разбор вашей ситуации и подбор стратегии</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="equal-block">
+                            <div class="icon-wrapper" style="background: #f3eaff; border-radius: 50%; width: 60px; height: 60px; margin: 0 auto 15px;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#a06cd5"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-3 12H8v-2h8v2zm0-4H8V8h8v2z"/></svg>
+                            </div>
+                            <strong class="d-block">2. Сбор документов</strong>
+                            <div class="small text-muted mt-2">Вся бюрократическая работа на наших плечах</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="equal-block">
+                            <div class="icon-wrapper" style="background: #e0f2ff; border-radius: 50%; width: 60px; height: 60px; margin: 0 auto 15px;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#0077b6"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/></svg>
+                            </div>
+                            <strong class="d-block">3. Подача в суд</strong>
+                            <div class="small text-muted mt-2">Профессиональная защита интересов в суде</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="equal-block">
+                            <div class="icon-wrapper" style="background: #fff9db; border-radius: 50%; width: 60px; height: 60px; margin: 0 auto 15px;">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#fcc419"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                            </div>
+                            <strong class="d-block">4. Списание долгов</strong>
+                            <div class="small text-muted mt-2">Получение решения о полном освобождении от долгов</div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2" class="mb-2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0"/></svg>
-                        <strong class="small d-block mb-1">Стоп звонки коллекторов</strong>
-                        <div style="font-size: 0.75rem;" class="text-muted">С первого дня процедуры — тишина</div>
-                    </div>
+            </div>
+        </section>
+
+        <a href="#office-block" class="scroll-down-link">
+            <span class="scroll-hint-text">офис и контакты</span>
+            <svg width="35" height="35" fill="currentColor" viewBox="0 0 16 16"><path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/><path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+        </a>
+    </div>
+
+    <section class="reveal py-5" id="office-block" style="background-color: #fcfcfc;">
+        <div class="container">
+            <h2 class="text-center mb-5" style="font-family: 'Playfair Display', serif;">Очная консультация</h2>
+            <div class="row g-0 shadow border rounded overflow-hidden bg-white">
+                <div class="col-md-5 p-5">
+                    <h3 class="h4 mb-4">Для жителей Ставропольского края</h3>
+                    <p class="mb-4 text-muted">Вы можете прийти на очную консультацию в наш офис в г. Железноводск.</p>
+                    <p class="mb-1"><strong>Адрес:</strong></p>
+                    <p class="mb-4">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
+                    <p class="mb-1"><strong>Рабочее время:</strong></p>
+                    <p class="mb-4">Пн–Пт: 09:00 – 18:00<br>Сб–Вс: выходной</p>
+                    <a href="tel:+79991234567" class="btn btn-dark px-4 py-2">📞 Позвонить специалисту</a>
                 </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#795548" stroke-width="2" class="mb-2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                        <strong class="small d-block mb-1">Жильё в безопасности</strong>
-                        <div style="font-size: 0.75rem;" class="text-muted">Единственное жильё не арестуют</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="2" class="mb-2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        <strong class="small d-block mb-1">Полная анонимность</strong>
-                        <div style="font-size: 0.75rem;" class="text-muted">Ваши данные защищены законом РФ</div>
-                    </div>
+                <div class="col-md-7">
+                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c&amp;source=constructor" width="100%" height="450" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="action-divider text-center">
+    <footer class="text-center py-5 border-top bg-light">
         <div class="container">
-            <div class="small text-muted mb-2">Работаем при долгах от 200 000 ₽.</div>
-            <button id="show-form-btn" class="btn btn-success btn-lg px-5 py-2" style="font-size: 1rem; border-radius: 8px;">Начать онлайн →</button>
-        </div>
-    </section>
-
-    <section id="steps-section">
-        <div class="container text-center">
-            <span class="process-title-frame">Как проходит процедура</span>
-            <div class="row g-3 justify-content-center">
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <div class="icon-circle" style="background-color: #fff0f3;"><svg width="20" height="20" viewBox="0 0 24 24" fill="#ff4d6d"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
-                        <div class="fw-bold small">1. Консультация</div>
-                        <div style="font-size: 0.7rem;" class="text-muted mt-1">Разбор ситуации</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <div class="icon-circle" style="background-color: #f3eaff;"><svg width="20" height="20" viewBox="0 0 24 24" fill="#a06cd5"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-3 12H8v-2h8v2z"/></svg></div>
-                        <div class="fw-bold small">2. Сбор документов</div>
-                        <div style="font-size: 0.7rem;" class="text-muted mt-1">Вся бюрократия на нас</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <div class="icon-circle" style="background-color: #e0f2ff;"><svg width="20" height="20" viewBox="0 0 24 24" fill="#0077b6"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/></svg></div>
-                        <div class="fw-bold small">3. Подача в суд</div>
-                        <div style="font-size: 0.7rem;" class="text-muted mt-1">Защита интересов</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <div class="icon-circle" style="background-color: #fff9db;"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fcc419"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-                        <div class="fw-bold small">4. Списание долгов</div>
-                        <div style="font-size: 0.7rem;" class="text-muted mt-1">Решение суда</div>
-                    </div>
-                </div>
+            <div class="d-flex justify-content-center gap-4 mb-4">
+                <a href="#" class="social-link"><svg class="icon icon-telegram" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-1.897 8.941c-.143.647-.526.808-1.07.505l-2.887-2.128-1.392 1.339c-.153.153-.28.28-.572.28l.205-2.924 5.319-4.805c.232-.206-.05-.32-.361-.114l-6.574 4.14-2.831-.886c-.615-.192-.627-.615.128-.908l11.071-4.265c.513-.186.96.12.76.896z"/></svg></a>
             </div>
-
-            <a href="#office-block" class="scroll-down-link">
-                <span class="scroll-hint">офис и контакты</span>
-                <svg width="26" height="26" fill="currentColor" viewBox="0 0 16 16"><path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/><path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
-            </a>
-        </div>
-    </section>
-
-    <section class="reveal py-5" id="office-block">
-        <div class="container">
-            <h2 class="text-center mb-4">Очная консультация</h2>
-            <div class="row g-0 shadow-sm border rounded overflow-hidden">
-                <div class="col-md-6 p-4 bg-white">
-                    <h5>Для жителей Ставрополья</h5>
-                    <p class="small">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
-                    <p class="small">Пн–Пт: 09:00 – 18:00</p>
-                    <a href="tel:+79991234567" class="btn btn-dark btn-sm">📞 Позвонить</a>
-                </div>
-                <div class="col-md-6" style="height: 300px;">
-                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" width="100%" height="100%" frameborder="0"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="text-center py-4 border-top bg-light">
-        <div class="container">
-            <div class="d-flex justify-content-center gap-3 mb-3">
-                <a href="#" class="social-link"><svg class="icon" width="20" height="20" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-1.897 8.941c-.143.647-.526.808-1.07.505l-2.887-2.128-1.392 1.339c-.153.153-.28.28-.572.28l.205-2.924 5.319-4.805c.232-.206-.05-.32-.361-.114l-6.574 4.14-2.831-.886c-.615-.192-.627-.615.128-.908l11.071-4.265c.513-.186.96.12.76.896z"/></svg></a>
-            </div>
-            <p class="text-muted" style="font-size: 0.8rem;">© 2026 Мусаев Ш.И. Банкротство под ключ.</p>
+            <p class="text-muted small">© 2026 Мусаев Ш.И. Банкротство под ключ.<br>Работаем дистанционно по всей России.</p>
         </div>
     </footer>
 
     <script>
+        // Анимация появления при прокрутке
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
-            });
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    reveals[i].classList.add("active");
+                }
+            }
         }
         window.addEventListener("scroll", reveal);
         reveal();
