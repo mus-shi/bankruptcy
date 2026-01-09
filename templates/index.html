@@ -12,16 +12,14 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
 
-        /* Контейнер первого экрана для фиксации стрелки */
         .hero-viewport {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 2vh 0;
+            padding: 1.5vh 0;
         }
 
-        /* Карточки с эффектом наведения */
         .equal-block {
             background-color: #f8f9fa;
             border: 1px solid rgba(0,0,0,0.06);
@@ -43,19 +41,17 @@
             border-color: #0d6efd;
         }
 
-        /* Заголовок этапов */
         .process-title-frame {
             display: inline-block;
-            padding: 10px 40px;
+            padding: 8px 35px;
             border: 1.5px solid #1e3a5f;
             border-radius: 50px;
             color: #1e3a5f;
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-family: 'Playfair Display', serif;
         }
 
-        /* Кнопка как на образце */
         .btn-start-online {
             background-color: #1e3a5f;
             color: white;
@@ -67,7 +63,6 @@
         }
         .btn-start-online:hover { background-color: #2c5282; transform: scale(1.02); color: white; }
 
-        /* Стрелка */
         .scroll-indicator {
             text-align: center;
             text-decoration: none;
@@ -75,26 +70,29 @@
             display: block;
             margin-top: 10px;
         }
-        .scroll-indicator:hover { color: #0d6efd; }
         .scroll-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 5px; opacity: 0.8; }
 
-        /* Секция офиса */
-        .office-section { padding: 80px 0; background: #fff; }
+        .office-section { padding: 60px 0; background: #fff; }
         .office-card { border: 1px solid #eee; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
         
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
+        /* Соцсети */
         .social-icon { fill: #6c757d; transition: 0.3s; }
-        .social-link:hover .social-icon { fill: #0088cc; }
+        .link-tg:hover .social-icon { fill: #0088cc; }
+        .link-wa:hover .social-icon { fill: #25d366; }
+        .link-vk:hover .social-icon { fill: #4c75a3; }
+        
+        .footer-link { color: #6c757d; text-decoration: none; font-size: 0.75rem; transition: 0.3s; }
+        .footer-link:hover { color: #0d6efd; }
     </style>
-    <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
 </head>
 <body>
 
     <div class="hero-viewport">
         <header class="container text-center">
-            <h1 class="mb-4 mt-2" style="font-family: 'Playfair Display', serif; font-size: calc(1.5rem + 1vw);">Оформите банкротство — не выходя из дома</h1>
+            <h1 class="mb-4 mt-2" style="font-family: 'Playfair Display', serif; font-size: calc(1.4rem + 1vw);">Оформите банкротство — не выходя из дома</h1>
             <div class="row g-3">
                 <div class="col-lg-3 col-md-6">
                     <div class="equal-block">
@@ -127,7 +125,7 @@
             </div>
 
             <div class="mt-4">
-                <p class="text-muted small mb-3">Проверьте, подходит ли вам банкротство. Ответьте на несколько вопросов — и я подскажу ваш путь.</p>
+                <p class="text-muted small mb-3">Проверьте, подходит ли вам банкротство. Ответьте на вопросы — и я подскажу ваш путь.</p>
                 <button type="button" id="show-form-btn" class="btn-start-online">Начать онлайн →</button>
                 <p class="small text-muted mt-2" style="font-size: 0.75rem;">Работаем при долгах от 200 000 ₽. Консультация бесплатно.</p>
             </div>
@@ -137,39 +135,39 @@
             <span class="process-title-frame">Как проходит процедура</span>
             <div class="row g-3">
                 <div class="col-lg-3 col-md-6 col-6">
-                    <div class="equal-block" style="min-height: 140px; padding: 15px !important;">
-                        <div style="background: #fff0f3; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#ff4d6d"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <div class="equal-block" style="min-height: 130px; padding: 10px !important;">
+                        <div style="background: #fff0f3; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff4d6d"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                         </div>
-                        <strong>1. Консультация</strong>
-                        <div class="small text-muted">Разбор вашей ситуации</div>
+                        <strong class="small">1. Консультация</strong>
+                        <div style="font-size: 0.7rem;" class="text-muted">Разбор ситуации</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-6">
-                    <div class="equal-block" style="min-height: 140px; padding: 15px !important;">
-                        <div style="background: #f3eaff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#a06cd5"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-3 12H8v-2h8v2z"/></svg>
+                    <div class="equal-block" style="min-height: 130px; padding: 10px !important;">
+                        <div style="background: #f3eaff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#a06cd5"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-3 12H8v-2h8v2z"/></svg>
                         </div>
-                        <strong>2. Сбор документов</strong>
-                        <div class="small text-muted">Бюрократия на нас</div>
+                        <strong class="small">2. Сбор документов</strong>
+                        <div style="font-size: 0.7rem;" class="text-muted">Бюрократия на нас</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-6">
-                    <div class="equal-block" style="min-height: 140px; padding: 15px !important;">
-                        <div style="background: #e0f2ff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0077b6"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/></svg>
+                    <div class="equal-block" style="min-height: 130px; padding: 10px !important;">
+                        <div style="background: #e0f2ff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#0077b6"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/></svg>
                         </div>
-                        <strong>3. Подача в суд</strong>
-                        <div class="small text-muted">Защита интересов</div>
+                        <strong class="small">3. Подача в суд</strong>
+                        <div style="font-size: 0.7rem;" class="text-muted">Защита интересов</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-6">
-                    <div class="equal-block" style="min-height: 140px; padding: 15px !important;">
-                        <div style="background: #fff9db; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#fcc419"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                    <div class="equal-block" style="min-height: 130px; padding: 10px !important;">
+                        <div style="background: #fff9db; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#fcc419"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                         </div>
-                        <strong>4. Списание долгов</strong>
-                        <div class="small text-muted">Решение суда</div>
+                        <strong class="small">4. Списание долгов</strong>
+                        <div style="font-size: 0.7rem;" class="text-muted">Решение суда</div>
                     </div>
                 </div>
             </div>
@@ -177,7 +175,7 @@
 
         <a href="#office-block" class="scroll-indicator">
             <span class="scroll-label">офис и контакты</span>
-            <svg width="32" height="32" fill="currentColor" viewBox="0 0 16 16"><path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/><path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+            <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/><path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
         </a>
     </div>
 
@@ -188,18 +186,15 @@
                 <div class="col-md-6 p-5">
                     <h3 class="h4 mb-4" style="color: #1e3a5f;">Для жителей Ставропольского края</h3>
                     <p class="small text-muted mb-4">Вы можете прийти на очную консультацию в наш офис в г. Железноводск.</p>
-                    
                     <div class="mb-3">
                         <p class="mb-1"><strong>Адрес:</strong></p>
                         <p class="text-muted small">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
                     </div>
-
                     <div class="mb-4">
                         <p class="mb-1"><strong>Рабочее время:</strong></p>
                         <p class="text-muted small mb-0">Пн–Пт: 09:00 – 18:00</p>
                         <p class="text-muted small">Сб–Вс: выходной</p>
                     </div>
-
                     <div class="d-flex align-items-center gap-3">
                         <span class="small">Телефон:</span>
                         <a href="tel:+79991234567" class="btn btn-outline-dark btn-sm px-3">📞 Позвонить</a>
@@ -215,10 +210,18 @@
     <footer class="text-center py-5 bg-light border-top">
         <div class="container">
             <div class="d-flex justify-content-center gap-4 mb-4">
-                <a href="#" class="social-link"><svg class="social-icon" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-1.897 8.941c-.143.647-.526.808-1.07.505l-2.887-2.128-1.392 1.339c-.153.153-.28.28-.572.28l.205-2.924 5.319-4.805c.232-.206-.05-.32-.361-.114l-6.574 4.14-2.831-.886c-.615-.192-.627-.615.128-.908l11.071-4.265c.513-.186.96.12.76.896z"/></svg></a>
+                <a href="https://t.me/yourlink" class="social-link link-tg"><svg class="social-icon" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-1.897 8.941c-.143.647-.526.808-1.07.505l-2.887-2.128-1.392 1.339c-.153.153-.28.28-.572.28l.205-2.924 5.319-4.805c.232-.206-.05-.32-.361-.114l-6.574 4.14-2.831-.886c-.615-.192-.627-.615.128-.908l11.071-4.265c.513-.186.96.12.76.896z"/></svg></a>
+                <a href="https://wa.me/yourlink" class="social-link link-wa"><svg class="social-icon" width="24" height="24" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+                <a href="https://vk.com/yourlink" class="social-link link-vk"><svg class="social-icon" width="24" height="24" viewBox="0 0 24 24"><path d="M15.07 0a9.12 9.12 0 0 1 8.93 9.12v5.76a9.12 9.12 0 0 1-9.12 9.12H8.93A9.12 9.12 0 0 1 0 14.88V9.12A9.12 9.12 0 0 1 9.12 0h5.95zm.83 17c-4.66 0-7.33-3.2-7.44-8.52H6v1.54c0 3.32 1.51 5.27 4.41 6 1.76.44 3.7.1 5.49-.44V17z"/></svg></a>
             </div>
-            <p class="text-muted small mb-0">© 2026 Банкротство под ключ.</p>
-            <p class="text-muted small">Работаем дистанционно по всей России</p>
+            
+            <p class="text-muted small mb-3">© 2026 Банкротство под ключ. Работаем по всей России.</p>
+            
+            <div class="d-flex justify-content-center gap-3">
+                <a href="/privacy" class="footer-link">Политика конфиденциальности</a>
+                <span class="text-muted small">|</span>
+                <a href="/offer" class="footer-link">Публичная оферта</a>
+            </div>
         </div>
     </footer>
 
@@ -229,8 +232,8 @@
         </div>
     </section>
 
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
     <script>
-        // Анимация появления
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
@@ -240,12 +243,10 @@
         window.addEventListener("scroll", reveal);
         reveal();
 
-        // Обработка кнопки квиза
         document.getElementById('show-form-btn').addEventListener('click', function() {
             const quizSection = document.getElementById('quiz-section');
             if (quizSection) {
                 quizSection.style.display = 'block';
-                // Здесь вызывается ваша функция инициализации квиза из main.js
                 if (typeof initQuiz === 'function') initQuiz(); 
             }
         });
