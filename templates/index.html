@@ -12,7 +12,7 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Inter', sans-serif; color: #333; margin: 0; padding: 0; }
 
-        /* Контейнер для фиксации всего на первом экране */
+        /* Фиксация первого экрана */
         .hero-viewport {
             min-height: 100vh;
             display: flex;
@@ -22,6 +22,7 @@
             box-sizing: border-box;
         }
 
+        /* Карточки с анимацией hover */
         .equal-block {
             background-color: #f8f9fa;
             border: 1px solid rgba(0,0,0,0.06);
@@ -74,19 +75,15 @@
         }
         .scroll-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 5px; opacity: 0.8; }
 
+        /* Офис и карта */
         .office-section { padding: 60px 0; background: #fff; }
         .office-card { border: 1px solid #eee; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-        
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Соцсети и ховеры */
-        .social-link .icon { fill: #6c757d; transition: 0.3s; }
-        .social-link:hover .icon-telegram { fill: #0088cc; }
-        .social-link:hover .icon-whatsapp { fill: #25d366; }
-        .social-link:hover .icon-vk { fill: #4c75a3; }
-        .social-link:hover .icon-max { fill: #ffcc00; }
-        
+        /* Иконки соцсетей */
+        .footer-social-img { width: 24px; height: 24px; object-fit: contain; transition: 0.3s; filter: grayscale(1); }
+        .social-link:hover .footer-social-img { filter: grayscale(0); transform: scale(1.1); }
         .footer-link { color: #6c757d; text-decoration: none; font-size: 0.75rem; transition: 0.3s; }
         .footer-link:hover { color: #0d6efd; }
     </style>
@@ -143,7 +140,6 @@
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff4d6d"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
                         </div>
                         <strong class="small">1. Консультация</strong>
-                        <div style="font-size: 0.7rem;" class="text-muted">Разбор ситуации</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-6">
@@ -152,7 +148,6 @@
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="#a06cd5"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm-3 12H8v-2h8v2z"/></svg>
                         </div>
                         <strong class="small">2. Сбор документов</strong>
-                        <div style="font-size: 0.7rem;" class="text-muted">Бюрократия на нас</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-6">
@@ -161,7 +156,6 @@
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="#0077b6"><path d="M12 2L3 7v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-9-5z"/></svg>
                         </div>
                         <strong class="small">3. Подача в суд</strong>
-                        <div style="font-size: 0.7rem;" class="text-muted">Защита интересов</div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-6">
@@ -170,7 +164,6 @@
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="#fcc419"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                         </div>
                         <strong class="small">4. Списание долгов</strong>
-                        <div style="font-size: 0.7rem;" class="text-muted">Решение суда</div>
                     </div>
                 </div>
             </div>
@@ -212,23 +205,22 @@
 
     <footer class="text-center py-5 bg-light border-top">
         <div class="container">
-            <div class="d-flex justify-content-center gap-4 mb-4">
+            <div class="d-flex justify-content-center align-items-center gap-4 mb-4">
                 <a href="#" class="social-link">
-                    <svg class="icon icon-telegram" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-1.897 8.941c-.143.647-.526.808-1.07.505l-2.887-2.128-1.392 1.339c-.153.153-.28.28-.572.28l.205-2.924 5.319-4.805c.232-.206-.05-.32-.361-.114l-6.574 4.14-2.831-.886c-.615-.192-.627-.615.128-.908l11.071-4.265c.513-.186.96.12.76.896z"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#6c757d" class="footer-social-img"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-1.897 8.941c-.143.647-.526.808-1.07.505l-2.887-2.128-1.392 1.339c-.153.153-.28.28-.572.28l.205-2.924 5.319-4.805c.232-.206-.05-.32-.361-.114l-6.574 4.14-2.831-.886c-.615-.192-.627-.615.128-.908l11.071-4.265c.513-.186.96.12.76.896z"/></svg>
                 </a>
                 <a href="#" class="social-link">
-                    <svg class="icon icon-whatsapp" width="24" height="24" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="#6c757d" class="footer-social-img"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 </a>
-                <a href="#" class="social-link">
-                    <svg class="icon icon-vk" width="24" height="24" viewBox="0 0 24 24"><path d="M15.072 0H8.928C2.52 0 0 2.52 0 8.928v6.144C0 21.48 2.52 24 8.928 24h6.144C21.48 24 24 21.48 24 15.072V8.928C24 2.52 21.48 0 15.072 0zM17.88 17.04c-.12 0-.24-.048-.336-.12-.456-.36-.888-.744-1.296-1.152-.408-.384-.744-.816-1.008-1.296-.072-.12-.048-.288.072-.384.288-.24.576-.504.84-.792.48-.528.912-1.08 1.272-1.68.048-.096.024-.216-.072-.288-.048-.024-.096-.048-.144-.048h-2.112c-.072 0-.144.024-.192.096-.288.384-.624.744-.984 1.08-.312.288-.648.552-1 .792-.048.024-.12.048-.168.048s-.12-.024-.168-.072c-.144-.144-.24-.312-.288-.504-.072-.36-.12-.72-.12-1.08V9.168c0-.072-.024-.144-.096-.192-.048-.048-.12-.072-.192-.072h-3.408c-.072 0-.144.024-.192.096-.048.048-.048.144-.024.192.12.312.336.576.624.744.288.168.48.432.552.744.048.24.072.48.072.72v2.472c0 .24-.048.456-.144.648-.096.168-.24.288-.432.336-.096.024-.192.024-.288.024-.312 0-.624-.12-.864-.336-.36-.312-.672-.648-.936-1.032-.24-.336-.456-.72-.648-1.128 0-.096-.096-.168-.192-.168H5.664c-.072 0-.144.024-.192.096-.024.048-.024.12 0 .168.36.768.816 1.488 1.344 2.136.528.648 1.128 1.224 1.8 1.728.816.6 1.704 1.032 2.64 1.296.888.24 1.776.36 2.688.36h.768c.072 0 .144-.024.192-.096.048-.048.072-.12.072-.192V15.12c.384-.336.792-.648 1.224-.936.432-.264.888-.48 1.344-.648.048-.024.096-.024.144-.024h.024c.072 0 .12.024.168.072.24.24.456.504.648.792.216.312.432.6.672.864.072.072.168.12.264.12h2.232c.072 0 .144-.024.192-.096.024-.048.024-.12 0-.168-.144-.456-.36-.888-.624-1.272-.24-.36-.504-.696-.816-.984z"/></svg>
+                <a href="https://logo-teka.com/vk/" class="social-link">
+                    <img src="https://logo-teka.com/wp-content/uploads/2025/06/vk-logo.svg" alt="VK" class="footer-social-img">
                 </a>
-                <a href="#" class="social-link">
-                    <svg class="icon icon-max" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.1 16.5c0 .3-.2.5-.5.5h-1.2c-.3 0-.5-.2-.5-.5v-4.6l-2.2 4.3c-.1.2-.3.3-.5.3s-.4-.1-.5-.3l-2.2-4.3v4.6c0 .3-.2.5-.5.5H7.7c-.3 0-.5-.2-.5-.5V7.5c0-.3.2-.5.5-.5h1.5c.2 0 .4.1.5.3l2.3 4.4 2.3-4.4c.1-.2.3-.3.5-.3h1.5c.3 0 .5.2.5.5v9z"/></svg>
+                <a href="https://commons.wikimedia.org/wiki/File:Max_logo_2025.png" class="social-link">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/32px-Max_logo_2025.png" alt="MAX" class="footer-social-img">
                 </a>
             </div>
             
             <p class="text-muted small mb-3">© 2026 Банкротство под ключ. Работаем по всей России.</p>
-            
             <div class="d-flex justify-content-center gap-3">
                 <a href="/privacy" class="footer-link">Политика конфиденциальности</a>
                 <span class="text-muted small">|</span>
@@ -246,7 +238,6 @@
 
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
     <script>
-        // Анимация при скролле
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             reveals.forEach(el => {
@@ -256,7 +247,6 @@
         window.addEventListener("scroll", reveal);
         reveal();
 
-        // Открытие квиза
         document.getElementById('show-form-btn').addEventListener('click', function() {
             const quizSection = document.getElementById('quiz-section');
             if (quizSection) {
