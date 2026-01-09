@@ -9,31 +9,28 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     <style>
-        /* Эффект масштаба 90% для компактности при 100% в браузере */
+        /* Масштабирование страницы */
         html { 
             zoom: 0.9; 
             -moz-transform: scale(0.9); 
             -moz-transform-origin: 0 0;
         }
 
-        /* Унифицированные блоки для преимуществ и шагов */
+        /* Унифицированные блоки (Преимущества и Шаги) */
         .equal-block {
             background-color: #f8f9fa;
             border: 1px solid rgba(0,0,0,0.08);
             border-radius: 12px;
             padding: 30px 20px !important;
-            height: 200px; /* Фиксированная высота для симметрии */
+            height: 200px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
         }
-        .equal-block:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        }
+        .equal-block:hover { transform: translateY(-5px); }
 
         .icon-wrapper {
             height: 60px;
@@ -43,13 +40,12 @@
             justify-content: center;
         }
 
-        /* Центрированная кнопка и отступы */
+        /* Центральная зона с кнопкой */
         .action-divider {
-            padding: 80px 0;
-            background: #fff;
+            padding: 70px 0;
         }
 
-        /* Заголовок процедур в рамке */
+        /* Заголовок в рамке */
         .process-title-frame {
             display: inline-block;
             padding: 12px 45px;
@@ -58,15 +54,20 @@
             color: #1e3a5f;
             background-color: rgba(30, 58, 95, 0.04);
             font-weight: 700;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
-        /* Блок очной консультации и его анимация */
+        /* Секция шагов с отступом снизу для симметрии */
+        #steps-section {
+            padding-bottom: 80px; 
+        }
+
+        /* Блок консультации (появление при скролле) */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 1.2s ease-out;
-            margin-top: 150px;
+            transform: translateY(30px);
+            transition: all 1s ease-out;
+            margin-top: 20px; /* Поднят ближе к шагам */
             margin-bottom: 100px;
         }
         .reveal.active {
@@ -74,7 +75,7 @@
             transform: translateY(0);
         }
 
-        /* Стили для иконок соцсетей */
+        /* Соцсети в футере */
         .social-link .img-grayscale { filter: grayscale(100%); opacity: 0.7; transition: 0.3s; }
         .social-link:hover .img-grayscale { filter: grayscale(0%); opacity: 1; }
         .social-link .icon { fill: #6c757d; transition: 0.3s; }
@@ -90,7 +91,7 @@
     <section id="quiz-section" class="py-5" style="display: none;">
         <div class="container">
             <div class="d-flex justify-content-end mb-3">
-                <button id="hide-quiz-btn" class="btn btn-sm btn-outline-secondary">✕ Закрыть опрос</button>
+                <button id="hide-quiz-btn" class="btn btn-sm btn-outline-secondary">✕ Закрыть</button>
             </div>
             <div id="quiz-container"></div>
         </div>
@@ -98,7 +99,7 @@
 
     <section class="hero py-5">
         <div class="container">
-            <h1 class="text-center mb-5" style="font-size: 2.5rem;">Оформите банкротство — не выходя из дома</h1>
+            <h1 class="text-center mb-5">Оформите банкротство — не выходя из дома</h1>
             <div class="row g-4 justify-content-center">
                 <div class="col-md-3">
                     <div class="equal-block">
@@ -112,7 +113,7 @@
                 <div class="col-md-3">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0" stroke="#6c757d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path><line x1="1" y1="1" x2="23" y2="23" stroke="#dc3545" stroke-width="2" stroke-linecap="round"></line></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0"></path><line x1="1" y1="1" x2="23" y2="23" stroke="#dc3545"></line></svg>
                         </div>
                         <strong class="d-block mb-2">Стоп звонки коллекторов</strong>
                         <div class="small text-muted">С первого дня процедуры — тишина</div>
@@ -121,7 +122,7 @@
                 <div class="col-md-3">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#795548" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#795548" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                         </div>
                         <strong class="d-block mb-2">Жильё в безопасности</strong>
                         <div class="small text-muted">Единственное жильё не арестуют</div>
@@ -130,7 +131,7 @@
                 <div class="col-md-3">
                     <div class="equal-block">
                         <div class="icon-wrapper">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                         </div>
                         <strong class="d-block mb-2">Полная анонимность</strong>
                         <div class="small text-muted">Ваши данные защищены законом РФ</div>
@@ -143,12 +144,12 @@
     <section class="action-divider text-center">
         <div class="container">
             <p class="text-muted mb-2">Проверьте, подходит ли вам банкротство. Ответьте на вопросы — и я подскажу ваш путь.</p>
-            <div class="fw-bold mb-4" style="font-size: 1.1rem;">Работаем при долгах от 200 000 ₽. — Консультация бесплатно.</div>
-            <button id="show-form-btn" class="btn-accent btn-animate-pulse" style="padding: 18px 60px; font-size: 1.2rem;">Начать онлайн →</button>
+            <div class="fw-bold mb-4">Работаем при долгах от 200 000 ₽. — Консультация бесплатно.</div>
+            <button id="show-form-btn" class="btn-accent btn-animate-pulse" style="padding: 16px 55px; font-size: 1.1rem;">Начать онлайн →</button>
         </div>
     </section>
 
-    <section class="py-5" id="steps-section">
+    <section id="steps-section">
         <div class="container text-center">
             <h2 class="mb-4"><span class="process-title-frame">Как проходит процедура</span></h2>
             <div class="row g-4">
@@ -163,14 +164,14 @@
                     <div class="equal-block">
                         <div class="icon-wrapper"><img src="https://img.icons8.com/color/48/document.png" width="45"></div>
                         <div class="fw-bold">2. Сбор документов</div>
-                        <div class="small text-muted mt-2">Берем всю бюрократию на себя</div>
+                        <div class="small text-muted mt-2">Вся бюрократия на нас</div>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="equal-block">
                         <div class="icon-wrapper"><img src="https://img.icons8.com/color/48/law.png" width="45"></div>
                         <div class="fw-bold">3. Подача в суд</div>
-                        <div class="small text-muted mt-2">Представляем ваши интересы</div>
+                        <div class="small text-muted mt-2">Защита ваших интересов</div>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -184,24 +185,18 @@
         </div>
     </section>
 
-    <section class="py-5 reveal" id="office-block">
+    <section class="reveal" id="office-block">
         <div class="container">
             <h2 class="text-center mb-5">Очная консультация</h2>
-            <div class="row g-0 shadow-lg border rounded overflow-hidden">
-                <div class="col-md-6 p-5 consultation-block" style="background: #fff;">
+            <div class="row g-0 shadow border rounded overflow-hidden bg-white">
+                <div class="col-md-6 p-5 consultation-block">
                     <h3 class="h4 mb-4" style="color: #1e3a5f;">Для жителей Ставропольского края</h3>
                     <p class="mb-4">Приглашаем вас на очную консультацию в наш офис в городе Железноводске.</p>
-                    
                     <p class="mb-1"><strong>Адрес:</strong></p>
                     <p class="mb-4">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
-                    
                     <p class="mb-1"><strong>Рабочее время:</strong></p>
-                    <p class="mb-4">
-                        Пн–Пт: 09:00 – 18:00<br>
-                        <span class="text-muted">Сб–Вс: выходной</span>
-                    </p>
-                    
-                    <a href="tel:+79991234567" class="btn btn-dark px-5 py-2">📞 Позвонить специалисту</a>
+                    <p class="mb-4">Пн–Пт: 09:00 – 18:00<br><span class="text-muted">Сб–Вс: выходной</span></p>
+                    <a href="tel:+79991234567" class="btn btn-dark px-4 py-2">📞 Позвонить специалисту</a>
                 </div>
                 <div class="col-md-6">
                     <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c&amp;source=constructor" width="100%" height="450" frameborder="0"></iframe>
@@ -210,32 +205,27 @@
         </div>
     </section>
 
-    <footer class="text-center py-5 border-top" style="background: #fdfdfd;">
+    <footer class="text-center py-5 border-top">
         <div class="container">
-            <p class="mb-4 text-secondary">© 2026 Юридическая практика Мусаева Ш.И.</p>
+            <h5 class="mb-2">Банкротство под ключ</h5>
+            <p class="mb-4 text-secondary">Работаем дистанционно по всей России.</p>
+            
             <div class="d-flex justify-content-center align-items-center gap-4 mb-4">
-                <a href="#" class="social-link">
-                    <svg class="icon icon-vk" width="26" height="26" viewBox="0 0 24 24"><path d="M13.162 18.994c-5.674 0-8.913-3.886-9.05-10.332h2.844c.095 4.713 2.175 6.712 3.822 7.124V8.662h2.675v4.067c1.644-.175 3.345-2.012 3.924-4.067h2.675c-.456 2.562-2.35 4.398-3.709 5.353 1.359.954 3.562 2.536 4.461 5.033h-2.939c-.702-2.188-2.445-3.886-4.413-4.085v4.085h-1.29z"/></svg>
-                </a>
-                <a href="#" class="social-link">
-                    <svg class="icon icon-telegram" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-1.897 8.941c-.143.647-.526.808-1.07.505l-2.887-2.128-1.392 1.339c-.153.153-.28.28-.572.28l.205-2.924 5.319-4.805c.232-.206-.05-.32-.361-.114l-6.574 4.14-2.831-.886c-.615-.192-.627-.615.128-.908l11.071-4.265c.513-.186.96.12.76.896z"/></svg>
-                </a>
-                <a href="#" class="social-link">
-                    <svg class="icon icon-whatsapp" width="24" height="24" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.887.002-5.462-4.415-9.89-9.881-9.891-5.446 0-9.884 4.438-9.887 9.887-.001 2.22.634 4.385 1.841 6.202l-1.013 3.7 3.809-1.003zm10.146-7.534c-.269-.135-1.594-.786-1.841-.876-.247-.09-.427-.135-.607.135-.18.27-.697.876-.854 1.057-.158.18-.315.203-.585.068-.269-.135-1.138-.42-2.167-1.338-.802-.715-1.342-1.599-1.5-1.869-.158-.27-.017-.417.118-.552.122-.122.269-.315.405-.473.135-.158.18-.27.27-.45.09-.18.045-.338-.023-.473-.068-.135-.607-1.463-.832-2.003-.219-.529-.441-.458-.607-.466-.157-.008-.338-.009-.518-.009-.18 0-.473.068-.72.338-.247.27-.945.923-.945 2.25s.967 2.61 1.102 2.79c.135.18 1.902 2.903 4.608 4.07.643.277 1.146.442 1.538.566.646.205 1.233.176 1.697.107.518-.077 1.594-.653 1.82-1.283.226-.63.226-1.171.157-1.283-.069-.113-.247-.18-.517-.315z"/></svg>
-                </a>
-                <a href="#" class="social-link">
-                    <img width="26" height="26" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" class="img-grayscale" alt="MAX">
-                </a>
+                <a href="#" class="social-link"><svg class="icon icon-vk" width="24" height="24" viewBox="0 0 24 24"><path d="M13.162 18.994c-5.674 0-8.913-3.886-9.05-10.332h2.844c.095 4.713 2.175 6.712 3.822 7.124V8.662h2.675v4.067c1.644-.175 3.345-2.012 3.924-4.067h2.675c-.456 2.562-2.35 4.398-3.709 5.353 1.359.954 3.562 2.536 4.461 5.033h-2.939c-.702-2.188-2.445-3.886-4.413-4.085v4.085h-1.29z"/></svg></a>
+                <a href="#" class="social-link"><svg class="icon icon-telegram" width="22" height="22" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.891 8.146l-1.897 8.941c-.143.647-.526.808-1.07.505l-2.887-2.128-1.392 1.339c-.153.153-.28.28-.572.28l.205-2.924 5.319-4.805c.232-.206-.05-.32-.361-.114l-6.574 4.14-2.831-.886c-.615-.192-.627-.615.128-.908l11.071-4.265c.513-.186.96.12.76.896z"/></svg></a>
+                <a href="#" class="social-link"><svg class="icon icon-whatsapp" width="22" height="22" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.438 9.889-9.887.002-5.462-4.415-9.89-9.881-9.891-5.446 0-9.884 4.438-9.887 9.887-.001 2.22.634 4.385 1.841 6.202l-1.013 3.7 3.809-1.003zm10.146-7.534c-.269-.135-1.594-.786-1.841-.876-.247-.09-.427-.135-.607.135-.18.27-.697.876-.854 1.057-.158.18-.315.203-.585.068-.269-.135-1.138-.42-2.167-1.338-.802-.715-1.342-1.599-1.5-1.869-.158-.27-.017-.417.118-.552.122-.122.269-.315.405-.473.135-.158.18-.27.27-.45.09-.18.045-.338-.023-.473-.068-.135-.607-1.463-.832-2.003-.219-.529-.441-.458-.607-.466-.157-.008-.338-.009-.518-.009-.18 0-.473.068-.72.338-.247.27-.945.923-.945 2.25s.967 2.61 1.102 2.79c.135.18 1.902 2.903 4.608 4.07.643.277 1.146.442 1.538.566.646.205 1.233.176 1.697.107.518-.077 1.594-.653 1.82-1.283.226-.63.226-1.171.157-1.283-.069-.113-.247-.18-.517-.315z"/></svg></a>
+                <a href="#" class="social-link"><img width="24" height="24" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" class="img-grayscale"></a>
             </div>
+            
             <div class="small">
                 <a href="/offer" class="text-muted mx-3 text-decoration-none">Оферта</a>
                 <a href="/privacy" class="text-muted mx-3 text-decoration-none">Приватность</a>
+                <p class="mt-3 text-muted">© 2026 Мусаев Ш.И.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Анимация появления блоков при скролле
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -247,7 +237,7 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal(); // Запуск при загрузке
+        reveal();
     </script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
