@@ -3,64 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // === reCAPTCHA v3 ===
     const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
 
-    // === ЛОГИКА ТЕМНОЙ ТЕМЫ ===
-    const themeLightBtn = document.getElementById('theme-light');
-    const themeDarkBtn = document.getElementById('theme-dark');
-    const body = document.body;
-
-    // Проверяем сохраненную тему
-    if (localStorage.getItem('theme') === 'dark') {
-        enableDarkMode();
-    }
-
-    if (themeLightBtn && themeDarkBtn) {
-        themeLightBtn.addEventListener('click', () => {
-            disableDarkMode();
-        });
-        themeDarkBtn.addEventListener('click', () => {
-            enableDarkMode();
-        });
-    }
-
-    function enableDarkMode() {
-        body.classList.add('dark-mode');
-        themeDarkBtn.classList.add('active');
-        themeLightBtn.classList.remove('active');
-        localStorage.setItem('theme', 'dark');
-    }
-
-    function disableDarkMode() {
-        body.classList.remove('dark-mode');
-        themeLightBtn.classList.add('active');
-        themeDarkBtn.classList.remove('active');
-        localStorage.setItem('theme', 'light');
-    }
-
-
-    // === ЛИПКОЕ МЕНЮ (Sticky Header) ===
-    const stickyHeader = document.getElementById('sticky-header');
-    
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-            stickyHeader.classList.add('visible');
-        } else {
-            stickyHeader.classList.remove('visible');
-        }
-    });
-
-    // Функция скролла и открытия квиза из липкого меню
-    window.scrollToQuiz = function() {
-        // Скроллим к якорю
-        document.getElementById('cta-anchor').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Открываем квиз (эмулируем клик по главной кнопке, если квиз еще закрыт)
-        const quizWrapper = document.getElementById('quiz-wrapper');
-        if (quizWrapper.style.display === 'none' || quizWrapper.style.display === '') {
-            document.getElementById('show-form-btn').click();
-        }
-    };
-
-
     // === ЛОГИКА "ВЫПАДАЮЩЕГО" ОПРОСА ===
     const startBtn = document.getElementById('show-form-btn');
     const quizWrapper = document.getElementById('quiz-wrapper');
@@ -68,14 +10,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (startBtn && quizWrapper) {
         startBtn.addEventListener('click', () => {
-            introBlock.style.opacity = '0';
+            // 1. Скрываем кнопку и текст
+            introBlock.style.display = 'none';
+            
+            // 2. Показываем блок опроса
+            quizWrapper.style.display = 'block';
+            
+            // 3. Запускаем анимацию (небольшая задержка для CSS transition)
             setTimeout(() => {
-                introBlock.style.display = 'none';
-                quizWrapper.style.display = 'block';
-                setTimeout(() => {
-                    quizWrapper.classList.add('active');
-                }, 10);
-            }, 300);
+                quizWrapper.classList.add('active');
+            }, 10);
+
+            // 4. Инициализируем 1 шаг
             showStep(1);
         });
     }
@@ -84,10 +30,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const quizContainer = document.getElementById('quiz-container');
 
     const questions = {
-        1: { text: "Общая сумма долга?", type: "slider" },
-        2: { text: "Есть аресты на картах?", type: "boolean" },
-        3: { text: "Есть ипотека или авто?", type: "boolean" },
-        4: { text: "Куда прислать результат?", type: "final" }
+        1: { 
+            text: "Общая сумма долга?", 
+            type: "slider", 
+            icon: "https://img.icons8.com/color/48/coins.png" 
+        },
+        2: { 
+            text: "Есть аресты на картах?", 
+            type: "boolean", 
+            icon: "https://img.icons8.com/color/48/calendar.png" 
+        },
+        3: { 
+            text: "Есть ипотека или авто?", 
+            type: "boolean", 
+            icon: "https://img.icons8.com/color/48/real-estate.png" 
+        },
+        4: { 
+            text: "Куда прислать результат?", 
+            type: "final" 
+        }
     };
 
     let currentStep = 1;
@@ -99,8 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Шапка квиза
         let html = `
-            <div class="progress" style="height: 4px; margin-bottom: 20px;">
-                <div class="progress-bar" role="progressbar" style="width: ${progress}%; background-color: var(--quiz-theme-color);"></div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                     role="progressbar" style="width: ${progress}%; background-color: #1e3a5f;"></div>
             </div>
             <div class="text-center mb-3">
                 <h5 class="fw-bold mb-0">${questions[step].text}</h5>
@@ -108,11 +70,12 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
 
         if (questions[step].type === "slider") {
+            // ПОЛЗУНОК
             html += `
                 <div class="text-center px-2">
                     <span id="range-value-display" class="range-value-label">500 000 ₽</span>
                     <input type="range" class="form-range" id="debt-range" min="200000" max="5050000" step="50000" value="500000">
-                    <div class="d-flex justify-content-between text-muted-custom small mt-1 mb-4" style="font-size: 0.7rem;">
+                    <div class="d-flex justify-content-between text-muted small mt-1 mb-4" style="font-size: 0.7rem;">
                         <span>200к</span>
                         <span>> 5 млн</span>
                     </div>
@@ -120,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
         } else if (questions[step].type === "boolean") {
+            // МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА)
             html += `
                 <div class="quiz-grid-options">
                     <button class="btn-quiz-option" onclick="nextQuizStep('Да')">Да</button>
@@ -127,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
         } else {
+            // ФОРМА КОНТАКТОВ
             html += `
                 <div class="px-2">
                     <div class="mb-2">
@@ -137,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div class="form-check mb-3">
                         <input class="form-check-input" type="checkbox" id="agreeCheckbox" required>
-                        <label class="form-check-label small text-muted-custom" for="agreeCheckbox" style="font-size: 0.7rem; line-height: 1.2;">
+                        <label class="form-check-label small" for="agreeCheckbox" style="font-size: 0.7rem; line-height: 1.2;">
                             Согласен с <a href="/privacy" target="_blank">политикой конфиденциальности</a>
                         </label>
                     </div>
@@ -208,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="text-center py-4">
                                 <div style="font-size: 3rem;">✅</div>
                                 <h4 class="fw-bold mt-2">Принято!</h4>
-                                <p class="small text-muted-custom">Я скоро позвоню вам.</p>
+                                <p class="small text-muted">Я скоро позвоню вам.</p>
                             </div>
                         `;
                     } else {
