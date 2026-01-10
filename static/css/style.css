@@ -22,64 +22,81 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
-/* === АНИМАЦИИ ИКОНОК (HOVER ЭФФЕКТЫ) === */
+/* === АНИМАЦИИ (HOVER ЭФФЕКТЫ) === */
 
-/* 1. ЩИТ (Заливка) */
-.shield-body {
-    transition: fill 0.3s ease;
-}
-/* Срабатывает при наведении на весь блок */
-.equal-block:hover .shield-body {
-    fill: #0d6efd;
-    fill-opacity: 0.15;
-}
+/* --- ПРЕИМУЩЕСТВА --- */
+.shield-body { transition: fill 0.3s ease; }
+.equal-block:hover .shield-body { fill: #0d6efd; fill-opacity: 0.15; }
 
-/* 2. КОЛОКОЛЬЧИК (Зачеркивание) */
-.bell-slash {
-    stroke-opacity: 0;
-    transition: stroke-opacity 0.3s ease;
-}
-.equal-block:hover .bell-slash {
-    stroke-opacity: 1;
-}
+.bell-slash { stroke-opacity: 0; transition: stroke-opacity 0.3s ease; }
+.equal-block:hover .bell-slash { stroke-opacity: 1; }
 
-/* 3. ЗАМОК (Закрытие) */
-.lock-shackle {
-    transform-origin: 17px 11px;
-    transform: rotateY(180deg) translateX(-10px); /* Исходно открыт */
-    opacity: 0.7;
-    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-.equal-block:hover .lock-shackle {
-    transform: rotateY(0) translateX(0); /* Закрывается */
-    opacity: 1;
-}
+.lock-shackle { transform-origin: 17px 11px; transform: rotateY(180deg) translateX(-10px); opacity: 0.7; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+.equal-block:hover .lock-shackle { transform: rotateY(0) translateX(0); opacity: 1; }
 
-/* 4. ТРУБА И ДЫМ */
-.equal-block:hover .chimney {
-    opacity: 1 !important;
-}
-
-.smoke {
-    opacity: 0;
-    transform-origin: center;
-}
-
+.equal-block:hover .chimney { opacity: 1 !important; }
+.smoke { opacity: 0; transform-origin: center; }
 @keyframes smokeRise {
     0% { transform: translateY(0) scale(1); opacity: 0; }
     50% { opacity: 0.6; }
     100% { transform: translateY(-10px) scale(1.5); opacity: 0; }
 }
+.equal-block:hover .smoke-1 { animation: smokeRise 2s infinite ease-out; animation-delay: 0.3s; }
+.equal-block:hover .smoke-2 { animation: smokeRise 2s infinite ease-out 1s; }
 
-.equal-block:hover .smoke-1 {
-    animation: smokeRise 2s infinite ease-out;
-    animation-delay: 0.3s;
+/* --- ШАГИ (НОВЫЕ АНИМАЦИИ) --- */
+/* 1. Чат (Консультация) - легкое подпрыгивание */
+.step-icon-consult { transition: transform 0.3s ease; }
+.equal-block:hover .step-icon-consult { transform: scale(1.1) rotate(-5deg); }
+
+/* 2. Документ (Сбор) - Линии появляются */
+.doc-line { stroke-dasharray: 10; stroke-dashoffset: 10; transition: stroke-dashoffset 0.5s ease; }
+.equal-block:hover .doc-line { stroke-dashoffset: 0; }
+.doc-fold { fill-opacity: 0; transition: fill-opacity 0.3s; }
+.equal-block:hover .doc-fold { fill-opacity: 0.2; }
+
+/* 3. Весы (Суд) - Наклон */
+.scale-plate { transition: transform 0.5s ease-in-out; transform-origin: center top; }
+.equal-block:hover .scale-left { transform: translateY(2px); }
+.equal-block:hover .scale-right { transform: translateY(-2px); }
+
+/* 4. Солнце (Свобода) - Вращение */
+.sun-rays { transform-origin: 12px 12px; transition: transform 1s ease-out; }
+.equal-block:hover .sun-rays { transform: rotate(180deg); }
+
+
+/* === 3. СТИЛИ ПОЛЗУНКА (SLIDER) === */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
 }
-.equal-block:hover .smoke-2 {
-    animation: smokeRise 2s infinite ease-out 1s;
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    background: #1e3a5f;
+    cursor: pointer;
+    margin-top: -10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    cursor: pointer;
+    background: #dee2e6;
+    border-radius: 3px;
+}
+.range-value-label {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e3a5f;
+    margin-bottom: 1rem;
+    display: block;
 }
 
-/* === 3. КНОПКА "НАЧАТЬ ОНЛАЙН" === */
+/* === 4. КНОПКА "НАЧАТЬ ОНЛАЙН" === */
 .btn-accent {
     background-color: var(--accent-color);
     color: #fff !important;
@@ -89,41 +106,6 @@ h1, h2, h3 {
     font-weight: 600;
     font-size: 1.1rem;
     box-shadow: 0 6px 20px rgba(45, 94, 74, 0.3);
-}
-
-/* === 4. ШАГИ ПРОЦЕДУРЫ === */
-.process-step {
-    background: var(--bg-light);
-    border: 1px solid rgba(0,0,0,0.1);
-    padding: 30px 20px;
-    border-radius: 6px;
-    flex: 1;
-    min-width: 200px;
-    position: relative;
-    transition: all 0.3s ease;
-}
-.process-step:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-}
-
-.step-number {
-    position: absolute;
-    top: -13px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--accent-color);
-    color: #ffffff !important;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    font-size: 0.9rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 10;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 /* === 5. БЛОК ОЧНОЙ КОНСУЛЬТАЦИИ === */
@@ -151,7 +133,7 @@ footer a, footer p {
     background-color: var(--bg-body);
 }
 
-/* Шкала загрузки. */
+/* Шкала загрузки */
 .progress {
     height: 6px !important;
     border-radius: 3px !important;
