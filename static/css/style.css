@@ -203,19 +203,3 @@ footer a, footer p {
         max-width: 100%;
     }
 }
-
-
-/* === Added animations === */
-.step-block .step-icon{transition:transform .3s ease}
-.step-block:hover .step-icon{transform:scale(1.12) rotate(-6deg)}
-.bg-step-blue{background:#E7F1FF}
-.bg-step-purple{background:#EFE7FF}
-.bg-step-green{background:#E8F8F0}
-.bg-step-orange{background:#FFF2E5}
-.house-body{transition:transform .3s ease,filter .3s ease,stroke .3s ease}
-.equal-block:hover .house-body{transform:translateY(-3px);stroke:#0d6efd;filter:drop-shadow(0 0 6px rgba(13,110,253,.5))}
-.lock-wrapper{position:relative}
-.key-svg{position:absolute;right:-20px;bottom:-6px;transform:rotate(-30deg);transition:all .4s ease}
-.lock-shackle{transition:transform .4s ease;transform-origin:center}
-.equal-block:hover .key-svg{transform:translateX(-18px) rotate(0)}
-.equal-block:hover .lock-shackle{transform:rotate(0)}
