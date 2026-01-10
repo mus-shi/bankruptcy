@@ -374,3 +374,55 @@ body.dark-mode .btn-start-online {
     color: var(--text-main);
     border-color: var(--quiz-theme-color);
 }
+
+/* === ИСПРАВЛЕНИЯ === */
+
+/* Кнопка "офис и контакты" — выровнена по центру */
+.scroll-indicator {
+    display: inline-block;
+    text-align: center;
+    padding: 10px 20px;
+    margin-top: 20px;
+    color: #0d6efd;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+.scroll-indicator:hover {
+    color: #0b5ed7;
+    transform: translateY(-2px);
+}
+.scroll-indicator .scroll-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+/* Кнопка Max Messenger — черно-белая до наведения */
+.social-link.max img {
+    filter: grayscale(100%) contrast(1.2);
+    transition: filter 0.3s ease;
+}
+.social-link.max:hover img {
+    filter: grayscale(0%) contrast(1.2);
+}
+
+/* Убрана кнопка "Позвонить" из липкого меню — оставлен только номер */
+.sticky-header .d-flex.align-items-center.gap-2 {
+    gap: 10px;
+}
+.sticky-header .sticky-phone {
+    font-size: 0.9rem;
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+/* Кнопка "Начать онлайн" — восстановлена логика открытия опроса */
+#show-form-btn {
+    cursor: pointer;
+    transition: all 0.3s;
+}
+#show-form-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(30, 58, 95, 0.4);
+}
