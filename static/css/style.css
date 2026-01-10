@@ -22,15 +22,16 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
-/* === АНИМАЦИИ ИКОНОК ГЛАВНОГО ЭКРАНА === */
+/* === АНИМАЦИИ ИКОНОК (HOVER ЭФФЕКТЫ) === */
 
 /* 1. ЩИТ (Заливка) */
 .shield-body {
     transition: fill 0.3s ease;
 }
-.equal-block.active .shield-body {
+/* Срабатывает при наведении на весь блок */
+.equal-block:hover .shield-body {
     fill: #0d6efd;
-    fill-opacity: 0.15; /* Легкая заливка, чтобы не перекрывать текст */
+    fill-opacity: 0.15;
 }
 
 /* 2. КОЛОКОЛЬЧИК (Зачеркивание) */
@@ -38,25 +39,24 @@ h1, h2, h3 {
     stroke-opacity: 0;
     transition: stroke-opacity 0.3s ease;
 }
-.equal-block.active .bell-slash {
+.equal-block:hover .bell-slash {
     stroke-opacity: 1;
 }
 
 /* 3. ЗАМОК (Закрытие) */
 .lock-shackle {
-    transform-origin: 17px 11px; /* Точка вращения дужки */
-    transform: rotateY(180deg) translateX(-10px); /* Изначально открыт (отзеркален) */
+    transform-origin: 17px 11px;
+    transform: rotateY(180deg) translateX(-10px); /* Исходно открыт */
     opacity: 0.7;
     transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
-/* Когда класс active - замок закрывается (нормальное состояние) */
-.equal-block.active .lock-shackle {
-    transform: rotateY(0) translateX(0);
+.equal-block:hover .lock-shackle {
+    transform: rotateY(0) translateX(0); /* Закрывается */
     opacity: 1;
 }
 
-/* 4. ТРУБА И ДЫМ (Дом) */
-.equal-block.active .chimney {
+/* 4. ТРУБА И ДЫМ */
+.equal-block:hover .chimney {
     opacity: 1 !important;
 }
 
@@ -71,12 +71,12 @@ h1, h2, h3 {
     100% { transform: translateY(-10px) scale(1.5); opacity: 0; }
 }
 
-.equal-block.active .smoke-1 {
+.equal-block:hover .smoke-1 {
     animation: smokeRise 2s infinite ease-out;
     animation-delay: 0.3s;
 }
-.equal-block.active .smoke-2 {
-    animation: smokeRise 2s infinite ease-out 1s; /* Задержка для второго облачка */
+.equal-block:hover .smoke-2 {
+    animation: smokeRise 2s infinite ease-out 1s;
 }
 
 /* === 3. КНОПКА "НАЧАТЬ ОНЛАЙН" === */
@@ -146,16 +146,6 @@ footer a, footer p {
     color: var(--text-muted) !important;
 }
 
-/* Базовые стили соцсетей */
-.social-link {
-    color: var(--text-main);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.875rem;
-}
-
 /* === 7. КВИЗ === */
 #quiz-section {
     background-color: var(--bg-body);
@@ -170,14 +160,13 @@ footer a, footer p {
     background-color: var(--quiz-theme-color) !important;
 }
 
-/* Миниатюрные кнопки ответов */
+/* Кнопки ответов */
 .btn-xs {
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
     line-height: 1.5;
 }
 
-/* Синие кнопки ответов */
 .btn-outline-primary {
     border-color: var(--quiz-theme-color);
     color: var(--quiz-theme-color);
