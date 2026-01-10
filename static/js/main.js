@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const questions = {
         1: { 
             text: "Какова общая сумма ваших задолженностей?", 
-            type: "debt", 
+            type: "slider", // Новый тип
             icon: "https://img.icons8.com/color/48/coins.png" 
         },
         2: { 
@@ -50,6 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentStep = 1;
     let userAnswers = {};
 
+    // Глобальная функция инициализации квиза (для вызова из HTML если нужно)
+    window.initQuiz = function() {
+        showStep(1);
+    }
+
     function showStep(step) {
         currentStep = step;
         const progress = (step / 4) * 100;
@@ -65,13 +70,17 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         `;
 
-        if (questions[step].type === "debt") {
+        if (questions[step].type === "slider") {
+            // ЛОГИКА СЛАЙДЕРА
             html += `
-                <div class="d-grid gap-2 col-md-8 mx-auto">
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('under200k')">Менее 200 тыс. ₽</button>
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('200k-500k')">От 200 до 500 тыс. ₽</button>
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('500k-1m')">От 500 тыс. до 1 млн ₽</button>
-                    <button class="btn btn-outline-primary btn-xs py-2 fw-medium" onclick="nextQuizStep('over1m')">Свыше 1 млн ₽</button>
+                <div class="col-md-8 mx-auto text-center">
+                    <span id="range-value-display" class="range-value-label">500 000 ₽</span>
+                    <input type="range" class="form-range" id="debt-range" min="200000" max="5050000" step="50000" value="500000">
+                    <div class="d-flex justify-content-between text-muted small mt-2">
+                        <span>200 тыс.</span>
+                        <span>> 5 млн</span>
+                    </div>
+                    <button class="btn btn-primary mt-4 px-5 py-2 fw-bold" onclick="saveSliderAndNext()">Далее →</button>
                 </div>
             `;
         } else if (questions[step].type === "boolean") {
@@ -98,14 +107,46 @@ document.addEventListener('DOMContentLoaded', function() {
                             Я ознакомился с <a href="/offer" target="_blank">публичной офертой</a> и <a href="/privacy" target="_blank">политикой конфиденциальности</a>
                         </label>
                     </div>
-                    <button class="btn btn-success w-100 py-2 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
+                    <button id="submit-btn" class="btn btn-success w-100 py-2 fw-bold shadow-sm" onclick="submitQuiz()">Получить результат анализа →</button>
                     <p class="text-center small text-muted mt-3">🔒 Ваши данные защищены и не будут переданы третьим лицам</p>
                 </div>
             `;
         }
         
         quizContainer.innerHTML = html;
+
+        // Обработчик ползунка
+        if (questions[step].type === "slider") {
+            const rangeInput = document.getElementById('debt-range');
+            const rangeDisplay = document.getElementById('range-value-display');
+            
+            rangeInput.addEventListener('input', function() {
+                const val = parseInt(this.value);
+                if (val >= 5050000) {
+                    rangeDisplay.textContent = "Более 5 000 000 ₽";
+                } else {
+                    rangeDisplay.textContent = val.toLocaleString('ru-RU') + " ₽";
+                }
+            });
+        }
+        
         if (step === 4) applyPhoneMask();
+    }
+
+    // Сохранение значения слайдера
+    window.saveSliderAndNext = () => {
+        const rangeInput = document.getElementById('debt-range');
+        const val = parseInt(rangeInput.value);
+        let textVal = "";
+        
+        if (val >= 5050000) {
+            textVal = "Более 5 млн ₽";
+        } else {
+            textVal = val.toLocaleString('ru-RU') + " ₽";
+        }
+        
+        userAnswers[currentStep] = textVal;
+        showStep(currentStep + 1);
     }
 
     window.nextQuizStep = (answer) => {
@@ -117,6 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const name = document.getElementById('user-name').value;
         const phone = document.getElementById('user-phone').value;
         const agreeCheckbox = document.getElementById('agreeCheckbox');
+        const submitBtn = document.getElementById('submit-btn');
 
         if (name.length < 2) {
             alert("Пожалуйста, введите ваше имя");
@@ -131,6 +173,10 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
+        // Блокируем кнопку
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Отправка...";
+
         // Получаем токен reCAPTCHA
         grecaptcha.ready(() => {
             grecaptcha.execute(SITE_KEY, { action: 'submit' }).then(token => {
@@ -141,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         name: name,
                         phone: phone,
                         agree: "Да",
-                        total_debt: userAnswers[1] || "under200k",
+                        total_debt: userAnswers[1] || "Не указано",
                         arrests: userAnswers[2] || "Не указано",
                         extra_property: userAnswers[3] || "Не указано",
                         extra_car: "Не указано",
@@ -150,14 +196,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(response => {
                     if (response.ok) {
-                        window.location.href = '/thanks';
+                        // УСПЕХ: Показываем сообщение прямо в окне (вместо редиректа)
+                        quizContainer.innerHTML = `
+                            <div class="text-center py-5">
+                                <div style="width: 80px; height: 80px; background: #d1e7dd; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#198754" stroke-width="2">
+                                        <path d="M20 6L9 17l-5-5"/>
+                                    </svg>
+                                </div>
+                                <h3 class="mb-3" style="font-family: 'Playfair Display', serif;">Спасибо!</h3>
+                                <p class="lead mb-4">Ваша заявка успешно принята.</p>
+                                <p class="text-muted">Я свяжусь с вами в ближайшее время по указанному номеру, чтобы обсудить детали вашей ситуации.</p>
+                            </div>
+                        `;
                     } else {
                         alert("Произошла ошибка. Попробуйте ещё раз или позвоните нам.");
+                        submitBtn.disabled = false;
+                        submitBtn.innerText = "Получить результат анализа →";
                     }
                 })
                 .catch(err => {
                     alert("Произошла ошибка. Попробуйте ещё раз или позвоните нам.");
                     console.error(err);
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "Получить результат анализа →";
                 });
             });
         });
@@ -177,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Анимация шагов
+    // Анимация шагов (если остались старые элементы с классом process-step)
     document.querySelectorAll('.process-step').forEach(step => {
         step.addEventListener('mouseenter', () => {
             step.style.transform = 'translateY(-8px)';
