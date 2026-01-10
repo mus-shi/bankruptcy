@@ -22,28 +22,61 @@ h1, h2, h3 {
     font-weight: 700;
 }
 
-/* === 2. КАРТОЧКИ === */
-/* Базовые стили для feature-card используются как вспомогательные, 
-   основной макет теперь контролируется .equal-block в HTML */
-.feature-card {
-    background-color: var(--bg-light);
-    border: 1px solid rgba(0,0,0,0.08);
-    border-radius: 6px;
-    padding: 35px 25px;
-    height: 100%;
-    transition: 0.3s;
-    text-align: center;
-    cursor: pointer;
+/* === АНИМАЦИИ ИКОНОК ГЛАВНОГО ЭКРАНА === */
+
+/* 1. ЩИТ (Заливка) */
+.shield-body {
+    transition: fill 0.3s ease;
 }
-.feature-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--accent-color);
+.equal-block.active .shield-body {
+    fill: #0d6efd;
+    fill-opacity: 0.15; /* Легкая заливка, чтобы не перекрывать текст */
 }
 
-.feature-card .icon {
-    fill: currentColor;
-    vertical-align: middle;
-    margin-bottom: 0.75rem;
+/* 2. КОЛОКОЛЬЧИК (Зачеркивание) */
+.bell-slash {
+    stroke-opacity: 0;
+    transition: stroke-opacity 0.3s ease;
+}
+.equal-block.active .bell-slash {
+    stroke-opacity: 1;
+}
+
+/* 3. ЗАМОК (Закрытие) */
+.lock-shackle {
+    transform-origin: 17px 11px; /* Точка вращения дужки */
+    transform: rotateY(180deg) translateX(-10px); /* Изначально открыт (отзеркален) */
+    opacity: 0.7;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+/* Когда класс active - замок закрывается (нормальное состояние) */
+.equal-block.active .lock-shackle {
+    transform: rotateY(0) translateX(0);
+    opacity: 1;
+}
+
+/* 4. ТРУБА И ДЫМ (Дом) */
+.equal-block.active .chimney {
+    opacity: 1 !important;
+}
+
+.smoke {
+    opacity: 0;
+    transform-origin: center;
+}
+
+@keyframes smokeRise {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    50% { opacity: 0.6; }
+    100% { transform: translateY(-10px) scale(1.5); opacity: 0; }
+}
+
+.equal-block.active .smoke-1 {
+    animation: smokeRise 2s infinite ease-out;
+    animation-delay: 0.3s;
+}
+.equal-block.active .smoke-2 {
+    animation: smokeRise 2s infinite ease-out 1s; /* Задержка для второго облачка */
 }
 
 /* === 3. КНОПКА "НАЧАТЬ ОНЛАЙН" === */
@@ -113,8 +146,7 @@ footer a, footer p {
     color: var(--text-muted) !important;
 }
 
-/* Стили соцсетей вынесены в index.html для прямого контроля, 
-   здесь оставлены базовые параметры */
+/* Базовые стили соцсетей */
 .social-link {
     color: var(--text-main);
     text-decoration: none;
