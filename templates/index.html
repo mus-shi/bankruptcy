@@ -137,7 +137,8 @@
             </div>
         </section>
 
-        <a href="#office-block" class="scroll-indicator">
+        <!-- Исправленная кнопка "офис и контакты" -->
+        <a href="#office-block" class="scroll-indicator text-center">
             <span class="scroll-label">офис и контакты</span>
             <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/><path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
         </a>
@@ -185,6 +186,7 @@
                 <a href="https://vk.com/club235261619?from=groups" target="_blank" class="social-link vk" aria-label="VK">
                     <svg class="footer-social-icon" viewBox="0 0 24 24"><path d="M19.915 13.028c1.138 1.145 2.296 2.27 3.39 3.45.318.343.606.72.825 1.138.324.618.175 1.348-.37 1.706-.296.195-.656.248-1.01.258-1.284.037-2.57.027-3.854.005-.533-.009-0.975-.24-1.332-.638-.72-0.803-1.433-1.613-2.128-2.44-.38-.452-.806-.57-1.272-.284-.294.18-.42.483-.467.818-.088.625-.05 1.256-.008 1.884.025.378-.052.74-.294 1.042-.234.29-.55.448-.918.472-2.404.156-4.63-.448-6.558-1.96-1.74-1.365-3.056-3.052-4.24-4.94C.81 11.81.25 10.046.036 8.243-.072 7.332.186 6.91.996 6.89c1.32-.033 2.643-.024 3.963.004.576.012 1.036.3 1.252.83.65 1.587 1.487 3.055 2.622 4.385.25.293.524.31.81.08.28-.222.348-.544.37-.87.065-0.957.037-1.916-.145-2.85-.16-.83-.6-1.464-1.39-1.785-.31-.126-.264-.26-.144-.45.17-.265.4-.41.71-.443 1.554-.162 3.013.07 4.103 1.164l.208.216c.365.418.497.47.886.13.385-.335.343-.84.23-1.334-.05-.224-.122-.44-.195-.655-.138-.41.01-.715.42-.876.155-.06.32-.09.48-.09 1.405-.005 2.812-.01 4.218.01.62.01 1.05.32 1.25.903.14.41.087.82-.09 1.21-.497 1.09-1.077 2.14-1.71 3.167-.406.66-.39 1.23.23 1.763z"/></svg>
                 </a>
+                <!-- Исправленная кнопка Max Messenger -->
                 <a href="https://commons.wikimedia.org/wiki/File:Max_logo_2025.png" title="Max Messenger" target="_blank" class="social-link max">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" alt="Max Logo" class="footer-social-img">
                 </a>
@@ -218,6 +220,15 @@
             setTimeout(() => { wrapper.style.display = 'none'; }, 500);
             intro.style.display = 'block';
             setTimeout(() => { intro.style.opacity = '1'; }, 50);
+        }
+
+        // Функция скролла к опросу
+        window.scrollToQuiz = function() {
+            document.getElementById('cta-anchor').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const quizWrapper = document.getElementById('quiz-wrapper');
+            if (quizWrapper.style.display === 'none' || quizWrapper.style.display === '') {
+                document.getElementById('show-form-btn').click();
+            }
         }
     </script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
