@@ -22,10 +22,10 @@
             box-sizing: border-box;
         }
 
-        /* --- СТИЛЬ КАРТОЧЕК (Обновлен контраст) --- */
+        /* --- СТИЛЬ КАРТОЧЕК --- */
         .equal-block {
-            background-color: #eef4f9; /* Более насыщенный холодный фон */
-            border: 1px solid #dee2e6; /* Явная граница */
+            background-color: #eef4f9;
+            border: 1px solid #dee2e6;
             border-radius: 12px;
             padding: 25px !important;
             height: 100%;
@@ -41,11 +41,10 @@
             overflow: hidden;
         }
 
-        /* Эффект при наведении (Hover) */
         .equal-block:hover {
             transform: translateY(-5px);
             background-color: #ffffff;
-            box-shadow: 0 12px 30px rgba(30, 58, 95, 0.15); /* Тень с оттенком бренда */
+            box-shadow: 0 12px 30px rgba(30, 58, 95, 0.15);
             border-color: #0d6efd;
         }
 
@@ -60,24 +59,30 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* Кнопка */
+        /* Кнопка CTA */
         .btn-start-online {
             background-color: #1e3a5f;
             color: white;
             padding: 14px 40px;
-            border-radius: 6px;
+            border-radius: 50px; /* Закруглил сильнее для современности */
             font-weight: 600;
             border: none;
             transition: 0.3s;
             display: inline-block;
+            box-shadow: 0 4px 15px rgba(30, 58, 95, 0.3);
         }
-        .btn-start-online:hover { background-color: #2c5282; transform: scale(1.02); color: white; }
+        .btn-start-online:hover { 
+            background-color: #2c5282; 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(30, 58, 95, 0.4);
+            color: white; 
+        }
 
-        /* Центрирование контейнера с кнопкой */
         .cta-container {
             text-align: center;
             width: 100%;
             margin-top: 2rem;
+            position: relative; /* Для позиционирования квиза */
         }
 
         .scroll-indicator {
@@ -96,31 +101,13 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* --- СОЦСЕТИ --- */
-        .footer-social-icon { 
-            width: 32px; 
-            height: 32px; 
-            transition: all 0.3s ease; 
-            fill: #6c757d;
-        }
+        .footer-social-icon { width: 32px; height: 32px; transition: all 0.3s ease; fill: #6c757d; }
         .social-link { text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
-        
         .social-link.wa:hover .footer-social-icon { fill: #25D366; transform: scale(1.1); }
         .social-link.tg:hover .footer-social-icon { fill: #24A1DE; transform: scale(1.1); }
         .social-link.vk:hover .footer-social-icon { fill: #0077FF; transform: scale(1.1); }
-
-        /* Max Messenger */
-        .footer-social-img {
-            width: 32px;
-            height: 32px;
-            transition: all 0.3s ease;
-            filter: grayscale(100%) opacity(0.7);
-            object-fit: contain;
-        }
-        .social-link.max:hover .footer-social-img {
-            filter: grayscale(0%) opacity(1);
-            transform: scale(1.1);
-        }
-
+        .footer-social-img { width: 32px; height: 32px; transition: all 0.3s ease; filter: grayscale(100%) opacity(0.7); object-fit: contain; }
+        .social-link.max:hover .footer-social-img { filter: grayscale(0%) opacity(1); transform: scale(1.1); }
         .footer-link { color: #6c757d; text-decoration: none; font-size: 0.75rem; transition: 0.3s; }
         .footer-link:hover { color: #0d6efd; }
     </style>
@@ -176,9 +163,18 @@
             </div>
 
             <div class="cta-container">
-                <p class="text-muted small mb-3">Проверьте, подходит ли вам банкротство. Ответьте на вопросы — и я подскажу ваш путь.</p>
-                <button type="button" id="show-form-btn" class="btn-start-online">Начать онлайн →</button>
-                <p class="small text-muted mt-2" style="font-size: 0.75rem;">Работаем при долгах от 200 000 ₽. Консультация бесплатно.</p>
+                <div id="intro-text-block">
+                    <p class="text-muted small mb-3">Проверьте, подходит ли вам банкротство. Ответьте на вопросы — и я подскажу ваш путь.</p>
+                    <button type="button" id="show-form-btn" class="btn-start-online">Начать онлайн →</button>
+                    <p class="small text-muted mt-2" style="font-size: 0.75rem;">Работаем при долгах от 200 000 ₽. Консультация бесплатно.</p>
+                </div>
+
+                <div id="quiz-wrapper" class="quiz-inline-card" style="display: none;">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn-close-quiz" onclick="closeQuiz()" aria-label="Закрыть">×</button>
+                    </div>
+                    <div id="quiz-container"></div>
+                </div>
             </div>
         </header>
 
@@ -189,9 +185,7 @@
                 <div class="col-lg-3 col-md-6 col-6">
                     <div class="equal-block">
                         <div style="background: #fff0f3; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden;">
-                            <svg class="step-icon-consult" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff4d6d" stroke-width="2">
-                                <path class="chat-bubble" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                            </svg>
+                            <svg class="step-icon-consult" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff4d6d" stroke-width="2"><path class="chat-bubble" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
                         </div>
                         <strong class="d-block mb-2">1. Консультация</strong>
                         <div class="small text-muted">Бесплатно разбираем вашу ситуацию и подбираем лучший способ списания.</div>
@@ -200,13 +194,7 @@
                 <div class="col-lg-3 col-md-6 col-6">
                     <div class="equal-block">
                         <div style="background: #f3eaff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
-                            <svg class="step-icon-docs" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a06cd5" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                <path class="doc-fold" d="M14 2v6h6"/>
-                                <line class="doc-line doc-line-1" x1="16" y1="13" x2="8" y2="13"/>
-                                <line class="doc-line doc-line-2" x1="16" y1="17" x2="8" y2="17"/>
-                                <line class="doc-line doc-line-3" x1="10" y1="9" x2="8" y2="9"/>
-                            </svg>
+                            <svg class="step-icon-docs" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a06cd5" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path class="doc-fold" d="M14 2v6h6"/><line class="doc-line doc-line-1" x1="16" y1="13" x2="8" y2="13"/><line class="doc-line doc-line-2" x1="16" y1="17" x2="8" y2="17"/><line class="doc-line doc-line-3" x1="10" y1="9" x2="8" y2="9"/></svg>
                         </div>
                         <strong class="d-block mb-2">2. Документы</strong>
                         <div class="small text-muted">Помогаем собрать полный пакет документов. Вам не нужно бегать по банкам.</div>
@@ -215,12 +203,7 @@
                 <div class="col-lg-3 col-md-6 col-6">
                     <div class="equal-block">
                         <div style="background: #e0f2ff; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
-                            <svg class="step-icon-court" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0077b6" stroke-width="2">
-                                <path d="M3 7h18"/>
-                                <path d="M12 2v18"/>
-                                <path class="scale-plate scale-left" d="M6 7v6a3 3 0 0 0 6 0V7"/>
-                                <path class="scale-plate scale-right" d="M18 7v6a3 3 0 0 1-6 0V7"/>
-                            </svg>
+                            <svg class="step-icon-court" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0077b6" stroke-width="2"><path d="M3 7h18"/><path d="M12 2v18"/><path class="scale-plate scale-left" d="M6 7v6a3 3 0 0 0 6 0V7"/><path class="scale-plate scale-right" d="M18 7v6a3 3 0 0 1-6 0V7"/></svg>
                         </div>
                         <strong class="d-block mb-2">3. Подача в суд</strong>
                         <div class="small text-muted">Направляем заявление. Наши юристы представляют ваши интересы на заседаниях.</div>
@@ -229,19 +212,7 @@
                 <div class="col-lg-3 col-md-6 col-6">
                     <div class="equal-block">
                         <div style="background: #fff9db; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
-                            <svg class="step-icon-free" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fcc419" stroke-width="2">
-                                <circle cx="12" cy="12" r="5"/>
-                                <g class="sun-rays">
-                                    <path d="M12 1v2"/>
-                                    <path d="M12 21v2"/>
-                                    <path d="M4.22 4.22l1.42 1.42"/>
-                                    <path d="M18.36 18.36l1.42 1.42"/>
-                                    <path d="M1 12h2"/>
-                                    <path d="M21 12h2"/>
-                                    <path d="M4.22 19.78l1.42-1.42"/>
-                                    <path d="M18.36 5.64l1.42-1.42"/>
-                                </g>
-                            </svg>
+                            <svg class="step-icon-free" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fcc419" stroke-width="2"><circle cx="12" cy="12" r="5"/><g class="sun-rays"><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/><path d="M4.22 19.78l1.42-1.42"/><path d="M18.36 5.64l1.42-1.42"/></g></svg>
                         </div>
                         <strong class="d-block mb-2">4. Свобода</strong>
                         <div class="small text-muted">Получаем решение суда. С этого момента все ваши долги официально списаны.</div>
@@ -288,19 +259,13 @@
         <div class="container">
             <div class="d-flex justify-content-center align-items-center gap-4 mb-4">
                 <a href="https://wa.me/79991234567" target="_blank" class="social-link wa" aria-label="WhatsApp">
-                    <svg class="footer-social-icon" viewBox="0 0 24 24">
-                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c1.024.558 2.03.856 3.212.857 3.181 0 5.767-2.587 5.767-5.766.001-3.182-2.585-5.768-5.766-5.768zm0 0M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                    </svg>
+                    <svg class="footer-social-icon" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.698c1.024.558 2.03.856 3.212.857 3.181 0 5.767-2.587 5.767-5.766.001-3.182-2.585-5.768-5.766-5.768zm0 0M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 </a>
                 <a href="https://t.me/ripe_man" target="_blank" class="social-link tg" aria-label="Telegram">
-                    <svg class="footer-social-icon" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.23.35-.47.96-.74 3.78-1.65 6.31-2.74 7.58-3.27 3.61-1.51 4.36-1.77 4.85-1.78.11 0 .35.03.5.16.13.11.17.26.19.43-.01.07-.01.14-.02.2z"/>
-                    </svg>
+                    <svg class="footer-social-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.46-.42-1.4-.88.03-.23.35-.47.96-.74 3.78-1.65 6.31-2.74 7.58-3.27 3.61-1.51 4.36-1.77 4.85-1.78.11 0 .35.03.5.16.13.11.17.26.19.43-.01.07-.01.14-.02.2z"/></svg>
                 </a>
                 <a href="https://vk.com/club235261619?from=groups" target="_blank" class="social-link vk" aria-label="VK">
-                    <svg class="footer-social-icon" viewBox="0 0 24 24">
-                        <path d="M19.915 13.028c1.138 1.145 2.296 2.27 3.39 3.45.318.343.606.72.825 1.138.324.618.175 1.348-.37 1.706-.296.195-.656.248-1.01.258-1.284.037-2.57.027-3.854.005-.533-.009-0.975-.24-1.332-.638-.72-0.803-1.433-1.613-2.128-2.44-.38-.452-.806-.57-1.272-.284-.294.18-.42.483-.467.818-.088.625-.05 1.256-.008 1.884.025.378-.052.74-.294 1.042-.234.29-.55.448-.918.472-2.404.156-4.63-.448-6.558-1.96-1.74-1.365-3.056-3.052-4.24-4.94C.81 11.81.25 10.046.036 8.243-.072 7.332.186 6.91.996 6.89c1.32-.033 2.643-.024 3.963.004.576.012 1.036.3 1.252.83.65 1.587 1.487 3.055 2.622 4.385.25.293.524.31.81.08.28-.222.348-.544.37-.87.065-0.957.037-1.916-.145-2.85-.16-.83-.6-1.464-1.39-1.785-.31-.126-.264-.26-.144-.45.17-.265.4-.41.71-.443 1.554-.162 3.013.07 4.103 1.164l.208.216c.365.418.497.47.886.13.385-.335.343-.84.23-1.334-.05-.224-.122-.44-.195-.655-.138-.41.01-.715.42-.876.155-.06.32-.09.48-.09 1.405-.005 2.812-.01 4.218.01.62.01 1.05.32 1.25.903.14.41.087.82-.09 1.21-.497 1.09-1.077 2.14-1.71 3.167-.406.66-.39 1.23.23 1.763z"/>
-                    </svg>
+                    <svg class="footer-social-icon" viewBox="0 0 24 24"><path d="M19.915 13.028c1.138 1.145 2.296 2.27 3.39 3.45.318.343.606.72.825 1.138.324.618.175 1.348-.37 1.706-.296.195-.656.248-1.01.258-1.284.037-2.57.027-3.854.005-.533-.009-0.975-.24-1.332-.638-.72-0.803-1.433-1.613-2.128-2.44-.38-.452-.806-.57-1.272-.284-.294.18-.42.483-.467.818-.088.625-.05 1.256-.008 1.884.025.378-.052.74-.294 1.042-.234.29-.55.448-.918.472-2.404.156-4.63-.448-6.558-1.96-1.74-1.365-3.056-3.052-4.24-4.94C.81 11.81.25 10.046.036 8.243-.072 7.332.186 6.91.996 6.89c1.32-.033 2.643-.024 3.963.004.576.012 1.036.3 1.252.83.65 1.587 1.487 3.055 2.622 4.385.25.293.524.31.81.08.28-.222.348-.544.37-.87.065-0.957.037-1.916-.145-2.85-.16-.83-.6-1.464-1.39-1.785-.31-.126-.264-.26-.144-.45.17-.265.4-.41.71-.443 1.554-.162 3.013.07 4.103 1.164l.208.216c.365.418.497.47.886.13.385-.335.343-.84.23-1.334-.05-.224-.122-.44-.195-.655-.138-.41.01-.715.42-.876.155-.06.32-.09.48-.09 1.405-.005 2.812-.01 4.218.01.62.01 1.05.32 1.25.903.14.41.087.82-.09 1.21-.497 1.09-1.077 2.14-1.71 3.167-.406.66-.39 1.23.23 1.763z"/></svg>
                 </a>
                 <a href="https://commons.wikimedia.org/wiki/File:Max_logo_2025.png" title="Max Messenger" target="_blank" class="social-link max">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" alt="Max Logo" class="footer-social-img">
@@ -316,13 +281,6 @@
         </div>
     </footer>
 
-    <section id="quiz-section" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 9999; overflow-y: auto;">
-        <div class="container py-5">
-            <div id="quiz-container"></div>
-            <button class="btn btn-secondary mt-3" onclick="document.getElementById('quiz-section').style.display='none'">Закрыть</button>
-        </div>
-    </section>
-
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
     <script>
         function reveal() {
@@ -334,13 +292,15 @@
         window.addEventListener("scroll", reveal);
         reveal();
 
-        document.getElementById('show-form-btn').addEventListener('click', function() {
-            const quizSection = document.getElementById('quiz-section');
-            if (quizSection) {
-                quizSection.style.display = 'block';
-                if (typeof initQuiz === 'function') initQuiz(); 
-            }
-        });
+        // Скрипт закрытия квиза
+        window.closeQuiz = function() {
+            const wrapper = document.getElementById('quiz-wrapper');
+            const intro = document.getElementById('intro-text-block');
+            wrapper.classList.remove('active');
+            setTimeout(() => { wrapper.style.display = 'none'; }, 500); // Ждем конца анимации
+            intro.style.display = 'block'; // Возвращаем кнопку
+            intro.style.opacity = '1';
+        }
     </script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
