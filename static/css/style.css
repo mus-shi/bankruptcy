@@ -23,8 +23,6 @@ h1, h2, h3 {
 }
 
 /* === АНИМАЦИИ (HOVER ЭФФЕКТЫ) === */
-
-/* --- ПРЕИМУЩЕСТВА --- */
 .shield-body { transition: fill 0.3s ease; }
 .equal-block:hover .shield-body { fill: #0d6efd; fill-opacity: 0.15; }
 
@@ -44,28 +42,97 @@ h1, h2, h3 {
 .equal-block:hover .smoke-1 { animation: smokeRise 2s infinite ease-out; animation-delay: 0.3s; }
 .equal-block:hover .smoke-2 { animation: smokeRise 2s infinite ease-out 1s; }
 
-/* --- ШАГИ (НОВЫЕ АНИМАЦИИ) --- */
-/* 1. Чат (Консультация) - легкое подпрыгивание */
+/* ШАГИ */
 .step-icon-consult { transition: transform 0.3s ease; }
 .equal-block:hover .step-icon-consult { transform: scale(1.1) rotate(-5deg); }
 
-/* 2. Документ (Сбор) - Линии появляются */
 .doc-line { stroke-dasharray: 10; stroke-dashoffset: 10; transition: stroke-dashoffset 0.5s ease; }
 .equal-block:hover .doc-line { stroke-dashoffset: 0; }
 .doc-fold { fill-opacity: 0; transition: fill-opacity 0.3s; }
 .equal-block:hover .doc-fold { fill-opacity: 0.2; }
 
-/* 3. Весы (Суд) - Наклон */
 .scale-plate { transition: transform 0.5s ease-in-out; transform-origin: center top; }
 .equal-block:hover .scale-left { transform: translateY(2px); }
 .equal-block:hover .scale-right { transform: translateY(-2px); }
 
-/* 4. Солнце (Свобода) - Вращение */
 .sun-rays { transform-origin: 12px 12px; transition: transform 1s ease-out; }
 .equal-block:hover .sun-rays { transform: rotate(180deg); }
 
 
-/* === 3. СТИЛИ ПОЛЗУНКА (SLIDER) === */
+/* === НОВЫЙ СТИЛЬ ОПРОСА (INLINE CARD) === */
+.quiz-inline-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15); /* Эффектная тень */
+    padding: 30px;
+    max-width: 500px; /* Компактная ширина */
+    margin: 20px auto 0;
+    text-align: left;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.05);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.5s ease-out;
+}
+
+/* Класс для анимации появления */
+.quiz-inline-card.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-close-quiz {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #aaa;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    transition: color 0.3s;
+}
+.btn-close-quiz:hover { color: #dc3545; }
+
+
+/* МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА) */
+.quiz-grid-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Две колонки */
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-quiz-option {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    color: var(--primary-color);
+    padding: 10px 5px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.btn-quiz-option:hover {
+    background-color: #f8f9fa;
+    border-color: var(--quiz-theme-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.btn-quiz-option:active {
+    background-color: var(--quiz-theme-color);
+    color: #fff;
+}
+
+
+/* === ПОЛЗУНОК === */
 input[type=range] {
     -webkit-appearance: none;
     width: 100%;
@@ -73,115 +140,40 @@ input[type=range] {
 }
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    height: 24px;
-    width: 24px;
+    height: 20px;
+    width: 20px;
     border-radius: 50%;
     background: #1e3a5f;
     cursor: pointer;
-    margin-top: -10px;
+    margin-top: -8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
-    height: 6px;
+    height: 4px;
     cursor: pointer;
     background: #dee2e6;
-    border-radius: 3px;
+    border-radius: 2px;
 }
 .range-value-label {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: #1e3a5f;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     display: block;
 }
 
-/* === 4. КНОПКА "НАЧАТЬ ОНЛАЙН" === */
-.btn-accent {
-    background-color: var(--accent-color);
-    color: #fff !important;
-    border: none;
-    border-radius: 4px;
-    padding: 16px 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    box-shadow: 0 6px 20px rgba(45, 94, 74, 0.3);
-}
+/* === ПРОГРЕСС БАР === */
+.progress { height: 4px !important; margin-bottom: 1.5rem !important; }
 
-/* === 5. БЛОК ОЧНОЙ КОНСУЛЬТАЦИИ === */
-.consultation-block {
-    background-color: var(--bg-light) !important;
-    border: 1px solid rgba(0,0,0,0.1);
-}
-.consultation-block h3,
-.consultation-block p,
-.consultation-block strong {
-    color: var(--text-main) !important;
-}
+/* === ФУТЕР И ПРОЧЕЕ === */
+.btn-accent { background-color: var(--accent-color); color: #fff !important; }
+.consultation-block { background-color: var(--bg-light) !important; border: 1px solid rgba(0,0,0,0.1); }
+footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
+#quiz-section { background-color: var(--bg-body); }
+.form-control { background-color: #fff; border-color: #ddd; color: #1a1a1a; }
+.form-check-input:checked { background-color: var(--accent-color); border-color: var(--accent-color); }
 
-/* === 6. ФУТЕР === */
-footer {
-    padding: 40px 0;
-    border-top: 1px solid rgba(128,128,128,0.2);
-}
-footer a, footer p {
-    color: var(--text-muted) !important;
-}
-
-/* === 7. КВИЗ === */
-#quiz-section {
-    background-color: var(--bg-body);
-}
-
-/* Шкала загрузки */
-.progress {
-    height: 6px !important;
-    border-radius: 3px !important;
-}
-.progress-bar {
-    background-color: var(--quiz-theme-color) !important;
-}
-
-/* Кнопки ответов */
-.btn-xs {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    line-height: 1.5;
-}
-
-.btn-outline-primary {
-    border-color: var(--quiz-theme-color);
-    color: var(--quiz-theme-color);
-}
-.btn-outline-primary:hover {
-    background-color: var(--quiz-theme-color);
-    color: #fff;
-}
-
-/* Формы */
-.form-control {
-    background-color: #fff;
-    border-color: #ddd;
-    color: #1a1a1a;
-}
-.form-control::placeholder {
-    color: #bbb;
-}
-
-.form-check-input {
-    background-color: #fff;
-    border-color: #ddd;
-}
-.form-check-input:checked {
-    background-color: var(--accent-color);
-    border-color: var(--accent-color);
-}
-
-/* === 8. АДАПТИВНОСТЬ === */
 @media (max-width: 992px) {
-    .col-feature-side,
-    .col-feature-center {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
+    .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
 }
