@@ -1,5 +1,22 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // === АНИМАЦИЯ БЛОКОВ ПРИ КЛИКЕ ===
+    const animBlocks = document.querySelectorAll('.js-anim-block');
+    animBlocks.forEach(block => {
+        block.addEventListener('click', function() {
+            // Переключаем класс active (включает/выключает анимацию)
+            this.classList.toggle('active');
+            
+            // Опционально: если нужно, чтобы при клике на один блок,
+            // другие выключались, раскомментируйте код ниже:
+            /*
+            animBlocks.forEach(otherBlock => {
+                if (otherBlock !== block) otherBlock.classList.remove('active');
+            });
+            */
+        });
+    });
+
     // === reCAPTCHA v3 ===
     const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
 
