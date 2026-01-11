@@ -58,14 +58,18 @@ document.addEventListener('DOMContentLoaded', function() {
         currentStep = step;
         const progress = (step / 4) * 100;
         
-        // Шапка квиза
+        // Шапка квиза с кнопкой "Назад"
         let html = `
             <div class="progress">
                 <div class="progress-bar progress-bar-striped progress-bar-animated" 
                      role="progressbar" style="width: ${progress}%; background-color: #1e3a5f;"></div>
             </div>
-            <div class="text-center mb-3">
-                <h5 class="fw-bold mb-0">${questions[step].text}</h5>
+            <div class="quiz-header-with-back">
+                ${step > 1 ? `<button class="quiz-back-btn" onclick="goBack()">← Назад</button>` : '<div></div>'}
+                <div class="text-center mb-3">
+                    <h5 class="fw-bold mb-0">${questions[step].text}</h5>
+                </div>
+                <div></div>
             </div>
         `;
 
@@ -125,6 +129,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (step === 4) applyPhoneMask();
     }
+
+    window.goBack = () => {
+        if (currentStep > 1) {
+            currentStep--;
+            showStep(currentStep);
+        }
+    };
 
     window.saveSliderAndNext = () => {
         const rangeInput = document.getElementById('debt-range');
