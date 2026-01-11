@@ -7,11 +7,60 @@
     --bg-light: #f8f9fa;
     --bg-body: #ffffff;
     --text-main: #1a2a3a;
+    
+    /* Новые цвета для юридической тематики */
+    --legal-blue: #1e3a5f;
+    --legal-gold: #c9a96e;
+    --legal-gray: #4a5568;
+    --legal-light: #f7fafc;
+    
+    /* Цвета для темной темы */
+    --dark-bg: #0f172a;
+    --dark-text: #e2e8f0;
+    --dark-secondary: #94a3b8;
+    --dark-accent: #f59e0b;
+    --dark-card: #1e293b;
+}
+
+/* Темная тема */
+body.dark-theme {
+    background-color: var(--dark-bg);
+    color: var(--dark-text);
+}
+
+body.dark-theme .bg-white { background-color: var(--dark-card) !important; }
+body.dark-theme .bg-light { background-color: var(--dark-card) !important; }
+body.dark-theme .text-muted { color: var(--dark-secondary) !important; }
+body.dark-theme .text-dark { color: var(--dark-text) !important; }
+body.dark-theme .border { border-color: #334155 !important; }
+body.dark-theme .border-top { border-color: #334155 !important; }
+body.dark-theme .form-control { 
+    background-color: var(--dark-card); 
+    border-color: #334155;
+    color: var(--dark-text);
+}
+body.dark-theme .form-control::placeholder { color: var(--dark-secondary); }
+body.dark-theme .equal-block {
+    background-color: var(--dark-card);
+    border-color: #334155;
+    color: var(--dark-text);
+}
+body.dark-theme .equal-block:hover {
+    background-color: #334155;
+    border-color: var(--dark-accent);
+}
+body.dark-theme .btn-outline-dark {
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+}
+body.dark-theme .btn-outline-dark:hover {
+    background-color: var(--dark-accent);
+    color: var(--dark-bg);
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    color: var(--text-main);
+    color: var(--legal-gray);
     background-color: var(--bg-body);
     line-height: 1.6;
     transition: background-color 0.4s, color 0.4s;
@@ -20,11 +69,18 @@ body {
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
+    color: var(--legal-blue);
+}
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3 {
+    color: var(--dark-text);
 }
 
 /* === АНИМАЦИИ (HOVER ЭФФЕКТЫ) === */
 .shield-body { transition: fill 0.3s ease; }
-.equal-block:hover .shield-body { fill: #0d6efd; fill-opacity: 0.15; }
+.equal-block:hover .shield-body { fill: var(--legal-blue); fill-opacity: 0.15; }
 
 .bell-slash { stroke-opacity: 0; transition: stroke-opacity 0.3s ease; }
 .equal-block:hover .bell-slash { stroke-opacity: 1; }
@@ -63,9 +119,9 @@ h1, h2, h3 {
 .quiz-inline-card {
     background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15); /* Эффектная тень */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
     padding: 30px;
-    max-width: 500px; /* Компактная ширина */
+    max-width: 500px;
     margin: 20px auto 0;
     text-align: left;
     position: relative;
@@ -73,6 +129,12 @@ h1, h2, h3 {
     opacity: 0;
     transform: translateY(-20px);
     transition: all 0.5s ease-out;
+}
+
+body.dark-theme .quiz-inline-card {
+    background: var(--dark-card);
+    border-color: #334155;
+    color: var(--dark-text);
 }
 
 /* Класс для анимации появления */
@@ -100,7 +162,7 @@ h1, h2, h3 {
 /* МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА) */
 .quiz-grid-options {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Две колонки */
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
     margin-top: 15px;
 }
@@ -108,7 +170,7 @@ h1, h2, h3 {
 .btn-quiz-option {
     background-color: #fff;
     border: 1px solid #dee2e6;
-    color: var(--primary-color);
+    color: var(--legal-blue);
     padding: 10px 5px;
     border-radius: 8px;
     font-size: 0.9rem;
@@ -120,15 +182,32 @@ h1, h2, h3 {
     justify-content: center;
     text-align: center;
 }
+
+body.dark-theme .btn-quiz-option {
+    background-color: var(--dark-card);
+    border-color: #334155;
+    color: var(--dark-text);
+}
+
 .btn-quiz-option:hover {
-    background-color: #f8f9fa;
-    border-color: var(--quiz-theme-color);
+    background-color: var(--legal-light);
+    border-color: var(--legal-blue);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
+
+body.dark-theme .btn-quiz-option:hover {
+    background-color: #334155;
+    border-color: var(--dark-accent);
+}
+
 .btn-quiz-option:active {
-    background-color: var(--quiz-theme-color);
+    background-color: var(--legal-blue);
     color: #fff;
+}
+
+body.dark-theme .btn-quiz-option:active {
+    background-color: var(--dark-accent);
 }
 
 
@@ -143,7 +222,7 @@ input[type=range]::-webkit-slider-thumb {
     height: 20px;
     width: 20px;
     border-radius: 50%;
-    background: #1e3a5f;
+    background: var(--legal-blue);
     cursor: pointer;
     margin-top: -8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
@@ -155,24 +234,46 @@ input[type=range]::-webkit-slider-runnable-track {
     background: #dee2e6;
     border-radius: 2px;
 }
+
+body.dark-theme input[type=range]::-webkit-slider-thumb {
+    background: var(--dark-accent);
+}
+
+body.dark-theme input[type=range]::-webkit-slider-runnable-track {
+    background: #334155;
+}
+
 .range-value-label {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #1e3a5f;
+    color: var(--legal-blue);
     margin-bottom: 0.5rem;
     display: block;
+}
+
+body.dark-theme .range-value-label {
+    color: var(--dark-accent);
 }
 
 /* === ПРОГРЕСС БАР === */
 .progress { height: 4px !important; margin-bottom: 1.5rem !important; }
 
 /* === ФУТЕР И ПРОЧЕЕ === */
-.btn-accent { background-color: var(--accent-color); color: #fff !important; }
-.consultation-block { background-color: var(--bg-light) !important; border: 1px solid rgba(0,0,0,0.1); }
+.btn-accent { 
+    background-color: var(--legal-gold); 
+    color: var(--legal-blue) !important; 
+    font-weight: 600;
+}
+.consultation-block { background-color: var(--legal-light) !important; border: 1px solid rgba(0,0,0,0.1); }
 footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
 #quiz-section { background-color: var(--bg-body); }
 .form-control { background-color: #fff; border-color: #ddd; color: #1a1a1a; }
-.form-check-input:checked { background-color: var(--accent-color); border-color: var(--accent-color); }
+.form-check-input:checked { background-color: var(--legal-blue); border-color: var(--legal-blue); }
+
+body.dark-theme .form-check-input:checked {
+    background-color: var(--dark-accent);
+    border-color: var(--dark-accent);
+}
 
 @media (max-width: 992px) {
     .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
@@ -182,23 +283,25 @@ footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
 
 /* 1. Контрастная кнопка "Начать онлайн" */
 .btn-start-online {
-    background: linear-gradient(135deg, #ff6b35, #ff8c42);
-    color: white;
+    background: linear-gradient(135deg, var(--legal-gold), #d4af37);
+    color: var(--legal-blue);
     padding: 14px 40px;
     border-radius: 50px;
-    font-weight: 600;
+    font-weight: 700;
     border: none;
     transition: all 0.3s ease;
     display: inline-block;
-    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
     font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .btn-start-online:hover { 
-    background: linear-gradient(135deg, #ff8c42, #ff6b35);
+    background: linear-gradient(135deg, #d4af37, var(--legal-gold));
     transform: translateY(-2px) scale(1.02); 
-    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
-    color: white; 
+    box-shadow: 0 6px 20px rgba(201, 169, 110, 0.6);
+    color: var(--legal-blue); 
 }
 
 /* 2. Кнопка "Назад" в квизе */
@@ -215,9 +318,9 @@ footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
 }
 
 .quiz-back-btn:hover {
-    background-color: #f8f9fa;
-    border-color: #1e3a5f;
-    color: #1e3a5f;
+    background-color: var(--legal-light);
+    border-color: var(--legal-blue);
+    color: var(--legal-blue);
 }
 
 .quiz-header-with-back {
@@ -227,17 +330,185 @@ footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
     margin-bottom: 1rem;
 }
 
-/* 3. Lazy loading для карты */
-.map-placeholder {
-    background: #f8f9fa;
+/* 3. Кнопка переключения темы */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    background: var(--legal-blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 400px;
-    color: #6c757d;
-    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-.map-placeholder::after {
-    content: "Загрузка карты...";
+.theme-toggle:hover {
+    background: var(--legal-gold);
+    transform: scale(1.1);
+}
+
+body.dark-theme .theme-toggle {
+    background: var(--dark-accent);
+}
+
+body.dark-theme .theme-toggle:hover {
+    background: #fbbf24;
+}
+
+/* 4. Липкое меню для мобильных */
+.mobile-sticky-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--legal-blue);
+    color: white;
+    padding: 12px 20px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1040;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+}
+
+.mobile-sticky-menu .phone-number {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.mobile-sticky-menu .call-btn {
+    background: var(--legal-gold);
+    color: var(--legal-blue);
+    border: none;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.mobile-sticky-menu .call-btn:hover {
+    background: #d4af37;
+    transform: scale(1.05);
+}
+
+body.dark-theme .mobile-sticky-menu {
+    background: var(--dark-card);
+}
+
+body.dark-theme .mobile-sticky-menu .call-btn {
+    background: var(--dark-accent);
+    color: var(--dark-bg);
+}
+
+@media (max-width: 768px) {
+    .mobile-sticky-menu {
+        display: flex;
+    }
+    
+    body {
+        padding-bottom: 70px;
+    }
+}
+
+/* 5. Исправление иконки колокольчика */
+.anim-icon-bell {
+    position: relative;
+    overflow: visible !important;
+}
+
+.anim-icon-bell .bell-slash {
+    stroke: #dc3545;
+    stroke-width: 2;
+}
+
+/* 6. Адаптация для мобильных */
+@media (max-width: 768px) {
+    .hero-viewport {
+        padding: 1vh 0;
+    }
+    
+    h1 {
+        font-size: 1.8rem !important;
+    }
+    
+    .equal-block {
+        padding: 20px 15px !important;
+        min-height: 180px;
+        margin-bottom: 15px;
+    }
+    
+    .process-title-frame {
+        padding: 6px 20px;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+    
+    .btn-start-online {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+    
+    .quiz-inline-card {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .office-card .col-md-6 {
+        padding: 30px 20px;
+    }
+    
+    .theme-toggle {
+        width: 45px;
+        height: 45px;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .equal-block {
+        min-height: 160px;
+    }
+    
+    h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    .quiz-grid-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 7. Стилизованная иконка WhatsApp */
+.whatsapp-icon {
+    width: 32px;
+    height: 32px;
+    transition: all 0.3s ease;
+}
+
+.whatsapp-icon circle {
+    fill: #25D366;
+    transition: fill 0.3s ease;
+}
+
+.whatsapp-icon path {
+    fill: white;
+    transition: fill 0.3s ease;
+}
+
+.social-link.wa:hover .whatsapp-icon {
+    transform: scale(1.1);
+}
+
+.social-link.wa:hover .whatsapp-icon circle {
+    fill: #128C7E;
 }
