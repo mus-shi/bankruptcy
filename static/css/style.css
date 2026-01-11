@@ -1,213 +1,187 @@
-1. Style.css
-
 /* === 1. ПЕРЕМЕННЫЕ === */
 :root {
---primary-color: #1a2a3a;
---accent-color: #2d5e4a;
---quiz-theme-color: #1e3a5f;
---text-muted: #6c757d;
---bg-light: #f8f9fa;
---bg-body: #ffffff;
---text-main: #1a2a3a;
+  --primary-color: #1a2a3a;
+  --accent-color: #2d5e4a;
+  --quiz-theme-color: #1e3a5f;
+  --text-muted: #6c757d;
+  --bg-light: #f8f9fa;
+  --bg-body: #ffffff;
+  --text-main: #1a2a3a;
 }
 
 body.dark {
---primary-color: #e0e0e0;
---accent-color: #4a8e6e;
---quiz-theme-color: #4a7ab5;
---text-muted: #b0b0b0;
---bg-light: #282c30;
---bg-body: #353839;
---text-main: #ffffff;
+  --primary-color: #e0e0e0;
+  --accent-color: #4a8e6e;
+  --quiz-theme-color: #4a7ab5;
+  --text-muted: #b0b0b0;
+  --bg-light: #1e1e1e;
+  --bg-body: #121212;
+  --text-main: #f0f0f0;
 }
 
 body {
-font-family: 'Inter', sans-serif;
-color: var(--text-main);
-background-color: var(--bg-body);
-line-height: 1.6;
-transition: background-color 0.4s, color 0.4s;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-body);
+  line-height: 1.6;
+  transition: background-color 0.4s, color 0.4s;
+  margin: 0;
+  padding: 0;
 }
 
 h1, h2, h3 {
-font-family: 'Playfair Display', serif;
-font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
 }
 
-/* === АНИМАЦИИ (HOVER ЭФФЕКТЫ) === */
-.shield-body { transition: fill 0.3s ease; }
-.equal-block:hover .shield-body { fill: #0d6efd; fill-opacity: 0.15; }
-
-.bell-slash { stroke-opacity: 0; transition: stroke-opacity 0.3s ease; }
-.equal-block:hover .bell-slash { stroke-opacity: 1; }
-
-.lock-shackle { transform-origin: 17px 11px; transform: rotateY(180deg) translateX(-10px); opacity: 0.7; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
-.equal-block:hover .lock-shackle { transform: rotateY(0) translateX(0); opacity: 1; }
-
-.equal-block:hover .chimney { opacity: 1 !important; }
-.smoke { opacity: 0; transform-origin: center; }
-@keyframes smokeRise {
-0% { transform: translateY(0) scale(1); opacity: 0; }
-50% { opacity: 0.6; }
-100% { transform: translateY(-10px) scale(1.5); opacity: 0; }
+/* === АНИМАЦИИ ИКОНОК === */
+.equal-block .icon-wrapper {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  transition: transform 0.3s ease;
 }
-.equal-block:hover .smoke-1 { animation: smokeRise 2s infinite ease-out; animation-delay: 0.3s; }
-.equal-block:hover .smoke-2 { animation: smokeRise 2s infinite ease-out 1s; }
-
-/* ШАГИ */
-.step-icon-consult { transition: transform 0.3s ease; }
-.equal-block:hover .step-icon-consult { transform: scale(1.1) rotate(-5deg); }
-
-.doc-line { stroke-dasharray: 10; stroke-dashoffset: 10; transition: stroke-dashoffset 0.5s ease; }
-.equal-block:hover .doc-line { stroke-dashoffset: 0; }
-.doc-fold { fill-opacity: 0; transition: fill-opacity 0.3s; }
-.equal-block:hover .doc-fold { fill-opacity: 0.2; }
-
-.scale-plate { transition: transform 0.5s ease-in-out; transform-origin: center top; }
-.equal-block:hover .scale-left { transform: translateY(2px); }
-.equal-block:hover .scale-right { transform: translateY(-2px); }
-
-.step-icon-free { transform-origin: 12px 12px; transition: transform 1s ease-out; }
-.equal-block:hover .step-icon-free { transform: rotate(180deg); }
-
+.equal-block:hover .icon-wrapper {
+  transform: scale(1.1);
+}
 
 /* === НОВЫЙ СТИЛЬ ОПРОСА (INLINE CARD) === */
 .quiz-inline-card {
-background: #ffffff;
-border-radius: 12px;
-box-shadow: 0 10px 40px rgba(0,0,0,0.15); /* Эффектная тень */
-padding: 30px;
-max-width: 500px; /* Компактная ширина */
-margin: 20px auto 0;
-text-align: left;
-position: relative;
-border: 1px solid rgba(0,0,0,0.05);
-opacity: 0;
-transform: translateY(-20px);
-transition: all 0.5s ease-out;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  padding: 30px;
+  max-width: 500px;
+  margin: 20px auto 0;
+  text-align: left;
+  position: relative;
+  border: 1px solid rgba(0,0,0,0.05);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.5s ease-out;
 }
 
 body.dark .quiz-inline-card {
-background: #282c30;
-border: 1px solid rgba(255,255,255,0.1);
-box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  background: #1e1e1e;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
-/* Класс для анимации появления */
 .quiz-inline-card.active {
-opacity: 1;
-transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .btn-close-quiz {
-background: none;
-border: none;
-font-size: 1.5rem;
-color: #aaa;
-line-height: 1;
-cursor: pointer;
-padding: 0;
-position: absolute;
-top: 15px;
-right: 20px;
-transition: color 0.3s;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #aaa;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  transition: color 0.3s;
 }
 .btn-close-quiz:hover { color: #dc3545; }
 
-
 /* МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА) */
 .quiz-grid-options {
-display: grid;
-grid-template-columns: 1fr 1fr; /* Две колонки */
-gap: 10px;
-margin-top: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 15px;
 }
 
 .btn-quiz-option {
-background-color: #fff;
-border: 1px solid #dee2e6;
-color: var(--primary-color);
-padding: 10px 5px;
-border-radius: 8px;
-font-size: 0.9rem;
-font-weight: 500;
-transition: all 0.2s;
-height: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  color: var(--primary-color);
+  padding: 10px 5px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 body.dark .btn-quiz-option {
-background-color: #282c30;
-border: 1px solid #4a4a4a;
-color: #e0e0e0;
+  background-color: #2a2a2a;
+  border: 1px solid #4a4a4a;
+  color: #e0e0e0;
 }
 
 .btn-quiz-option:hover {
-background-color: #f8f9fa;
-border-color: var(--quiz-theme-color);
-transform: translateY(-2px);
-box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  background-color: #f8f9fa;
+  border-color: var(--quiz-theme-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 body.dark .btn-quiz-option:hover {
-background-color: #3a3e42;
-border-color: #4a7ab5;
-box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  background-color: #3a3a3a;
+  border-color: #4a7ab5;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .btn-quiz-option:active {
-background-color: var(--quiz-theme-color);
-color: #fff;
+  background-color: var(--quiz-theme-color);
+  color: #fff;
 }
-
 
 /* === ПОЛЗУНОК === */
 input[type=range] {
--webkit-appearance: none;
-width: 100%;
-background: transparent;
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
 }
 input[type=range]::-webkit-slider-thumb {
--webkit-appearance: none;
-height: 20px;
-width: 20px;
-border-radius: 50%;
-background: #1e3a5f;
-cursor: pointer;
-margin-top: -8px;
-box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  -webkit-appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #1e3a5f;
+  cursor: pointer;
+  margin-top: -8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
 
 body.dark input[type=range]::-webkit-slider-thumb {
-background: #4a7ab5;
-box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  background: #4a7ab5;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-width: 100%;
-height: 4px;
-cursor: pointer;
-background: #dee2e6;
-border-radius: 2px;
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: #dee2e6;
+  border-radius: 2px;
 }
 
 body.dark input[type=range]::-webkit-slider-runnable-track {
-background: #4a4a4a;
+  background: #4a4a4a;
 }
 
 .range-value-label {
-font-size: 1.4rem;
-font-weight: 700;
-color: #1e3a5f;
-margin-bottom: 0.5rem;
-display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 body.dark .range-value-label {
-color: #4a7ab5;
+  color: #4a7ab5;
 }
 
 /* === ПРОГРЕСС БАР === */
@@ -222,95 +196,147 @@ footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); backgroun
 .form-check-input:checked { background-color: var(--accent-color); border-color: var(--accent-color); }
 
 body.dark .consultation-block { border: 1px solid rgba(255,255,255,0.1); }
-body.dark footer { border-top: 1px solid rgba(255,255,255,0.1); }
-body.dark .form-control { background-color: #282c30; border-color: #4a4a4a; color: #e0e0e0; }
+body.dark footer { 
+  border-top: 1px solid rgba(255,255,255,0.1);
+  background-color: #121212;
+}
+body.dark .form-control { 
+  background-color: #1e1e1e; 
+  border-color: #4a4a4a; 
+  color: #f0f0f0; 
+}
 body.dark .bg-light { background-color: var(--bg-light) !important; }
 body.dark .bg-white { background-color: var(--bg-light) !important; }
 
 @media (max-width: 992px) {
-.col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
+  .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
 }
 
-/* === НОВЫЕ СТИЛИ ДЛЯ УЛУЧШЕНИЙ === */
+/* === УЛУЧШЕНИЯ === */
 
-/* 1. Контрастная кнопка "Начать онлайн" */
 .btn-start-online {
-background: linear-gradient(135deg, #ff6b35, #ff8c42);
-color: white;
-padding: 14px 40px;
-border-radius: 50px;
-font-weight: 600;
-border: none;
-transition: all 0.3s ease;
-display: inline-block;
-box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
-font-size: 1.1rem;
+  background: linear-gradient(135deg, #ff6b35, #ff8c42);
+  color: white;
+  padding: 14px 40px;
+  border-radius: 50px;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+  font-size: 1.1rem;
 }
 
 body.dark .btn-start-online {
-box-shadow: 0 4px 15px rgba(255, 107, 53, 0.6);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.6);
 }
 
 .btn-start-online:hover {
-background: linear-gradient(135deg, #ff8c42, #ff6b35);
-transform: translateY(-2px) scale(1.02);
-box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
-color: white;
+  background: linear-gradient(135deg, #ff8c42, #ff6b35);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+  color: white;
 }
 
-/* 2. Кнопка "Назад" в квизе */
 .quiz-back-btn {
-background: none;
-border: 1px solid #dee2e6;
-color: #6c757d;
-padding: 8px 16px;
-border-radius: 20px;
-font-size: 0.85rem;
-transition: all 0.2s;
-cursor: pointer;
-margin-bottom: 15px;
+  background: none;
+  border: 1px solid #dee2e6;
+  color: #6c757d;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  margin-bottom: 15px;
 }
 
 body.dark .quiz-back-btn {
-border: 1px solid #4a4a4a;
-color: #b0b0b0;
+  border: 1px solid #4a4a4a;
+  color: #b0b0b0;
 }
 
 .quiz-back-btn:hover {
-background-color: #f8f9fa;
-border-color: #1e3a5f;
-color: #1e3a5f;
+  background-color: #f8f9fa;
+  border-color: #1e3a5f;
+  color: #1e3a5f;
 }
 
 body.dark .quiz-back-btn:hover {
-background-color: #3a3e42;
-border-color: #4a7ab5;
-color: #e0e0e0;
+  background-color: #3a3a3a;
+  border-color: #4a7ab5;
+  color: #e0e0e0;
 }
 
 .quiz-header-with-back {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-/* 3. Lazy loading для карты */
 .map-placeholder {
-background: #f8f9fa;
-display: flex;
-align-items: center;
-justify-content: center;
-min-height: 400px;
-color: #6c757d;
-font-size: 1rem;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: #6c757d;
+  font-size: 1rem;
 }
 
 body.dark .map-placeholder {
-background: #282c30;
-color: #b0b0b0;
+  background: #1e1e1e;
+  color: #b0b0b0;
 }
 
 .map-placeholder::after {
-content: "Загрузка карты...";
+  content: "Загрузка карты...";
+}
+
+/* === ЛИПКАЯ СТРОКА ЗВОНКА === */
+.call-sticky {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1050;
+}
+.call-sticky a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #1e3a5f;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(30, 58, 95, 0.4);
+  transition: all 0.3s;
+}
+.call-sticky a:hover {
+  background: #2c5282;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(30, 58, 95, 0.5);
+}
+
+body.dark .call-sticky a {
+  background: #4a7ab5;
+  box-shadow: 0 4px 12px rgba(74, 122, 181, 0.5);
+}
+body.dark .call-sticky a:hover {
+  background: #5a8bc5;
+  box-shadow: 0 6px 16px rgba(74, 122, 181, 0.6);
+}
+
+/* === ФУТЕР: ИКОНКИ ОДИНАКОВОГО РАЗМЕРА === */
+.footer-social-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  filter: grayscale(100%) opacity(0.7);
+}
+.social-link:hover .footer-social-img {
+  filter: grayscale(0%) opacity(1);
+  transform: scale(1.15);
 }
