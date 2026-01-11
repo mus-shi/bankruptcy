@@ -65,8 +65,8 @@ h1, h2, h3 {
 .equal-block:hover .scale-left { transform: translateY(2px); }
 .equal-block:hover .scale-right { transform: translateY(-2px); }
 
-.sun-rays { transform-origin: 12px 12px; transition: transform 1s ease-out; }
-.equal-block:hover .sun-rays { transform: rotate(180deg); }
+.step-icon-free { transform-origin: 12px 12px; transition: transform 1s ease-out; }
+.equal-block:hover .step-icon-free { transform: rotate(180deg); }
 
 
 /* === НОВЫЙ СТИЛЬ ОПРОСА (INLINE CARD) === */
@@ -214,7 +214,7 @@ body.dark .range-value-label {
 /* === ФУТЕР И ПРОЧЕЕ === */
 .btn-accent { background-color: var(--accent-color); color: #fff !important; }
 .consultation-block { background-color: var(--bg-light) !important; border: 1px solid rgba(0,0,0,0.1); }
-footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
+footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); background-color: var(--bg-light); }
 #quiz-section { background-color: var(--bg-body); }
 .form-control { background-color: #fff; border-color: #ddd; color: #1a1a1a; }
 .form-check-input:checked { background-color: var(--accent-color); border-color: var(--accent-color); }
@@ -222,6 +222,8 @@ footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
 body.dark .consultation-block { border: 1px solid rgba(255,255,255,0.1); }
 body.dark footer { border-top: 1px solid rgba(255,255,255,0.1); }
 body.dark .form-control { background-color: #282c30; border-color: #4a4a4a; color: #e0e0e0; }
+body.dark .bg-light { background-color: var(--bg-light) !important; }
+body.dark .bg-white { background-color: var(--bg-light) !important; }
 
 @media (max-width: 992px) {
     .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
