@@ -7,327 +7,218 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
-    <style>
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; color: var(--legal-gray); margin: 0; padding: 0; background-color: var(--bg-body); }
-
-        /* Фиксация первого экрана */
-        .hero-viewport {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 2vh 0;
-            box-sizing: border-box;
-        }
-
-        /* --- СТИЛЬ КАРТОЧЕК --- */
-        .equal-block {
-            background-color: var(--legal-light);
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 25px !important;
-            height: 100%;
-            min-height: 220px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            text-align: center;
-            transition: all 0.3s ease;
-            cursor: default;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .equal-block:hover {
-            transform: translateY(-5px);
-            background-color: #ffffff;
-            box-shadow: 0 12px 30px rgba(30, 58, 95, 0.15);
-            border-color: var(--legal-gold);
-        }
-
-        .process-title-frame {
-            display: inline-block;
-            padding: 8px 35px;
-            border: 1.5px solid var(--legal-blue);
-            border-radius: 50px;
-            color: var(--legal-blue);
-            font-weight: 600;
-            margin-bottom: 30px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Кнопка CTA */
-        .btn-start-online {
-            background: linear-gradient(135deg, var(--legal-gold), #d4af37);
-            color: var(--legal-blue);
-            padding: 14px 40px;
-            border-radius: 50px;
-            font-weight: 700;
-            border: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .btn-start-online:hover { 
-            background: linear-gradient(135deg, #d4af37, var(--legal-gold));
-            transform: translateY(-2px) scale(1.02); 
-            box-shadow: 0 6px 20px rgba(201, 169, 110, 0.6);
-            color: var(--legal-blue); 
-        }
-
-        .cta-container {
-            text-align: center;
-            width: 100%;
-            margin-top: 2rem;
-            position: relative;
-        }
-
-        .scroll-indicator {
-            text-align: center;
-            text-decoration: none;
-            color: var(--legal-blue);
-            display: block;
-            margin-top: 15px;
-        }
-        .scroll-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 5px; opacity: 0.8; }
-
-        /* Офис и карта */
-        .office-section { padding: 60px 0; background: var(--legal-light); }
-        .office-card { border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* --- СОЦСЕТИ --- */
-        .footer-social-icon { width: 32px; height: 32px; transition: all 0.3s ease; fill: #6c757d; }
-        .social-link { text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
-        .social-link.wa:hover .footer-social-icon { fill: #25D366; transform: scale(1.1); }
-        .social-link.tg:hover .footer-social-icon { fill: #24A1DE; transform: scale(1.1); }
-        .social-link.vk:hover .footer-social-icon { fill: #0077FF; transform: scale(1.1); }
-        .footer-social-img { width: 32px; height: 32px; transition: all 0.3s ease; filter: grayscale(100%) opacity(0.7); object-fit: contain; }
-        .social-link.max:hover .footer-social-img { filter: grayscale(0%) opacity(1); transform: scale(1.1); }
-        .footer-link { color: #6c757d; text-decoration: none; font-size: 0.75rem; transition: 0.3s; }
-        .footer-link:hover { color: var(--legal-blue); }
-
-        /* Адаптация для мобильных */
-        @media (max-width: 768px) {
-            .hero-viewport { padding: 1vh 0; }
-            h1 { font-size: 1.8rem !important; }
-            .equal-block { padding: 20px 15px !important; min-height: 180px; margin-bottom: 15px; }
-            .process-title-frame { padding: 6px 20px; font-size: 0.9rem; margin-bottom: 20px; }
-            .btn-start-online { padding: 12px 30px; font-size: 1rem; }
-            .quiz-inline-card { margin: 10px; padding: 20px; }
-            .office-card .col-md-6 { padding: 30px 20px; }
-        }
-
-        @media (max-width: 576px) {
-            .equal-block { min-height: 160px; }
-            h1 { font-size: 1.5rem !important; }
-            .quiz-grid-options { grid-template-columns: 1fr; }
-        }
-    </style>
 </head>
 <body>
 
-    <!-- Кнопка переключения темы -->
-    <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path class="sun-icon" d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/>
-            <path class="moon-icon" d="M9 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 9a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 9a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 15.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 15a.75.75 0 01.75.75V18a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 15zM7.758 14.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 9a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 9zM6.697 4.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" style="display: none;"/>
-        </svg>
-    </button>
+<!-- Кнопка переключения темы -->
+<button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path class="sun-icon" d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/>
+        <path class="moon-icon" d="M9 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 9a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 9a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 15.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 15a.75.75 0 01.75.75V18a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 15zM7.758 14.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 9a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 9zM6.697 4.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" style="display: none;"/>
+    </svg>
+</button>
 
-    <!-- Липкое меню для мобильных -->
-    <div class="mobile-sticky-menu">
-        <div class="phone-number">📞 +7 (999) 123-45-67</div>
-        <a href="tel:+79991234567" class="call-btn">Позвонить</a>
-    </div>
+<!-- Липкое меню для мобильных -->
+<div class="mobile-sticky-menu">
+    <div class="phone-number">📞 +7 (999) 123-45-67</div>
+    <a href="tel:+79991234567" class="call-btn">Позвонить</a>
+</div>
 
-    <div class="hero-viewport">
-        <header class="container text-center">
-            <h1 class="mb-4 mt-3" style="font-family: 'Playfair Display', serif; font-size: calc(1.4rem + 1vw); color: var(--legal-blue);">Оформите банкротство — не выходя из дома</h1>
-            
-            <div class="row g-3">
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <!-- НОВАЯ ИКОНКА: Щит с звездой -->
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--legal-blue)" stroke-width="2" class="mb-3 anim-icon-shield-new">
-                            <path class="shield-body" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                            <path class="shield-star" d="M12 8l1.45 2.95L17 12l-2.55 2.05L15 17l-3-2.05L9 17l1.55-2.95L8 12l3.55-1.05L12 8z" fill="var(--legal-gold)" stroke="none"/>
-                        </svg>
-                        <strong class="d-block mb-2" style="color: var(--legal-blue);">Вы ничем не рискуете</strong>
-                        <div class="small" style="color: var(--legal-gray);">Оплата — только после вынесения судебного акта и официального признания банкротом.</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <!-- ИКОНКА ОСТАВЛЯЕМ ТУ ЖЕ: Колокольчик -->
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2" class="mb-3 anim-icon-bell">
-                            <path class="bell-body" d="M18 8A6 6 0 0 1 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0"></path>
-                            <line class="bell-slash" x1="1" y1="1" x2="23" y2="23" style="stroke: #dc3545; stroke-width: 2;"></line>
-                        </svg>
-                        <strong class="d-block mb-2" style="color: var(--legal-blue);">Стоп звонки коллекторов</strong>
-                        <div class="small" style="color: var(--legal-gray);">С первого дня процедуры — тишина. Мы берем общение с кредиторами на себя.</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <!-- НОВАЯ ИКОНКА: Дом с сердцем -->
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#795548" stroke-width="2" class="mb-3 anim-icon-house-new">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                            <path class="heart-beat" d="M12 6c-1.1-1.1-2.9-1.1-4 0l-1 1c-1.1 1.1-1.1 2.9 0 4l5 5 5-5c1.1-1.1 1.1-2.9 0-4l-1-1C14.9 4.9 13.1 4.9 12 6z" fill="#e53e3e" stroke="none"/>
-                            <path class="chimney" d="M16 4h3v5h-3z" stroke-width="1.5" style="opacity: 0; transition: 0.3s;"/>
-                            <path class="smoke smoke-1" d="M17 2c0-1.5 1-2 1-2" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
-                            <path class="smoke smoke-2" d="M19 1c0-1.5 0.5-2 0.5-2" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                        <strong class="d-block mb-2" style="color: var(--legal-blue);">Жильё в безопасности</strong>
-                        <div class="small" style="color: var(--legal-gray);">Единственное жильё не арестуют, а доход сохраним в размере прожиточного минимума.</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="equal-block">
-                        <!-- ИКОНКА ОСТАВЛЯЕМ ТУ ЖЕ: Замок -->
-                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="2" class="mb-3 anim-icon-lock">
-                            <rect x="3" y="11" width="18" height="11" rx="2"/>
-                            <path class="lock-shackle" d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                        </svg>
-                        <strong class="d-block mb-2" style="color: var(--legal-blue);">Полная анонимность</strong>
-                        <div class="small" style="color: var(--legal-gray);">Ваши данные защищены законом. О процедуре не узнают на работе или родственники.</div>
-                    </div>
+<div class="hero-viewport">
+    <header class="container text-center">
+        <h1 class="mb-4 mt-3" style="font-family: 'Playfair Display', serif; font-size: calc(1.4rem + 1vw);">Оформите банкротство — не выходя из дома</h1>
+
+        <!-- ========== БЛОК ПРЕИМУЩЕСТВ ========== -->
+        <div class="row g-3">
+            <!-- 1. Щит + звезда -->
+            <div class="col-lg-3 col-md-6">
+                <div class="equal-block">
+                    <svg class="icon-pack icon-blue mb-3" viewBox="0 0 24 24">
+                        <path class="shield-main" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke-width="2"/>
+                        <path class="shield-star" d="M12 8l1.45 2.95L17 12l-2.55 2.05L15 17l-3-2.05L9 17l1.55-2.95L8 12l3.55-1.05L12 8z" fill="currentColor" stroke="none"/>
+                    </svg>
+                    <strong class="d-block mb-2">Вы ничем не рискуете</strong>
+                    <div class="small">Оплата — только после вынесения судебного акта и официального признания банкротом.</div>
                 </div>
             </div>
 
-            <div class="cta-container">
-                <div id="intro-text-block">
-                    <p class="small mb-3" style="color: var(--legal-gray);">Проверьте, подходит ли вам банкротство. Ответьте на вопросы — и я подскажу ваш путь.</p>
-                    <button type="button" id="show-form-btn" class="btn-start-online">Начать онлайн →</button>
-                    <p class="small mt-2" style="color: var(--legal-gray); font-size: 0.75rem;">Работаем при долгах от 200 000 ₽. Консультация бесплатно.</p>
-                </div>
-
-                <div id="quiz-wrapper" class="quiz-inline-card" style="display: none;">
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn-close-quiz" onclick="closeQuiz()" aria-label="Закрыть">×</button>
-                    </div>
-                    <div id="quiz-container"></div>
+            <!-- 2. Колокольчик -->
+            <div class="col-lg-3 col-md-6">
+                <div class="equal-block">
+                    <svg class="icon-pack icon-red mb-3" viewBox="0 0 24 24">
+                        <path class="bell-body" d="M18 8A6 6 0 0 1 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0"/>
+                        <line class="bell-slash" x1="1" y1="1" x2="23" y2="23" stroke-width="2"/>
+                    </svg>
+                    <strong class="d-block mb-2">Стоп звонки коллекторов</strong>
+                    <div class="small">С первого дня процедуры — тишина. Мы берем общение с кредиторами на себя.</div>
                 </div>
             </div>
-        </header>
 
-        <section class="container text-center mt-4">
-            <span class="process-title-frame">Как проходит процедура</span>
-            
-            <div class="row g-3">
-                <div class="col-lg-3 col-md-6 col-6">
-                    <div class="equal-block">
-                        <div style="background: var(--legal-light); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; overflow: hidden;">
-                            <svg class="step-icon-consult" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ff4d6d" stroke-width="2">
-                                <path class="chat-bubble" d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                            </svg>
-                        </div>
-                        <strong class="d-block mb-2" style="color: var(--legal-blue);">1. Консультация</strong>
-                        <div class="small" style="color: var(--legal-gray);">Бесплатно разбираем вашу ситуацию и подбираем лучший способ списания.</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <div class="equal-block">
-                        <div style="background: var(--legal-light); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
-                            <svg class="step-icon-docs" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a06cd5" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                                <path class="doc-fold" d="M14 2v6h6"/>
-                                <line class="doc-line doc-line-1" x1="16" y1="13" x2="8" y2="13"/>
-                                <line class="doc-line doc-line-2" x1="16" y1="17" x2="8" y2="17"/>
-                                <line class="doc-line doc-line-3" x1="10" y1="9" x2="8" y2="9"/>
-                            </svg>
-                        </div>
-                        <strong class="d-block mb-2" style="color: var(--legal-blue);">2. Документы</strong>
-                        <div class="small" style="color: var(--legal-gray);">Помогаем собрать полный пакет документов. Вам не нужно бегать по банкам.</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <div class="equal-block">
-                        <div style="background: var(--legal-light); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
-                            <svg class="step-icon-court" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0077b6" stroke-width="2">
-                                <path d="M3 7h18"/>
-                                <path d="M12 2v18"/>
-                                <path class="scale-plate scale-left" d="M6 7v6a3 3 0 0 0 6 0V7"/>
-                                <path class="scale-plate scale-right" d="M18 7v6a3 3 0 0 1-6 0V7"/>
-                            </svg>
-                        </div>
-                        <strong class="d-block mb-2" style="color: var(--legal-blue);">3. Подача в суд</strong>
-                        <div class="small" style="color: var(--legal-gray);">Направляем заявление. Наши юристы представляют ваши интересы на заседаниях.</div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-6">
-                    <div class="equal-block">
-                        <div style="background: var(--legal-light); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
-                            <svg class="step-icon-free" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fcc419" stroke-width="2">
-                                <circle cx="12" cy="12" r="5"/>
-                                <g class="sun-rays">
-                                    <path d="M12 1v2"/>
-                                    <path d="M12 21v2"/>
-                                    <path d="M4.22 4.22l1.42 1.42"/>
-                                    <path d="M18.36 18.36l1.42 1.42"/>
-                                    <path d="M1 12h2"/>
-                                    <path d="M21 12h2"/>
-                                    <path d="M4.22 19.78l1.42-1.42"/>
-                                    <path d="M18.36 5.64l1.42-1.42"/>
-                                </g>
-                            </svg>
-                        </div>
-                        <strong class="d-block mb-2" style="color: var(--legal-blue);">4. Свобода</strong>
-                        <div class="small" style="color: var(--legal-gray);">Получаем решение суда. С этого момента все ваши долги официально списаны.</div>
-                    </div>
+            <!-- 3. Дом + сердце -->
+            <div class="col-lg-3 col-md-6">
+                <div class="equal-block">
+                    <svg class="icon-pack icon-amber mb-3" viewBox="0 0 24 24">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-width="2"/>
+                        <path class="heart-main" d="M12 6c-1.1-1.1-2.9-1.1-4 0l-1 1c-1.1 1.1-1.1 2.9 0 4l5 5 5-5c1.1-1.1 1.1-2.9 0-4l-1-1c-1.1-1.1-2.9-1.1-4 0z" fill="#e53e3e" stroke="none"/>
+                        <path class="chimney" d="M16 4h3v5h-3z" stroke-width="1.5" style="opacity:0; transition:opacity .3s"/>
+                        <path class="smoke smoke-1" d="M17 2c0-1.5 1-2 1-2" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
+                        <path class="smoke smoke-2" d="M19 1c0-1.5 .5-2 .5-2" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <strong class="d-block mb-2">Жильё в безопасности</strong>
+                    <div class="small">Единственное жильё не арестуют, а доход сохраним в размере прожиточного минимума.</div>
                 </div>
             </div>
-        </section>
 
-        <a href="#office-block" class="scroll-indicator">
-            <span class="scroll-label">офис и контакты</span>
-            <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/><path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
-        </a>
-    </div>
-
-    <section id="office-block" class="office-section reveal">
-        <div class="container">
-            <h2 class="text-center mb-5" style="font-family: 'Playfair Display', serif; color: var(--legal-blue);">Очная консультация</h2>
-            <div class="row g-0 office-card bg-white shadow-sm">
-                <div class="col-md-6 p-5">
-                    <h3 class="h4 mb-4" style="color: var(--legal-blue);">Для жителей Ставропольского края</h3>
-                    <p class="small mb-4" style="color: var(--legal-gray);">Вы можете прийти на очную консультацию в наш офис в городе Железноводске.</p>
-                    <div class="mb-3">
-                        <p class="mb-1" style="color: var(--legal-blue);"><strong>Адрес:</strong></p>
-                        <p class="small mb-0" style="color: var(--legal-gray);">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
-                    </div>
-                    <div class="mb-4">
-                        <p class="mb-1" style="color: var(--legal-blue);"><strong>Рабочее время:</strong></p>
-                        <p class="small mb-0" style="color: var(--legal-gray);">Пн–Пт: 09:00 – 18:00</p>
-                        <p class="small" style="color: var(--legal-gray);">Сб–Вс: выходной</p>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                        <span class="small" style="color: var(--legal-gray);">Телефон:</span>
-                        <a href="tel:+79991234567" class="btn btn-outline-dark btn-sm px-3">📞 Позвонить</a>
-                    </div>
+            <!-- 4. Замок -->
+            <div class="col-lg-3 col-md-6">
+                <div class="equal-block">
+                    <svg class="icon-pack icon-green mb-3" viewBox="0 0 24 24">
+                        <rect x="3" y="11" width="18" height="11" rx="2" stroke-width="2"/>
+                        <path class="lock-shackle" d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2"/>
+                    </svg>
+                    <strong class="d-block mb-2">Полная анонимность</strong>
+                    <div class="small">Ваши данные защищены законом. О процедуре не узнают на работе или родственники.</div>
                 </div>
-                <div class="col-md-6" style="min-height: 400px;">
-                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-container">
+            <div id="intro-text-block">
+                <p class="small mb-3">Проверьте, подходит ли вам банкротство. Ответьте на вопросы — и я подскажу ваш путь.</p>
+                <button type="button" id="show-form-btn" class="btn-start-online">Начать онлайн →</button>
+                <p class="small mt-2">Работаем при долгах от 200 000 ₽. Консультация бесплатно.</p>
+            </div>
+
+            <div id="quiz-wrapper" class="quiz-inline-card" style="display: none;">
+                <button type="button" class="btn-close-quiz" onclick="closeQuiz()" aria-label="Закрыть">×</button>
+                <div id="quiz-container"></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== БЛОК «КАК ПРОХОДИТ ПРОЦЕДУРА» ========== -->
+    <section class="container text-center mt-4">
+        <span class="process-title-frame">Как проходит процедура</span>
+        <div class="row g-3">
+            <!-- 1. Консультация -->
+            <div class="col-lg-3 col-md-6 col-6">
+                <div class="equal-block">
+                    <div style="background: var(--legal-light); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                        <svg class="icon-pack icon-purple" viewBox="0 0 24 24">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <strong class="d-block mb-2">1. Консультация</strong>
+                    <div class="small">Бесплатно разбираем вашу ситуацию и подбираем лучший способ списания.</div>
+                </div>
+            </div>
+
+            <!-- 2. Документы -->
+            <div class="col-lg-3 col-md-6 col-6">
+                <div class="equal-block">
+                    <div style="background: var(--legal-light); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                        <svg class="icon-pack icon-indigo" viewBox="0 0 24 24">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="2"/>
+                            <path d="M14 2v6h6" stroke-width="2"/>
+                            <line x1="16" y1="13" x2="8" y2="13" stroke-width="2"/>
+                            <line x1="16" y1="17" x2="8" y2="17" stroke-width="2"/>
+                            <line x1="10" y1="9" x2="8" y2="9" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <strong class="d-block mb-2">2. Документы</strong>
+                    <div class="small">Помогаем собрать полный пакет документов. Вам не нужно бегать по банкам.</div>
+                </div>
+            </div>
+
+            <!-- 3. Подача в суд -->
+            <div class="col-lg-3 col-md-6 col-6">
+                <div class="equal-block">
+                    <div style="background: var(--legal-light); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                        <svg class="icon-pack icon-blue" viewBox="0 0 24 24">
+                            <path d="M3 7h18" stroke-width="2"/>
+                            <path d="M12 2v18" stroke-width="2"/>
+                            <path d="M6 7v6a3 3 0 0 0 6 0V7" stroke-width="2"/>
+                            <path d="M18 7v6a3 3 0 0 1-6 0V7" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <strong class="d-block mb-2">3. Подача в суд</strong>
+                    <div class="small">Направляем заявление. Наши юристы представляют ваши интересы на заседаниях.</div>
+                </div>
+            </div>
+
+            <!-- 4. Свобода -->
+            <div class="col-lg-3 col-md-6 col-6">
+                <div class="equal-block">
+                    <div style="background: var(--legal-light); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                        <svg class="icon-pack icon-amber" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="5" stroke-width="2"/>
+                            <g stroke-width="2">
+                                <path d="M12 1v2"/>
+                                <path d="M12 21v2"/>
+                                <path d="M4.22 4.22l1.42 1.42"/>
+                                <path d="M18.36 18.36l1.42 1.42"/>
+                                <path d="M1 12h2"/>
+                                <path d="M21 12h2"/>
+                                <path d="M4.22 19.78l1.42-1.42"/>
+                                <path d="M18.36 5.64l1.42-1.42"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <strong class="d-block mb-2">4. Свобода</strong>
+                    <div class="small">Получаем решение суда. С этого момента все ваши долги официально списаны.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="text-center py-5 bg-light border-top">
-        <div class="container">
-            <div class="d-flex justify-content-center align-items-center gap-4 mb-4">
-                <a href="https://wa.me/79991234567" target="_blank" class="social-link wa" aria-label="WhatsApp">
-                    <svg class="whatsapp-icon" viewBox="0 0 512 512" style="width: 32px; height: 32px;">
-                        <path style="fill:#507C5C; transition: fill 0.3s ease;" d="M255.999,512c-25.934,0-51.961-4.332-77.361-12.875c-7.966-2.68-12.251-11.309-9.571-19.274 c2.678-7.966,11.305-12.254,19.274-9.571c22.267,7.49,45.03,11.286,67.659,11.286c124.377,0,225.565-102.089,225.565-227.572 c0.002-123.271-101.637-223.56-226.568-223.56c-123.823,0-224.563,100.289-224.563,223.56c0,43.274,11.989,85.16,34.672,121.139 l5.913,8.87c2.442,3.666,3.179,8.211,2.015,12.46l-16.162,59.025l60.92-15.584c8.144-2.086,16.43,2.829,18.514,10.97 c2.083,8.143-2.829,16.431-10.97,18.514l-86.28,22.072c-5.253,1.344-10.821-0.208-14.622-4.074s-5.259-9.459-3.827-14.687 l21.243-77.585l-2.173-3.259c-0.068-0.103-0.137-0.208-0.204-0.315C13.65,350.655,0,303.091,0,253.994 c0-68.07,26.535-131.939,74.717-179.841C122.813,26.334,186.837,0,254.996,0c68.356,0,132.71,26.173,181.205,73.699 C485.081,121.6,512,185.63,512,253.992c0,68.482-26.824,133.176-75.532,182.162C387.837,485.064,323.745,512,255.999,512z"/>
-                        <path style="fill:#CFF09E; transition: fill 0.3s ease;" d="M399.217,353.076l4.634-15.273c1.482-4.351-0.274-10.09-4.532-12.685l-67.288-38.073 c-4.258-2.593-9.905-1.948-13.609,2.217l-30.747,33.223c-2.407,2.036-5.833,2.867-9.072,1.478 c-11.254-5.064-35.944-16.411-54.297-34.765l0.003-0.003c-0.254-0.25-0.501-0.501-0.753-0.75c-0.25-0.253-0.501-0.499-0.75-0.753 l-0.003,0.003c-19.138-19.138-29.702-43.043-34.765-54.297c-1.389-3.24-0.558-6.665,1.478-9.072l33.223-30.747 c4.165-3.704,4.81-9.352,2.217-13.609l-38.073-67.288c-2.593-4.258-8.334-6.014-12.685-4.532l-15.273,4.634 c-16.384,4.728-31.099,16.026-39.795,32.415c-10.545,21.018-14.054,45.922-2.564,76.283c19.287,51.196,45.82,86.259,66.758,107.196 c20.937,20.937,56,47.469,107.196,66.758c30.361,11.49,55.263,7.981,76.283-2.564C383.19,384.175,394.489,369.46,399.217,353.076z"/>
-                        <path style="fill:#507C5C; transition: fill 0.3s ease;" d="M326.998,417.787c-0.002,0-0.003,0-0.005,0c-13.54,0-27.625-2.733-41.862-8.121 c-56.146-21.153-92.209-49.867-112.57-70.229c-20.362-20.36-49.076-56.423-70.237-112.592c-11.749-31.04-10.673-60.813,3.203-88.47 c0.052-0.103,0.105-0.207,0.158-0.309c10.239-19.298,28.062-33.826,48.91-39.873l14.993-4.55c2.503-0.817,5.142-1.231,7.847-1.231 c9.2,0,17.798,4.732,22.439,12.35c0.085,0.14,0.167,0.282,0.25,0.425l37.978,67.12c6.274,10.571,4.141,24.171-5.117,32.519 l-29.022,26.858c5.2,11.338,14.549,30.101,29.36,45.012c0.119,0.114,0.236,0.228,0.35,0.347l1.28,1.28 c0.117,0.114,0.233,0.231,0.347,0.35c14.476,14.369,34.119,24.297,45.021,29.354l26.85-29.013 c5.002-5.548,12.058-8.725,19.388-8.725c4.62,0,9.153,1.246,13.131,3.608l67.12,37.978c0.143,0.081,0.285,0.164,0.425,0.25 c10.031,6.113,14.774,19.082,11.119,30.285l-4.55,14.995c-6.047,20.849-20.575,38.671-39.873,48.91 c-0.102,0.055-0.204,0.107-0.309,0.158C358.659,413.98,342.972,417.787,326.998,417.787z M132.651,152.183 c-9.966,19.968-10.573,40.877-1.853,63.911c19.287,51.196,45.82,86.259,66.758,107.196c20.937,20.937,56,47.469,107.196,66.758 c10.804,4.089,21.264,6.158,31.111,6.158h0.003c11.294,0,22.03-2.617,32.818-8.004c12.012-6.426,21.039-17.53,24.779-30.492 c0.02-0.067,0.038-0.134,0.059-0.199l3.717-12.25l-60.938-34.48l-28.59,30.893c-0.421,0.455-0.87,0.884-1.344,1.284 c-4.395,3.714-9.928,5.761-15.584,5.761c-3.209,0-6.342-0.645-9.313-1.919c-0.082-0.035-0.163-0.072-0.245-0.108 c-10.407-4.682-38.053-17.121-58.813-37.883c-0.078-0.078-0.154-0.155-0.228-0.234l-0.457-0.453 c-0.043-0.043-0.087-0.087-0.129-0.129l-0.453-0.457c-0.079-0.075-0.157-0.152-0.234-0.228 c-20.782-20.782-32.152-46.069-37.616-58.222l-0.266-0.592c-0.037-0.082-0.072-0.163-0.108-0.245 c-3.573-8.33-2.1-17.869,3.844-24.898c0.4-0.473,0.829-0.921,1.283-1.342l30.893-28.59l-34.48-60.938l-12.25,3.717 c-0.065,0.02-0.132,0.04-0.199,0.059C150.181,131.144,139.077,140.169,132.651,152.183z"/>
+    <a href="#office-block" class="scroll-indicator">
+        <span class="scroll-label">офис и контакты</span>
+        <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+            <path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+        </svg>
+    </a>
+</div>
+
+<!-- ОФИС -->
+<section id="office-block" class="office-section reveal">
+    <div class="container">
+        <h2 class="text-center mb-5" style="font-family: 'Playfair Display', serif;">Очная консультация</h2>
+        <div class="row g-0 office-card bg-white shadow-sm">
+            <div class="col-md-6 p-5">
+                <h3 class="h4 mb-4">Для жителей Ставропольского края</h3>
+                <p class="small mb-4">Вы можете прийти на очную консультацию в наш офис в городе Железноводске.</p>
+                <div class="mb-3">
+                    <p class="mb-1"><strong>Адрес:</strong></p>
+                    <p class="small mb-0">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
+                </div>
+                <div class="mb-4">
+                    <p class="mb-1"><strong>Рабочее время:</strong></p>
+                    <p class="small mb-0">Пн–Пт: 09:00 – 18:00</p>
+                    <p class="small">Сб–Вс: выходной</p>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="small">Телефон:</span>
+                    <a href="tel:+79991234567" class="btn btn-outline-dark btn-sm px-3">📞 Позвонить</a>
+                </div>
+            </div>
+            <div class="col-md-6" style="min-height: 400px;">
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ФУТЕР -->
+<footer class="text-center py-5 bg-light border-top">
+    <div class="container">
+        <div class="d-flex justify-content-center align-items-center gap-4 mb-4">
+            <a href="https://wa.me/79991234567" target="_blank" class="social-link wa" aria-label="WhatsApp">
+                <svg class="whatsapp-icon" viewBox="0 0 512 512" style="width: 32px; height: 32px;">
+                    <path style="fill:#507C5C;" d="M255.999,512c-25.934,0-51.961-4.332-77.361-12.875c-7.966-2.68-12.251-11.309-9.571-19.274 c2.678-7.966,11.305-12.254,19.274-9.571c22.267,7.49,45.03,11.286,67.659,11.286c124.377,0,225.565-102.089,225.565-227.572 c0.002-123.271-101.637-223.56-226.568-223.56c-123.823,0-224.563,100.289-224.563,223.56c0,43.274,11.989,85.16,34.672,121.139 l5.913,8.87c2.442,3.666,3.179,8.211,2.015,12.46l-16.162,59.025l60.92-15.584c8.144-2.086,16.43,2.829,18.514,10.97 c2.083,8.143-2.829,16.431-10.97,18.514l-86.28,22.072c-5.253,1.344-10.821-0.208-14.622-4.074s-5.259-9.459-3.827-14.687 l21.243-77.585l-2.173-3.259c-0.068-0.103-0.137-0.208-0.204-0.315C13.65,350.655,0,303.091,0,253.994 c0-68.07,26.535-131.939,74.717-179.841C122.813,26.334,186.837,0,254.996,0c68.356,0,132.71,26.173,181.205,73.699 C485.081,121.6,512,185.63,512,253.992c0,68.482-26.824,133.176-75.532,182.162C387.837,485.064,323.745,512,255.999,512z"/>
+                    <path style="fill:#CFF09E;" d="M399.217,353.076l4.634-15.273c1.482-4.351-0.274-10.09-4.532-12.685l-67.288-38.073 c-4.258-2.593-9.905-1.948-13.609,2.217l-30.747,33.223c-2.407,2.036-5.833,2.867-9.072,1.478 c-11.254-5.064-35.944-16.411-54.297-34.765l0.003-0.003c-0.254-0.25-0.501-0.501-0.753-0.75c-0.25-0.253-0.501-0.499-0.75-0.753 l-0.003,0.003c-19.138-19.138-29.702-43.043-34.765-54.297c-1.389-3.24-0.558-6.665,1.478-9.072l33.223-30.747 c4.165-3.704,4.81-9.352,2.217-13.609l-38.073-67.288c-2.593-4.258-8.334-6.014-12.685-4.532l-15.273,4.634 c-16.384,4.728-31.099,16.026-39.795,32.415c-10.545,21.018-14.054,45.922-2.564,76.283c19.287,51.196,45.82,86.259,66.758,107.196 c20.937,20.937,56,47.469,107.196,66.758c30.361,11.49,55.263,7.981,76.283-2.564C383.19,384.175,394.489,369.46,399.217,353.076z"/>
+                    <path style="fill:#507C5C;" d="M326.998,417.787c-0.002,0-0.003,0-0.005,0c-13.54,0-27.625-2.733-41.862-8.121 c-56.146-21.153-92.209-49.867-112.57-70.229c-20.362-20.36-49.076-56.423-70.237-112.592c-11.749-31.04-10.673-60.813,3.203-88.47 c0.052-0.103,0.105-0.207,0.158-0.309c10.239-19.298,28.062-33.826,48.91-39.873l14.993-4.55c2.503-0.817,5.142-1.231,7.847-1.231 c9.2,0,17.798,4.732,22.439,12.35c0.085,0.14,0.167,0.282,0.25,0.425l37.978,67.12c6.274,10.571,4.141,24.171-5.117,32.519 l-29.022,26.858c5.2,11.338,14.549,30.101,29.36,45.012c0.119,0.114,0.236,0.228,0.35,0.347l1.28,1.28 c0.117,0.114,0.233,0.231,0.347,0.35c14.476,14.369,34.119,24.297,45.021,29.354l26.85-29.013 c5.002-5.548,12.058-8.725,19.388-8.725c4.62,0,9.153,1.246,13.131,3.608l67.12,37.978c0.143,0.081,0.285,0.164,0.425,0.25 c10.031,6.113,14.774,19.082,11.119,30.285l-4.55,14.995c-6.047,20.849-20.575,38.671-39.873,48.91 c-0.102,0.055-0.204,0.107-0.309,0.158C358.659,413.98,342.972,417.787,326.998,417.787z M132.651,152.183 c-9.966,19.968-10.573,40.877-1.853,63.911c19.287,51.196,45.82,86.259,66.758,107.196c20.937,20.937,56,47.469,107.196,66.758 c10.804,4.089,21.264,6.158,31.111,6.158h0.003c11.294,0,22.03-2.617,32.818-8.004c12.012-6.426,21.039-17.53,24.779-30.492 c0.02-0.067,0.038-0.134,0.059-0.199l3.717-12.25l-60.938-34.48l-28.59,30.893c-0.421,0.455-0.87,0.884-1.344,1.284 c-4.395,3.714-9.928,5.761-15.584,5.761c-3.209,0-6.342-0.645-9.313-1.919c-0.082-0.035-0.163-0.072-0.245-0.108 c-10.407-4.682-38.053-17.121-58.813-37.883c-0.078-0.078-0.154-0.155-0.228-0.234l-0.457-0.453 c-0.043-0.043-0.087-0.087-0.129-0.129l-0.453-0.457c-0.079-0.075-0.157-0.152-0.234-0.228 c-20.782-20.782-32.152-46.069-37.616-58.222l-0.266-0.592c-0.037-0.082-0.072-0.163-0.108-0.245 c-3.573-8.33-2.1-17.869,3.844-24.898c0.4-0.473,0.829-0.921,1.283-1.342l30.893-28.59l-34.48-60.938l-12.25,3.717 c-0.065,0.02-0.132,0.04-0.199,0.059C150.181,131.144,139.077,140.169,132.651,152.183z"/>
                     </svg>
                 </a>
                 <a href="https://t.me/ripe_man" target="_blank" class="social-link tg" aria-label="Telegram">
@@ -340,65 +231,16 @@
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" alt="Max Logo" class="footer-social-img">
                 </a>
             </div>
-            
-            <p class="small mb-3" style="color: var(--legal-gray);">© 2026 Банкротство под ключ. Работаем по всей России.</p>
+            <p class="small mb-3">© 2026 Банкротство под ключ. Работаем по всей России.</p>
             <div class="d-flex justify-content-center gap-3">
                 <a href="/privacy" class="footer-link">Политика конфиденциальности</a>
-                <span class="small" style="color: var(--legal-gray);">|</span>
+                <span class="small">|</span>
                 <a href="/offer" class="footer-link">Публичная оферта</a>
             </div>
         </div>
     </footer>
 
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
-    <script>
-        // Переключение темы
-        const themeToggle = document.getElementById('theme-toggle');
-        const body = document.body;
-        const sunIcon = document.querySelector('.sun-icon');
-        const moonIcon = document.querySelector('.moon-icon');
-
-        // Проверяем сохраненную тему
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            body.classList.add('dark-theme');
-            sunIcon.style.display = 'none';
-            moonIcon.style.display = 'block';
-        }
-
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('dark-theme');
-            
-            if (body.classList.contains('dark-theme')) {
-                localStorage.setItem('theme', 'dark');
-                sunIcon.style.display = 'none';
-                moonIcon.style.display = 'block';
-            } else {
-                localStorage.setItem('theme', 'light');
-                sunIcon.style.display = 'block';
-                moonIcon.style.display = 'none';
-            }
-        });
-
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(el => {
-                if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
-            });
-        }
-        window.addEventListener("scroll", reveal);
-        reveal();
-
-        // Скрипт закрытия квиза
-        window.closeQuiz = function() {
-            const wrapper = document.getElementById('quiz-wrapper');
-            const intro = document.getElementById('intro-text-block');
-            wrapper.classList.remove('active');
-            setTimeout(() => { wrapper.style.display = 'none'; }, 500);
-            intro.style.display = 'block';
-            intro.style.opacity = '1';
-        }
-    </script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
