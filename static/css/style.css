@@ -177,3 +177,67 @@ footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
 @media (max-width: 992px) {
     .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
 }
+
+/* === НОВЫЕ СТИЛИ ДЛЯ УЛУЧШЕНИЙ === */
+
+/* 1. Контрастная кнопка "Начать онлайн" */
+.btn-start-online {
+    background: linear-gradient(135deg, #ff6b35, #ff8c42);
+    color: white;
+    padding: 14px 40px;
+    border-radius: 50px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+    font-size: 1.1rem;
+}
+
+.btn-start-online:hover { 
+    background: linear-gradient(135deg, #ff8c42, #ff6b35);
+    transform: translateY(-2px) scale(1.02); 
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+    color: white; 
+}
+
+/* 2. Кнопка "Назад" в квизе */
+.quiz-back-btn {
+    background: none;
+    border: 1px solid #dee2e6;
+    color: #6c757d;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.quiz-back-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #1e3a5f;
+    color: #1e3a5f;
+}
+
+.quiz-header-with-back {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* 3. Lazy loading для карты */
+.map-placeholder {
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+.map-placeholder::after {
+    content: "Загрузка карты...";
+}
