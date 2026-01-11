@@ -1,154 +1,215 @@
+2. main.js
+
 document.addEventListener('DOMContentLoaded', function() {
-    const startBtn = document.getElementById('show-form-btn');
-    const quizWrapper = document.getElementById('quiz-wrapper');
-    const introBlock = document.getElementById('intro-text-block');
-    const quizContainer = document.getElementById('quiz-container');
 
-    // Данные квиза
-    const questions = {
-        1: { text: "Общая сумма долга?", type: "slider" },
-        2: { text: "Есть аресты на картах?", type: "boolean" },
-        3: { text: "Есть ипотека или авто?", type: "boolean" },
-        4: { text: "Куда прислать результат?", type: "final" }
-    };
+// === reCAPTCHA v3 ===
+const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
 
-    let currentStep = 1;
-    let userAnswers = {};
+// === ЛОГИКА "ВЫПАДАЮЩЕГО" ОПРОСА ===
+const startBtn = document.getElementById('show-form-btn');
+const quizWrapper = document.getElementById('quiz-wrapper');
+const introBlock = document.getElementById('intro-text-block');
 
-    // Открытие квиза
-    startBtn.addEventListener('click', () => {
-        introBlock.style.display = 'none';
-        quizWrapper.style.display = 'block';
-        setTimeout(() => { quizWrapper.classList.add('active'); }, 10);
-        showStep(1);
-    });
+if (startBtn && quizWrapper) {
+startBtn.addEventListener('click', () => {
+// 1. Скрываем кнопку и текст
+introBlock.style.display = 'none';
 
-    // Логика шагов
-    function showStep(step) {
-        currentStep = step;
-        const progress = (step / 4) * 100;
-        
-        let html = `
-            <div class="progress mb-3" style="height: 4px; background: var(--bg-light);">
-                <div class="progress-bar" role="progressbar" style="width: ${progress}%; background-color: var(--accent-color);"></div>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                ${step > 1 ? `<button class="quiz-back-btn" onclick="goBack()">← Назад</button>` : '<div></div>'}
-                <h5 class="fw-bold mb-0 text-center">${questions[step].text}</h5>
-                <div></div>
-            </div>
-        `;
+// 2. Показываем блок опроса
+quizWrapper.style.display = 'block';
 
-        if (questions[step].type === "slider") {
-            html += `
-                <div class="text-center px-2">
-                    <span id="range-value-display" class="range-value-label">500 000 ₽</span>
-                    <input type="range" class="form-range" id="debt-range" min="200000" max="5050000" step="50000" value="500000">
-                    <div class="d-flex justify-content-between text-muted small mt-2 mb-4">
-                        <span>200к</span>
-                        <span>> 5 млн</span>
-                    </div>
-                    <button class="btn btn-start-online w-100 py-2" onclick="saveSliderAndNext()">Далее</button>
-                </div>
-            `;
-        } else if (questions[step].type === "boolean") {
-            html += `
-                <div class="quiz-grid-options">
-                    <button class="btn-quiz-option" onclick="nextQuizStep('Да')">Да</button>
-                    <button class="btn-quiz-option" onclick="nextQuizStep('Нет')">Нет</button>
-                </div>
-            `;
-        } else {
-            html += `
-                <div class="px-2">
-                    <div class="mb-2">
-                        <input type="text" id="user-name" class="form-control form-control-sm" placeholder="Ваше имя">
-                    </div>
-                    <div class="mb-3">
-                        <input type="tel" id="user-phone" class="form-control form-control-sm" value="+7 ">
-                    </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="agreeCheckbox" required>
-                        <label class="form-check-label small" for="agreeCheckbox">
-                            Согласен с <a href="#" class="text-muted">политикой конфиденциальности</a>
-                        </label>
-                    </div>
-                    <button id="submit-btn" class="btn btn-start-online w-100 py-2 fw-bold" onclick="submitQuiz()">Получить разбор</button>
-                </div>
-            `;
-        }
-        
-        quizContainer.innerHTML = html;
+// 3. Запускаем анимацию (небольшая задержка для CSS transition)
+setTimeout(() => {
+quizWrapper.classList.add('active');
+}, 10);
 
-        if (questions[step].type === "slider") {
-            const rangeInput = document.getElementById('debt-range');
-            const rangeDisplay = document.getElementById('range-value-display');
-            rangeInput.addEventListener('input', function() {
-                const val = parseInt(this.value);
-                rangeDisplay.textContent = (val >= 5050000) ? "> 5 000 000 ₽" : val.toLocaleString('ru-RU') + " ₽";
-            });
-        }
-        
-        if (step === 4) applyPhoneMask();
-    }
+// 4. Инициализируем 1 шаг
+showStep(1);
+});
+}
 
-    // Глобальные функции для onclick
-    window.goBack = () => {
-        if (currentStep > 1) { currentStep--; showStep(currentStep); }
-    };
+// === КВИЗ ===
+const quizContainer = document.getElementById('quiz-container');
 
-    window.saveSliderAndNext = () => {
-        const rangeInput = document.getElementById('debt-range');
-        const val = parseInt(rangeInput.value);
-        userAnswers[currentStep] = (val >= 5050000) ? "Более 5 млн ₽" : val.toLocaleString('ru-RU') + " ₽";
-        showStep(currentStep + 1);
-    }
+const questions = {
+1: {
+text: "Общая сумма долга?",
+type: "slider",
+icon: "https://img.icons8.com/color/48/coins.png"
+},
+2: {
+text: "Есть аресты на картах?",
+type: "boolean",
+icon: "https://img.icons8.com/color/48/calendar.png"
+},
+3: {
+text: "Есть ипотека или авто?",
+type: "boolean",
+icon: "https://img.icons8.com/color/48/real-estate.png"
+},
+4: {
+text: "Куда прислать результат?",
+type: "final"
+}
+};
 
-    window.nextQuizStep = (answer) => {
-        userAnswers[currentStep] = answer;
-        showStep(currentStep + 1);
-    };
+let currentStep = 1;
+let userAnswers = {};
 
-    window.submitQuiz = () => {
-        const name = document.getElementById('user-name').value;
-        const phone = document.getElementById('user-phone').value;
-        const agreeCheckbox = document.getElementById('agreeCheckbox');
-        const submitBtn = document.getElementById('submit-btn');
+function showStep(step) {
+currentStep = step;
+const progress = (step / 4) * 100;
 
-        if (name.length < 2) { alert("Введите имя"); return; }
-        if (phone.length < 16) { alert("Введите корректный номер"); return; }
-        if (!agreeCheckbox.checked) { alert("Подтвердите согласие"); return; }
+// Шапка квиза с кнопкой "Назад"
+let html = `
+<div class="progress">
+<div class="progress-bar progress-bar-striped progress-bar-animated"
+role="progressbar" style="width: ${progress}%; background-color: #1e3a5f;"></div>
+</div>
+<div class="quiz-header-with-back">
+${step > 1 ? `<button class="quiz-back-btn" onclick="goBack()">← Назад</button>` : '<div></div>'}
+<div class="text-center mb-3">
+<h5 class="fw-bold mb-0">${questions[step].text}</h5>
+</div>
+<div></div>
+</div>
+`;
 
-        submitBtn.disabled = true;
-        submitBtn.innerText = "⏳";
+if (questions[step].type === "slider") {
+// ПОЛЗУНОК
+html += `
+<div class="text-center px-2">
+<span id="range-value-display" class="range-value-label">500 000 ₽</span>
+<input type="range" class="form-range" id="debt-range" min="200000" max="5050000" step="50000" value="500000">
+<div class="d-flex justify-content-between text-muted small mt-1 mb-4" style="font-size: 0.7rem;">
+<span>200к</span>
+<span>> 5 млн</span>
+</div>
+<button class="btn btn-start-online w-100 py-2" onclick="saveSliderAndNext()">Далее</button>
+</div>
+`;
+} else if (questions[step].type === "boolean") {
+// МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА)
+html += `
+<div class="quiz-grid-options">
+<button class="btn-quiz-option" onclick="nextQuizStep('Да')">Да</button>
+<button class="btn-quiz-option" onclick="nextQuizStep('Нет')">Нет</button>
+</div>
+`;
+} else {
+// ФОРМА КОНТАКТОВ
+html += `
+<div class="px-2">
+<div class="mb-2">
+<input type="text" id="user-name" class="form-control form-control-sm" placeholder="Ваше имя">
+</div>
+<div class="mb-3">
+<input type="tel" id="user-phone" class="form-control form-control-sm" value="+7 ">
+</div>
+<div class="form-check mb-3">
+<input class="form-check-input" type="checkbox" id="agreeCheckbox" required>
+<label class="form-check-label small" for="agreeCheckbox" style="font-size: 0.7rem; line-height: 1.2;">
+Согласен с <a href="/privacy" target="_blank">политикой конфиденциальности</a>
+</label>
+</div>
+<button id="submit-btn" class="btn btn-success w-100 py-2 fw-bold shadow-sm" onclick="submitQuiz()">Получить разбор</button>
+</div>
+`;
+}
 
-        // Имитация отправки
-        setTimeout(() => {
-             quizContainer.innerHTML = `
-                <div class="text-center py-4">
-                    <div style="font-size: 3rem;">✅</div>
-                    <h4 class="fw-bold mt-2">Принято!</h4>
-                    <p class="small text-muted">Мы скоро свяжемся с вами.</p>
-                </div>
-            `;
-        }, 1000);
-    };
+quizContainer.innerHTML = html;
 
-    window.closeQuiz = () => {
-        quizWrapper.classList.remove('active');
-        setTimeout(() => { quizWrapper.style.display = 'none'; }, 300);
-        introBlock.style.display = 'block';
-        setTimeout(() => { introBlock.style.opacity = '1'; }, 50);
-    };
+if (questions[step].type === "slider") {
+const rangeInput = document.getElementById('debt-range');
+const rangeDisplay = document.getElementById('range-value-display');
+rangeInput.addEventListener('input', function() {
+const val = parseInt(this.value);
+if (val >= 5050000) rangeDisplay.textContent = "> 5 000 000 ₽";
+else rangeDisplay.textContent = val.toLocaleString('ru-RU') + " ₽";
+});
+}
 
-    function applyPhoneMask() {
-        const input = document.getElementById('user-phone');
-        input.addEventListener('input', function(e) {
-            let matrix = "+7 (___) ___ - __ - __", i = 0, def = matrix.replace(/\D/g, ""), val = this.value.replace(/\D/g, "");
-            if (def.length >= val.length) val = def;
-            this.value = matrix.replace(/./g, function(a) {
-                return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a
-            });
-        });
-    }
+if (step === 4) applyPhoneMask();
+}
+
+window.goBack = () => {
+if (currentStep > 1) {
+currentStep--;
+showStep(currentStep);
+}
+};
+
+window.saveSliderAndNext = () => {
+const rangeInput = document.getElementById('debt-range');
+const val = parseInt(rangeInput.value);
+userAnswers[currentStep] = (val >= 5050000) ? "Более 5 млн ₽" : val.toLocaleString('ru-RU') + " ₽";
+showStep(currentStep + 1);
+}
+
+window.nextQuizStep = (answer) => {
+userAnswers[currentStep] = answer;
+showStep(currentStep + 1);
+};
+
+window.submitQuiz = () => {
+const name = document.getElementById('user-name').value;
+const phone = document.getElementById('user-phone').value;
+const agreeCheckbox = document.getElementById('agreeCheckbox');
+const submitBtn = document.getElementById('submit-btn');
+
+if (name.length < 2) { alert("Введите имя"); return; }
+if (phone.length < 16) { alert("Введите корректный номер"); return; }
+if (!agreeCheckbox.checked) { alert("Подтвердите согласие"); return; }
+
+submitBtn.disabled = true;
+submitBtn.innerText = "⏳";
+
+grecaptcha.ready(() => {
+grecaptcha.execute(SITE_KEY, { action: 'submit' }).then(token => {
+fetch('/consult', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({
+name: name,
+phone: phone,
+agree: "Да",
+total_debt: userAnswers[1] || "-",
+arrests: userAnswers[2] || "-",
+extra_property: userAnswers[3] || "-",
+extra_car: "-",
+'g-recaptcha-response': token
+})
+})
+.then(response => {
+if (response.ok) {
+quizContainer.innerHTML = `
+<div class="text-center py-4">
+<div style="font-size: 3rem;">✅</div>
+<h4 class="fw-bold mt-2">Принято!</h4>
+<p class="small text-muted">Я скоро позвоню вам.</p>
+</div>
+`;
+} else {
+alert("Ошибка. Попробуйте позже.");
+submitBtn.disabled = false;
+submitBtn.innerText = "Попробовать снова";
+}
+});
+});
+});
+};
+
+function applyPhoneMask() {
+const input = document.getElementById('user-phone');
+input.addEventListener('input', function(e) {
+let matrix = "+7 (___) ___ - __ - __",
+i = 0,
+def = matrix.replace(/\D/g, ""),
+val = this.value.replace(/\D/g, "");
+if (def.length >= val.length) val = def;
+this.value = matrix.replace(/./g, function(a) {
+return /[_\d]/.test(a) && i < val.length ? val.charAt(i++) : i >= val.length ? "" : a
+});
+});
+}
 });
