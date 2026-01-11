@@ -30,7 +30,7 @@ body.dark-theme {
 
 body.dark-theme .bg-white { background-color: var(--dark-card) !important; }
 body.dark-theme .bg-light { background-color: var(--dark-card) !important; }
-body.dark-theme .text-muted { color: var(--dark-secondary) !important; }
+body.dark-theme .text-muted { color: #cbd5e1 !important; /* Светлее для лучшей читаемости */ }
 body.dark-theme .text-dark { color: var(--dark-text) !important; }
 body.dark-theme .border { border-color: #334155 !important; }
 body.dark-theme .border-top { border-color: #334155 !important; }
@@ -75,7 +75,11 @@ h1, h2, h3 {
 body.dark-theme h1,
 body.dark-theme h2,
 body.dark-theme h3 {
-    color: var(--dark-text);
+    color: #f8fafc !important; /* Почти белый для заголовков */
+}
+
+body.dark-theme .small {
+    color: #e2e8f0 !important; /* Основной текст светлее */
 }
 
 /* === АНИМАЦИИ (HOVER ЭФФЕКТЫ) === */
@@ -99,28 +103,59 @@ body.dark-theme h3 {
 .equal-block:hover .smoke-2 { animation: smokeRise 2s infinite ease-out 1s; }
 
 /* ШАГИ */
-.step-icon-consult { transition: transform 0.3s ease; }
-.equal-block:hover .step-icon-consult { transform: scale(1.1) rotate(-5deg); }
+.step-icon-consult,
+.step-icon-docs,
+.step-icon-court,
+.step-icon-free {
+    stroke: var(--legal-blue) !important;
+    fill: none;
+    transition: all 0.3s ease;
+}
 
-.doc-line { stroke-dasharray: 10; stroke-dashoffset: 10; transition: stroke-dashoffset 0.5s ease; }
-.equal-block:hover .doc-line { stroke-dashoffset: 0; }
-.doc-fold { fill-opacity: 0; transition: fill-opacity 0.3s; }
-.equal-block:hover .doc-fold { fill-opacity: 0.2; }
+.equal-block:hover .step-icon-consult,
+.equal-block:hover .step-icon-docs,
+.equal-block:hover .step-icon-court,
+.equal-block:hover .step-icon-free {
+    stroke: var(--legal-gold) !important;
+    transform: scale(1.1);
+}
 
-.scale-plate { transition: transform 0.5s ease-in-out; transform-origin: center top; }
-.equal-block:hover .scale-left { transform: translateY(2px); }
-.equal-block:hover .scale-right { transform: translateY(-2px); }
+body.dark-theme .step-icon-consult,
+body.dark-theme .step-icon-docs,
+body.dark-theme .step-icon-court,
+body.dark-theme .step-icon-free {
+    stroke: #fbbf24 !important;
+}
 
-.sun-rays { transform-origin: 12px 12px; transition: transform 1s ease-out; }
-.equal-block:hover .sun-rays { transform: rotate(180deg); }
+/* АНИМАЦИИ ДЛЯ НОВЫХ ИКОНОК */
+.equal-block:hover .shield-star {
+    animation: pulse 1.5s ease-in-out infinite;
+}
 
+.equal-block:hover .heart-beat {
+    animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
 
 /* === НОВЫЙ СТИЛЬ ОПРОСА (INLINE CARD) === */
 .quiz-inline-card {
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    padding: 30px;
+    padding: 40px 30px 30px 30px; /* Увеличен верхний отступ */
     max-width: 500px;
     margin: 20px auto 0;
     text-align: left;
@@ -143,21 +178,39 @@ body.dark-theme .quiz-inline-card {
     transform: translateY(0);
 }
 
+/* 1. Крестик в угол без соприкосновения */
 .btn-close-quiz {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background: none;
     border: none;
-    font-size: 1.5rem;
-    color: #aaa;
+    font-size: 1.8rem;
+    color: #94a3b8;
     line-height: 1;
     cursor: pointer;
     padding: 0;
-    position: absolute;
-    top: 15px;
-    right: 20px;
-    transition: color 0.3s;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
 }
-.btn-close-quiz:hover { color: #dc3545; }
 
+.btn-close-quiz:hover { 
+    color: #dc3545; 
+    transform: scale(1.1);
+}
+
+body.dark-theme .btn-close-quiz {
+    color: #64748b;
+}
+
+body.dark-theme .btn-close-quiz:hover {
+    color: #f87171;
+}
 
 /* МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА) */
 .quiz-grid-options {
@@ -210,7 +263,6 @@ body.dark-theme .btn-quiz-option:active {
     background-color: var(--dark-accent);
 }
 
-
 /* === ПОЛЗУНОК === */
 input[type=range] {
     -webkit-appearance: none;
@@ -252,7 +304,7 @@ body.dark-theme input[type=range]::-webkit-slider-runnable-track {
 }
 
 body.dark-theme .range-value-label {
-    color: var(--dark-accent);
+    color: #fbbf24;
 }
 
 /* === ПРОГРЕСС БАР === */
@@ -489,13 +541,113 @@ body.dark-theme .mobile-sticky-menu .call-btn {
 }
 
 /* 7. Стилизованная иконка WhatsApp */
-/* Черно-белая иконка WhatsApp по умолчанию */
+.whatsapp-icon {
+    width: 32px;
+    height: 32px;
+    transition: all 0.3s ease;
+}
+
 .whatsapp-icon path {
     filter: grayscale(100%) brightness(0.7);
     transition: filter 0.3s ease;
 }
 
-/* При наведении убираем фильтр и возвращаем цвет */
+.whatsapp-icon circle {
+    fill: #507C5C;
+    transition: fill 0.3s ease;
+}
+
+.whatsapp-icon path {
+    fill: #CFF09E;
+    transition: fill 0.3s ease;
+}
+
+.social-link.wa:hover .whatsapp-icon {
+    transform: scale(1.1);
+}
+
 .social-link.wa:hover .whatsapp-icon path {
     filter: none;
+}
+
+.social-link.wa:hover .whatsapp-icon circle {
+    fill: #25D366;
+}
+
+.social-link.wa:hover .whatsapp-icon path {
+    fill: white;
+}
+
+/* Цветные иконки в блоке шагов */
+.step-icon-consult,
+.step-icon-docs,
+.step-icon-court,
+.step-icon-free {
+    stroke: var(--legal-blue) !important;
+    fill: none;
+    transition: all 0.3s ease;
+}
+
+.equal-block:hover .step-icon-consult,
+.equal-block:hover .step-icon-docs,
+.equal-block:hover .step-icon-court,
+.equal-block:hover .step-icon-free {
+    stroke: var(--legal-gold) !important;
+    transform: scale(1.1);
+}
+
+body.dark-theme .step-icon-consult,
+body.dark-theme .step-icon-docs,
+body.dark-theme .step-icon-court,
+body.dark-theme .step-icon-free {
+    stroke: #fbbf24 !important;
+}
+
+/* Новые иконки для блоков преимуществ */
+.anim-icon-shield-new {
+    stroke: var(--legal-blue);
+    stroke-width: 2;
+    fill: none;
+    transition: all 0.3s ease;
+}
+
+.equal-block:hover .anim-icon-shield-new {
+    stroke: var(--legal-gold);
+    fill: rgba(30, 58, 95, 0.1);
+    transform: scale(1.1);
+}
+
+.anim-icon-house-new {
+    stroke: #795548;
+    stroke-width: 2;
+    fill: none;
+    transition: all 0.3s ease;
+}
+
+.equal-block:hover .anim-icon-house-new {
+    stroke: var(--legal-gold);
+    fill: rgba(121, 85, 72, 0.1);
+    transform: scale(1.1);
+}
+
+.equal-block:hover .shield-star {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.equal-block:hover .heart-beat {
+    animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
