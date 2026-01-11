@@ -1,5 +1,3 @@
-2. main.js
-
 document.addEventListener('DOMContentLoaded', function() {
 
 // === reCAPTCHA v3 ===
