@@ -33,17 +33,17 @@ document.addEventListener('DOMContentLoaded', function() {
         1: { 
             text: "Общая сумма долга?", 
             type: "slider", 
-            icon: "bi-cash-coin" 
+            icon: "https://img.icons8.com/color/48/coins.png" 
         },
         2: { 
             text: "Есть аресты на картах?", 
             type: "boolean", 
-            icon: "bi-calendar-x" 
+            icon: "https://img.icons8.com/color/48/calendar.png" 
         },
         3: { 
             text: "Есть ипотека или авто?", 
             type: "boolean", 
-            icon: "bi-house-door" 
+            icon: "https://img.icons8.com/color/48/real-estate.png" 
         },
         4: { 
             text: "Куда прислать результат?", 
@@ -77,9 +77,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // ПОЛЗУНОК
             html += `
                 <div class="text-center px-2">
-                    <div class="mb-3">
-                        <i class="bi ${questions[step].icon}" style="font-size: 48px; color: #1e3a5f;"></i>
-                    </div>
                     <span id="range-value-display" class="range-value-label">500 000 ₽</span>
                     <input type="range" class="form-range" id="debt-range" min="200000" max="5050000" step="50000" value="500000">
                     <div class="d-flex justify-content-between text-muted small mt-1 mb-4" style="font-size: 0.7rem;">
@@ -92,9 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (questions[step].type === "boolean") {
             // МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА)
             html += `
-                <div class="text-center mb-3">
-                    <i class="bi ${questions[step].icon}" style="font-size: 48px; color: #1e3a5f;"></i>
-                </div>
                 <div class="quiz-grid-options">
                     <button class="btn-quiz-option" onclick="nextQuizStep('Да')">Да</button>
                     <button class="btn-quiz-option" onclick="nextQuizStep('Нет')">Нет</button>
