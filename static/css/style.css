@@ -1,28 +1,69 @@
-/* ---------- 1. ПЕРЕМЕННЫЕ ---------- */
+/* === 1. ПЕРЕМЕННЫЕ === */
 :root {
+    --primary-color: #1a2a3a;
+    --accent-color: #2d5e4a;
+    --quiz-theme-color: #1e3a5f;
+    --text-muted: #6c757d;
+    --bg-light: #f8f9fa;
+    --bg-body: #ffffff;
+    --text-main: #1a2a3a;
+    
+    /* Новые цвета для юридической тематики */
     --legal-blue: #1e3a5f;
     --legal-gold: #c9a96e;
     --legal-gray: #4a5568;
     --legal-light: #f7fafc;
-
+    
+    /* Цвета для темной темы */
     --dark-bg: #0f172a;
-    --dark-text: #f3f4f6;
-    --dark-secondary: #d1d5db;
+    --dark-text: #e2e8f0;
+    --dark-secondary: #94a3b8;
     --dark-accent: #f59e0b;
     --dark-card: #1e293b;
 }
 
-body {
-    font-family: 'Inter', sans-serif;
-    color: #1f2937;
-    background-color: #ffffff;
-    line-height: 1.6;
-    transition: background-color 0.4s, color 0.4s;
-}
-
+/* Темная тема */
 body.dark-theme {
     background-color: var(--dark-bg);
     color: var(--dark-text);
+}
+
+body.dark-theme .bg-white { background-color: var(--dark-card) !important; }
+body.dark-theme .bg-light { background-color: var(--dark-card) !important; }
+body.dark-theme .text-muted { color: #cbd5e1 !important; /* Светлее для лучшей читаемости */ }
+body.dark-theme .text-dark { color: var(--dark-text) !important; }
+body.dark-theme .border { border-color: #334155 !important; }
+body.dark-theme .border-top { border-color: #334155 !important; }
+body.dark-theme .form-control { 
+    background-color: var(--dark-card); 
+    border-color: #334155;
+    color: var(--dark-text);
+}
+body.dark-theme .form-control::placeholder { color: var(--dark-secondary); }
+body.dark-theme .equal-block {
+    background-color: var(--dark-card);
+    border-color: #334155;
+    color: var(--dark-text);
+}
+body.dark-theme .equal-block:hover {
+    background-color: #334155;
+    border-color: var(--dark-accent);
+}
+body.dark-theme .btn-outline-dark {
+    border-color: var(--dark-accent);
+    color: var(--dark-accent);
+}
+body.dark-theme .btn-outline-dark:hover {
+    background-color: var(--dark-accent);
+    color: var(--dark-bg);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--legal-gray);
+    background-color: var(--bg-body);
+    line-height: 1.6;
+    transition: background-color 0.4s, color 0.4s;
 }
 
 h1, h2, h3 {
@@ -34,91 +75,87 @@ h1, h2, h3 {
 body.dark-theme h1,
 body.dark-theme h2,
 body.dark-theme h3 {
-    color: var(--dark-text);
+    color: #f8fafc !important; /* Почти белый для заголовков */
 }
 
-/* ---------- 2. БЛОКИ / КАРТОЧКИ ---------- */
-.equal-block {
-    background-color: var(--legal-light);
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    padding: 25px !important;
-    height: 100%;
-    min-height: 220px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
+body.dark-theme .small {
+    color: #e2e8f0 !important; /* Основной текст светлее */
+}
+
+/* === АНИМАЦИИ (HOVER ЭФФЕКТЫ) === */
+.shield-body { transition: fill 0.3s ease; }
+.equal-block:hover .shield-body { fill: var(--legal-blue); fill-opacity: 0.15; }
+
+.bell-slash { stroke-opacity: 0; transition: stroke-opacity 0.3s ease; }
+.equal-block:hover .bell-slash { stroke-opacity: 1; }
+
+.lock-shackle { transform-origin: 17px 11px; transform: rotateY(180deg) translateX(-10px); opacity: 0.7; transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+.equal-block:hover .lock-shackle { transform: rotateY(0) translateX(0); opacity: 1; }
+
+.equal-block:hover .chimney { opacity: 1 !important; }
+.smoke { opacity: 0; transform-origin: center; }
+@keyframes smokeRise {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    50% { opacity: 0.6; }
+    100% { transform: translateY(-10px) scale(1.5); opacity: 0; }
+}
+.equal-block:hover .smoke-1 { animation: smokeRise 2s infinite ease-out; animation-delay: 0.3s; }
+.equal-block:hover .smoke-2 { animation: smokeRise 2s infinite ease-out 1s; }
+
+/* ШАГИ */
+.step-icon-consult,
+.step-icon-docs,
+.step-icon-court,
+.step-icon-free {
+    stroke: var(--legal-blue) !important;
+    fill: none;
     transition: all 0.3s ease;
-    cursor: default;
-    position: relative;
-    overflow: hidden;
 }
 
-.equal-block:hover {
-    transform: translateY(-5px);
-    background-color: #ffffff;
-    box-shadow: 0 12px 30px rgba(30, 58, 95, 0.15);
-    border-color: var(--legal-gold);
+.equal-block:hover .step-icon-consult,
+.equal-block:hover .step-icon-docs,
+.equal-block:hover .step-icon-court,
+.equal-block:hover .step-icon-free {
+    stroke: var(--legal-gold) !important;
+    transform: scale(1.1);
 }
 
-body.dark-theme .equal-block {
-    background-color: var(--dark-card);
-    border-color: #334155;
-    color: var(--dark-text);
+body.dark-theme .step-icon-consult,
+body.dark-theme .step-icon-docs,
+body.dark-theme .step-icon-court,
+body.dark-theme .step-icon-free {
+    stroke: #fbbf24 !important;
 }
 
-body.dark-theme .equal-block:hover {
-    background-color: #334155;
-    border-color: var(--dark-accent);
+/* АНИМАЦИИ ДЛЯ НОВЫХ ИКОНОК */
+.equal-block:hover .shield-star {
+    animation: pulse 1.5s ease-in-out infinite;
 }
 
-/* ---------- 3. ИКОНКИ 36×36, ОДИН СТИЛЬ, ВСЕГДА ЦВЕТНЫЕ ---------- */
-.icon-pack {
-    width: 36px;
-    height: 36px;
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+.equal-block:hover .heart-beat {
+    animation: heartbeat 1.2s ease-in-out infinite;
 }
 
-.icon-blue  { stroke: #2563eb; fill: none; }
-.icon-red   { stroke: #dc2626; fill: none; }
-.icon-amber { stroke: #f59e0b; fill: none; }
-.icon-green { stroke: #16a34a; fill: none; }
-.icon-purple{ stroke: #9333ea; fill: none; }
-.icon-indigo{ stroke: #4338ca; fill: none; }
-
-body.dark-theme .icon-blue  { stroke: #60a5fa; }
-body.dark-theme .icon-red   { stroke: #f87171; }
-body.dark-theme .icon-amber { stroke: #fcd34d; }
-body.dark-theme .icon-green { stroke: #4ade80; }
-body.dark-theme .icon-purple{ stroke: #c084fc; }
-body.dark-theme .icon-indigo{ stroke: #818cf8; }
-
-.equal-block:hover .icon-pack { transform: scale(1.15) rotate(-5deg); }
-
-/* анимация замка */
-.lock-shackle {
-    transform-origin: 8px 6px;
-    transform: rotate(-15deg) translateX(-4px);
-    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-.equal-block:hover .lock-shackle { transform: rotate(0) translateX(0); }
-
-/* вибрация звонка */
-.equal-block:hover .bell-body { animation: ring 0.4s ease-in-out 2; }
-@keyframes ring {
-    0%, 100% { transform: rotate(0); }
-    25% { transform: rotate(-8deg); }
-    75% { transform: rotate(8deg); }
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
-/* ---------- 4. КВИЗ ---------- */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* === НОВЫЙ СТИЛЬ ОПРОСА (INLINE CARD) === */
 .quiz-inline-card {
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-    padding: 40px 30px 30px 30px;
+    padding: 40px 30px 30px 30px; /* Увеличен верхний отступ */
     max-width: 500px;
     margin: 20px auto 0;
     text-align: left;
@@ -135,11 +172,13 @@ body.dark-theme .quiz-inline-card {
     color: var(--dark-text);
 }
 
+/* Класс для анимации появления */
 .quiz-inline-card.active {
     opacity: 1;
     transform: translateY(0);
 }
 
+/* 1. Крестик в угол без соприкосновения */
 .btn-close-quiz {
     position: absolute;
     top: 10px;
@@ -148,28 +187,242 @@ body.dark-theme .quiz-inline-card {
     border: none;
     font-size: 1.8rem;
     color: #94a3b8;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
     width: 32px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     transition: all 0.3s ease;
     z-index: 10;
 }
 
-.btn-close-quiz:hover { color: #dc2626; transform: scale(1.1); }
-body.dark-theme .btn-close-quiz { color: #64748b; }
-body.dark-theme .btn-close-quiz:hover { color: #f87171; }
+.btn-close-quiz:hover { 
+    color: #dc3545; 
+    transform: scale(1.1);
+}
 
-/* ---------- 5. МОБИЛЬНОЕ ЛИПКОЕ МЕНЮ ---------- */
+body.dark-theme .btn-close-quiz {
+    color: #64748b;
+}
+
+body.dark-theme .btn-close-quiz:hover {
+    color: #f87171;
+}
+
+/* МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА) */
+.quiz-grid-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-quiz-option {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    color: var(--legal-blue);
+    padding: 10px 5px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+body.dark-theme .btn-quiz-option {
+    background-color: var(--dark-card);
+    border-color: #334155;
+    color: var(--dark-text);
+}
+
+.btn-quiz-option:hover {
+    background-color: var(--legal-light);
+    border-color: var(--legal-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+body.dark-theme .btn-quiz-option:hover {
+    background-color: #334155;
+    border-color: var(--dark-accent);
+}
+
+.btn-quiz-option:active {
+    background-color: var(--legal-blue);
+    color: #fff;
+}
+
+body.dark-theme .btn-quiz-option:active {
+    background-color: var(--dark-accent);
+}
+
+/* === ПОЛЗУНОК === */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: var(--legal-blue);
+    cursor: pointer;
+    margin-top: -8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    cursor: pointer;
+    background: #dee2e6;
+    border-radius: 2px;
+}
+
+body.dark-theme input[type=range]::-webkit-slider-thumb {
+    background: var(--dark-accent);
+}
+
+body.dark-theme input[type=range]::-webkit-slider-runnable-track {
+    background: #334155;
+}
+
+.range-value-label {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--legal-blue);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+body.dark-theme .range-value-label {
+    color: #fbbf24;
+}
+
+/* === ПРОГРЕСС БАР === */
+.progress { height: 4px !important; margin-bottom: 1.5rem !important; }
+
+/* === ФУТЕР И ПРОЧЕЕ === */
+.btn-accent { 
+    background-color: var(--legal-gold); 
+    color: var(--legal-blue) !important; 
+    font-weight: 600;
+}
+.consultation-block { background-color: var(--legal-light) !important; border: 1px solid rgba(0,0,0,0.1); }
+footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
+#quiz-section { background-color: var(--bg-body); }
+.form-control { background-color: #fff; border-color: #ddd; color: #1a1a1a; }
+.form-check-input:checked { background-color: var(--legal-blue); border-color: var(--legal-blue); }
+
+body.dark-theme .form-check-input:checked {
+    background-color: var(--dark-accent);
+    border-color: var(--dark-accent);
+}
+
+@media (max-width: 992px) {
+    .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
+}
+
+/* === НОВЫЕ СТИЛИ ДЛЯ УЛУЧШЕНИЙ === */
+
+/* 1. Контрастная кнопка "Начать онлайн" */
+.btn-start-online {
+    background: linear-gradient(135deg, var(--legal-gold), #d4af37);
+    color: var(--legal-blue);
+    padding: 14px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    border: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(201, 169, 110, 0.4);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-start-online:hover { 
+    background: linear-gradient(135deg, #d4af37, var(--legal-gold));
+    transform: translateY(-2px) scale(1.02); 
+    box-shadow: 0 6px 20px rgba(201, 169, 110, 0.6);
+    color: var(--legal-blue); 
+}
+
+/* 2. Кнопка "Назад" в квизе */
+.quiz-back-btn {
+    background: none;
+    border: 1px solid #dee2e6;
+    color: #6c757d;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+.quiz-back-btn:hover {
+    background-color: var(--legal-light);
+    border-color: var(--legal-blue);
+    color: var(--legal-blue);
+}
+
+.quiz-header-with-back {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+/* 3. Кнопка переключения темы */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    background: var(--legal-blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.theme-toggle:hover {
+    background: var(--legal-gold);
+    transform: scale(1.1);
+}
+
+body.dark-theme .theme-toggle {
+    background: var(--dark-accent);
+}
+
+body.dark-theme .theme-toggle:hover {
+    background: #fbbf24;
+}
+
+/* 4. Липкое меню для мобильных */
 .mobile-sticky-menu {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     background: var(--legal-blue);
-    color: #fff;
+    color: white;
     padding: 12px 20px;
     display: none;
     align-items: center;
@@ -209,20 +462,192 @@ body.dark-theme .mobile-sticky-menu .call-btn {
 }
 
 @media (max-width: 768px) {
-    .mobile-sticky-menu { display: flex; }
-    body { padding-bottom: 70px; }
+    .mobile-sticky-menu {
+        display: flex;
+    }
+    
+    body {
+        padding-bottom: 70px;
+    }
 }
 
-/* ---------- 6. WHATSAPP (ч/б до hover) ---------- */
+/* 5. Исправление иконки колокольчика */
+.anim-icon-bell {
+    position: relative;
+    overflow: visible !important;
+}
+
+.anim-icon-bell .bell-slash {
+    stroke: #dc3545;
+    stroke-width: 2;
+}
+
+/* 6. Адаптация для мобильных */
+@media (max-width: 768px) {
+    .hero-viewport {
+        padding: 1vh 0;
+    }
+    
+    h1 {
+        font-size: 1.8rem !important;
+    }
+    
+    .equal-block {
+        padding: 20px 15px !important;
+        min-height: 180px;
+        margin-bottom: 15px;
+    }
+    
+    .process-title-frame {
+        padding: 6px 20px;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+    }
+    
+    .btn-start-online {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+    
+    .quiz-inline-card {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .office-card .col-md-6 {
+        padding: 30px 20px;
+    }
+    
+    .theme-toggle {
+        width: 45px;
+        height: 45px;
+        top: 15px;
+        right: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .equal-block {
+        min-height: 160px;
+    }
+    
+    h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    .quiz-grid-options {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 7. Стилизованная иконка WhatsApp */
+.whatsapp-icon {
+    width: 32px;
+    height: 32px;
+    transition: all 0.3s ease;
+}
+
 .whatsapp-icon path {
     filter: grayscale(100%) brightness(0.7);
     transition: filter 0.3s ease;
 }
-.social-link.wa:hover .whatsapp-icon path { filter: none; }
 
-/* ---------- 7. АДАПТИВ ---------- */
-@media (max-width: 768px) {
-    .equal-block { padding: 20px 15px !important; min-height: 180px; }
-    h1 { font-size: 1.8rem !important; }
-    .quiz-grid-options { grid-template-columns: 1fr; }
+.whatsapp-icon circle {
+    fill: #507C5C;
+    transition: fill 0.3s ease;
+}
+
+.whatsapp-icon path {
+    fill: #CFF09E;
+    transition: fill 0.3s ease;
+}
+
+.social-link.wa:hover .whatsapp-icon {
+    transform: scale(1.1);
+}
+
+.social-link.wa:hover .whatsapp-icon path {
+    filter: none;
+}
+
+.social-link.wa:hover .whatsapp-icon circle {
+    fill: #25D366;
+}
+
+.social-link.wa:hover .whatsapp-icon path {
+    fill: white;
+}
+
+/* Цветные иконки в блоке шагов */
+.step-icon-consult,
+.step-icon-docs,
+.step-icon-court,
+.step-icon-free {
+    stroke: var(--legal-blue) !important;
+    fill: none;
+    transition: all 0.3s ease;
+}
+
+.equal-block:hover .step-icon-consult,
+.equal-block:hover .step-icon-docs,
+.equal-block:hover .step-icon-court,
+.equal-block:hover .step-icon-free {
+    stroke: var(--legal-gold) !important;
+    transform: scale(1.1);
+}
+
+body.dark-theme .step-icon-consult,
+body.dark-theme .step-icon-docs,
+body.dark-theme .step-icon-court,
+body.dark-theme .step-icon-free {
+    stroke: #fbbf24 !important;
+}
+
+/* Новые иконки для блоков преимуществ */
+.anim-icon-shield-new {
+    stroke: var(--legal-blue);
+    stroke-width: 2;
+    fill: none;
+    transition: all 0.3s ease;
+}
+
+.equal-block:hover .anim-icon-shield-new {
+    stroke: var(--legal-gold);
+    fill: rgba(30, 58, 95, 0.1);
+    transform: scale(1.1);
+}
+
+.anim-icon-house-new {
+    stroke: #795548;
+    stroke-width: 2;
+    fill: none;
+    transition: all 0.3s ease;
+}
+
+.equal-block:hover .anim-icon-house-new {
+    stroke: var(--legal-gold);
+    fill: rgba(121, 85, 72, 0.1);
+    transform: scale(1.1);
+}
+
+.equal-block:hover .shield-star {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.equal-block:hover .heart-beat {
+    animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
 }
