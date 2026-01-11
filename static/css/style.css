@@ -7,281 +7,8 @@
     --bg-light: #f8f9fa;
     --bg-body: #ffffff;
     --text-main: #1a2a3a;
-    
-    /* Тёмная тема переменные */
-    --dark-bg-body: #121212; /* Оникс */
-    --dark-bg-light: #1e1e1e;
-    --dark-text-main: #ffffff;
-    --dark-text-muted: #a0a0a0;
-    --dark-border: #333333;
-    --dark-shadow: rgba(0, 0, 0, 0.4);
 }
 
-/* === ТЕМНАЯ ТЕМА === */
-body.dark-theme {
-    background-color: var(--dark-bg-body);
-    color: var(--dark-text-main);
-}
-
-body.dark-theme .equal-block {
-    background-color: var(--dark-bg-light);
-    border-color: var(--dark-border);
-    color: var(--dark-text-main);
-}
-
-body.dark-theme .equal-block:hover {
-    background-color: #2a2a2a;
-    border-color: #0d6efd;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-}
-
-body.dark-theme .text-muted {
-    color: var(--dark-text-muted) !important;
-}
-
-body.dark-theme .process-title-frame {
-    border-color: #ffffff;
-    color: #ffffff;
-}
-
-body.dark-theme .consultation-block {
-    background-color: var(--dark-bg-light) !important;
-    border-color: var(--dark-border);
-}
-
-body.dark-theme .office-card {
-    background-color: var(--dark-bg-light);
-    border-color: var(--dark-border);
-}
-
-body.dark-theme .form-control {
-    background-color: #2a2a2a;
-    border-color: var(--dark-border);
-    color: var(--dark-text-main);
-}
-
-body.dark-theme .footer {
-    background-color: var(--dark-bg-light);
-    border-top-color: var(--dark-border);
-}
-
-body.dark-theme .quiz-inline-card {
-    background: var(--dark-bg-light);
-    border-color: var(--dark-border);
-    box-shadow: 0 10px 40px var(--dark-shadow);
-}
-
-body.dark-theme .btn-quiz-option {
-    background-color: #2a2a2a;
-    border-color: var(--dark-border);
-    color: var(--dark-text-main);
-}
-
-body.dark-theme .btn-quiz-option:hover {
-    background-color: #333333;
-    border-color: var(--quiz-theme-color);
-}
-
-/* === ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ === */
-.theme-switcher {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    display: flex;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 8px 12px;
-    border-radius: 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-}
-
-body.dark-theme .theme-switcher {
-    background: rgba(30, 30, 30, 0.9);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.theme-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: none;
-    color: var(--primary-color);
-    font-size: 1.2rem;
-}
-
-body.dark-theme .theme-btn {
-    color: var(--dark-text-main);
-}
-
-.theme-btn:hover {
-    transform: scale(1.1);
-}
-
-.theme-btn.active {
-    border-color: var(--accent-color);
-    background-color: rgba(45, 94, 74, 0.1);
-}
-
-body.dark-theme .theme-btn.active {
-    border-color: var(--accent-color);
-    background-color: rgba(45, 94, 74, 0.3);
-}
-
-/* === СИММЕТРИЯ И ПРОПОРЦИОНАЛЬНОСТЬ === */
-.hero-viewport {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 80px 0 40px; /* Добавлен отступ сверху для переключателя темы */
-    box-sizing: border-box;
-}
-
-/* Унификация размеров иконок */
-.equal-block .icon-wrapper {
-    width: 60px; /* Единый размер для всех иконок */
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
-}
-
-.equal-block:hover .icon-wrapper {
-    transform: translateY(-5px);
-}
-
-/* Унификация заголовков */
-.equal-block strong {
-    font-size: 1.1rem;
-    margin-bottom: 12px;
-    display: block;
-    min-height: 2.4rem; /* Фиксированная высота для выравнивания */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.equal-block .small {
-    font-size: 0.9rem;
-    line-height: 1.5;
-    flex-grow: 1;
-    display: flex;
-    align-items: flex-start;
-}
-
-/* Выравнивание карточек по высоте */
-.row.g-3 {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.row.g-3 > div {
-    display: flex;
-}
-
-.equal-block {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-}
-
-/* Центрирование секций */
-section.container {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-/* Симметричные отступы */
-.process-title-frame {
-    margin: 30px auto 40px;
-    display: inline-block;
-}
-
-/* === НОВЫЕ ИКОНКИ И АНИМАЦИИ === */
-.icon-animate {
-    transition: all 0.3s ease;
-}
-
-.equal-block:hover .icon-animate {
-    transform: scale(1.2);
-}
-
-/* Анимации для конкретных иконок */
-.equal-block:hover .bi-shield-check {
-    color: #0d6efd;
-    transform: scale(1.2) rotate(5deg);
-}
-
-.equal-block:hover .bi-bell-slash {
-    color: #dc3545;
-    animation: shake 0.5s ease;
-}
-
-.equal-block:hover .bi-house-check {
-    color: #28a745;
-    transform: scale(1.2) translateY(-3px);
-}
-
-.equal-block:hover .bi-lock {
-    color: #6f42c1;
-    animation: bounce 0.5s ease;
-}
-
-.equal-block:hover .bi-chat-left-text {
-    color: #ff4d6d;
-    transform: scale(1.2);
-}
-
-.equal-block:hover .bi-files {
-    color: #a06cd5;
-    animation: float 0.5s ease;
-}
-
-.equal-block:hover .bi-scale {
-    color: #0077b6;
-    animation: balance 0.5s ease;
-}
-
-.equal-block:hover .bi-sun {
-    color: #fcc419;
-    transform: rotate(180deg) scale(1.2);
-}
-
-/* Ключевые кадры для анимаций */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-3px); }
-    75% { transform: translateX(3px); }
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-3px); }
-}
-
-@keyframes balance {
-    0%, 100% { transform: rotate(0); }
-    25% { transform: rotate(-5deg); }
-    75% { transform: rotate(5deg); }
-}
-
-/* === ОСТАЛЬНЫЕ СТИЛИ (без изменений) === */
 body {
     font-family: 'Inter', sans-serif;
     color: var(--text-main);
@@ -293,10 +20,9 @@ body {
 h1, h2, h3 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    margin-bottom: 1.5rem;
 }
 
-/* Анимации для остальных элементов */
+/* === АНИМАЦИИ (HOVER ЭФФЕКТЫ) === */
 .shield-body { transition: fill 0.3s ease; }
 .equal-block:hover .shield-body { fill: #0d6efd; fill-opacity: 0.15; }
 
@@ -337,9 +63,9 @@ h1, h2, h3 {
 .quiz-inline-card {
     background: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15); /* Эффектная тень */
     padding: 30px;
-    max-width: 500px;
+    max-width: 500px; /* Компактная ширина */
     margin: 20px auto 0;
     text-align: left;
     position: relative;
@@ -349,6 +75,7 @@ h1, h2, h3 {
     transition: all 0.5s ease-out;
 }
 
+/* Класс для анимации появления */
 .quiz-inline-card.active {
     opacity: 1;
     transform: translateY(0);
@@ -373,7 +100,7 @@ h1, h2, h3 {
 /* МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА) */
 .quiz-grid-options {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* Две колонки */
     gap: 10px;
     margin-top: 15px;
 }
@@ -452,6 +179,8 @@ footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
 }
 
 /* === НОВЫЕ СТИЛИ ДЛЯ УЛУЧШЕНИЙ === */
+
+/* 1. Контрастная кнопка "Начать онлайн" */
 .btn-start-online {
     background: linear-gradient(135deg, #ff6b35, #ff8c42);
     color: white;
@@ -472,6 +201,7 @@ footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
     color: white; 
 }
 
+/* 2. Кнопка "Назад" в квизе */
 .quiz-back-btn {
     background: none;
     border: 1px solid #dee2e6;
@@ -497,6 +227,7 @@ footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
     margin-bottom: 1rem;
 }
 
+/* 3. Lazy loading для карты */
 .map-placeholder {
     background: #f8f9fa;
     display: flex;
@@ -509,46 +240,4 @@ footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); }
 
 .map-placeholder::after {
     content: "Загрузка карты...";
-}
-
-/* Дополнительные улучшения симметрии */
-.cta-container {
-    text-align: center;
-    width: 100%;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-    position: relative;
-}
-
-/* Выравнивание иконок в соцсетях */
-.social-link {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-}
-
-/* Унификация закруглений */
-.equal-block,
-.quiz-inline-card,
-.btn-start-online,
-.quiz-back-btn,
-.btn-quiz-option {
-    border-radius: 12px;
-}
-
-/* Единые отступы */
-section {
-    padding-top: 60px;
-    padding-bottom: 60px;
-}
-
-@media (max-width: 768px) {
-    section {
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
 }
