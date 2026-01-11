@@ -131,7 +131,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="equal-block">
                         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#dc3545" stroke-width="2" class="mb-3 anim-icon-bell">
-                            <path class="bell-body" d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0"></path>
+                            <path class="bell-body" d="M18 8A6 6 0 0 1 6 8c0 7-3 9-3 9h18s-3-2-3-9zm-4.27 13a2 2 0 0 1-3.46 0"></path>
                             <line class="bell-slash" x1="1" y1="1" x2="23" y2="23"></line>
                         </svg>
                         <strong class="d-block mb-2">Стоп звонки коллекторов</strong>
@@ -249,7 +249,23 @@
                     </div>
                 </div>
                 <div class="col-md-6" style="min-height: 400px;">
-                    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" width="100%" height="100%" frameborder="0"></iframe>
+                    <div id="map-placeholder" class="map-placeholder">
+                        <div class="text-center">
+                            <div class="spinner-border text-primary mb-3" role="status">
+                                <span class="visually-hidden">Загрузка...</span>
+                            </div>
+                            <div>Загрузка карты...</div>
+                        </div>
+                    </div>
+                    <iframe 
+                        id="map-iframe"
+                        src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" 
+                        width="100%" 
+                        height="100%" 
+                        frameborder="0"
+                        loading="lazy"
+                        style="display: none;">
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -291,6 +307,34 @@
         }
         window.addEventListener("scroll", reveal);
         reveal();
+
+        // Lazy loading для карты
+        function loadMap() {
+            const mapPlaceholder = document.getElementById('map-placeholder');
+            const mapIframe = document.getElementById('map-iframe');
+            
+            setTimeout(() => {
+                mapPlaceholder.style.display = 'none';
+                mapIframe.style.display = 'block';
+            }, 1000); // Небольшая задержка для имитации загрузки
+        }
+
+        // Загружаем карту когда блок с картой становится видимым
+        const mapObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    loadMap();
+                    mapObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const mapSection = document.getElementById('office-block');
+            if (mapSection) {
+                mapObserver.observe(mapSection);
+            }
+        });
 
         // Скрипт закрытия квиза
         window.closeQuiz = function() {
