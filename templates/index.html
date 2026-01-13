@@ -7,201 +7,79 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <style>
-    html { scroll-behavior: smooth; }
-
-    .hero-viewport {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 2vh 0;
-      box-sizing: border-box;
-    }
-
-    .equal-block {
-      background-color: #eef4f9;
-      border: 1px solid #dee2e6;
-      border-radius: 12px;
-      padding: 25px !important;
-      height: 100%;
-      min-height: 220px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      text-align: center;
-      transition: all 0.3s ease;
-      cursor: default;
-      position: relative;
-      overflow: hidden;
-    }
-
-    body.dark .equal-block {
-      background-color: #1e1e1e;
-      border: 1px solid #4a4a4a;
-    }
-
-    .equal-block:hover {
-      transform: translateY(-5px);
-      background-color: #ffffff;
-      box-shadow: 0 12px 30px rgba(30, 58, 95, 0.15);
-      border-color: #0d6efd;
-    }
-
-    body.dark .equal-block:hover {
-      background-color: #2a2a2a;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-      border-color: #4a7ab5;
-    }
-
-    .process-title-frame {
-      display: inline-block;
-      padding: 8px 35px;
-      border: 1.5px solid #1e3a5f;
-      border-radius: 50px;
-      color: #1e3a5f;
-      font-weight: 600;
-      margin-bottom: 30px;
-      font-family: 'Playfair Display', serif;
-    }
-
-    body.dark .process-title-frame {
-      border: 1.5px solid #4a7ab5;
-      color: #4a7ab5;
-    }
-
-    .cta-container {
-      text-align: center;
-      width: 100%;
-      margin-top: 2rem;
-      position: relative;
-    }
-
-    .scroll-indicator {
-      text-align: center;
-      text-decoration: none;
-      color: #1e3a5f;
-      display: block;
-      margin-top: 15px;
-    }
-
-    body.dark .scroll-indicator {
-      color: #4a7ab5;
-    }
-
-    .scroll-label {
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      display: block;
-      margin-bottom: 5px;
-      opacity: 0.8;
-    }
-
-    .office-section {
-      padding: 60px 0;
-      background: var(--bg-body);
-    }
-
-    .office-card {
-      border: 1px solid #eee;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.03);
-    }
-
-    body.dark .office-card {
-      border: 1px solid #4a4a4a;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: 0.8s ease-out;
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .theme-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      gap: 10px;
-    }
-    .theme-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.2rem;
-      color: var(--text-main);
-      transition: color 0.3s;
-    }
-    .theme-btn:hover {
-      color: var(--quiz-theme-color);
-    }
-  </style>
 </head>
 <body>
 
-<div class="hero-viewport">
-  <header class="container text-center">
-    <div class="theme-toggle">
-      <button class="theme-btn" id="light-theme-btn" aria-label="Светлая тема">☀️</button>
-      <button class="theme-btn" id="dark-theme-btn" aria-label="Темная тема">🌙</button>
+<nav class="navbar fixed-top main-navbar shadow-sm">
+  <div class="container d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <span class="navbar-brand mb-0 h1 fw-bold" style="font-family: 'Playfair Display', serif;">Мусаев Ш.И.</span>
     </div>
-    <h1 class="mb-4 mt-3" style="font-family: 'Playfair Display', serif; font-size: calc(1.4rem + 1vw);">
+    
+    <div class="d-flex align-items-center gap-3">
+      <button class="theme-toggle-btn" id="theme-toggler" aria-label="Переключить тему">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+
+      <a href="tel:+79991234567" class="btn btn-sm btn-outline-primary fw-bold btn-call-top">
+        📞 <span class="d-none d-sm-inline">Позвонить</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero-viewport">
+  <header class="container text-center mt-5 pt-5">
+    
+    <h1 class="mb-5 mt-4 hero-title">
       Оформите банкротство — не выходя из дома
     </h1>
 
-    <div class="row g-3">
-      <!-- Блок 1 -->
+    <div class="row g-3 align-items-stretch">
       <div class="col-lg-3 col-md-6">
-        <div class="equal-block">
-          <div class="icon-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#0d6efd">
-              <path d="M12 1L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-9-5z"/>
+        <div class="equal-block h-100">
+          <div class="icon-wrapper text-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">Вы ничем не рискуете</strong>
           <div class="small text-muted">Оплата — только после вынесения судебного акта и официального признания банкротом.</div>
         </div>
       </div>
-      <!-- Блок 2 -->
+      
       <div class="col-lg-3 col-md-6">
-        <div class="equal-block">
-          <div class="icon-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#dc3545">
-              <path d="M18 8a5 5 0 010 10H6a5 5 0 010-10h12m0-4H6a9 9 0 00-9 9v1a3 3 0 003 3h18a3 3 0 003-3v-1a9 9 0 00-9-9z"/>
-              <line x1="1" y1="1" x2="23" y2="23" stroke="#dc3545" stroke-width="2"/>
+        <div class="equal-block h-100">
+          <div class="icon-wrapper text-danger">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+               <path d="M19.23 15.26l-2.54-.29c-.61-.07-1.21.14-1.64.57l-1.84 1.84c-2.83-1.44-5.15-3.75-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52c-.12-1.01-.97-1.77-1.99-1.77H4.19C3.17 3 2.34 3.84 2.34 4.86c0 9.27 7.52 16.79 16.79 16.79 1.02 0 1.86-.83 1.86-1.85v-2.56c0-1.01-.76-1.87-1.76-1.98zM5.13 19.35c-2.09 0-3.79-1.7-3.79-3.79S3.04 11.77 5.13 11.77s3.79 1.7 3.79 3.79-1.7 3.79-3.79 3.79z"/>
+               <line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="2"/>
             </svg>
           </div>
           <strong class="d-block mb-2">Стоп звонки коллекторов</strong>
           <div class="small text-muted">С первого дня процедуры — тишина. Мы берем общение с кредиторами на себя.</div>
         </div>
       </div>
-      <!-- Блок 3 -->
+      
       <div class="col-lg-3 col-md-6">
-        <div class="equal-block">
-          <div class="icon-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#795548">
+        <div class="equal-block h-100">
+          <div class="icon-wrapper text-warning">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
               <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">Жильё в безопасности</strong>
           <div class="small text-muted">Единственное жильё не арестуют, а доход сохраним в размере прожиточного минимума.</div>
         </div>
       </div>
-      <!-- Блок 4 -->
+      
       <div class="col-lg-3 col-md-6">
-        <div class="equal-block">
-          <div class="icon-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#28a745">
-              <path d="M18 8a6 6 0 010 12H6a6 6 0 010-12h12m0-4H6a10 10 0 00-10 10v7a4 4 0 004 4h16a4 4 0 004-4v-7a10 10 0 00-10-10z"/>
+        <div class="equal-block h-100">
+          <div class="icon-wrapper text-success">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">Полная анонимность</strong>
@@ -218,57 +96,60 @@
       </div>
 
       <div id="quiz-wrapper" class="quiz-inline-card" style="display: none;">
-        <div class="d-flex justify-content-end">
-          <button type="button" class="btn-close-quiz" onclick="closeQuiz()" aria-label="Закрыть">×</button>
-        </div>
-        <div id="quiz-container"></div>
+        <button type="button" class="btn-close-quiz" onclick="closeQuiz()" aria-label="Закрыть">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <div id="quiz-container" class="pt-2"></div>
       </div>
     </div>
   </header>
 
-  <section class="container text-center mt-4">
+  <section class="container text-center mt-5 mb-4">
     <span class="process-title-frame">Как проходит процедура</span>
 
-    <div class="row g-3">
+    <div class="row g-3 align-items-stretch">
       <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block">
-          <div class="icon-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#ff4d6d">
-              <path d="M20 21H4a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+        <div class="equal-block h-100">
+          <div class="icon-wrapper" style="color: #ff4d6d;">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+               <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">1. Консультация</strong>
           <div class="small text-muted">Бесплатно разбираем вашу ситуацию и подбираем лучший способ списания.</div>
         </div>
       </div>
+      
       <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block">
-          <div class="icon-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#a06cd5">
-              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/>
+        <div class="equal-block h-100">
+          <div class="icon-wrapper" style="color: #a06cd5;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+              <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">2. Документы</strong>
           <div class="small text-muted">Помогаем собрать полный пакет документов. Вам не нужно бегать по банкам.</div>
         </div>
       </div>
+      
       <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block">
-          <div class="icon-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#0077b6">
-              <path d="M12 1L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-9-5z"/>
-              <circle cx="12" cy="13" r="3" fill="none" stroke="#0077b6" stroke-width="2"/>
+        <div class="equal-block h-100">
+          <div class="icon-wrapper" style="color: #0077b6;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+              <path d="M12 2L2 12l2 2 8-8 8 8 2-2L12 2z"/> <path d="M4 14h4v6H4zm6 0h4v6h-4zm6 0h4v6h-4z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">3. Подача в суд</strong>
           <div class="small text-muted">Направляем заявление. Наши юристы представляют ваши интересы на заседаниях.</div>
         </div>
       </div>
+      
       <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block">
-          <div class="icon-wrapper">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#fcc419">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        <div class="equal-block h-100">
+          <div class="icon-wrapper" style="color: #fcc419;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
             </svg>
           </div>
           <strong class="d-block mb-2">4. Свобода</strong>
@@ -278,7 +159,7 @@
     </div>
   </section>
 
-  <a href="#office-block" class="scroll-indicator">
+  <a href="#office-block" class="scroll-indicator pb-3">
     <span class="scroll-label">офис и контакты</span>
     <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/><path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
   </a>
@@ -288,8 +169,8 @@
   <div class="container">
     <h2 class="text-center mb-5" style="font-family: 'Playfair Display', serif;">Очная консультация</h2>
     <div class="row g-0 office-card shadow-sm">
-      <div class="col-md-6 p-5">
-        <h3 class="h4 mb-4" style="color: #1e3a5f;">Для жителей Ставропольского края</h3>
+      <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
+        <h3 class="h4 mb-4" style="color: var(--primary-color);">Для жителей Ставропольского края</h3>
         <p class="small text-muted mb-4">Вы можете прийти на очную консультацию в наш офис в городе Железноводске.</p>
         <div class="mb-3">
           <p class="mb-1"><strong>Адрес:</strong></p>
@@ -301,7 +182,7 @@
           <p class="text-muted small">Сб–Вс: выходной</p>
         </div>
         <div class="d-flex align-items-center gap-3">
-          <span class="small">Телефон:</span>
+          <span class="small text-muted">Телефон:</span>
           <a href="tel:+79991234567" class="btn btn-outline-dark btn-sm px-3">📞 Позвонить</a>
         </div>
       </div>
@@ -322,16 +203,19 @@
   <div class="container">
     <div class="d-flex justify-content-center align-items-center gap-4 mb-4">
       <a href="https://wa.me/79991234567" target="_blank" class="social-link" aria-label="WhatsApp">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo" class="footer-social-img">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="footer-social-img">
       </a>
       <a href="https://t.me/ripe_man" target="_blank" class="social-link" aria-label="Telegram">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo" class="footer-social-img">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="footer-social-img">
       </a>
       <a href="https://vk.com/club235261619?from=groups" target="_blank" class="social-link" aria-label="VK">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/21/VK_logo.svg" alt="VK Logo" class="footer-social-img">
+        <svg class="footer-social-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0077FF">
+            <path d="M13.162 18.994c.609 0 1.016-.368 1.256-1.112 1.33-4.138 3.736-5.467 6.004-5.267.568.049.824.279.792.833-.036.554-.316.896-.86.946-1.42.132-2.316.8-2.676 1.996-.328 1.092.176 1.94 1.376 2.04 1.256.104 2.228-.696 2.916-1.604.492-.656.492-1.636 0-2.292-.492-.656-1.396-1.076-2.212-1.028-.816.048-1.576.544-1.996 1.304-.42.76-.328 1.684.228 2.348.556.664 1.488.94 2.304.684.816-.256 1.376-1.016 1.376-1.872 0-.856-.696-1.552-1.552-1.552H3.88c-.856 0-1.552.696-1.552 1.552s.696 1.552 1.552 1.552h9.28z"/>
+            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.16 15.64c-.936 1.38-2.484 2.22-4.128 2.22-1.284 0-2.52-.492-3.48-1.38-2.64-2.46-4.32-5.88-4.68-9.48-.06-.588.372-1.104.96-1.164.588-.06 1.104.372 1.164.96.3 3.012 1.704 5.868 3.912 7.932.708.66 1.62 1.02 2.568 1.02 1.164 0 2.268-.588 2.928-1.56.516-.768.456-1.788-.144-2.484-.6-.696-1.608-1.02-2.532-.816-.924.204-1.62 1.008-1.62 1.956 0 .864.54 1.62 1.356 1.86.816.24 1.68-.132 2.064-.888.384-.756.12-1.68-.612-2.112-.732-.432-1.656-.192-2.088.54-.432.732-.192 1.656.54 2.088.732.432 1.656.192 2.088-.54.216-.36.216-.804 0-1.164-.216-.36-.6-.588-1.02-.588-.42 0-.804.228-1.02.588s-.216.804 0 1.164c.432.732 1.356.972 2.088.54z"/>
+        </svg>
       </a>
       <a href="https://commons.wikimedia.org/wiki/File:Max_logo_2025.png" title="Max Messenger" target="_blank" class="social-link">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" alt="Max Logo" class="footer-social-img">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" alt="Max" class="footer-social-img">
       </a>
     </div>
 
@@ -344,11 +228,6 @@
   </div>
 </footer>
 
-<!-- ЛИПКАЯ КНОПКА ЗВОНКА -->
-<div class="call-sticky">
-  <a href="tel:+79991234567">📞 Позвонить</a>
-</div>
-
 <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
 <script>
   function reveal() {
@@ -359,11 +238,22 @@
   window.addEventListener("scroll", reveal);
   reveal();
 
-  const lightBtn = document.getElementById('light-theme-btn');
-  const darkBtn = document.getElementById('dark-theme-btn');
+  const themeToggler = document.getElementById('theme-toggler');
+  const body = document.body;
 
-  lightBtn.addEventListener('click', () => document.body.classList.remove('dark'));
-  darkBtn.addEventListener('click', () => document.body.classList.add('dark'));
+  // Проверка сохраненной темы
+  if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark');
+  }
+
+  themeToggler.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    if (body.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+  });
 
   window.closeQuiz = function() {
     const wrapper = document.getElementById('quiz-wrapper');
