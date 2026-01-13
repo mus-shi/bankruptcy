@@ -7,7 +7,7 @@
   --bg-light: #f8f9fa;
   --bg-body: #ffffff;
   --text-main: #1a2a3a;
-  --card-bg: #eef4f9; /* Цвет карточек в светлой теме */
+  --card-bg: #eef4f9;
 }
 
 body.dark {
@@ -16,9 +16,9 @@ body.dark {
   --quiz-theme-color: #4a7ab5;
   --text-muted: #b0b0b0;
   --bg-light: #121212;
-  --bg-body: #000000; /* Более глубокий черный для фона страницы */
+  --bg-body: #000000;
   --text-main: #f0f0f0;
-  --card-bg: #2a2a2a; /* (Пункт 1) Более светлый оттенок черного для карточек, чтобы текст читался */
+  --card-bg: #2a2a2a;
 }
 
 body {
@@ -29,7 +29,7 @@ body {
   transition: background-color 0.4s, color 0.4s;
   margin: 0;
   padding: 0;
-  padding-top: 60px; /* Отступ под липкое меню */
+  padding-top: 60px;
 }
 
 h1, h2, h3 {
@@ -37,7 +37,7 @@ h1, h2, h3 {
   font-weight: 700;
 }
 
-/* === ЛИПКОЕ ВЕРХНЕЕ МЕНЮ (Пункт 5 и 6) === */
+/* === ЛИПКОЕ ВЕРХНЕЕ МЕНЮ === */
 .sticky-top-bar {
   position: fixed;
   top: 0;
@@ -49,7 +49,7 @@ h1, h2, h3 {
   z-index: 1000;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Распределяем по краям */
+  justify-content: space-between;
   padding: 0 20px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
   transition: background-color 0.4s;
@@ -64,10 +64,9 @@ body.dark .sticky-top-bar {
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-left: auto; /* Сдвигаем всё вправо */
+  margin-left: auto;
 }
 
-/* Кнопка смены темы в углу */
 .theme-toggle-btn {
   background: none;
   border: 1px solid #dee2e6;
@@ -90,7 +89,6 @@ body.dark .theme-toggle-btn {
   background-color: var(--bg-light);
 }
 
-/* Кнопка позвонить в хедере */
 .btn-header-call {
   background-color: transparent;
   color: var(--text-main);
@@ -113,10 +111,9 @@ body.dark .btn-header-call {
   color: var(--bg-body);
 }
 
-
 /* === АНИМАЦИИ ИКОНОК === */
 .equal-block {
-  background-color: var(--card-bg); /* Используем переменную */
+  background-color: var(--card-bg);
   border: 1px solid transparent;
   border-radius: 12px;
   padding: 25px !important;
@@ -134,10 +131,9 @@ body.dark .btn-header-call {
   box-shadow: 0 4px 6px rgba(0,0,0,0.02);
 }
 
-/* Явно задаем цвет текста внутри блоков для темной темы */
 body.dark .equal-block {
   border: 1px solid #3a3a3a;
-  color: #e0e0e0; 
+  color: #e0e0e0;
 }
 body.dark .equal-block .text-muted {
   color: #b0b0b0 !important;
@@ -163,7 +159,7 @@ body.dark .equal-block .text-muted {
   transform: scale(1.1);
 }
 
-/* (Пункт 8) Смена колокольчика при наведении */
+/* СМЕНА КОЛОКОЛЬЧИКА */
 .bell-icon-group svg {
   transition: opacity 0.3s ease;
 }
@@ -174,7 +170,6 @@ body.dark .equal-block .text-muted {
   display: none;
 }
 
-/* При наведении на карточку меняем иконку */
 .equal-block:hover .bell-normal {
   display: none;
 }
@@ -190,7 +185,6 @@ body.dark .equal-block .text-muted {
   100% { transform: rotate(0deg); }
 }
 
-
 /* === КВИЗ (INLINE CARD) === */
 .quiz-inline-card {
   background: var(--bg-body);
@@ -202,20 +196,17 @@ body.dark .equal-block .text-muted {
   text-align: left;
   position: relative;
   border: 1px solid rgba(0,0,0,0.05);
-  
-  /* (Пункт 7) Фиксированная высота, чтобы не прыгало */
-  min-height: 480px; 
+  min-height: 480px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-
   opacity: 0;
   transform: translateY(-20px);
   transition: all 0.5s ease-out;
 }
 
 body.dark .quiz-inline-card {
-  background: #1e1e1e; /* Чуть светлее фона body */
+  background: #1e1e1e;
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
@@ -248,7 +239,7 @@ body.dark .quiz-inline-card {
 }
 .btn-close-quiz:hover { color: #dc3545; }
 
-/* МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА) */
+/* КНОПКИ-ПЛИТКИ */
 .quiz-grid-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -290,7 +281,7 @@ body.dark .btn-quiz-option:hover {
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* === ПОЛЗУНОК === */
+/* ПОЛЗУНОК */
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
@@ -330,15 +321,14 @@ body.dark input[type=range]::-webkit-slider-runnable-track {
   display: block;
 }
 
-/* === ПРОГРЕСС БАР === */
+/* ПРОГРЕСС-БАР */
 .progress { height: 6px !important; margin-bottom: 1.5rem !important; background-color: #e9ecef; }
 body.dark .progress { background-color: #333; }
 
-/* === ФУТЕР И ПРОЧЕЕ === */
+/* ФУТЕР */
 footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); background-color: var(--bg-light); }
 body.dark footer { border-top: 1px solid rgba(255,255,255,0.1); background-color: #121212; }
 
-/* (Пункт 4) Единый размер иконок в футере */
 .social-link svg, .social-link img {
   width: 32px;
   height: 32px;
@@ -349,7 +339,7 @@ body.dark footer { border-top: 1px solid rgba(255,255,255,0.1); background-color
   transform: scale(1.15);
 }
 
-/* === BUTTONS === */
+/* КНОПКИ */
 .btn-start-online {
   background: linear-gradient(135deg, #ff6b35, #ff8c42);
   color: white;
@@ -396,9 +386,13 @@ body.dark .quiz-back-btn { border-color: #4a4a4a; color: #b0b0b0; }
   justify-content: center;
   min-height: 400px;
 }
+body.dark .map-placeholder { background: #1eПродолжение файла `style.css` (обрыв произошёл по длине):
+
+```css
 body.dark .map-placeholder { background: #1e1e1e; }
 
-/* === ЛИПКАЯ КНОПКА ЗВОНКА (Внизу справа) === */
+/* === УДАЛЕНА КНОПКА ВЫЗОВА В ПРАВОМ НИЖНЕМ УГЛУ === */
+/*
 .call-sticky-bottom {
   position: fixed;
   bottom: 20px;
@@ -411,7 +405,7 @@ body.dark .map-placeholder { background: #1e1e1e; }
   justify-content: center;
   width: 50px;
   height: 50px;
-  background: #25d366; /* WhatsApp color as generic call green */
+  background: #25d366;
   color: white;
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -422,6 +416,7 @@ body.dark .map-placeholder { background: #1e1e1e; }
 .call-sticky-bottom a:hover {
   transform: scale(1.1);
 }
+*/
 
 @media (max-width: 992px) {
   .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
