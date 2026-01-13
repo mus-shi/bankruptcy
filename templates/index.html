@@ -3,45 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Банкротство под ключ | Мусаев Ш.И.</title>
+  <title>Банкротство под ключ</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    html { scroll-behavior: smooth; }
+    .process-title-frame {
+      display: inline-block;
+      padding: 8px 35px;
+      border: 1.5px solid #1e3a5f;
+      border-radius: 50px;
+      color: #1e3a5f;
+      font-weight: 600;
+      margin-bottom: 30px;
+      font-family: 'Playfair Display', serif;
+    }
+    body.dark .process-title-frame {
+      border: 1.5px solid #4a7ab5;
+      color: #4a7ab5;
+    }
+  </style>
 </head>
 <body>
 
-<nav class="navbar fixed-top main-navbar shadow-sm">
-  <div class="container d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center gap-3">
-      <span class="navbar-brand mb-0 h1 fw-bold" style="font-family: 'Playfair Display', serif;">Мусаев Ш.И.</span>
-    </div>
-    
-    <div class="d-flex align-items-center gap-3">
-      <button class="theme-toggle-btn" id="theme-toggler" aria-label="Переключить тему">
-        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-      </button>
-
-      <a href="tel:+79991234567" class="btn btn-sm btn-outline-primary fw-bold btn-call-top">
-        📞 <span class="d-none d-sm-inline">Позвонить</span>
-      </a>
-    </div>
+<nav class="sticky-top-bar">
+  <div></div>
+  
+  <div class="sticky-actions">
+    <a href="tel:+79991234567" class="btn-header-call">📞 Позвонить</a>
+    <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Сменить тему">
+      <span id="theme-icon">☀️</span>
+    </button>
   </div>
 </nav>
 
 <div class="hero-viewport">
-  <header class="container text-center mt-5 pt-5">
+  <header class="container text-center" style="padding-top: 40px;">
     
-    <h1 class="mb-5 mt-4 hero-title">
+    <h1 class="mb-5" style="font-family: 'Playfair Display', serif; font-size: calc(1.8rem + 1vw);">
       Оформите банкротство — не выходя из дома
     </h1>
 
-    <div class="row g-3 align-items-stretch">
+    <div class="row g-3">
       <div class="col-lg-3 col-md-6">
-        <div class="equal-block h-100">
-          <div class="icon-wrapper text-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+        <div class="equal-block">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#0d6efd">
+              <path d="M12 1L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-9-5z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">Вы ничем не рискуете</strong>
@@ -50,36 +59,37 @@
       </div>
       
       <div class="col-lg-3 col-md-6">
-        <div class="equal-block h-100">
-          <div class="icon-wrapper text-danger">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-               <path d="M19.23 15.26l-2.54-.29c-.61-.07-1.21.14-1.64.57l-1.84 1.84c-2.83-1.44-5.15-3.75-6.59-6.59l1.85-1.85c.43-.43.64-1.03.57-1.64l-.29-2.52c-.12-1.01-.97-1.77-1.99-1.77H4.19C3.17 3 2.34 3.84 2.34 4.86c0 9.27 7.52 16.79 16.79 16.79 1.02 0 1.86-.83 1.86-1.85v-2.56c0-1.01-.76-1.87-1.76-1.98zM5.13 19.35c-2.09 0-3.79-1.7-3.79-3.79S3.04 11.77 5.13 11.77s3.79 1.7 3.79 3.79-1.7 3.79-3.79 3.79z"/>
-               <line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="2"/>
+        <div class="equal-block">
+          <div class="icon-wrapper bell-icon-group">
+            <svg class="bell-normal" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#dc3545">
+               <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+            </svg>
+            <svg class="bell-crossed" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#dc3545">
+               <path d="M9.5 9.8l-2.09-2.09c.28-.6.62-1.15 1.01-1.65l1.62 1.62c-.2.66-.37 1.38-.54 2.12zm2.5-6.8c-.83 0-1.5.67-1.5 1.5v.68C10.5 5.18 9.29 6.22 8.36 7.55l7.32 7.32c.2-.76.32-1.58.32-2.42v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5zM3.41 4.59L2 6l3.41 3.41L4 11v5l-2 2v1h16v-1l-.59-.59L19 19l1.41-1.41L3.41 4.59zM6 16v-5c0-.49.07-.96.18-1.41l5.41 5.41H6zm6 6c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">Стоп звонки коллекторов</strong>
           <div class="small text-muted">С первого дня процедуры — тишина. Мы берем общение с кредиторами на себя.</div>
         </div>
       </div>
-      
+
       <div class="col-lg-3 col-md-6">
-        <div class="equal-block h-100">
-          <div class="icon-wrapper text-warning">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
+        <div class="equal-block">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#795548">
               <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              <path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">Жильё в безопасности</strong>
           <div class="small text-muted">Единственное жильё не арестуют, а доход сохраним в размере прожиточного минимума.</div>
         </div>
       </div>
-      
+
       <div class="col-lg-3 col-md-6">
-        <div class="equal-block h-100">
-          <div class="icon-wrapper text-success">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+        <div class="equal-block">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#28a745">
+              <path d="M18 8a6 6 0 010 12H6a6 6 0 010-12h12m0-4H6a10 10 0 00-10 10v7a4 4 0 004 4h16a4 4 0 004-4v-7a10 10 0 00-10-10z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">Полная анонимность</strong>
@@ -96,47 +106,46 @@
       </div>
 
       <div id="quiz-wrapper" class="quiz-inline-card" style="display: none;">
-        <button type="button" class="btn-close-quiz" onclick="closeQuiz()" aria-label="Закрыть">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-        <div id="quiz-container" class="pt-2"></div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn-close-quiz" onclick="closeQuiz()" aria-label="Закрыть">×</button>
+        </div>
+        <div id="quiz-container" class="h-100"></div>
       </div>
     </div>
   </header>
 
-  <section class="container text-center mt-5 mb-4">
+  <section class="container text-center mt-5">
     <span class="process-title-frame">Как проходит процедура</span>
 
-    <div class="row g-3 align-items-stretch">
+    <div class="row g-3">
       <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block h-100">
-          <div class="icon-wrapper" style="color: #ff4d6d;">
-             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-               <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM9 11H7V9h2v2zm4 0h-2V9h2v2zm4 0h-2V9h2v2z"/>
+        <div class="equal-block">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#ff4d6d">
+              <path d="M20 21H4a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">1. Консультация</strong>
           <div class="small text-muted">Бесплатно разбираем вашу ситуацию и подбираем лучший способ списания.</div>
         </div>
       </div>
-      
       <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block h-100">
-          <div class="icon-wrapper" style="color: #a06cd5;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-              <path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/>
+        <div class="equal-block">
+          <div class="icon-wrapper">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#a06cd5">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">2. Документы</strong>
           <div class="small text-muted">Помогаем собрать полный пакет документов. Вам не нужно бегать по банкам.</div>
         </div>
       </div>
-      
       <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block h-100">
-          <div class="icon-wrapper" style="color: #0077b6;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-              <path d="M12 2L2 12l2 2 8-8 8 8 2-2L12 2z"/> <path d="M4 14h4v6H4zm6 0h4v6h-4zm6 0h4v6h-4z"/>
+        <div class="equal-block">
+          <div class="icon-wrapper">
+             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#0077b6">
+              <path d="M12 1L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-9-5z"/>
+              <circle cx="12" cy="13" r="3" fill="none" stroke="#0077b6" stroke-width="2"/>
             </svg>
           </div>
           <strong class="d-block mb-2">3. Подача в суд</strong>
@@ -145,11 +154,10 @@
       </div>
       
       <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block h-100">
-          <div class="icon-wrapper" style="color: #fcc419;">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="currentColor">
-              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
+        <div class="equal-block">
+          <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="#fcc419">
+               <path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"/>
             </svg>
           </div>
           <strong class="d-block mb-2">4. Свобода</strong>
@@ -159,7 +167,7 @@
     </div>
   </section>
 
-  <a href="#office-block" class="scroll-indicator pb-3">
+  <a href="#office-block" class="scroll-indicator">
     <span class="scroll-label">офис и контакты</span>
     <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/><path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
   </a>
@@ -169,8 +177,8 @@
   <div class="container">
     <h2 class="text-center mb-5" style="font-family: 'Playfair Display', serif;">Очная консультация</h2>
     <div class="row g-0 office-card shadow-sm">
-      <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
-        <h3 class="h4 mb-4" style="color: var(--primary-color);">Для жителей Ставропольского края</h3>
+      <div class="col-md-6 p-5">
+        <h3 class="h4 mb-4" style="color: #1e3a5f;">Для жителей Ставропольского края</h3>
         <p class="small text-muted mb-4">Вы можете прийти на очную консультацию в наш офис в городе Железноводске.</p>
         <div class="mb-3">
           <p class="mb-1"><strong>Адрес:</strong></p>
@@ -182,7 +190,7 @@
           <p class="text-muted small">Сб–Вс: выходной</p>
         </div>
         <div class="d-flex align-items-center gap-3">
-          <span class="small text-muted">Телефон:</span>
+          <span class="small">Телефон:</span>
           <a href="tel:+79991234567" class="btn btn-outline-dark btn-sm px-3">📞 Позвонить</a>
         </div>
       </div>
@@ -202,20 +210,27 @@
 <footer class="text-center py-5 border-top">
   <div class="container">
     <div class="d-flex justify-content-center align-items-center gap-4 mb-4">
+      
       <a href="https://wa.me/79991234567" target="_blank" class="social-link" aria-label="WhatsApp">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="footer-social-img">
-      </a>
-      <a href="https://t.me/ripe_man" target="_blank" class="social-link" aria-label="Telegram">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="footer-social-img">
-      </a>
-      <a href="https://vk.com/club235261619?from=groups" target="_blank" class="social-link" aria-label="VK">
-        <svg class="footer-social-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#0077FF">
-            <path d="M13.162 18.994c.609 0 1.016-.368 1.256-1.112 1.33-4.138 3.736-5.467 6.004-5.267.568.049.824.279.792.833-.036.554-.316.896-.86.946-1.42.132-2.316.8-2.676 1.996-.328 1.092.176 1.94 1.376 2.04 1.256.104 2.228-.696 2.916-1.604.492-.656.492-1.636 0-2.292-.492-.656-1.396-1.076-2.212-1.028-.816.048-1.576.544-1.996 1.304-.42.76-.328 1.684.228 2.348.556.664 1.488.94 2.304.684.816-.256 1.376-1.016 1.376-1.872 0-.856-.696-1.552-1.552-1.552H3.88c-.856 0-1.552.696-1.552 1.552s.696 1.552 1.552 1.552h9.28z"/>
-            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm6.16 15.64c-.936 1.38-2.484 2.22-4.128 2.22-1.284 0-2.52-.492-3.48-1.38-2.64-2.46-4.32-5.88-4.68-9.48-.06-.588.372-1.104.96-1.164.588-.06 1.104.372 1.164.96.3 3.012 1.704 5.868 3.912 7.932.708.66 1.62 1.02 2.568 1.02 1.164 0 2.268-.588 2.928-1.56.516-.768.456-1.788-.144-2.484-.6-.696-1.608-1.02-2.532-.816-.924.204-1.62 1.008-1.62 1.956 0 .864.54 1.62 1.356 1.86.816.24 1.68-.132 2.064-.888.384-.756.12-1.68-.612-2.112-.732-.432-1.656-.192-2.088.54-.432.732-.192 1.656.54 2.088.732.432 1.656.192 2.088-.54.216-.36.216-.804 0-1.164-.216-.36-.6-.588-1.02-.588-.42 0-.804.228-1.02.588s-.216.804 0 1.164c.432.732 1.356.972 2.088.54z"/>
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="WhatsApp" role="img" viewBox="0 0 512 512">
+          <rect width="512" height="512" rx="15%" fill="#25d366"/>
+          <path fill="#25d366" stroke="#ffffff" stroke-width="26" d="M123 393l14-65a138 138 0 1150 47z"/>
+          <path fill="#ffffff" d="M308 273c-3-2-6-3-9 1l-12 16c-3 2-5 3-9 1-15-8-36-17-54-47-1-4 1-6 3-8l9-14c2-2 1-4 0-6l-12-29c-3-8-6-7-9-7h-8c-2 0-6 1-10 5-22 22-13 53 3 73 3 4 23 40 66 59 32 14 39 12 48 10 11-1 22-10 27-19 1-3 6-16 2-18"/>
         </svg>
       </a>
+
+      <a href="https://t.me/ripe_man" target="_blank" class="social-link" aria-label="Telegram">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo">
+      </a>
+
+      <a href="https://vk.com/club235261619?from=groups" target="_blank" class="social-link" aria-label="VK">
+        <svg fill="#0077FF" width="800px" height="800px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25.217 22.402h-2.179c-0.825 0-1.080-0.656-2.562-2.158-1.291-1.25-1.862-1.418-2.179-1.418-0.445 0-0.572 0.127-0.572 0.741v1.968c0 0.53-0.169 0.847-1.566 0.847-2.818-0.189-5.24-1.726-6.646-3.966l-0.021-0.035c-1.632-2.027-2.835-4.47-3.43-7.142l-0.022-0.117c0-0.317 0.127-0.614 0.741-0.614h2.179c0.55 0 0.762 0.254 0.975 0.846 1.078 3.112 2.878 5.842 3.619 5.842 0.275 0 0.402-0.127 0.402-0.825v-3.219c-0.085-1.482-0.868-1.608-0.868-2.137 0.009-0.283 0.241-0.509 0.525-0.509 0.009 0 0.017 0 0.026 0.001l-0.001-0h3.429c0.466 0 0.635 0.254 0.635 0.804v4.34c0 0.465 0.212 0.635 0.339 0.635 0.275 0 0.509-0.17 1.016-0.677 1.054-1.287 1.955-2.759 2.642-4.346l0.046-0.12c0.145-0.363 0.493-0.615 0.9-0.615 0.019 0 0.037 0.001 0.056 0.002l-0.003-0h2.179c0.656 0 0.805 0.337 0.656 0.804-0.874 1.925-1.856 3.579-2.994 5.111l0.052-0.074c-0.232 0.381-0.317 0.55 0 0.975 0.232 0.317 0.995 0.973 1.503 1.566 0.735 0.727 1.351 1.573 1.816 2.507l0.025 0.055c0.212 0.612-0.106 0.93-0.72 0.93zM20.604 1.004h-9.207c-8.403 0-10.392 1.989-10.392 10.392v9.207c0 8.403 1.989 10.392 10.392 10.392h9.207c8.403 0 10.392-1.989 10.392-10.392v-9.207c0-8.403-2.011-10.392-10.392-10.392z"></path>
+        </svg>
+      </a>
+      
       <a href="https://commons.wikimedia.org/wiki/File:Max_logo_2025.png" title="Max Messenger" target="_blank" class="social-link">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" alt="Max" class="footer-social-img">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" alt="Max Logo">
       </a>
     </div>
 
@@ -228,6 +243,10 @@
   </div>
 </footer>
 
+<div class="call-sticky-bottom">
+  <a href="tel:+79991234567">📞</a>
+</div>
+
 <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
 <script>
   function reveal() {
@@ -238,20 +257,16 @@
   window.addEventListener("scroll", reveal);
   reveal();
 
-  const themeToggler = document.getElementById('theme-toggler');
-  const body = document.body;
+  // Логика смены темы для новой кнопки в хедере
+  const themeBtn = document.getElementById('theme-toggle-btn');
+  const themeIcon = document.getElementById('theme-icon');
 
-  // Проверка сохраненной темы
-  if (localStorage.getItem('theme') === 'dark') {
-      body.classList.add('dark');
-  }
-
-  themeToggler.addEventListener('click', () => {
-    body.classList.toggle('dark');
-    if (body.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    if (document.body.classList.contains('dark')) {
+      themeIcon.textContent = '🌙';
     } else {
-        localStorage.setItem('theme', 'light');
+      themeIcon.textContent = '☀️';
     }
   });
 
