@@ -7,22 +7,18 @@
   --bg-light: #f8f9fa;
   --bg-body: #ffffff;
   --text-main: #1a2a3a;
-  --nav-bg: #ffffff;
-  --nav-text: #1a2a3a;
-  --border-color: #dee2e6;
+  --card-bg: #eef4f9; /* Цвет карточек в светлой теме */
 }
 
 body.dark {
-  --primary-color: #e0e0e0; 
+  --primary-color: #e0e0e0;
   --accent-color: #4a8e6e;
   --quiz-theme-color: #4a7ab5;
-  --text-muted: #cccccc; /* Сделал светлее для контраста */
-  --bg-light: #1e1e1e;
-  --bg-body: #121212;
-  --text-main: #f0f0f0; /* Яркий текст */
-  --nav-bg: #1e1e1e;
-  --nav-text: #f0f0f0;
-  --border-color: #444;
+  --text-muted: #b0b0b0;
+  --bg-light: #121212;
+  --bg-body: #000000; /* Более глубокий черный для фона страницы */
+  --text-main: #f0f0f0;
+  --card-bg: #2a2a2a; /* (Пункт 1) Более светлый оттенок черного для карточек, чтобы текст читался */
 }
 
 body {
@@ -33,71 +29,98 @@ body {
   transition: background-color 0.4s, color 0.4s;
   margin: 0;
   padding: 0;
+  padding-top: 60px; /* Отступ под липкое меню */
 }
 
 h1, h2, h3 {
   font-family: 'Playfair Display', serif;
   font-weight: 700;
-  color: var(--text-main);
 }
 
-/* === NAVBAR (Sticky) === */
-.main-navbar {
-  background-color: var(--nav-bg);
-  border-bottom: 1px solid var(--border-color);
-  transition: background-color 0.4s, border-color 0.4s;
-  padding-top: 10px;
-  padding-bottom: 10px;
+/* === ЛИПКОЕ ВЕРХНЕЕ МЕНЮ (Пункт 5 и 6) === */
+.sticky-top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Распределяем по краям */
+  padding: 0 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: background-color 0.4s;
 }
-.main-navbar .navbar-brand {
-  color: var(--nav-text);
-  font-size: 1.5rem;
+
+body.dark .sticky-top-bar {
+  background-color: rgba(30, 30, 30, 0.95);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
+
+.sticky-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto; /* Сдвигаем всё вправо */
+}
+
+/* Кнопка смены темы в углу */
 .theme-toggle-btn {
   background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--nav-text);
-  padding: 5px;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s;
+}
+
+body.dark .theme-toggle-btn {
+  border-color: #4a4a4a;
+  color: #fff;
 }
 .theme-toggle-btn:hover {
-  transform: rotate(15deg);
+  background-color: var(--bg-light);
 }
-/* Переключение иконок */
-.icon-moon { display: block; }
-.icon-sun { display: none; }
-body.dark .icon-moon { display: none; }
-body.dark .icon-sun { display: block; }
-body.dark .btn-call-top {
+
+/* Кнопка позвонить в хедере */
+.btn-header-call {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--text-main);
+  padding: 6px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+body.dark .btn-header-call {
   color: #fff;
   border-color: #fff;
 }
-body.dark .btn-call-top:hover {
-  background-color: #fff;
-  color: #000;
+
+.btn-header-call:hover {
+  background-color: var(--text-main);
+  color: var(--bg-body);
 }
 
-/* === HERO SECTION === */
-.hero-viewport {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-bottom: 2vh;
-  box-sizing: border-box;
-}
 
-/* === КАРТОЧКИ (Equal Block) === */
+/* === АНИМАЦИИ ИКОНОК === */
 .equal-block {
-  background-color: var(--bg-light); /* Используем переменную */
-  border: 1px solid var(--border-color);
+  background-color: var(--card-bg); /* Используем переменную */
+  border: 1px solid transparent;
   border-radius: 12px;
   padding: 25px !important;
-  height: 100%; /* Для одинаковой высоты */
+  height: 100%;
   min-height: 220px;
   display: flex;
   flex-direction: column;
@@ -108,12 +131,27 @@ body.dark .btn-call-top:hover {
   cursor: default;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
 }
 
-/* Цвет иконок в светлой теме (наследуется от text-primary и т.д.) */
-.icon-wrapper {
-  width: 56px;
-  height: 56px;
+/* Явно задаем цвет текста внутри блоков для темной темы */
+body.dark .equal-block {
+  border: 1px solid #3a3a3a;
+  color: #e0e0e0; 
+}
+body.dark .equal-block .text-muted {
+  color: #b0b0b0 !important;
+}
+
+.equal-block:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  border-color: var(--quiz-theme-color);
+}
+
+.equal-block .icon-wrapper {
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -121,52 +159,39 @@ body.dark .btn-call-top:hover {
   transition: transform 0.3s ease;
 }
 
-/* Адаптация иконок для темной темы - принудительный белый/светлый цвет */
-body.dark .equal-block .icon-wrapper svg {
-  fill: #fff !important; /* Яркие иконки на темном фоне */
-  color: #fff !important;
-}
-/* Переопределение конкретных цветов если нужно, но белый смотрится лучше всего на темном */
-body.dark .equal-block .text-primary svg, 
-body.dark .equal-block .text-danger svg,
-body.dark .equal-block .text-warning svg,
-body.dark .equal-block .text-success svg {
-    color: #fff !important;
-    fill: #fff !important;
-}
-
-.equal-block:hover {
-  transform: translateY(-5px);
-  background-color: var(--bg-body);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-  border-color: var(--quiz-theme-color);
-}
 .equal-block:hover .icon-wrapper {
   transform: scale(1.1);
 }
 
-body.dark .equal-block:hover {
-  background-color: #252525;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+/* (Пункт 8) Смена колокольчика при наведении */
+.bell-icon-group svg {
+  transition: opacity 0.3s ease;
+}
+.bell-normal {
+  display: block;
+}
+.bell-crossed {
+  display: none;
 }
 
-.process-title-frame {
-  display: inline-block;
-  padding: 8px 35px;
-  border: 1.5px solid var(--quiz-theme-color);
-  border-radius: 50px;
-  color: var(--quiz-theme-color);
-  font-weight: 600;
-  margin-bottom: 30px;
-  font-family: 'Playfair Display', serif;
+/* При наведении на карточку меняем иконку */
+.equal-block:hover .bell-normal {
+  display: none;
+}
+.equal-block:hover .bell-crossed {
+  display: block;
+  animation: shake 0.5s ease;
 }
 
-body.dark .process-title-frame {
-  border-color: #fff;
-  color: #fff;
+@keyframes shake {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
 }
 
-/* === КВИЗ (ОПРОС) === */
+
+/* === КВИЗ (INLINE CARD) === */
 .quiz-inline-card {
   background: var(--bg-body);
   border-radius: 12px;
@@ -176,10 +201,23 @@ body.dark .process-title-frame {
   margin: 20px auto 0;
   text-align: left;
   position: relative;
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(0,0,0,0.05);
+  
+  /* (Пункт 7) Фиксированная высота, чтобы не прыгало */
+  min-height: 480px; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
   opacity: 0;
   transform: translateY(-20px);
   transition: all 0.5s ease-out;
+}
+
+body.dark .quiz-inline-card {
+  background: #1e1e1e; /* Чуть светлее фона body */
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
 .quiz-inline-card.active {
@@ -187,30 +225,30 @@ body.dark .process-title-frame {
   transform: translateY(0);
 }
 
-/* Кнопка закрытия квиза */
+.quiz-step-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 15px;
+  display: block;
+}
+
 .btn-close-quiz {
   background: none;
   border: none;
-  width: 32px;
-  height: 32px;
-  color: var(--text-muted);
+  font-size: 1.5rem;
+  color: #aaa;
+  line-height: 1;
   cursor: pointer;
   padding: 0;
   position: absolute;
-  top: 10px;   /* Подняли выше */
-  right: 10px; /* Сдвинули правее */
+  top: 15px;
+  right: 20px;
   z-index: 10;
-  transition: color 0.3s, transform 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: color 0.3s;
 }
-.btn-close-quiz:hover { 
-    color: #dc3545; 
-    transform: rotate(90deg);
-}
+.btn-close-quiz:hover { color: #dc3545; }
 
-/* === ЭЛЕМЕНТЫ КВИЗА === */
+/* МИНИАТЮРНЫЕ КНОПКИ (ПЛИТКА) */
 .quiz-grid-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -220,22 +258,39 @@ body.dark .process-title-frame {
 
 .btn-quiz-option {
   background-color: var(--bg-body);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  padding: 12px;
+  border: 1px solid #dee2e6;
+  color: var(--primary-color);
+  padding: 15px 5px;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 500;
   transition: all 0.2s;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+body.dark .btn-quiz-option {
+  background-color: #2a2a2a;
+  border: 1px solid #4a4a4a;
+  color: #e0e0e0;
 }
 
 .btn-quiz-option:hover {
-  background-color: var(--bg-light);
   border-color: var(--quiz-theme-color);
   transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* Ползунок */
+body.dark .btn-quiz-option:hover {
+  background-color: #3a3a3a;
+  border-color: #4a7ab5;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* === ПОЛЗУНОК === */
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
@@ -243,84 +298,58 @@ input[type=range] {
 }
 input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  height: 20px;
-  width: 20px;
+  height: 24px;
+  width: 24px;
   border-radius: 50%;
-  background: var(--quiz-theme-color);
+  background: #1e3a5f;
   cursor: pointer;
-  margin-top: -8px;
+  margin-top: -10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
 }
+
+body.dark input[type=range]::-webkit-slider-thumb {
+  background: #4a7ab5;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 4px;
   cursor: pointer;
-  background: var(--border-color);
+  background: #dee2e6;
   border-radius: 2px;
 }
+body.dark input[type=range]::-webkit-slider-runnable-track {
+  background: #4a4a4a;
+}
 .range-value-label {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: var(--quiz-theme-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   display: block;
 }
-body.dark .range-value-label { color: #fff; }
 
-.progress { height: 6px !important; margin-bottom: 1.5rem !important; background-color: var(--border-color); }
-.progress-bar { background-color: var(--quiz-theme-color) !important; }
+/* === ПРОГРЕСС БАР === */
+.progress { height: 6px !important; margin-bottom: 1.5rem !important; background-color: #e9ecef; }
+body.dark .progress { background-color: #333; }
 
-/* === ОФИС И ФУТЕР === */
-.office-section {
-  padding: 60px 0;
-  background: var(--bg-body);
-}
+/* === ФУТЕР И ПРОЧЕЕ === */
+footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); background-color: var(--bg-light); }
+body.dark footer { border-top: 1px solid rgba(255,255,255,0.1); background-color: #121212; }
 
-.office-card {
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  overflow: hidden;
-  background: var(--bg-light);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-/* Футер иконки - строгий размер */
-footer { padding: 40px 0; border-top: 1px solid var(--border-color); background-color: var(--bg-light); }
-.footer-social-img {
-  width: 32px; /* Фиксированный размер */
+/* (Пункт 4) Единый размер иконок в футере */
+.social-link svg, .social-link img {
+  width: 32px;
   height: 32px;
-  object-fit: contain;
-  transition: all 0.3s ease;
-  filter: grayscale(100%) opacity(0.7);
+  display: block;
+  transition: transform 0.3s;
 }
-/* Для SVG path иконки VK */
-svg.footer-social-img {
-    fill: #6c757d;
-}
-.social-link:hover .footer-social-img {
-  filter: grayscale(0%) opacity(1);
+.social-link:hover svg, .social-link:hover img {
   transform: scale(1.15);
 }
-.social-link:hover svg.footer-social-img {
-    fill: #0077FF; /* VK Color */
-}
-body.dark svg.footer-social-img {
-    fill: #b0b0b0;
-}
-body.dark .social-link:hover svg.footer-social-img {
-    fill: #fff;
-}
 
-/* Ссылки */
-.footer-link {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 0.85rem;
-}
-.footer-link:hover { color: var(--quiz-theme-color); }
-body.dark .footer-link:hover { color: #fff; }
-
-/* === УЛУЧШЕНИЯ КНОПОК === */
+/* === BUTTONS === */
 .btn-start-online {
   background: linear-gradient(135deg, #ff6b35, #ff8c42);
   color: white;
@@ -334,42 +363,66 @@ body.dark .footer-link:hover { color: #fff; }
   font-size: 1.1rem;
 }
 .btn-start-online:hover {
+  background: linear-gradient(135deg, #ff8c42, #ff6b35);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
   color: white;
 }
 
 .quiz-back-btn {
   background: none;
-  border: 1px solid var(--border-color);
-  color: var(--text-muted);
+  border: 1px solid #dee2e6;
+  color: #6c757d;
   padding: 6px 14px;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   transition: all 0.2s;
   cursor: pointer;
+  margin-bottom: 0;
 }
-.quiz-back-btn:hover {
-  border-color: var(--quiz-theme-color);
-  color: var(--quiz-theme-color);
-}
-body.dark .quiz-back-btn:hover {
-    color: #fff;
-    border-color: #fff;
+body.dark .quiz-back-btn { border-color: #4a4a4a; color: #b0b0b0; }
+
+.quiz-header-with-back {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  min-height: 32px;
 }
 
-.scroll-indicator {
-  text-align: center;
-  text-decoration: none;
-  color: var(--text-main);
-  display: block;
-  margin-top: 15px;
-  opacity: 0.7;
+.map-placeholder {
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
 }
-.scroll-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  display: block;
-  margin-bottom: 5px;
+body.dark .map-placeholder { background: #1e1e1e; }
+
+/* === ЛИПКАЯ КНОПКА ЗВОНКА (Внизу справа) === */
+.call-sticky-bottom {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1050;
+}
+.call-sticky-bottom a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: #25d366; /* WhatsApp color as generic call green */
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: all 0.3s;
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+.call-sticky-bottom a:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 992px) {
+  .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
 }
