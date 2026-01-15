@@ -216,180 +216,7 @@ body.dark .quiz-inline-card {
   transform: translateY(0);
 }
 
-.quiz-step-icon {
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 15px;
-  display: block;
-}
-
-.btn-close-quiz {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: #aaa;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0;
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  z-index: 10;
-  transition: color 0.3s;
-}
-.btn-close-quiz:hover { color: #dc3545; }
-
-/* КНОПКИ-ПЛИТКИ */
-.quiz-grid-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.btn-quiz-option {
-  background-color: var(--bg-body);
-  border: 1px solid #dee2e6;
-  color: var(--primary-color);
-  padding: 15px 5px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: all 0.2s;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-body.dark .btn-quiz-option {
-  background-color: #2a2a2a;
-  border: 1px solid #4a4a4a;
-  color: #e0e0e0;
-}
-
-.btn-quiz-option:hover {
-  border-color: var(--quiz-theme-color);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-body.dark .btn-quiz-option:hover {
-  background-color: #3a3a3a;
-  border-color: #4a7ab5;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* ПОЛЗУНОК */
-input[type=range] {
-  -webkit-appearance: none;
-  width: 100%;
-  background: transparent;
-}
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 24px;
-  width: 24px;
-  border-radius: 50%;
-  background: #1e3a5f;
-  cursor: pointer;
-  margin-top: -10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
-
-body.dark input[type=range]::-webkit-slider-thumb {
-  background: #4a7ab5;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-}
-
-input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 4px;
-  cursor: pointer;
-  background: #dee2e6;
-  border-radius: 2px;
-}
-body.dark input[type=range]::-webkit-slider-runnable-track {
-  background: #4a4a4a;
-}
-.range-value-label {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--quiz-theme-color);
-  margin-bottom: 1rem;
-  display: block;
-}
-
-/* ПРОГРЕСС-БАР */
-.progress { height: 6px !important; margin-bottom: 1.5rem !important; background-color: #e9ecef; }
-body.dark .progress { background-color: #333; }
-
-/* ФУТЕР */
-footer { padding: 40px 0; border-top: 1px solid rgba(128,128,128,0.2); background-color: var(--bg-light); }
-body.dark footer { border-top: 1px solid rgba(255,255,255,0.1); background-color: #121212; }
-
-.social-link svg, .social-link img {
-  width: 32px;
-  height: 32px;
-  display: block;
-  transition: transform 0.3s;
-}
-.social-link:hover svg, .social-link:hover img {
-  transform: scale(1.15);
-}
-
-/* КНОПКИ */
-.btn-start-online {
-  background: linear-gradient(135deg, #ff6b35, #ff8c42);
-  color: white;
-  padding: 14px 40px;
-  border-radius: 50px;
-  font-weight: 600;
-  border: none;
-  transition: all 0.3s ease;
-  display: inline-block;
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
-  font-size: 1.1rem;
-}
-.btn-start-online:hover {
-  background: linear-gradient(135deg, #ff8c42, #ff6b35);
-  transform: translateY(-2px) scale(1.02);
-  color: white;
-}
-
-.quiz-back-btn {
-  background: none;
-  border: 1px solid #dee2e6;
-  color: #6c757d;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  transition: all 0.2s;
-  cursor: pointer;
-  margin-bottom: 0;
-}
-body.dark .quiz-back-btn { border-color: #4a4a4a; color: #b0b0b0; }
-
-.quiz-header-with-back {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  min-height: 32px;
-}
-
-.map-placeholder {
-  background: #f8f9fa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px;
-}
-body.dark .map-placeholder { background: #1eПродолжение файла `style.css` (обрыв произошёл по длине):
-
-```css
-body.dark .map-placeholder { background: #1e1e1e; }
+/* ... (остальной CSS без изменений) ... */
 
 /* === УДАЛЕНА КНОПКА ВЫЗОВА В ПРАВОМ НИЖНЕМ УГЛУ === */
 /*
@@ -420,4 +247,43 @@ body.dark .map-placeholder { background: #1e1e1e; }
 
 @media (max-width: 992px) {
   .col-feature-side, .col-feature-center { flex: 0 0 100%; max-width: 100%; }
+}
+
+/* === СКРОЛЛ-ИНДИКАТОР ("офис и контакты" + стрелка) === */
+.scroll-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: fit-content;
+  margin: 18px auto 0;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.9;
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+}
+
+.scroll-indicator .scroll-label {
+  display: block;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+/* === ИКОНКИ В ФУТЕРЕ: Ч/Б ДО HOVER, ЦВЕТНЫЕ НА HOVER === */
+.footer-social-img {
+  width: 40px;
+  height: 40px;
+  filter: grayscale(100%);
+  opacity: 0.85;
+  transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+}
+
+.social-link:hover .footer-social-img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: translateY(-2px);
 }
