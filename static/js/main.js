@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (startBtn) {
     startBtn.addEventListener('click', openQuiz);
+    
   }
 
   // ======= РЕНДЕР ШАГА =======
@@ -109,5 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
             <small class="text-muted">&gt; 5 млн</small>
           </div>
         </div>
+        
 
         <
