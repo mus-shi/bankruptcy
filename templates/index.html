@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Банкротство под ключ</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
   <style>
     html { scroll-behavior: smooth; }
-    #theme-icon {
-      font-size: 1.05rem;
-      line-height: 1;
-    }
+    #theme-icon { font-size: 1rem; line-height: 1; }
   </style>
 </head>
 <body>
@@ -36,14 +35,11 @@
     <div class="row g-3">
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
-          <div class="icon-wrapper">
-            <!-- 1. SHIELD -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 100 100">
-              <title>Shield SVG Icon</title>
-              <path fill="#ECF0F1" fill-rule="evenodd" d="M83.005 65.265C71.94 87.008 50 100 50 100S28.06 87.008 16.995 65.265C5.566 42.806 5 15.784 5 15.784L50 0l45 15.784s-.566 27.022-11.995 49.481" clip-rule="evenodd"/>
-              <path fill="#E64C3C" fill-rule="evenodd" d="M49.99 87c-6.456-4.8-17.698-14.432-24.241-27.342c-6.672-13.166-9.255-28.423-10.243-37.38L50 10.129l34.494 12.149c-.987 8.95-3.569 24.21-10.243 37.379C67.741 72.505 56.448 82.184 49.99 87" clip-rule="evenodd"/>
-              <path fill="#fff" fill-rule="evenodd" d="M62.789 46.041c2.944-2.984 2.942-7.819 0-10.803a7.474 7.474 0 0 0-5.457-2.236c-2.757.047-7.304 3.746-7.304 3.746s-4.675-3.751-7.5-3.747a7.471 7.471 0 0 0-5.317 2.237c-2.942 2.984-2.944 7.819 0 10.803L50 59z" clip-rule="evenodd"/>
-              <path fill-rule="evenodd" d="M50 0L5 15.784s.566 27.022 11.995 49.481C28.06 87.008 50 100 50 100z" clip-rule="evenodd" opacity=".08"/>
+          <div class="icon-wrapper icon-stroke" style="color:#d46a34;">
+            <!-- Shield (единый стиль stroke) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3l7 4v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"></path>
+              <path d="M9.5 12l1.8 1.8L15 10"></path>
             </svg>
           </div>
           <strong class="d-block mb-2">Вы ничем не рискуете</strong>
@@ -53,14 +49,12 @@
 
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
-          <div class="icon-wrapper">
-            <!-- 2. BELL-WITH-SLASH (оставлена 1 иконка, без дубля при hover) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 128 128">
-              <title>Bell-with-slash SVG Icon</title>
-              <circle cx="63.3" cy="64.7" r="61.69" fill="#006ca2"/>
-              <path fill="#fff" d="M109.02 57.96v-.01c-.01-.01-.03-.02-.03-.04c-.02-.04-.03-.07-.06-.1a.138.138 0 0 1-.03-.04c-2.41-4.1-7.23-6.75-11.14-8.87l-1.07-.59c-1.61-.89-3.29-1.75-4.99-2.62c-3.49-1.78-7.09-3.63-10.25-5.83c-1.62-1.11-3.18-2.29-4.75-3.46c-3.19-2.39-6.49-4.85-10.14-6.85c-4.43-2.43-9.67-3.37-14.83-2.68a9.72 9.72 0 0 0-9.82-4.64c-1.49.22-2.94.8-4.18 1.67c-4.28 3.01-5.4 8.85-2.62 13.23c-1.16 1.76-3.19 5.19-3.8 8.42c-.5 2.66-.52 5.74-.08 8.68c.62 4.03 1.45 8.03 2.27 11.89c1.16 5.54 2.36 11.26 2.86 16.98c.05.57.09 1.18.14 1.85c.41 5.73 1.05 14.32 5.85 18.06c3.03 4.13 9.86 5.75 18.88 4.41c8.73-1.29 18.11-5.08 26.44-10.68c8.45-5.69 15.34-12.95 19.41-20.46c4.02-7.38 4.7-14.05 1.94-18.32M38.66 30.47c.31-1.02.92-1.94 1.86-2.6a4.85 4.85 0 0 1 2.1-.84c.91-.13 1.8-.01 2.61.32c.28.17.52.42.41.79c-.07.28-.31.47-.59.62c-1.26.57-2.49 1.24-3.62 2.02c-.44.26-.86.56-1.27.8c-.63.36-1.34.97-1.55-.06zm7.67 52.15c-.18.67-.5 1.21-.83 1.75c-.12.17-.26.35-.37.52c-1.2 1.83-2.17 3.59-2.9 5.28c-.17.29-.39.56-.67.56c-.25-.01-.4-.25-.5-.55c-.27-1.98-.42-3.92-.53-5.51c-.05-.68-.1-1.32-.14-1.89c-.52-5.98-1.75-11.82-2.94-17.47c-.82-3.81-1.64-7.75-2.24-11.67c-.38-2.51-.35-5.11.06-7.33c.19-1.02.63-2.24 1.27-3.57c.18-.21.38-.31.51.01c.11.29.11.6.17.88c.02.06.03.12.03.18c.44 3.33 1.48 6.72 2.07 9.06c2.17 8.46 6.04 16.29 7.08 25.05c.08.59.14 1.19.2 1.79c.04.97-.03 1.96-.27 2.91m54.04-3.65c-5.05 7.31-12.44 12.72-14.73 14.25c-3.75 2.51-20.33 11.15-30.81 10.35c-1.33-.1-4.33-.15-5.17-2c-.88-1.92-.04-5.71 3.17-10.13c5.4-7.42 13.78-14.41 13.78-14.41s.86 3.84 2.06 5.53a11.21 11.21 0 0 0 2.5 2.59c.48.36.98.67 1.49.95c.58.31 1.16.56 1.76.77c3.4 1.16 7.3.75 10.47-1.48c3.03-2.13 4.72-5.45 4.91-8.87a10.386 10.386 0 0 0-.37-3.66c-.34-1.29-.9-2.54-1.71-3.69c-.78-1.1-2.75-2.75-2.75-2.75s10.94-5.75 18.81-3.83c4.16 1.02 1.75 8.93-3.41 16.38"/>
-              <path fill="#db4437" d="M64 128C28.71 128 0 99.29 0 64S28.71 0 64 0s64 28.71 64 64s-28.71 64-64 64m0-117.11c-29.29 0-53.11 23.83-53.11 53.11c0 29.29 23.83 53.11 53.11 53.11S117.11 93.29 117.11 64S93.29 10.89 64 10.89"/>
-              <path fill="#db4437" d="m111.73 102.59L103.3 111L17 25.27l8.43-8.41z"/>
+          <div class="icon-wrapper icon-stroke" style="color:#1f6f8b;">
+            <!-- Bell off (одна иконка, единый стиль stroke) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 8a6 6 0 0 1 12 0v5l2 2H4l2-2V8"></path>
+              <path d="M9.5 19a2.5 2.5 0 0 0 5 0"></path>
+              <path d="M4 4l16 16"></path>
             </svg>
           </div>
           <strong class="d-block mb-2">Стоп звонки коллекторов</strong>
@@ -70,15 +64,12 @@
 
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
-          <div class="icon-wrapper">
-            <!-- 3. HOUSE -->
-            <svg width="40" height="40" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-              <path d="M896 832H128V490.666667L512 128l384 362.666667z" fill="#E8EAF6"/>
-              <path d="M832 448l-106.666667-106.666667V192h106.666667zM128 832h768v106.666667H128z" fill="#C5CAE9"/>
-              <path d="M512 91.733333L85.333333 488.533333l42.666667 46.933334L512 179.2l384 356.266667 42.666667-46.933334z" fill="#B71C1C"/>
-              <path d="M384 597.333333h256v341.333334H384z" fill="#D84315"/>
-              <path d="M448 362.666667h128v128h-128z" fill="#01579B"/>
-              <path d="M586.666667 757.333333c-6.4 0-10.666667 4.266667-10.666667 10.666667v42.666667c0 6.4 4.266667 10.666667 10.666667 10.666666s10.666667-4.266667 10.666666-10.666666v-42.666667c0-6.4-4.266667-10.666667-10.666666-10.666667z" fill="#FF8A65"/>
+          <div class="icon-wrapper icon-stroke" style="color:#2d5e4a;">
+            <!-- Home (единый стиль stroke) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 10.5l9-7 9 7"></path>
+              <path d="M5 9.5V21h14V9.5"></path>
+              <path d="M9 21v-7h6v7"></path>
             </svg>
           </div>
           <strong class="d-block mb-2">Жильё в безопасности</strong>
@@ -88,11 +79,12 @@
 
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
-          <div class="icon-wrapper" style="color: #fcc419;">
-            <!-- 4. ANONYMITY (альтернативная иконка) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3.53 2.47a.75.75 0 0 0-1.06 1.06l2.03 2.03C2.77 7.03 1.7 8.8 1.1 9.8a2.39 2.39 0 0 0 0 2.4C2.55 14.64 6.47 19 12 19c1.53 0 2.95-.34 4.23-.9l2.24 2.24a.75.75 0 1 0 1.06-1.06L3.53 2.47ZM12 17.5c-4.64 0-8.07-3.74-9.6-6.04a.89.89 0 0 1 0-.92c.55-.84 1.44-2.2 2.66-3.42l2.14 2.14A4.5 4.5 0 0 0 12 16.5c.68 0 1.33-.15 1.91-.41l1.18 1.18c-.94.47-1.98.73-3.09.73Zm-1.48-9.94 3.92 3.92a2.98 2.98 0 0 0-3.92-3.92Z"/>
-              <path d="M9.77 5.1A10.6 10.6 0 0 1 12 4.9c5.53 0 9.45 4.36 10.9 6.8a2.39 2.39 0 0 1 0 2.4c-.76 1.29-2.2 3.14-4.25 4.54a.75.75 0 0 1-.85-1.24c1.83-1.25 3.12-2.9 3.8-4.04a.89.89 0 0 0 0-.92C20.87 9.16 17.44 5.4 12 5.4c-.62 0-1.22.05-1.8.16a.75.75 0 0 1-.43-1.46Z"/>
+          <div class="icon-wrapper icon-stroke" style="color:#d1a11a;">
+            <!-- Eye off (альтернативная, единый стиль stroke) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
+              <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+              <path d="M4 4l16 16"></path>
             </svg>
           </div>
           <strong class="d-block mb-2">Полная анонимность</strong>
@@ -107,15 +99,6 @@
         <button type="button" id="show-form-btn" class="btn-start-online">Начать онлайн →</button>
         <p class="small text-muted mt-2" style="font-size: 0.75rem;">Работаем при долгах от 200 000 ₽. Консультация бесплатно.</p>
       </div>
-
-      <div id="quiz-wrapper" class="quiz-inline-card" style="display: none;">
-        <div class="d-flex justify-content-end">
-          <button type="button" class="btn-close-quiz" onclick="closeQuiz()" aria-label="Закрыть">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
-        </div>
-        <div id="quiz-container" class="h-100 d-flex flex-column"></div>
-      </div>
     </div>
   </header>
 
@@ -125,11 +108,11 @@
     <div class="row g-3">
       <div class="col-lg-3 col-md-6 col-6">
         <div class="equal-block">
-          <div class="icon-wrapper" style="color: #ff4d6d;">
-            <!-- 1. CONSULTATION (альтернативная иконка) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7.5 12c0 2.49 2.02 4.5 4.5 4.5S16.5 14.49 16.5 12 14.48 7.5 12 7.5 7.5 9.51 7.5 12Zm4.5 2.5A2.5 2.5 0 1 1 14.5 12 2.5 2.5 0 0 1 12 14.5Z"/>
-              <path d="M3 12c0-4.97 4.03-9 9-9s9 4.03 9 9-4.03 9-9 9H6.4L3 23.5V18c-.65-1.82-1-3.86-1-6Zm9-7a7 7 0 0 0-7 7c0 1.93.35 3.63 1.06 5.14l.19.41V19.5l1.95-1.3.26-.17H12a7 7 0 0 0 0-14Z"/>
+          <div class="icon-wrapper icon-stroke" style="color:#c84b6d;">
+            <!-- Consultation (единый стиль stroke, альтернатива) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 21c5 0 9-3.6 9-8s-4-8-9-8-9 3.6-9 8c0 2.2 1.1 4.2 2.9 5.7L5 21l3.1-1.2C9.3 20.6 10.6 21 12 21z"></path>
+              <path d="M8 12h.01M12 12h.01M16 12h.01"></path>
             </svg>
           </div>
           <strong class="d-block mb-2">1. Консультация</strong>
@@ -139,10 +122,14 @@
 
       <div class="col-lg-3 col-md-6 col-6">
         <div class="equal-block">
-          <div class="icon-wrapper" style="color: #a06cd5;">
-            <!-- 2. DOCUMENTS (альтернативная иконка) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm8 1.5V8h4.5L14 3.5ZM7 12h10v2H7v-2Zm0 4h10v2H7v-2Zm0-8h6v2H7V8Z"/>
+          <div class="icon-wrapper icon-stroke" style="color:#7b66d6;">
+            <!-- Documents (единый стиль stroke, альтернатива) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path>
+              <path d="M14 3v4h4"></path>
+              <path d="M8.5 11H15"></path>
+              <path d="M8.5 14H15"></path>
+              <path d="M8.5 17H13"></path>
             </svg>
           </div>
           <strong class="d-block mb-2">2. Документы</strong>
@@ -152,18 +139,15 @@
 
       <div class="col-lg-3 col-md-6 col-6">
         <div class="equal-block">
-          <div class="icon-wrapper" style="color: #0077b6;">
-            <!-- 3. COURT HOUSE (как в проекте) -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="40" height="40">
-              <defs>
-                <style>.cls-2{fill:#f6d372}.cls-3{fill:#f6c752}</style>
-              </defs>
-              <circle cx="256" cy="256" r="256" fill="#934cf5"/>
-              <g id="Icons">
-                <path class="cls-2" d="M409.75 194.38c-22.05-36.6-4.05-63.09 9.19-76A15 15 0 0 0 420 98l-31.33-37.15a26.29 26.29 0 0 0-23.37-9.12c-46.91 6-81.31-10.4-98-21a21.07 21.07 0 0 0-22.55 0c-16.67 10.57-51.07 26.92-98 21a26.3 26.3 0 0 0-23.37 9.12L92.08 98a15 15 0 0 0 1.07 20.45c13.24 12.88 31.24 39.37 9.19 76 0 0-108.58 155.89 136.67 286.08a36.36 36.36 0 0 0 34.07 0c245.25-130.26 136.67-286.15 136.67-286.15z"/>
-                <path class="cls-3" d="M378.18 204c-17.52-30.89-3.22-53.25 7.3-64.12a13.23 13.23 0 0 0 .86-17.26l-24.91-31.3a20.3 20.3 0 0 0-18.57-7.69A112 112 0 0 1 265 65.93a15.91 15.91 0 0 0-17.91 0 112 112 0 0 1-77.85 17.7 20.31 20.31 0 0 0-18.58 7.69l-24.9 31.32a13.23 13.23 0 0 0 .85 17.26c10.52 10.87 24.82 33.23 7.3 64.12 0 0-86.28 131.55 108.6 241.41a27.39 27.39 0 0 0 27.07 0C464.46 335.57 378.18 204 378.18 204z"/>
-                <path fill="#cc9129" d="m365.5 286.78-29.92-109.13h4.73a5.43 5.43 0 0 0 0-10.86h-67.73a17.53 17.53 0 0 0-7.89-9.73v-11.77a8.77 8.77 0 0 0-17.53 0v11.77a17.55 17.55 0 0 0-7.9 9.73h-67.73a5.43 5.43 0 0 0 0 10.86h5l-29.94 109.13a3.56 3.56 0 0 0-3.54 3.56V298a32.27 32.27 0 0 0 32.27 32.27h11.05A32.27 32.27 0 0 0 218.64 298v-7.62a3.57 3.57 0 0 0-3.54-3.56l-29.93-109.17h54.09a17.55 17.55 0 0 0 7.9 9.73v146.23h-21.88a6.35 6.35 0 0 0-6.34 6.34v12.19h-9.84a7.14 7.14 0 0 0-.8 0 7.65 7.65 0 0 0-6.91 7.67v7.24a4.24 4.24 0 0 0 4.24 4.24H306.2a4.24 4.24 0 0 0 4.24-4.24v-7.24a7.69 7.69 0 0 0-7.7-7.69h-9.83V340a6.34 6.34 0 0 0-6.34-6.34h-21.88V187.38a17.53 17.53 0 0 0 7.89-9.73h54.34L297 286.78a3.56 3.56 0 0 0-3.53 3.56V298a32.27 32.27 0 0 0 32.27 32.27h11A32.27 32.27 0 0 0 369 298v-7.62a3.56 3.56 0 0 0-3.5-3.6z"/>
-              </g>
+          <div class="icon-wrapper icon-stroke" style="color:#1b6fb3;">
+            <!-- Court (единый стиль stroke) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 21h16"></path>
+              <path d="M6 21V9"></path>
+              <path d="M10 21V9"></path>
+              <path d="M14 21V9"></path>
+              <path d="M18 21V9"></path>
+              <path d="M3 9l9-6 9 6H3z"></path>
             </svg>
           </div>
           <strong class="d-block mb-2">3. Подача в суд</strong>
@@ -173,10 +157,12 @@
 
       <div class="col-lg-3 col-md-6 col-6">
         <div class="equal-block">
-          <div class="icon-wrapper" style="color: #fcc419;">
-            <!-- 4. FREEDOM (разблокировка) -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M17 9h-1V7a4 4 0 0 0-8 0h2a2 2 0 0 1 4 0v2H7a2 2 0 0 0-2 2v8a3 3 0 0 0 3 3h9a3 3 0 0 0 3-3v-8a2 2 0 0 0-2-2Zm1 12a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1v-8h11v8Zm-5-3a2 2 0 1 0-2 0v1a1 1 0 0 0 2 0v-1Z"/>
+          <div class="icon-wrapper icon-stroke" style="color:#d1a11a;">
+            <!-- Freedom (unlock, единый стиль stroke) -->
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17 10h-9a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"></path>
+              <path d="M8 10V8a4 4 0 0 1 7.5-2"></path>
+              <path d="M12 14v3"></path>
             </svg>
           </div>
           <strong class="d-block mb-2">4. Свобода</strong>
@@ -188,27 +174,34 @@
 
   <a href="#office-block" class="scroll-indicator pb-3">
     <span class="scroll-label">офис и контакты</span>
-    <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16"><path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/><path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>
+    <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+      <path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+      <path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+    </svg>
   </a>
 </div>
 
 <section id="office-block" class="office-section reveal">
   <div class="container">
     <h2 class="text-center mb-5" style="font-family: 'Playfair Display', serif;">Очная консультация</h2>
+
     <div class="row g-0 office-card shadow-sm">
       <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
         <h3 class="h4 mb-4" style="color: var(--primary-color);">Для жителей Ставропольского края</h3>
         <p class="small text-muted mb-4">Вы можете прийти на очную консультацию в наш офис в городе Железноводске.</p>
+
         <div class="mb-3">
           <p class="mb-1"><strong>Адрес:</strong></p>
           <p class="text-muted small">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
         </div>
+
         <div class="mb-4">
           <p class="mb-1"><strong>Рабочее время:</strong></p>
           <p class="text-muted small mb-0">Пн–Пт: 09:00 – 18:00</p>
           <p class="text-muted small">Сб–Вс: выходной</p>
         </div>
-        <div class="d-flex align-items-center gap-3">
+
+        <div class="d-flex align-items-center gap-3 flex-wrap">
           <span class="small text-muted">Телефон:</span>
           <a href="tel:+79991234567" class="btn btn-outline-dark btn-sm px-3">📞 Позвонить</a>
         </div>
@@ -231,7 +224,7 @@
   <div class="container">
     <div class="d-flex justify-content-center align-items-center gap-4 mb-4">
       <a href="https://wa.me/79991234567" target="_blank" class="social-link" aria-label="WhatsApp">
-        <!-- WA: брендированная, стилизованная -->
+        <!-- WA брендированный -->
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="WhatsApp" role="img" viewBox="0 0 24 24" class="footer-social-img">
           <path fill="#25D366" d="M12 2a10 10 0 0 0-8.65 15.02L2 22l5.11-1.31A10 10 0 1 0 12 2Z"/>
           <path fill="#FFFFFF" d="M17.42 14.59c-.3-.15-1.78-.88-2.06-.98s-.48-.15-.68.15-.78.98-.96 1.18-.35.22-.65.07a8.28 8.28 0 0 1-2.43-1.5a9.1 9.1 0 0 1-1.68-2.08c-.17-.3 0-.46.13-.61.13-.13.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53s-.68-1.63-.93-2.23c-.24-.58-.49-.5-.68-.5h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.17-1.44-.08-.12-.27-.2-.57-.35Z"/>
@@ -243,7 +236,7 @@
       </a>
 
       <a href="https://vk.com/club235261619?from=groups" target="_blank" class="social-link" aria-label="VK">
-        <svg class="footer-social-img" fill="#0077FF" width="800px" height="800px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+        <svg class="footer-social-img" fill="#0077FF" width="800px" height="800px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
           <path d="M25.217 22.402h-2.179c-0.825 0-1.080-0.656-2.562-2.158c-1.291-1.25-1.862-1.418-2.179-1.418c-0.445 0-0.572 0.127-0.572 0.741v1.968c0 0.53-0.169 0.847-1.566 0.847c-2.818-0.189-5.24-1.726-6.646-3.966l-0.021-0.035c-1.632-2.027-2.835-4.47-3.43-7.142l-0.022-0.117c0-0.317 0.127-0.614 0.741-0.614h2.179c0.55 0 0.762 0.254 0.975 0.846 1.078 3.112 2.878 5.842 3.619 5.842 0.275 0 0.402-0.127 0.402-0.825v-3.219c-0.085-1.482-0.868-1.608-0.868-2.137 0.009-0.283 0.241-0.509 0.525-0.509 0.009 0 0.017 0 0.026 0.001l-0.001-0h3.429c0.466 0 0.635 0.254 0.635 0.804v4.34c0 0.465 0.212 0.635 0.339 0.635 0.275 0 0.509-0.17 1.016-0.677 1.054-1.287 1.955-2.759 2.642-4.346l0.046-0.12c0.145-0.363 0.493-0.615 0.9-0.615 0.019 0 0.037 0.001 0.056 0.002l-0.003-0h2.179c0.656 0 0.805 0.337 0.656 0.804c-0.874 1.925-1.856 3.579-2.994 5.111l0.052-0.074c-0.232 0.381-0.317 0.55 0 0.975c0.232 0.317 0.995 0.973 1.503 1.566c0.735 0.727 1.351 1.573 1.816 2.507l0.025 0.055c0.212 0.612-0.106 0.93-0.72 0.93zM20.604 1.004h-9.207c-8.403 0-10.392 1.989-10.392 10.392v9.207c0 8.403 1.989 10.392 10.392 10.392h9.207c8.403 0 10.392-1.989 10.392-10.392v-9.207C31 3 29 1.004 20.604 1.004z"/>
         </svg>
       </a>
@@ -255,12 +248,24 @@
 
     <p class="text-muted small mb-3">© 2026 Банкротство под ключ. Работаем по всей России.</p>
     <div class="d-flex justify-content-center gap-3">
-      <a hrefz href="/privacy" class="footer-link">Политика конфиденциальности</a>
+      <a href="/privacy" class="footer-link">Политика конфиденциальности</a>
       <span class="text-muted small">|</span>
       <a href="/offer" class="footer-link">Публичная оферта</a>
     </div>
   </div>
 </footer>
+
+<!-- КВИЗ-ОВЕРЛЕЙ: теперь всегда по центру, не сползает -->
+<div id="quiz-overlay" class="quiz-overlay" aria-hidden="true">
+  <div class="quiz-card" role="dialog" aria-modal="true" aria-label="Квиз">
+    <button type="button" class="btn-close-quiz" id="quiz-close-btn" aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18"></path>
+      </svg>
+    </button>
+    <div id="quiz-container" class="quiz-inner"></div>
+  </div>
+</div>
 
 <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
 <script>
@@ -275,10 +280,10 @@
   const themeBtn = document.getElementById('theme-toggle-btn');
   const themeIcon = document.getElementById('theme-icon');
 
-  // по умолчанию светлая. тёмную включаем только если пользователь сам выбрал ранее
+  // По умолчанию светлая. Тёмная — только если пользователь сам выбрал ранее.
   if (localStorage.getItem('theme') === 'dark') {
-      document.body.classList.add('dark');
-      themeIcon.textContent = '🌙';
+    document.body.classList.add('dark');
+    themeIcon.textContent = '🌙';
   }
 
   themeBtn.addEventListener('click', () => {
@@ -291,14 +296,6 @@
       localStorage.setItem('theme', 'light');
     }
   });
-
-  window.closeQuiz = function() {
-    const wrapper = document.getElementById('quiz-wrapper');
-    const intro = document.getElementById('intro-text-block');
-    wrapper.classList.remove('active');
-    setTimeout(() => { wrapper.style.display = 'none'; }, 500);
-    intro.style.display = 'block';
-  }
 </script>
 
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
