@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { key: 'extra_car', text: 'Есть автомобиль?', type: 'boolean' },
   ];
 
-  let currentStep = 0; // индекс в steps
+  let currentStep = 0;
   const answers = {
     total_debt: null,
     arrests: null,
@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const formatRub = (n) => new Intl.NumberFormat('ru-RU').format(n) + ' ₽';
 
   const sliderToDebtKey = (v) => {
-    // v: 200k..5m
     if (v < 200000) return 'under200k';
     if (v < 500000) return '200k-500k';
     if (v < 1000000) return '500k-1m';
@@ -41,24 +40,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const safeText = (s) => (s ?? '').toString().trim();
 
+  function setIntroVisible(isVisible) {
+    if (!introBlock) return;
+    introBlock.style.display = isVisible ? 'block' : 'none';
+  }
+
   // ======= open / close =======
   function openQuiz() {
-    if (introBlock) introBlock.style.display = 'none';
+    setIntroVisible(false);
     document.body.classList.add('quiz-open');
     quizOverlay.setAttribute('aria-hidden', 'false');
+
     currentStep = 0;
     renderStep();
+  }
+
+  function resetAnswers() {
+    answers.total_debt = null;
+    answers.arrests = null;
+    answers.extra_property = null;
+    answers.extra_car = null;
   }
 
   function closeQuiz() {
     document.body.classList.remove('quiz-open');
     quizOverlay.setAttribute('aria-hidden', 'true');
-    if (introBlock) introBlock.style.display = 'block';
+    setIntroVisible(true);
+
     currentStep = 0;
-    answers.total_debt = null;
-    answers.arrests = null;
-    answers.extra_property = null;
-    answers.extra_car = null;
+    resetAnswers();
     quizContainer.innerHTML = '';
   }
 
@@ -78,15 +88,19 @@ document.addEventListener('DOMContentLoaded', () => {
   if (startBtn) startBtn.addEventListener('click', openQuiz);
 
   // ======= rendering =======
+  function progressPercent() {
+    // steps + финальная форма
+    return Math.round(((currentStep + 1) / (steps.length + 1)) * 100);
+  }
+
   function renderStep() {
     const step = steps[currentStep];
-    const progress = Math.round(((currentStep + 1) / (steps.length + 1)) * 100);
 
     quizContainer.innerHTML = `
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated"
              role="progressbar"
-             style="width:${progress}%; background-color: var(--quiz-theme-color);"></div>
+             style="width:${progressPercent()}%; background-color: var(--quiz-theme-color);"></div>
       </div>
 
       <div class="quiz-header-with-back">
@@ -97,12 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <div style="width:96px;"></div>
       </div>
 
-      <div style="flex-grow:1; display:flex; flex-direction:column;">
+      <div style="flex:1; display:flex; flex-direction:column;">
         ${step.type === 'slider' ? renderSlider() : renderBoolean()}
       </div>
     `;
 
-    // events
     const backBtn = quizContainer.querySelector('[data-action="back"]');
     if (backBtn) backBtn.addEventListener('click', goBack);
 
@@ -125,12 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
     } else {
-      quizContainer.querySelectorAll('[data-action="pick"]')
-        .forEach(btn => btn.addEventListener('click', () => {
+      quizContainer.querySelectorAll('[data-action="pick"]').forEach(btn => {
+        btn.addEventListener('click', () => {
           const val = btn.getAttribute('data-value');
           answers[step.key] = val;
           next();
-        }));
+        });
+      });
     }
   }
 
@@ -182,15 +196,74 @@ document.addEventListener('DOMContentLoaded', () => {
     renderForm();
   }
 
+  // ======= phone prefix logic =======
+  function initPhoneInput(input) {
+    if (!input) return;
+
+    const PREFIX = '+7 (9';
+    if (!input.value || input.value.trim() === '') {
+      input.value = PREFIX;
+    } else if (!input.value.startsWith(PREFIX)) {
+      // если вдруг браузер автозаполнил что-то странное — приводим к префиксу
+      input.value = PREFIX;
+    }
+
+    const setCaretEnd = () => {
+      const len = input.value.length;
+      try { input.setSelectionRange(len, len); } catch (_) {}
+    };
+
+    // при фокусе ставим курсор в конец
+    input.addEventListener('focus', () => {
+      if (!input.value.startsWith(PREFIX)) input.value = PREFIX;
+      setCaretEnd();
+    });
+
+    // защищаем префикс от удаления/замены
+    input.addEventListener('keydown', (e) => {
+      const start = input.selectionStart ?? 0;
+      const end = input.selectionEnd ?? 0;
+
+      // запрещаем backspace/delete внутри префикса
+      if ((e.key === 'Backspace' && start <= PREFIX.length) ||
+          (e.key === 'Delete' && start < PREFIX.length) ||
+          (e.key === 'ArrowLeft' && start <= PREFIX.length)) {
+        e.preventDefault();
+        input.setSelectionRange(PREFIX.length, PREFIX.length);
+      }
+
+      // если выделение захватывает префикс — не даём стереть
+      if ((e.key === 'Backspace' || e.key === 'Delete') && start < PREFIX.length) {
+        e.preventDefault();
+        input.setSelectionRange(PREFIX.length, PREFIX.length);
+      }
+
+      // Home — ставим в конец префикса
+      if (e.key === 'Home') {
+        e.preventDefault();
+        input.setSelectionRange(PREFIX.length, PREFIX.length);
+      }
+    });
+
+    // при любом вводе гарантируем префикс
+    input.addEventListener('input', () => {
+      if (!input.value.startsWith(PREFIX)) {
+        const tail = input.value.replace(/^\+?7?\s*\(?9?/, '');
+        input.value = PREFIX + tail;
+        setCaretEnd();
+      }
+    });
+
+    setCaretEnd();
+  }
+
   // ======= form =======
   function renderForm() {
-    const progress = 100;
-
     quizContainer.innerHTML = `
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated"
              role="progressbar"
-             style="width:${progress}%; background-color: var(--quiz-theme-color);"></div>
+             style="width:100%; background-color: var(--quiz-theme-color);"></div>
       </div>
 
       <div class="quiz-header-with-back">
@@ -202,29 +275,35 @@ document.addEventListener('DOMContentLoaded', () => {
         <div style="width:96px;"></div>
       </div>
 
-      <form id="leadForm" class="mt-4" novalidate>
-        <div class="mb-3">
-          <label class="form-label small">Имя</label>
-          <input class="form-control" type="text" name="name" placeholder="Как к вам обращаться" autocomplete="name" />
-        </div>
-        <div class="mb-3">
-          <label class="form-label small">Телефон *</label>
-          <input class="form-control" type="tel" name="phone" placeholder="+7 (___) ___-__-__" autocomplete="tel" required />
-          <div class="text-muted small mt-1" style="font-size:.78rem;">Нужен только для связи — спамом не занимаемся.</div>
+      <form id="leadForm" class="mt-4" novalidate style="display:flex; flex-direction:column; min-height: 100%;">
+        <div>
+          <div class="mb-3">
+            <label class="form-label small">Имя</label>
+            <input class="form-control" type="text" name="name" placeholder="Как к вам обращаться" autocomplete="name" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Телефон *</label>
+            <input id="phoneInput" class="form-control" type="tel" name="phone" autocomplete="tel" required />
+            <div class="text-muted small mt-1" style="font-size:.78rem;">Нужен только для связи — спамом не занимаемся.</div>
+          </div>
+
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" id="agree" name="agree" required />
+            <label class="form-check-label small" for="agree">
+              Принимаю условия <a href="/offer" target="_blank">публичной оферты</a>
+            </label>
+          </div>
+
+          <div id="formMsg" class="mt-2 small"></div>
+          <p class="text-muted small mt-3 mb-0" style="font-size:.75rem;">
+            Нажимая «Отправить», вы соглашаетесь с <a href="/privacy" target="_blank">политикой конфиденциальности</a>.
+          </p>
         </div>
 
-        <div class="form-check mb-3">
-          <input class="form-check-input" type="checkbox" id="agree" name="agree" required />
-          <label class="form-check-label small" for="agree">
-            Принимаю условия <a href="/offer" target="_blank">публичной оферты</a>
-          </label>
+        <div class="mt-auto pt-4">
+          <button type="submit" class="quiz-submit-btn" id="submitBtn">Отправить</button>
         </div>
-
-        <button type="submit" class="quiz-submit-btn" id="submitBtn">Отправить</button>
-        <div id="formMsg" class="mt-3 small"></div>
-        <p class="text-muted small mt-3 mb-0" style="font-size:.75rem;">
-          Нажимая «Отправить», вы соглашаетесь с <a href="/privacy" target="_blank">политикой конфиденциальности</a>.
-        </p>
       </form>
     `;
 
@@ -237,20 +316,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = quizContainer.querySelector('#leadForm');
     const submitBtn = quizContainer.querySelector('#submitBtn');
     const msg = quizContainer.querySelector('#formMsg');
+    const phoneInput = quizContainer.querySelector('#phoneInput');
+
+    initPhoneInput(phoneInput);
 
     if (!form) return;
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       msg.textContent = '';
-      msg.className = 'mt-3 small';
+      msg.className = 'mt-2 small';
 
       const formData = new FormData(form);
       const name = safeText(formData.get('name')) || '—';
       const phone = safeText(formData.get('phone'));
       const agree = formData.get('agree') ? 'Да' : 'Нет';
 
-      if (!phone) {
+      if (!phone || phone.length < 5) {
         msg.textContent = 'Укажите телефон.';
         msg.classList.add('text-danger');
         return;
@@ -303,7 +385,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function executeRecaptcha(siteKey) {
     return new Promise((resolve, reject) => {
       if (!window.grecaptcha || !window.grecaptcha.execute) {
-        // Скрипт reCAPTCHA может подгружаться чуть позже
         const startedAt = Date.now();
         const t = setInterval(() => {
           if (window.grecaptcha && window.grecaptcha.execute) {
@@ -319,17 +400,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
       window.grecaptcha.execute(siteKey, { action: 'consult' }).then(resolve).catch(reject);
     });
-  }
-
-  // Скрываем индикатор прокрутки после начала скролла,
-  // но при первом входе он всегда видим (в т.ч. при масштабе 100%).
-  const scrollIndicator = document.querySelector('.scroll-indicator');
-  if (scrollIndicator) {
-    const onScroll = () => {
-      if (window.scrollY > 120) scrollIndicator.classList.add('is-hidden');
-      else scrollIndicator.classList.remove('is-hidden');
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
   }
 });
