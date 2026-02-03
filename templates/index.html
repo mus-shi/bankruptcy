@@ -36,7 +36,6 @@
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
           <div class="icon-wrapper icon-stroke" style="color:#d46a34;">
-            <!-- Shield (единый стиль stroke) -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 3l7 4v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"></path>
               <path d="M9.5 12l1.8 1.8L15 10"></path>
@@ -50,7 +49,6 @@
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
           <div class="icon-wrapper icon-stroke" style="color:#1f6f8b;">
-            <!-- Bell off (одна иконка, единый стиль stroke) -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M6 8a6 6 0 0 1 12 0v5l2 2H4l2-2V8"></path>
               <path d="M9.5 19a2.5 2.5 0 0 0 5 0"></path>
@@ -65,7 +63,6 @@
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
           <div class="icon-wrapper icon-stroke" style="color:#2d5e4a;">
-            <!-- Home (единый стиль stroke) -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M3 10.5l9-7 9 7"></path>
               <path d="M5 9.5V21h14V9.5"></path>
@@ -80,7 +77,6 @@
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
           <div class="icon-wrapper icon-stroke" style="color:#d1a11a;">
-            <!-- Eye off (альтернативная, единый стиль stroke) -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
               <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
@@ -109,7 +105,6 @@
       <div class="col-lg-3 col-md-6 col-6">
         <div class="equal-block">
           <div class="icon-wrapper icon-stroke" style="color:#c84b6d;">
-            <!-- Consultation (единый стиль stroke, альтернатива) -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 21c5 0 9-3.6 9-8s-4-8-9-8-9 3.6-9 8c0 2.2 1.1 4.2 2.9 5.7L5 21l3.1-1.2C9.3 20.6 10.6 21 12 21z"></path>
               <path d="M8 12h.01M12 12h.01M16 12h.01"></path>
@@ -123,7 +118,6 @@
       <div class="col-lg-3 col-md-6 col-6">
         <div class="equal-block">
           <div class="icon-wrapper icon-stroke" style="color:#7b66d6;">
-            <!-- Documents (единый стиль stroke, альтернатива) -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path>
               <path d="M14 3v4h4"></path>
@@ -140,7 +134,6 @@
       <div class="col-lg-3 col-md-6 col-6">
         <div class="equal-block">
           <div class="icon-wrapper icon-stroke" style="color:#1b6fb3;">
-            <!-- Court (единый стиль stroke) -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M4 21h16"></path>
               <path d="M6 21V9"></path>
@@ -158,7 +151,6 @@
       <div class="col-lg-3 col-md-6 col-6">
         <div class="equal-block">
           <div class="icon-wrapper icon-stroke" style="color:#d1a11a;">
-            <!-- Freedom (unlock, единый стиль stroke) -->
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M17 10h-9a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"></path>
               <path d="M8 10V8a4 4 0 0 1 7.5-2"></path>
@@ -172,7 +164,9 @@
     </div>
   </section>
 
-  <a href="#office-block" class="scroll-indicator pb-3">
+  <!-- ВАЖНО: теперь стрелка в нормальном потоке ниже шагов,
+       с отступом, без наложений и касаний -->
+  <a href="#office-block" class="scroll-indicator" aria-label="Перейти к офису и контактам">
     <span class="scroll-label">офис и контакты</span>
     <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
       <path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
@@ -224,7 +218,6 @@
   <div class="container">
     <div class="d-flex justify-content-center align-items-center gap-4 mb-4">
       <a href="https://wa.me/79991234567" target="_blank" class="social-link" aria-label="WhatsApp">
-        <!-- WA брендированный -->
         <svg xmlns="http://www.w3.org/2000/svg" aria-label="WhatsApp" role="img" viewBox="0 0 24 24" class="footer-social-img">
           <path fill="#25D366" d="M12 2a10 10 0 0 0-8.65 15.02L2 22l5.11-1.31A10 10 0 1 0 12 2Z"/>
           <path fill="#FFFFFF" d="M17.42 14.59c-.3-.15-1.78-.88-2.06-.98s-.48-.15-.68.15-.78.98-.96 1.18-.35.22-.65.07a8.28 8.28 0 0 1-2.43-1.5a9.1 9.1 0 0 1-1.68-2.08c-.17-.3 0-.46.13-.61.13-.13.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53s-.68-1.63-.93-2.23c-.24-.58-.49-.5-.68-.5h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.17-1.44-.08-.12-.27-.2-.57-.35Z"/>
@@ -237,60 +230,4 @@
 
       <a href="https://vk.com/club235261619?from=groups" target="_blank" class="social-link" aria-label="VK">
         <svg class="footer-social-img" fill="#0077FF" width="800px" height="800px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <path d="M25.217 22.402h-2.179c-0.825 0-1.080-0.656-2.562-2.158c-1.291-1.25-1.862-1.418-2.179-1.418c-0.445 0-0.572 0.127-0.572 0.741v1.968c0 0.53-0.169 0.847-1.566 0.847c-2.818-0.189-5.24-1.726-6.646-3.966l-0.021-0.035c-1.632-2.027-2.835-4.47-3.43-7.142l-0.022-0.117c0-0.317 0.127-0.614 0.741-0.614h2.179c0.55 0 0.762 0.254 0.975 0.846 1.078 3.112 2.878 5.842 3.619 5.842 0.275 0 0.402-0.127 0.402-0.825v-3.219c-0.085-1.482-0.868-1.608-0.868-2.137 0.009-0.283 0.241-0.509 0.525-0.509 0.009 0 0.017 0 0.026 0.001l-0.001-0h3.429c0.466 0 0.635 0.254 0.635 0.804v4.34c0 0.465 0.212 0.635 0.339 0.635 0.275 0 0.509-0.17 1.016-0.677 1.054-1.287 1.955-2.759 2.642-4.346l0.046-0.12c0.145-0.363 0.493-0.615 0.9-0.615 0.019 0 0.037 0.001 0.056 0.002l-0.003-0h2.179c0.656 0 0.805 0.337 0.656 0.804c-0.874 1.925-1.856 3.579-2.994 5.111l0.052-0.074c-0.232 0.381-0.317 0.55 0 0.975c0.232 0.317 0.995 0.973 1.503 1.566c0.735 0.727 1.351 1.573 1.816 2.507l0.025 0.055c0.212 0.612-0.106 0.93-0.72 0.93zM20.604 1.004h-9.207c-8.403 0-10.392 1.989-10.392 10.392v9.207c0 8.403 1.989 10.392 10.392 10.392h9.207c8.403 0 10.392-1.989 10.392-10.392v-9.207C31 3 29 1.004 20.604 1.004z"/>
-        </svg>
-      </a>
-
-      <a href="https://commons.wikimedia.org/wiki/File:Max_logo_2025.png" title="Max Messenger" target="_blank" class="social-link">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" alt="Max Logo" class="footer-social-img">
-      </a>
-    </div>
-
-    <p class="text-muted small mb-3">© 2026 Банкротство под ключ. Работаем по всей России.</p>
-    <div class="d-flex justify-content-center gap-3">
-      <a href="/privacy" class="footer-link">Политика конфиденциальности</a>
-      <span class="text-muted small">|</span>
-      <a href="/offer" class="footer-link">Публичная оферта</a>
-    </div>
-  </div>
-</footer>
-
-<!-- КВИЗ-ОВЕРЛЕЙ: теперь всегда по центру, не сползает -->
-<div id="quiz-overlay" class="quiz-overlay" aria-hidden="true">
-  <div class="quiz-card" role="dialog" aria-modal="true" aria-label="Квиз">
-    <button type="button" class="btn-close-quiz" id="quiz-close-btn" aria-label="Закрыть">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M6 6l12 12M18 6L6 18"></path>
-      </svg>
-    </button>
-    <div id="quiz-container" class="quiz-inner"></div>
-  </div>
-</div>
-
-<script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
-<script>
-  function reveal() {
-    document.querySelectorAll(".reveal").forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
-    });
-  }
-  window.addEventListener("scroll", reveal);
-  reveal();
-
-  const themeBtn = document.getElementById('theme-toggle-btn');
-  const themeIcon = document.getElementById('theme-icon');
-
-  // По умолчанию ВСЕГДА дневная (светлая) тема.
-  // Переключатель работает, но выбор не «прилипает» через localStorage.
-  document.body.classList.remove('dark');
-  themeIcon.textContent = '☀️';
-
-  themeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    themeIcon.textContent = document.body.classList.contains('dark') ? '🌙' : '☀️';
-  });
-</script>
-
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
-</body>
-</html>
+          <path d="M25.217 22.402h-2.179c-0.825 0-1.080-0.656-2.562-2.158c-1.291-1.25-1.862-1.418-2.179-1.418c-0.445 0-0.572 0.127-0.572 0.741v1.968c0 0.53-0.169 0.847-1.566 0.847c-2.818-0.189-5.24-1.726-6.646-3.966l-0.021-0.035c-1.632-2.027-2.835-4.47-3.43-7.142l-0.022-0.117c0-0.317 0.127-0.614 0.741-0.614h2.179c0.55 0 0.762 0.254 0.975 0.846 1.078 3.112 2.878 5.842 3.619 5.842 0.275 0 0.402-0.127 0.402-0.825v-3.219c-0.085-1.482-0.868-1.608-0.868-2.13
