@@ -1,4 +1,4 @@
-/* =========================
+м/* =========================
    ДИЗАЙН-СИСТЕМА / ПАЛИТРА
    ========================= */
 :root{
@@ -96,7 +96,6 @@ body.dark .sticky-top-bar{
   margin-left:auto;
 }
 
-/* Ненавязчивый переключатель темы */
 .theme-toggle-btn{
   background: transparent;
   border: 1px solid rgba(0,0,0,0.14);
@@ -147,7 +146,7 @@ body.dark .btn-header-call:hover{
 }
 
 /* =========================
-   ЕДИНЫЙ СТИЛЬ SVG
+   SVG
    ========================= */
 .icon-wrapper svg{
   width: 40px;
@@ -163,7 +162,7 @@ body.dark .btn-header-call:hover{
 }
 
 /* =========================
-   CARDS / FEATURE BLOCKS
+   CARDS
    ========================= */
 .equal-block{
   background-color: var(--card-bg);
@@ -204,6 +203,10 @@ body.dark .equal-block:hover{
   display:flex;
   flex-direction:column;
   justify-content:flex-start;
+
+  /* ВАЖНО: резервируем место, чтобы фиксированный индикатор
+     НЕ перекрывал контент и не "прятался" */
+  padding-bottom: 92px;
 }
 
 /* CTA */
@@ -249,11 +252,13 @@ body.dark .process-title-frame{
 }
 
 /* =========================
-   SCROLL INDICATOR (как на скрине: внизу первого экрана)
+   SCROLL INDICATOR (фиксирован и ВСЕГДА виден на первом экране)
    ========================= */
 .scroll-indicator{
-  /* ВАЖНО: толкаем индикатор вниз внутри hero, как на твоём скрине */
-  margin-top: auto;
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
 
   display:flex;
   flex-direction:column;
@@ -262,21 +267,30 @@ body.dark .process-title-frame{
   text-align:center;
 
   width: fit-content;
-  padding-top: 22px;     /* отступ от карточек шагов */
-  padding-bottom: 22px;  /* отступ до низа */
-  margin-left: auto;
-  margin-right: auto;
+  padding: 10px 14px;
+  border-radius: 14px;
+
+  /* легкий "подиум", чтобы не терялся на фоне */
+  background: rgba(251, 251, 253, 0.78);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0,0,0,0.06);
 
   text-decoration: none;
   color: inherit;
 
-  opacity: .92;
+  opacity: .96;
   transition: transform .18s ease, opacity .18s ease;
+  z-index: 900;
+}
+
+body.dark .scroll-indicator{
+  background: rgba(11, 15, 20, 0.68);
+  border-color: rgba(255,255,255,0.10);
 }
 
 .scroll-indicator:hover{
   opacity: 1;
-  transform: translateY(2px);
+  transform: translateX(-50%) translateY(2px);
 }
 
 .scroll-indicator .scroll-label{
@@ -291,11 +305,11 @@ body.dark .process-title-frame{
 .scroll-indicator.is-hidden{
   opacity: 0;
   pointer-events: none;
-  transform: translateY(6px);
+  transform: translateX(-50%) translateY(10px);
 }
 
 /* =========================
-   OFFICE BLOCK
+   OFFICE
    ========================= */
 .office-section{
   padding: 60px 0;
@@ -317,13 +331,13 @@ body.dark .office-card{
 }
 
 /* =========================
-   REVEAL ANIMATION
+   REVEAL
    ========================= */
 .reveal{ opacity: 0; transform: translateY(14px); transition: .6s ease; }
 .reveal.active{ opacity: 1; transform: translateY(0); }
 
 /* =========================
-   FOOTER + hover-анимация соцсетей
+   FOOTER
    ========================= */
 .footer-link{
   text-decoration: none;
@@ -371,10 +385,10 @@ body.dark .social-link:hover{
 }
 body.quiz-open .quiz-overlay{ display:flex; }
 
-/* УМЕНЬШЕННАЯ ВЫСОТА КВИЗА (чтобы всё было видно сразу) */
+/* ниже и компактнее */
 .quiz-card{
   width: min(520px, 100%);
-  height: min(560px, 88svh);
+  height: min(540px, 86svh);
   background: var(--bg-body);
   border-radius: 22px;
   box-shadow: var(--shadow-card-hover);
@@ -388,8 +402,8 @@ body.dark .quiz-card{ border-color: rgba(255,255,255,0.12); }
 
 .btn-close-quiz{
   position:absolute;
-  top: 12px;
-  right: 12px;
+  top: 14px;
+  right: 14px;
   width: 38px;
   height: 38px;
   border-radius: 999px;
@@ -400,8 +414,8 @@ body.dark .quiz-card{ border-color: rgba(255,255,255,0.12); }
   justify-content:center;
   cursor:pointer;
   transition: transform .18s ease, background-color .18s ease, opacity .18s ease;
-  opacity: .8;
-  z-index: 2;
+  opacity: .85;
+  z-index: 3;
 }
 body.dark .btn-close-quiz{
   border-color: rgba(255,255,255,0.16);
@@ -418,11 +432,12 @@ body.dark .btn-close-quiz{
 }
 
 .quiz-inner{
-  padding: 18px 18px 18px;
+  /* ВАЖНО: добавили верхний отступ, чтобы X НЕ касался шкалы */
+  padding: 62px 18px 18px;
   display:flex;
   flex-direction:column;
   height: 100%;
-  overflow: hidden; /* чтобы не было «кнопка снизу — её не видно» */
+  overflow: hidden;
 }
 
 .quiz-header-with-back{
@@ -430,7 +445,7 @@ body.dark .btn-close-quiz{
   align-items:center;
   justify-content:space-between;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .quiz-back-btn{
@@ -498,7 +513,6 @@ input[type="range"]{
   accent-color: var(--quiz-theme-color);
 }
 
-/* bootstrap inputs */
 .form-control{
   border-radius: 14px;
   padding: 12px 14px;
