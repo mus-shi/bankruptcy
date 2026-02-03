@@ -10,9 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const scrollIndicator = document.querySelector('.scroll-indicator');
 
-  if (!quizOverlay || !quizContainer) return;
-
-  // --- Индикатор "офис и контакты": по клику скрывается ---
+  // ---- Индикатор "офис и контакты" ----
   if (scrollIndicator) {
     scrollIndicator.addEventListener('click', (e) => {
       scrollIndicator.classList.add('is-hidden');
@@ -27,26 +25,23 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Если вернуться наверх (перезагрузка/скролл вверх) — снова показать
+    // если вернулись наверх — снова показать
     window.addEventListener('scroll', () => {
       if (window.scrollY < 40) scrollIndicator.classList.remove('is-hidden');
     }, { passive: true });
   }
 
+  if (!quizOverlay || !quizContainer) return;
+
   const steps = [
     { key: 'total_debt', text: 'Общая сумма долга?', type: 'slider' },
-    { key: 'arrests', text: 'Есть аресты на картах/счетах?', type: 'boolean' },
-    { key: 'extra_property', text: 'Есть недвижимость (кроме единственного жилья)?', type: 'boolean' },
-    { key: 'extra_car', text: 'Есть автомобиль?', type: 'boolean' },
+    { key: 'arrests', text: 'Есть аресты на картах?', type: 'boolean' },
+    { key: 'mortgage_or_car', text: 'Есть ипотека или авто?', type: 'boolean' },
+    { key: 'ready', text: 'Готовы начать процедуру в ближайшее время?', type: 'boolean' },
   ];
 
   let currentStep = 0;
-  const answers = {
-    total_debt: null,
-    arrests: null,
-    extra_property: null,
-    extra_car: null,
-  };
+  const answers = {};
 
   const formatRub = (n) => new Intl.NumberFormat('ru-RU').format(n) + ' ₽';
   const sliderToDebtKey = (v) => {
@@ -55,18 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (v < 1000000) return '500k-1m';
     return 'over1m';
   };
-  const safeText = (s) => (s ?? '').toString().trim();
 
   function setIntroVisible(isVisible) {
     if (!introBlock) return;
     introBlock.style.display = isVisible ? 'block' : 'none';
-  }
-
-  function resetAnswers() {
-    answers.total_debt = null;
-    answers.arrests = null;
-    answers.extra_property = null;
-    answers.extra_car = null;
   }
 
   function openQuiz() {
@@ -81,10 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('quiz-open');
     quizOverlay.setAttribute('aria-hidden', 'true');
     setIntroVisible(true);
-    currentStep = 0;
-    resetAnswers();
     quizContainer.innerHTML = '';
+    currentStep = 0;
+    Object.keys(answers).forEach(k => delete answers[k]);
   }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeQuiz);
 
   quizOverlay.addEventListener('click', (e) => {
     if (e.target === quizOverlay) closeQuiz();
@@ -94,7 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape' && document.body.classList.contains('quiz-open')) closeQuiz();
   });
 
-  if (closeBtn) closeBtn.addEventListener('click', closeQuiz);
   if (startBtn) startBtn.addEventListener('click', openQuiz);
 
   function progressPercent() {
@@ -119,13 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
         <div style="width:96px;"></div>
       </div>
 
-      <div style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
+      <div style="flex:1; display:flex; flex-direction:column;">
         ${step.type === 'slider' ? renderSlider() : renderBoolean()}
       </div>
     `;
 
     const backBtn = quizContainer.querySelector('[data-action="back"]');
-    if (backBtn) backBtn.addEventListener('click', goBack);
+    if (backBtn) backBtn.addEventListener('click', () => {
+      currentStep -= 1;
+      renderStep();
+    });
 
     if (step.type === 'slider') {
       const range = quizContainer.querySelector('#debtRange');
@@ -133,10 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const nextBtn = quizContainer.querySelector('[data-action="next"]');
 
       if (range && label) {
-        range.addEventListener('input', () => {
-          label.textContent = formatRub(Number(range.value));
-        });
+        label.textContent = formatRub(Number(range.value));
+        range.addEventListener('input', () => label.textContent = formatRub(Number(range.value)));
       }
+
       if (nextBtn && range) {
         nextBtn.addEventListener('click', () => {
           const raw = Number(range.value);
@@ -155,12 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderSlider() {
-    const rawDefault = 500000;
+    const defaultValue = 500000;
     return `
       <div style="display:flex; flex-direction:column; height:100%;">
         <div class="text-center px-2" style="padding-top:14px;">
-          <span id="range-value-display" class="range-value-label">${formatRub(rawDefault)}</span>
-          <input type="range" id="debtRange" min="200000" max="5000000" step="50000" value="${rawDefault}">
+          <span id="range-value-display" class="range-value-label">${formatRub(defaultValue)}</span>
+          <input type="range" id="debtRange" min="200000" max="5000000" step="50000" value="${defaultValue}">
           <div class="d-flex justify-content-between mt-2">
             <small class="text-muted">200 000 ₽</small>
             <small class="text-muted">&gt; 5 млн ₽</small>
@@ -169,9 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <div style="margin-top:auto; padding-top:14px;">
           <button type="button" class="quiz-submit-btn" data-action="next">Далее</button>
-          <p class="text-muted small mt-2 mb-0" style="font-size:.8rem;">
-            Можно примерно — важно понять диапазон.
-          </p>
+          <p class="text-muted small mt-2 mb-0" style="font-size:.8rem;">Можно примерно — важно понять диапазон.</p>
         </div>
       </div>
     `;
@@ -189,12 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
   }
 
-  function goBack() {
-    if (currentStep <= 0) return;
-    currentStep -= 1;
-    renderStep();
-  }
-
   function next() {
     if (currentStep < steps.length - 1) {
       currentStep += 1;
@@ -204,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     renderForm();
   }
 
-  // ===== PHONE MASK (нормальная): +7 (999) 999 99 99, 11 цифр, префикс +7 (9 защищён
+  // ---- Маска телефона: +7 (9 уже стоит), 11 цифр, Backspace работает нормально ----
   const PREFIX = '+7 (9';
   const PREFIX_LEN = PREFIX.length;
 
@@ -213,13 +196,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function normalizeDigits(d) {
-    // хотим 79XXXXXXXXX (11 цифр)
     let digits = d;
-
     if (!digits.startsWith('7')) digits = '7' + digits;
     if (digits.length === 1) digits = '79';
     if (digits[1] !== '9') digits = '79' + digits.slice(2);
-
     return digits.slice(0, 11);
   }
 
@@ -239,9 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (c.length === 2 && e.length) s += ' ';
     if (e.length) s += e;
 
-    // если пользователь удалил всё кроме префикса — оставим красивый минимальный вид
     if (s.length < PREFIX_LEN) s = PREFIX;
-
     return s;
   }
 
@@ -250,17 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function caretPosForDigitCount(formatted, wantedDigits) {
-    // ставим курсор так, чтобы слева было wantedDigits цифр
     if (wantedDigits <= 0) return PREFIX_LEN;
-
     let count = 0;
     for (let i = 0; i < formatted.length; i++) {
       if (/\d/.test(formatted[i])) {
         count++;
-        if (count >= wantedDigits) {
-          // курсор после этой цифры
-          return i + 1;
-        }
+        if (count >= wantedDigits) return i + 1;
       }
     }
     return formatted.length;
@@ -269,7 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function applyPhoneMask(input, forceToEnd = false) {
     const oldVal = input.value || '';
     const oldCaret = input.selectionStart ?? oldVal.length;
-
     const beforeDigits = digitCountBeforeCaret(oldVal, oldCaret);
 
     let digits = normalizeDigits(digitsOnly(oldVal));
@@ -277,21 +249,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     input.value = formatted;
 
-    // курсор: либо в конец (если надо), либо сохраняем позицию по количеству цифр
-    const newPos = forceToEnd
-      ? formatted.length
-      : caretPosForDigitCount(formatted, beforeDigits);
-
-    try {
-      input.setSelectionRange(newPos, newPos);
-    } catch (_) {}
+    const newPos = forceToEnd ? formatted.length : caretPosForDigitCount(formatted, beforeDigits);
+    try { input.setSelectionRange(newPos, newPos); } catch (_) {}
   }
 
   function initPhoneMask(input) {
     if (!input) return;
 
     input.value = PREFIX;
-    // на старте — курсор в конец
     applyPhoneMask(input, true);
 
     input.addEventListener('focus', () => {
@@ -300,7 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     input.addEventListener('input', () => {
-      // обычный ввод/удаление — сохраняем позицию
       applyPhoneMask(input, false);
     });
 
@@ -308,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const start = input.selectionStart ?? 0;
       const end = input.selectionEnd ?? 0;
 
-      // запрещаем удалять префикс +7 (9
+      // Префикс защищаем, но всё остальное удаляем спокойно
       if ((e.key === 'Backspace' && start <= PREFIX_LEN && end <= PREFIX_LEN) ||
           (e.key === 'Delete' && start < PREFIX_LEN && end <= PREFIX_LEN) ||
           (e.key === 'Home')) {
@@ -316,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try { input.setSelectionRange(PREFIX_LEN, PREFIX_LEN); } catch (_) {}
       }
 
-      // если выделение зацепило префикс — не даём стереть его
+      // Если выделение захватило префикс — не даём стереть префикс
       if ((e.key === 'Backspace' || e.key === 'Delete') && start < PREFIX_LEN) {
         e.preventDefault();
         try { input.setSelectionRange(PREFIX_LEN, PREFIX_LEN); } catch (_) {}
@@ -324,7 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     input.addEventListener('paste', () => {
-      // после вставки — нормализуем
       setTimeout(() => applyPhoneMask(input, true), 0);
     });
   }
@@ -356,7 +319,6 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="mb-2">
             <label class="form-label small mb-1">Телефон *</label>
             <input id="phoneInput" class="form-control" type="tel" name="phone" autocomplete="tel" required />
-            <div class="text-muted small mt-1" style="font-size:.78rem;">Нужен только для связи — спамом не занимаемся.</div>
           </div>
 
           <div class="form-check mb-2">
@@ -367,9 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div id="formMsg" class="mt-2 small"></div>
-          <p class="text-muted small mt-2 mb-0" style="font-size:.75rem;">
-            Нажимая «Продолжить», вы соглашаетесь с <a href="/privacy" target="_blank">политикой конфиденциальности</a>.
-          </p>
         </div>
 
         <div style="margin-top:auto; padding-top:12px;">
@@ -397,8 +356,8 @@ document.addEventListener('DOMContentLoaded', () => {
       msg.className = 'mt-2 small';
 
       const formData = new FormData(form);
-      const name = safeText(formData.get('name')) || '—';
-      const phone = safeText(formData.get('phone'));
+      const name = (formData.get('name') || '—').toString().trim();
+      const phone = (formData.get('phone') || '').toString().trim();
       const agree = formData.get('agree') ? 'Да' : 'Нет';
 
       const digits = digitsOnly(phone);
@@ -422,11 +381,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const payload = {
           name,
           phone,
-          agree,
           total_debt: answers.total_debt || 'under200k',
           arrests: answers.arrests || 'Не указано',
-          extra_property: answers.extra_property || 'Не указано',
-          extra_car: answers.extra_car || 'Не указано',
+          mortgage_or_car: answers.mortgage_or_car || 'Не указано',
+          ready: answers.ready || 'Не указано',
           'g-recaptcha-response': token,
         };
 
