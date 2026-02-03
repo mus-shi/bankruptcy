@@ -164,8 +164,8 @@
     </div>
   </section>
 
-  <!-- ВАЖНО: теперь стрелка в нормальном потоке ниже шагов,
-       с отступом, без наложений и касаний -->
+  <!-- Индикатор как на твоём скрине: внизу первого экрана.
+       Исчезает по клику (см. main.js) -->
   <a href="#office-block" class="scroll-indicator" aria-label="Перейти к офису и контактам">
     <span class="scroll-label">офис и контакты</span>
     <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
@@ -272,7 +272,7 @@
   const themeBtn = document.getElementById('theme-toggle-btn');
   const themeIcon = document.getElementById('theme-icon');
 
-  // По умолчанию ВСЕГДА дневная (светлая) тема.
+  // По умолчанию дневная тема
   document.body.classList.remove('dark');
   themeIcon.textContent = '☀️';
 
