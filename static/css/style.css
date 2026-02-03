@@ -2,7 +2,6 @@
    ДИЗАЙН-СИСТЕМА / ПАЛИТРА
    ========================= */
 :root{
-  /* Светлая тема (спокойная, юридическая) */
   --bg-body: #fbfbfd;
   --bg-light: #f3f5f8;
   --card-bg: #f1f5f9;
@@ -17,7 +16,6 @@
   --cta-a: #ff6b35;
   --cta-b: #ff8c42;
 
-  /* единые радиусы/тени */
   --radius-card: 16px;
   --radius-btn: 999px;
 
@@ -29,7 +27,6 @@
 }
 
 body.dark{
-  /* Тёмная тема (контрастная и аккуратная) */
   --bg-body: #0b0f14;
   --bg-light: #0f1620;
   --card-bg: #111a24;
@@ -203,12 +200,10 @@ body.dark .equal-block:hover{
    HERO
    ========================= */
 .hero-viewport{
-  /* Важно: без fixed-индикатора всё в нормальном потоке, чтобы ничего не налезало */
   min-height: calc(100svh - 60px);
   display:flex;
   flex-direction:column;
   justify-content:flex-start;
-  padding-bottom: 10px;
 }
 
 /* CTA */
@@ -254,10 +249,12 @@ body.dark .process-title-frame{
 }
 
 /* =========================
-   SCROLL INDICATOR (ниже шагов, НЕ налезает)
+   SCROLL INDICATOR (как на скрине: внизу первого экрана)
    ========================= */
 .scroll-indicator{
-  /* В потоке, после блока "Как проходит процедура" */
+  /* ВАЖНО: толкаем индикатор вниз внутри hero, как на твоём скрине */
+  margin-top: auto;
+
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -265,25 +262,40 @@ body.dark .process-title-frame{
   text-align:center;
 
   width: fit-content;
-  margin: 18px auto 24px; /* важно: отступ сверху/снизу, чтобы НЕ касалось карточек */
+  padding-top: 22px;     /* отступ от карточек шагов */
+  padding-bottom: 22px;  /* отступ до низа */
+  margin-left: auto;
+  margin-right: auto;
+
   text-decoration: none;
   color: inherit;
 
-  opacity: .90;
+  opacity: .92;
   transition: transform .18s ease, opacity .18s ease;
 }
+
 .scroll-indicator:hover{
   opacity: 1;
   transform: translateY(2px);
 }
+
 .scroll-indicator .scroll-label{
   display:block;
   text-align:center;
   margin-bottom: 6px;
+  font-size: .92rem;
+  color: var(--text-muted);
+}
+
+/* скрытие по клику */
+.scroll-indicator.is-hidden{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
 }
 
 /* =========================
-   OFFICE BLOCK (идеально)
+   OFFICE BLOCK
    ========================= */
 .office-section{
   padding: 60px 0;
@@ -311,7 +323,7 @@ body.dark .office-card{
 .reveal.active{ opacity: 1; transform: translateY(0); }
 
 /* =========================
-   FOOTER
+   FOOTER + hover-анимация соцсетей
    ========================= */
 .footer-link{
   text-decoration: none;
@@ -326,8 +338,6 @@ body.dark .office-card{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-
-  /* анимация */
   transition: transform .18s ease, filter .18s ease, opacity .18s ease;
   opacity: .92;
 }
@@ -361,10 +371,10 @@ body.dark .social-link:hover{
 }
 body.quiz-open .quiz-overlay{ display:flex; }
 
-/* ЕДИНЫЙ РАЗМЕР КАРТОЧКИ НА ВСЕХ ШАГАХ */
+/* УМЕНЬШЕННАЯ ВЫСОТА КВИЗА (чтобы всё было видно сразу) */
 .quiz-card{
   width: min(520px, 100%);
-  height: min(680px, 92svh);   /* фиксируем визуальную высоту */
+  height: min(560px, 88svh);
   background: var(--bg-body);
   border-radius: 22px;
   box-shadow: var(--shadow-card-hover);
@@ -378,8 +388,8 @@ body.dark .quiz-card{ border-color: rgba(255,255,255,0.12); }
 
 .btn-close-quiz{
   position:absolute;
-  top: 14px;
-  right: 14px;
+  top: 12px;
+  right: 12px;
   width: 38px;
   height: 38px;
   border-radius: 999px;
@@ -408,11 +418,11 @@ body.dark .btn-close-quiz{
 }
 
 .quiz-inner{
-  padding: 22px 22px 24px;
+  padding: 18px 18px 18px;
   display:flex;
   flex-direction:column;
   height: 100%;
-  overflow: auto; /* если вдруг контент не влез — скролл внутри, а карточка не прыгает */
+  overflow: hidden; /* чтобы не было «кнопка снизу — её не видно» */
 }
 
 .quiz-header-with-back{
@@ -420,7 +430,7 @@ body.dark .btn-close-quiz{
   align-items:center;
   justify-content:space-between;
   gap: 10px;
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 .quiz-back-btn{
@@ -441,6 +451,7 @@ body.dark .quiz-back-btn:hover{ background: rgba(255,255,255,0.06); }
   display:grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+  margin-top: 18px;
 }
 .btn-quiz-option{
   border: 1px solid rgba(0,0,0,0.10);
@@ -450,7 +461,7 @@ body.dark .quiz-back-btn:hover{ background: rgba(255,255,255,0.06); }
   font-weight: 700;
   cursor:pointer;
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  min-height: 56px; /* чтобы кнопки выглядели одинаково */
+  min-height: 56px;
 }
 body.dark .btn-quiz-option{ border-color: rgba(255,255,255,0.14); }
 .btn-quiz-option:hover{
@@ -479,7 +490,7 @@ body.dark .btn-quiz-option:hover{ border-color: rgba(106,166,255,0.35); }
   font-weight: 800;
   color: var(--quiz-theme-color);
   display:inline-block;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 input[type="range"]{
