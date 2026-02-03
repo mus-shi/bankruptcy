@@ -1,7 +1,8 @@
-м/* =========================
+/* =========================
    ДИЗАЙН-СИСТЕМА / ПАЛИТРА
    ========================= */
 :root{
+  /* Светлая тема (спокойная, юридическая) */
   --bg-body: #fbfbfd;
   --bg-light: #f3f5f8;
   --card-bg: #f1f5f9;
@@ -16,6 +17,7 @@
   --cta-a: #ff6b35;
   --cta-b: #ff8c42;
 
+  /* единые радиусы/тени */
   --radius-card: 16px;
   --radius-btn: 999px;
 
@@ -27,6 +29,7 @@
 }
 
 body.dark{
+  /* Тёмная тема (контрастная и аккуратная) */
   --bg-body: #0b0f14;
   --bg-light: #0f1620;
   --card-bg: #111a24;
@@ -96,6 +99,7 @@ body.dark .sticky-top-bar{
   margin-left:auto;
 }
 
+/* Ненавязчивый переключатель темы */
 .theme-toggle-btn{
   background: transparent;
   border: 1px solid rgba(0,0,0,0.14);
@@ -146,7 +150,7 @@ body.dark .btn-header-call:hover{
 }
 
 /* =========================
-   SVG
+   ЕДИНЫЙ СТИЛЬ SVG
    ========================= */
 .icon-wrapper svg{
   width: 40px;
@@ -162,7 +166,7 @@ body.dark .btn-header-call:hover{
 }
 
 /* =========================
-   CARDS
+   CARD BLOCKS
    ========================= */
 .equal-block{
   background-color: var(--card-bg);
@@ -195,41 +199,69 @@ body.dark .equal-block:hover{
   border-color: rgba(106,166,255,0.35);
 }
 
+.equal-block .icon-wrapper{
+  width: 54px;
+  height: 54px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom: 12px;
+  transition: transform .22s ease;
+}
+.equal-block:hover .icon-wrapper{
+  transform: translateY(-1px) scale(1.06);
+}
+
+/* Bootstrap выравнивание мелких несостыковок */
+.shadow-sm{ box-shadow: var(--shadow-soft) !important; }
+.rounded, .rounded-3, .rounded-4, .rounded-5{ border-radius: var(--radius-card) !important; }
+
 /* =========================
-   HERO
+   HERO (ВАЖНО ДЛЯ КНОПКИ "ОФИС И КОНТАКТЫ")
    ========================= */
 .hero-viewport{
-  min-height: calc(100svh - 60px);
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
+  position: relative;
 
-  /* ВАЖНО: резервируем место, чтобы фиксированный индикатор
-     НЕ перекрывал контент и не "прятался" */
-  padding-bottom: 92px;
+  /* Главное: место под кнопку внизу, чтобы она НЕ налезала на карточки */
+  padding-bottom: 110px;
+
+  /* чтобы первый экран был прогнозируемый */
+  min-height: calc(100svh - 60px);
 }
 
-/* CTA */
+/* =========================
+   CTA BUTTON (НАЧАТЬ ОНЛАЙН)
+   ========================= */
+#intro-text-block{ display: block !important; }
+#show-form-btn{ display: inline-flex !important; }
+
 .btn-start-online{
-  border: 0;
-  border-radius: var(--radius-btn);
-  padding: 14px 28px;
-  font-weight: 700;
-  color: #fff;
   background: linear-gradient(135deg, var(--cta-a), var(--cta-b));
-  box-shadow: var(--shadow-soft);
-  transition: transform .18s ease, filter .18s ease;
+  color: #fff;
+  padding: 14px 42px;
+  border-radius: var(--radius-btn);
+  font-weight: 700;
+  border: none;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  display: inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap: 10px;
+  box-shadow: 0 12px 28px rgba(255, 107, 53, 0.22);
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
 }
 .btn-start-online:hover{
-  transform: translateY(-1px);
-  filter: brightness(1.02);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(255, 107, 53, 0.28);
+  filter: saturate(1.03);
 }
 .btn-start-online:active{
-  transform: translateY(0);
+  transform: translateY(-1px);
 }
-
-.cta-container{
-  margin-top: 26px;
+.btn-start-online:focus-visible{
+  outline: 3px solid rgba(255,107,53,0.30);
+  outline-offset: 3px;
 }
 
 /* =========================
@@ -252,10 +284,12 @@ body.dark .process-title-frame{
 }
 
 /* =========================
-   SCROLL INDICATOR (фиксирован и ВСЕГДА виден на первом экране)
+   SCROLL INDICATOR ("офис и контакты")
+   Требование: на 100% выглядит как на 90% и НЕ перекрывает блоки.
+   Решение: absolute внутри hero + hero padding-bottom.
    ========================= */
 .scroll-indicator{
-  position: fixed;
+  position: absolute;
   left: 50%;
   bottom: 18px;
   transform: translateX(-50%);
@@ -270,8 +304,7 @@ body.dark .process-title-frame{
   padding: 10px 14px;
   border-radius: 14px;
 
-  /* легкий "подиум", чтобы не терялся на фоне */
-  background: rgba(251, 251, 253, 0.78);
+  background: rgba(251, 251, 253, 0.80);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(0,0,0,0.06);
 
@@ -281,8 +314,10 @@ body.dark .process-title-frame{
   opacity: .96;
   transition: transform .18s ease, opacity .18s ease;
   z-index: 900;
-}
 
+  /* перебиваем bootstrap pb-3 из html */
+  padding-bottom: 10px !important;
+}
 body.dark .scroll-indicator{
   background: rgba(11, 15, 20, 0.68);
   border-color: rgba(255,255,255,0.10);
@@ -301,15 +336,14 @@ body.dark .scroll-indicator{
   color: var(--text-muted);
 }
 
-/* скрытие по клику */
 .scroll-indicator.is-hidden{
   opacity: 0;
   pointer-events: none;
-  transform: translateX(-50%) translateY(10px);
+  transform: translateX(-50%) translateY(12px);
 }
 
 /* =========================
-   OFFICE
+   OFFICE BLOCK
    ========================= */
 .office-section{
   padding: 60px 0;
@@ -331,13 +365,13 @@ body.dark .office-card{
 }
 
 /* =========================
-   REVEAL
+   REVEAL ANIMATION
    ========================= */
 .reveal{ opacity: 0; transform: translateY(14px); transition: .6s ease; }
 .reveal.active{ opacity: 1; transform: translateY(0); }
 
 /* =========================
-   FOOTER
+   FOOTER + hover-анимация соцсетей
    ========================= */
 .footer-link{
   text-decoration: none;
@@ -385,7 +419,6 @@ body.dark .social-link:hover{
 }
 body.quiz-open .quiz-overlay{ display:flex; }
 
-/* ниже и компактнее */
 .quiz-card{
   width: min(520px, 100%);
   height: min(540px, 86svh);
@@ -400,6 +433,7 @@ body.quiz-open .quiz-overlay{ display:flex; }
 }
 body.dark .quiz-card{ border-color: rgba(255,255,255,0.12); }
 
+/* X больше НЕ касается шкалы */
 .btn-close-quiz{
   position:absolute;
   top: 14px;
@@ -431,8 +465,8 @@ body.dark .btn-close-quiz{
   stroke-linecap: round;
 }
 
+/* Добавили верхний отступ, чтобы X не касался контента */
 .quiz-inner{
-  /* ВАЖНО: добавили верхний отступ, чтобы X НЕ касался шкалы */
   padding: 62px 18px 18px;
   display:flex;
   flex-direction:column;
@@ -445,7 +479,6 @@ body.dark .btn-close-quiz{
   align-items:center;
   justify-content:space-between;
   gap: 10px;
-  margin-top: 0;
 }
 
 .quiz-back-btn{
