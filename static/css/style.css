@@ -203,10 +203,12 @@ body.dark .equal-block:hover{
    HERO
    ========================= */
 .hero-viewport{
+  /* Важно: без fixed-индикатора всё в нормальном потоке, чтобы ничего не налезало */
   min-height: calc(100svh - 60px);
   display:flex;
   flex-direction:column;
   justify-content:flex-start;
+  padding-bottom: 10px;
 }
 
 /* CTA */
@@ -252,46 +254,32 @@ body.dark .process-title-frame{
 }
 
 /* =========================
-   SCROLL INDICATOR (центр)
+   SCROLL INDICATOR (ниже шагов, НЕ налезает)
    ========================= */
 .scroll-indicator{
-  /*
-    Индикатор должен быть виден при первом входе без прокрутки
-    (масштаб страницы 100%). Поэтому делаем его фиксированным,
-    по центру снизу экрана.
-  */
-  position: fixed;
-  left: 50%;
-  bottom: 14px;
-  transform: translateX(-50%);
-
+  /* В потоке, после блока "Как проходит процедура" */
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
+
   width: fit-content;
-  margin: 0;
+  margin: 18px auto 24px; /* важно: отступ сверху/снизу, чтобы НЕ касалось карточек */
   text-decoration: none;
   color: inherit;
+
   opacity: .90;
-  z-index: 999;
-  pointer-events: auto;
+  transition: transform .18s ease, opacity .18s ease;
 }
-.scroll-indicator.is-hidden{
-  opacity: 0;
-  pointer-events: none;
+.scroll-indicator:hover{
+  opacity: 1;
+  transform: translateY(2px);
 }
-.scroll-indicator:hover{ opacity: 1; }
 .scroll-indicator .scroll-label{
   display:block;
   text-align:center;
   margin-bottom: 6px;
-}
-
-/* На маленьких экранах чуть поднимаем, чтобы не перекрывать элементы браузера */
-@media (max-width: 480px){
-  .scroll-indicator{ bottom: 18px; }
 }
 
 /* =========================
@@ -334,7 +322,24 @@ body.dark .office-card{
   text-decoration: underline;
 }
 
-.social-link{ display:inline-flex; align-items:center; justify-content:center; }
+.social-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  /* анимация */
+  transition: transform .18s ease, filter .18s ease, opacity .18s ease;
+  opacity: .92;
+}
+.social-link:hover{
+  transform: translateY(-3px) scale(1.06);
+  filter: drop-shadow(0 10px 18px rgba(12,18,28,0.18));
+  opacity: 1;
+}
+body.dark .social-link:hover{
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,0.55));
+}
+
 .footer-social-img{
   width: 34px;
   height: 34px;
@@ -356,9 +361,10 @@ body.dark .office-card{
 }
 body.quiz-open .quiz-overlay{ display:flex; }
 
+/* ЕДИНЫЙ РАЗМЕР КАРТОЧКИ НА ВСЕХ ШАГАХ */
 .quiz-card{
   width: min(520px, 100%);
-  max-height: min(720px, 92svh);
+  height: min(680px, 92svh);   /* фиксируем визуальную высоту */
   background: var(--bg-body);
   border-radius: 22px;
   box-shadow: var(--shadow-card-hover);
@@ -406,6 +412,7 @@ body.dark .btn-close-quiz{
   display:flex;
   flex-direction:column;
   height: 100%;
+  overflow: auto; /* если вдруг контент не влез — скролл внутри, а карточка не прыгает */
 }
 
 .quiz-header-with-back{
@@ -443,6 +450,7 @@ body.dark .quiz-back-btn:hover{ background: rgba(255,255,255,0.06); }
   font-weight: 700;
   cursor:pointer;
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  min-height: 56px; /* чтобы кнопки выглядели одинаково */
 }
 body.dark .btn-quiz-option{ border-color: rgba(255,255,255,0.14); }
 .btn-quiz-option:hover{
