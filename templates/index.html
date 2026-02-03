@@ -280,21 +280,14 @@
   const themeBtn = document.getElementById('theme-toggle-btn');
   const themeIcon = document.getElementById('theme-icon');
 
-  // По умолчанию светлая. Тёмная — только если пользователь сам выбрал ранее.
-  if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark');
-    themeIcon.textContent = '🌙';
-  }
+  // По умолчанию ВСЕГДА дневная (светлая) тема.
+  // Переключатель работает, но выбор не «прилипает» через localStorage.
+  document.body.classList.remove('dark');
+  themeIcon.textContent = '☀️';
 
   themeBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark');
-    if (document.body.classList.contains('dark')) {
-      themeIcon.textContent = '🌙';
-      localStorage.setItem('theme', 'dark');
-    } else {
-      themeIcon.textContent = '☀️';
-      localStorage.setItem('theme', 'light');
-    }
+    themeIcon.textContent = document.body.classList.contains('dark') ? '🌙' : '☀️';
   });
 </script>
 
