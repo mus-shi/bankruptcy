@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // === reCAPTCHA v3 ===
   const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
 
-  // === ЭЛЕМЕНТЫ ===
   const startBtn = document.getElementById('show-form-btn');
   const introBlock = document.getElementById('intro-text-block');
 
@@ -10,9 +8,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const quizContainer = document.getElementById('quiz-container');
   const closeBtn = document.getElementById('quiz-close-btn');
 
+  // Индикатор "офис и контакты"
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+
   if (!quizOverlay || !quizContainer) return;
 
-  // === ШАГИ (под backend /consult) ===
+  // --- Скрытие индикатора по клику + плавная прокрутка ---
+  if (scrollIndicator) {
+    scrollIndicator.addEventListener('click', (e) => {
+      // делаем исчезновение сразу
+      scrollIndicator.classList.add('is-hidden');
+
+      // плавно скроллим (на всякий случай — если браузер не поддерживает smooth в CSS)
+      const href = scrollIndicator.getAttribute('href') || '';
+      if (href.startsWith('#')) {
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
+  }
+
   const steps = [
     { key: 'total_debt', text: 'Общая сумма долга?', type: 'slider' },
     { key: 'arrests', text: 'Есть аресты на картах/счетах?', type: 'boolean' },
@@ -28,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
     extra_car: null,
   };
 
-  // ======= helpers =======
   const formatRub = (n) => new Intl.NumberFormat('ru-RU').format(n) + ' ₽';
 
   const sliderToDebtKey = (v) => {
@@ -45,7 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
     introBlock.style.display = isVisible ? 'block' : 'none';
   }
 
-  // ======= open / close =======
+  function resetAnswers() {
+    answers.total_debt = null;
+    answers.arrests = null;
+    answers.extra_property = null;
+    answers.extra_car = null;
+  }
+
   function openQuiz() {
     setIntroVisible(false);
     document.body.classList.add('quiz-open');
@@ -53,13 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     currentStep = 0;
     renderStep();
-  }
-
-  function resetAnswers() {
-    answers.total_debt = null;
-    answers.arrests = null;
-    answers.extra_property = null;
-    answers.extra_car = null;
   }
 
   function closeQuiz() {
@@ -72,12 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
     quizContainer.innerHTML = '';
   }
 
-  // клик по фону оверлея закрывает
   quizOverlay.addEventListener('click', (e) => {
     if (e.target === quizOverlay) closeQuiz();
   });
 
-  // ESC закрывает
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && document.body.classList.contains('quiz-open')) {
       closeQuiz();
@@ -87,9 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (closeBtn) closeBtn.addEventListener('click', closeQuiz);
   if (startBtn) startBtn.addEventListener('click', openQuiz);
 
-  // ======= rendering =======
   function progressPercent() {
-    // steps + финальная форма
     return Math.round(((currentStep + 1) / (steps.length + 1)) * 100);
   }
 
@@ -111,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div style="width:96px;"></div>
       </div>
 
-      <div style="flex:1; display:flex; flex-direction:column;">
+      <div style="flex:1; display:flex; flex-direction:column; overflow:hidden;">
         ${step.type === 'slider' ? renderSlider() : renderBoolean()}
       </div>
     `;
@@ -130,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
+      // ВАЖНО: кнопка “Далее” видна сразу, без скролла/движения ползунка
       if (nextBtn && range) {
         nextBtn.addEventListener('click', () => {
           const raw = Number(range.value);
@@ -150,34 +163,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderSlider() {
     const rawDefault = 500000;
-    const labelValue = formatRub(rawDefault);
 
     return `
-      <div class="text-center px-2 mt-4">
-        <span id="range-value-display" class="range-value-label">${labelValue}</span>
-        <input type="range" id="debtRange" min="200000" max="5000000" step="50000" value="${rawDefault}">
-        <div class="d-flex justify-content-between mt-2">
-          <small class="text-muted">200 000 ₽</small>
-          <small class="text-muted">&gt; 5 млн ₽</small>
+      <div style="display:flex; flex-direction:column; height:100%; overflow:hidden;">
+        <div class="text-center px-2" style="padding-top:16px;">
+          <span id="range-value-display" class="range-value-label">${formatRub(rawDefault)}</span>
+          <input type="range" id="debtRange" min="200000" max="5000000" step="50000" value="${rawDefault}">
+          <div class="d-flex justify-content-between mt-2">
+            <small class="text-muted">200 000 ₽</small>
+            <small class="text-muted">&gt; 5 млн ₽</small>
+          </div>
         </div>
-      </div>
 
-      <div class="mt-auto pt-4">
-        <button type="button" class="quiz-submit-btn" data-action="next">Далее</button>
-        <p class="text-muted small mt-2 mb-0" style="font-size:.8rem;">
-          Можно примерно — важно понять диапазон.
-        </p>
+        <div style="margin-top:auto; padding-top:14px;">
+          <button type="button" class="quiz-submit-btn" data-action="next">Далее</button>
+          <p class="text-muted small mt-2 mb-0" style="font-size:.8rem;">
+            Можно примерно — важно понять диапазон.
+          </p>
+        </div>
       </div>
     `;
   }
 
   function renderBoolean() {
     return `
-      <div class="quiz-grid-options mt-4">
-        <button type="button" class="btn-quiz-option" data-action="pick" data-value="Да">Да</button>
-        <button type="button" class="btn-quiz-option" data-action="pick" data-value="Нет">Нет</button>
+      <div style="display:flex; flex-direction:column; height:100%;">
+        <div class="quiz-grid-options">
+          <button type="button" class="btn-quiz-option" data-action="pick" data-value="Да">Да</button>
+          <button type="button" class="btn-quiz-option" data-action="pick" data-value="Нет">Нет</button>
+        </div>
+        <div style="margin-top:auto;"></div>
       </div>
-      <div class="mt-auto"></div>
     `;
   }
 
@@ -196,68 +212,83 @@ document.addEventListener('DOMContentLoaded', () => {
     renderForm();
   }
 
-  // ======= phone prefix logic =======
-  function initPhoneInput(input) {
+  // ======= PHONE MASK: +7 (999) 999 99 99, 11 цифр, префикс +7 (9 защищён =======
+  function formatRuPhoneFromDigits(digits) {
+    // digits: только цифры, начинаются с 79..., длина <= 11
+    const d = digits.slice(0, 11);
+
+    // +7 (XXX) XXX XX XX
+    // d[0]=7, d[1]=9
+    const a = d.slice(1, 4);   // 3 цифры после 7
+    const b = d.slice(4, 7);   // 3 цифры
+    const c = d.slice(7, 9);   // 2 цифры
+    const e = d.slice(9, 11);  // 2 цифры
+
+    let s = '+7 (';
+    if (a.length) s += a;
+    if (a.length === 3) s += ') ';
+    if (b.length) s += b;
+    if (b.length === 3 && (c.length || e.length)) s += ' ';
+    if (c.length) s += c;
+    if (c.length === 2 && e.length) s += ' ';
+    if (e.length) s += e;
+
+    return s;
+  }
+
+  function initPhoneMask(input) {
     if (!input) return;
 
-    const PREFIX = '+7 (9';
-    if (!input.value || input.value.trim() === '') {
-      input.value = PREFIX;
-    } else if (!input.value.startsWith(PREFIX)) {
-      // если вдруг браузер автозаполнил что-то странное — приводим к префиксу
-      input.value = PREFIX;
-    }
+    // стартовый префикс
+    input.value = '+7 (9';
 
     const setCaretEnd = () => {
       const len = input.value.length;
       try { input.setSelectionRange(len, len); } catch (_) {}
     };
 
-    // при фокусе ставим курсор в конец
-    input.addEventListener('focus', () => {
-      if (!input.value.startsWith(PREFIX)) input.value = PREFIX;
+    const normalize = () => {
+      // берём только цифры
+      let digits = (input.value.match(/\d/g) || []).join('');
+
+      // принудительно делаем начало 79
+      if (!digits.startsWith('7')) digits = '7' + digits;
+      if (digits.length === 1) digits = '79';
+      if (digits[1] !== '9') digits = '79' + digits.slice(2);
+
+      // ограничение 11 цифр
+      digits = digits.slice(0, 11);
+
+      input.value = formatRuPhoneFromDigits(digits);
       setCaretEnd();
+    };
+
+    input.addEventListener('focus', () => {
+      if (!input.value) input.value = '+7 (9';
+      normalize();
     });
 
-    // защищаем префикс от удаления/замены
-    input.addEventListener('keydown', (e) => {
-      const start = input.selectionStart ?? 0;
-      const end = input.selectionEnd ?? 0;
-
-      // запрещаем backspace/delete внутри префикса
-      if ((e.key === 'Backspace' && start <= PREFIX.length) ||
-          (e.key === 'Delete' && start < PREFIX.length) ||
-          (e.key === 'ArrowLeft' && start <= PREFIX.length)) {
-        e.preventDefault();
-        input.setSelectionRange(PREFIX.length, PREFIX.length);
-      }
-
-      // если выделение захватывает префикс — не даём стереть
-      if ((e.key === 'Backspace' || e.key === 'Delete') && start < PREFIX.length) {
-        e.preventDefault();
-        input.setSelectionRange(PREFIX.length, PREFIX.length);
-      }
-
-      // Home — ставим в конец префикса
-      if (e.key === 'Home') {
-        e.preventDefault();
-        input.setSelectionRange(PREFIX.length, PREFIX.length);
-      }
-    });
-
-    // при любом вводе гарантируем префикс
     input.addEventListener('input', () => {
-      if (!input.value.startsWith(PREFIX)) {
-        const tail = input.value.replace(/^\+?7?\s*\(?9?/, '');
-        input.value = PREFIX + tail;
-        setCaretEnd();
+      normalize();
+    });
+
+    input.addEventListener('keydown', (e) => {
+      // блокируем попытки “убить” префикс
+      const minPos = 5; // '+7 (9' длина 5
+      const start = input.selectionStart ?? 0;
+
+      if ((e.key === 'Backspace' && start <= minPos) ||
+          (e.key === 'Delete' && start < minPos) ||
+          (e.key === 'ArrowLeft' && start <= minPos) ||
+          (e.key === 'Home')) {
+        e.preventDefault();
+        try { input.setSelectionRange(minPos, minPos); } catch (_) {}
       }
     });
 
-    setCaretEnd();
+    normalize();
   }
 
-  // ======= form =======
   function renderForm() {
     quizContainer.innerHTML = `
       <div class="progress">
@@ -275,20 +306,20 @@ document.addEventListener('DOMContentLoaded', () => {
         <div style="width:96px;"></div>
       </div>
 
-      <form id="leadForm" class="mt-4" novalidate style="display:flex; flex-direction:column; min-height: 100%;">
-        <div>
-          <div class="mb-3">
-            <label class="form-label small">Имя</label>
+      <form id="leadForm" class="mt-3" novalidate style="display:flex; flex-direction:column; height:100%; overflow:hidden;">
+        <div style="overflow:hidden;">
+          <div class="mb-2">
+            <label class="form-label small mb-1">Имя</label>
             <input class="form-control" type="text" name="name" placeholder="Как к вам обращаться" autocomplete="name" />
           </div>
 
-          <div class="mb-3">
-            <label class="form-label small">Телефон *</label>
+          <div class="mb-2">
+            <label class="form-label small mb-1">Телефон *</label>
             <input id="phoneInput" class="form-control" type="tel" name="phone" autocomplete="tel" required />
             <div class="text-muted small mt-1" style="font-size:.78rem;">Нужен только для связи — спамом не занимаемся.</div>
           </div>
 
-          <div class="form-check mb-3">
+          <div class="form-check mb-2">
             <input class="form-check-input" type="checkbox" id="agree" name="agree" required />
             <label class="form-check-label small" for="agree">
               Принимаю условия <a href="/offer" target="_blank">публичной оферты</a>
@@ -296,13 +327,13 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
 
           <div id="formMsg" class="mt-2 small"></div>
-          <p class="text-muted small mt-3 mb-0" style="font-size:.75rem;">
+          <p class="text-muted small mt-2 mb-0" style="font-size:.75rem;">
             Нажимая «Отправить», вы соглашаетесь с <a href="/privacy" target="_blank">политикой конфиденциальности</a>.
           </p>
         </div>
 
-        <div class="mt-auto pt-4">
-          <button type="submit" class="quiz-submit-btn" id="submitBtn">Отправить</button>
+        <div style="margin-top:auto; padding-top:12px;">
+          <button type="submit" class="quiz-submit-btn" id="submitBtn">Продолжить</button>
         </div>
       </form>
     `;
@@ -318,9 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const msg = quizContainer.querySelector('#formMsg');
     const phoneInput = quizContainer.querySelector('#phoneInput');
 
-    initPhoneInput(phoneInput);
-
-    if (!form) return;
+    initPhoneMask(phoneInput);
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -332,8 +361,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const phone = safeText(formData.get('phone'));
       const agree = formData.get('agree') ? 'Да' : 'Нет';
 
-      if (!phone || phone.length < 5) {
-        msg.textContent = 'Укажите телефон.';
+      // проверяем, что реально введено 11 цифр
+      const digits = (phone.match(/\d/g) || []).join('');
+      if (digits.length !== 11) {
+        msg.textContent = 'Введите телефон полностью (пример: +7 (999) 999 99 99).';
         msg.classList.add('text-danger');
         return;
       }
@@ -377,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
         msg.textContent = 'Не удалось отправить. Попробуйте ещё раз или позвоните.';
         msg.classList.add('text-danger');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Отправить';
+        submitBtn.textContent = 'Продолжить';
       }
     });
   }
