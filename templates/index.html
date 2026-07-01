@@ -3,243 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Банкротство под ключ</title>
+  <title>БЕЗДОЛГОВ.ЛАЙФ | Банкротство под ключ</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Заменили шрифт на строгий Montserrat -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-  <style>
-    html { scroll-behavior: smooth; }
-    #theme-icon { font-size: 1rem; line-height: 1; }
-  </style>
 </head>
 <body>
 
 <nav class="sticky-top-bar">
-  <div></div>
+  <div class="d-flex align-items-center gap-2">
+    <!-- Логотип из прикрепленного файла -->
+    <img src="{{ url_for('static', filename='img/pMhr0_Dh8s-7lK-CL7IV0DxLo3niQDstPETcrqmLYdvYobhe5WwchA5kFQkPvi-zfyk14WXdK7EEYrjoojuVsu4i.jpg') }}" alt="Бездолгов.Лайф" class="nav-logo">
+  </div>
   <div class="sticky-actions">
-    <a href="tel:+79991234567" class="btn-header-call">📞 Позвонить</a>
-    <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Сменить тему">
-      <span id="theme-icon">☀️</span>
-    </button>
+    <a href="tel:+790341500" class="btn-header-call">📞 Позвонить</a>
   </div>
 </nav>
 
 <div class="hero-viewport">
-  <header class="container text-center" style="padding-top: 40px;">
-    <h1 class="mb-5 mt-3" style="font-family: 'Playfair Display', serif; font-size: calc(1.8rem + 1vw);">
-      Оформите банкротство — не выходя из дома
+  <header class="container text-center" style="padding-top: 60px;">
+    <!-- Жесткий и конкретный УТП -->
+    <h1 class="mb-4 mt-3 text-uppercase">
+      Законно спишем ваши долги по 127-ФЗ с гарантией сохранения имущества
     </h1>
+    <p class="lead text-muted mb-5">Защита от коллекторов с первого дня работы.</p>
 
-    <div class="row g-3">
+    <div class="row g-3 mb-5">
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
-          <div class="icon-wrapper icon-stroke" style="color:#d46a34;">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
+          <div class="icon-wrapper icon-stroke">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 40px; height: 40px;">
               <path d="M12 3l7 4v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"></path>
               <path d="M9.5 12l1.8 1.8L15 10"></path>
             </svg>
           </div>
           <strong class="d-block mb-2">Вы ничем не рискуете</strong>
-          <div class="small text-muted">Оплата — только после вынесения судебного акта и официального признания банкротом.</div>
+          <div class="small text-muted">Оплата услуг производится только после официального признания вас банкротом.</div>
         </div>
       </div>
-
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
-          <div class="icon-wrapper icon-stroke" style="color:#1f6f8b;">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
+          <div class="icon-wrapper icon-stroke">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 40px; height: 40px;">
               <path d="M6 8a6 6 0 0 1 12 0v5l2 2H4l2-2V8"></path>
               <path d="M9.5 19a2.5 2.5 0 0 0 5 0"></path>
               <path d="M4 4l16 16"></path>
             </svg>
           </div>
-          <strong class="d-block mb-2">Стоп звонки коллекторов</strong>
-          <div class="small text-muted">С первого дня процедуры — тишина. Мы берем общение с кредиторами на себя.</div>
+          <strong class="d-block mb-2">Стоп звонки</strong>
+          <div class="small text-muted">С первого дня берем общение с кредиторами и коллекторами на себя.</div>
         </div>
       </div>
-
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
-          <div class="icon-wrapper icon-stroke" style="color:#2d5e4a;">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
+          <div class="icon-wrapper icon-stroke">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 40px; height: 40px;">
               <path d="M3 10.5l9-7 9 7"></path>
               <path d="M5 9.5V21h14V9.5"></path>
               <path d="M9 21v-7h6v7"></path>
             </svg>
           </div>
-          <strong class="d-block mb-2">Жильё в безопасности</strong>
-          <div class="small text-muted">Единственное жильё не арестуют, а доход сохраним в размере прожиточного минимума.</div>
+          <strong class="d-block mb-2">Имущество под защитой</strong>
+          <div class="small text-muted">Сохраняем единственное жилье и доход в размере прожиточного минимума.</div>
         </div>
       </div>
-
       <div class="col-lg-3 col-md-6">
         <div class="equal-block">
-          <div class="icon-wrapper icon-stroke" style="color:#d1a11a;">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
+          <div class="icon-wrapper icon-stroke">
+            <svg viewBox="0 0 24 24" aria-hidden="true" style="width: 40px; height: 40px;">
               <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path>
               <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
-              <path d="M4 4l16 16"></path>
             </svg>
           </div>
-          <strong class="d-block mb-2">Полная анонимность</strong>
-          <div class="small text-muted">Ваши данные защищены законом. О процедуре не узнают на работе или родственники.</div>
+          <strong class="d-block mb-2">Анонимность</strong>
+          <div class="small text-muted">О процедуре не узнают на вашей работе или родственники.</div>
         </div>
       </div>
     </div>
 
     <div class="cta-container">
       <div id="intro-text-block">
-        <p class="text-muted small mb-3">Проверьте, подходит ли вам банкротство. Ответьте на вопросы — и я подскажу ваш путь.</p>
-        <button type="button" id="show-form-btn" class="btn-start-online">Начать онлайн →</button>
-        <p class="small text-muted mt-2" style="font-size: 0.75rem;">Работаем при долгах от 200 000 ₽. Консультация бесплатно.</p>
+        <button type="button" id="show-form-btn" class="btn-start-online">Узнать шансы на списание →</button>
       </div>
     </div>
   </header>
-
-  <section class="container text-center mt-5">
-    <span class="process-title-frame">Как проходит процедура</span>
-
-    <div class="row g-3">
-      <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block">
-          <div class="icon-wrapper icon-stroke" style="color:#c84b6d;">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 21c5 0 9-3.6 9-8s-4-8-9-8-9 3.6-9 8c0 2.2 1.1 4.2 2.9 5.7L5 21l3.1-1.2C9.3 20.6 10.6 21 12 21z"></path>
-              <path d="M8 12h.01M12 12h.01M16 12h.01"></path>
-            </svg>
-          </div>
-          <strong class="d-block mb-2">1. Консультация</strong>
-          <div class="small text-muted">Бесплатно разбираем вашу ситуацию и подбираем лучший способ списания.</div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block">
-          <div class="icon-wrapper icon-stroke" style="color:#7b66d6;">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M7 3h7l3 3v15a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path>
-              <path d="M14 3v4h4"></path>
-              <path d="M8.5 11H15"></path>
-              <path d="M8.5 14H15"></path>
-              <path d="M8.5 17H13"></path>
-            </svg>
-          </div>
-          <strong class="d-block mb-2">2. Документы</strong>
-          <div class="small text-muted">Помогаем собрать полный пакет документов. Вам не нужно бегать по банкам.</div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block">
-          <div class="icon-wrapper icon-stroke" style="color:#1b6fb3;">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M4 21h16"></path>
-              <path d="M6 21V9"></path>
-              <path d="M10 21V9"></path>
-              <path d="M14 21V9"></path>
-              <path d="M18 21V9"></path>
-              <path d="M3 9l9-6 9 6H3z"></path>
-            </svg>
-          </div>
-          <strong class="d-block mb-2">3. Подача в суд</strong>
-          <div class="small text-muted">Направляем заявление. Наши юристы представляют ваши интересы на заседаниях.</div>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 col-6">
-        <div class="equal-block">
-          <div class="icon-wrapper icon-stroke" style="color:#d1a11a;">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M17 10h-9a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z"></path>
-              <path d="M8 10V8a4 4 0 0 1 7.5-2"></path>
-              <path d="M12 14v3"></path>
-            </svg>
-          </div>
-          <strong class="d-block mb-2">4. Свобода</strong>
-          <div class="small text-muted">Получаем решение суда. С этого момента все ваши долги официально списаны.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Индикатор как на твоём скрине: внизу первого экрана.
-       Исчезает по клику (см. main.js) -->
-  <a href="#office-block" class="scroll-indicator" aria-label="Перейти к офису и контактам">
-    <span class="scroll-label">офис и контакты</span>
-    <svg width="30" height="30" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-      <path d="M1.646 6.646a.5.5 0 0 1 .708 0L8 12.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-      <path d="M1.646 2.646a.5.5 0 0 1 .708 0L8 8.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-    </svg>
-  </a>
 </div>
 
-<section id="office-block" class="office-section reveal">
+<!-- НОВЫЙ БЛОК: О НАС -->
+<section class="about-section">
   <div class="container">
-    <h2 class="text-center mb-5" style="font-family: 'Playfair Display', serif;">Очная консультация</h2>
+    <div class="row align-items-center">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="mb-4">Надежная правовая защита</h2>
+        <p class="about-text">
+          Мы не являемся конвейером по штамповке типовых заявлений. Наша главная компетенция — <strong>глубокое понимание имущественных отношений и деловых обычаев</strong>. Перед тем как начать процедуру, мы досконально анализируем структуру ваших долгов и сделки за последние 3 года, чтобы исключить риски оспаривания.
+        </p>
+        <p class="about-text mt-3">
+          Наша задача — не просто списать долг, а <strong>максимально сохранить ваши активы</strong> и оградить от психологического давления. Мы действуем жестко, исключительно в правовом поле и всегда отстаиваем интересы нашего клиента.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="row g-0 office-card shadow-sm">
+<section id="office-block" class="office-section">
+  <div class="container">
+    <h2 class="text-center mb-5">Очная консультация</h2>
+    <div class="row g-0 office-card">
       <div class="col-md-6 p-5 d-flex flex-column justify-content-center">
-        <h3 class="h4 mb-4" style="color: var(--primary-color);">Для жителей Ставропольского края</h3>
-        <p class="small text-muted mb-4">Вы можете прийти на очную консультацию в наш офис в городе Железноводске.</p>
-
+        <h3 class="h4 mb-4">Для жителей Ставропольского края</h3>
+        <p class="small text-muted mb-4">Вы можете прийти на закрытую консультацию в наш офис.</p>
         <div class="mb-3">
-          <p class="mb-1"><strong>Адрес:</strong></p>
+          <p class="mb-1 text-white"><strong>Адрес:</strong></p>
           <p class="text-muted small">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
         </div>
-
-        <div class="mb-4">
-          <p class="mb-1"><strong>Рабочее время:</strong></p>
-          <p class="text-muted small mb-0">Пн–Пт: 09:00 – 18:00</p>
-          <p class="text-muted small">Сб–Вс: выходной</p>
-        </div>
-
-        <div class="d-flex align-items-center gap-3 flex-wrap">
-          <span class="small text-muted">Телефон:</span>
-          <a href="tel:+79991234567" class="btn btn-outline-dark btn-sm px-3">📞 Позвонить</a>
+        <div class="d-flex align-items-center gap-3 mt-3">
+          <a href="tel:+790341500" class="btn btn-outline-light px-4 py-2" style="border-radius: 4px;">📞 Позвонить</a>
         </div>
       </div>
-
       <div class="col-md-6" style="min-height: 400px;">
         <iframe
           id="map-iframe"
           src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c"
-          width="100%"
-          height="100%"
-          frameborder="0">
+          width="100%" height="100%" frameborder="0">
         </iframe>
       </div>
     </div>
   </div>
 </section>
 
-<footer class="text-center py-5 border-top">
+<footer class="text-center py-5">
   <div class="container">
     <div class="d-flex justify-content-center align-items-center gap-4 mb-4">
-      <a href="https://wa.me/79991234567" target="_blank" class="social-link" aria-label="WhatsApp">
-        <svg xmlns="http://www.w3.org/2000/svg" aria-label="WhatsApp" role="img" viewBox="0 0 24 24" class="footer-social-img">
+      <a href="https://wa.me/79034150070" target="_blank" class="social-link" aria-label="WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="footer-social-img">
           <path fill="#25D366" d="M12 2a10 10 0 0 0-8.65 15.02L2 22l5.11-1.31A10 10 0 1 0 12 2Z"/>
           <path fill="#FFFFFF" d="M17.42 14.59c-.3-.15-1.78-.88-2.06-.98s-.48-.15-.68.15-.78.98-.96 1.18-.35.22-.65.07a8.28 8.28 0 0 1-2.43-1.5a9.1 9.1 0 0 1-1.68-2.08c-.17-.3 0-.46.13-.61.13-.13.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53s-.68-1.63-.93-2.23c-.24-.58-.49-.5-.68-.5h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.17-1.44-.08-.12-.27-.2-.57-.35Z"/>
         </svg>
       </a>
-
       <a href="https://t.me/ripe_man" target="_blank" class="social-link" aria-label="Telegram">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram Logo" class="footer-social-img">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="footer-social-img">
       </a>
-
-      <a href="https://vk.com/club235261619?from=groups" target="_blank" class="social-link" aria-label="VK">
-        <svg class="footer-social-img" fill="#0077FF" width="800px" height="800px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-          <path d="M25.217 22.402h-2.179c-0.825 0-1.080-0.656-2.562-2.158c-1.291-1.25-1.862-1.418-2.179-1.418c-0.445 0-0.572 0.127-0.572 0.741v1.968c0 0.53-0.169 0.847-1.566 0.847c-2.818-0.189-5.24-1.726-6.646-3.966l-0.021-0.035c-1.632-2.027-2.835-4.47-3.43-7.142l-0.022-0.117c0-0.317 0.127-0.614 0.741-0.614h2.179c0.55 0 0.762 0.254 0.975 0.846 1.078 3.112 2.878 5.842 3.619 5.842 0.275 0 0.402-0.127 0.402-0.825v-3.219c-0.085-1.482-0.868-1.608-0.868-2.137 0.009-0.283 0.241-0.509 0.525-0.509 0.009 0 0.017 0 0.026 0.001l-0.001-0h3.429c0.466 0 0.635 0.254 0.635 0.804v4.34c0 0.465 0.212 0.635 0.339 0.635 0.275 0 0.509-0.17 1.016-0.677 1.054-1.287 1.955-2.759 2.642-4.346l0.046-0.12c0.145-0.363 0.493-0.615 0.9-0.615 0.019 0 0.037 0.001 0.056 0.002l-0.003-0h2.179c0.656 0 0.805 0.337 0.656 0.804c-0.874 1.925-1.856 3.579-2.994 5.111l0.052-0.074c-0.232 0.381-0.317 0.55 0 0.975c0.232 0.317 0.995 0.973 1.503 1.566c0.735 0.727 1.351 1.573 1.816 2.507l0.025 0.055c0.212 0.612-0.106 0.93-0.72 0.93zM20.604 1.004h-9.207c-8.403 0-10.392 1.989-10.392 10.392v9.207c0 8.403 1.989 10.392 10.392 10.392h9.207c8.403 0 10.392-1.989 10.392-10.392v-9.207C31 3 29 1.004 20.604 1.004z"/>
-        </svg>
-      </a>
-
-      <a href="https://commons.wikimedia.org/wiki/File:Max_logo_2025.png" title="Max Messenger" target="_blank" class="social-link">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/64px-Max_logo_2025.png" alt="Max Logo" class="footer-social-img">
+      <!-- Max Messenger корректный SVG -->
+      <a href="https://max.com/79034150070" target="_blank" class="social-link" aria-label="Max">
+         <svg viewBox="0 0 24 24" class="footer-social-img" fill="#FFFFFF">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.5 14h-9v-2h9v2zm0-4h-9v-2h9v2zm0-4h-9V6h9v2z"/>
+         </svg>
       </a>
     </div>
-
-    <p class="text-muted small mb-3">© 2026 Банкротство под ключ. Работаем по всей России.</p>
+    <p class="text-muted small mb-3">© 2026 БЕЗДОЛГОВ.ЛАЙФ. Работаем по всей России.</p>
     <div class="d-flex justify-content-center gap-3">
       <a href="/privacy" class="footer-link">Политика конфиденциальности</a>
       <span class="text-muted small">|</span>
@@ -249,39 +163,15 @@
 </footer>
 
 <div id="quiz-overlay" class="quiz-overlay" aria-hidden="true">
-  <div class="quiz-card" role="dialog" aria-modal="true" aria-label="Квиз">
-    <button type="button" class="btn-close-quiz" id="quiz-close-btn" aria-label="Закрыть">
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M6 6l12 12M18 6L6 18"></path>
-      </svg>
+  <div class="quiz-card" role="dialog" aria-modal="true">
+    <button type="button" class="btn-close-quiz" id="quiz-close-btn">
+      <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"></path></svg>
     </button>
     <div id="quiz-container" class="quiz-inner"></div>
   </div>
 </div>
 
 <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
-<script>
-  function reveal() {
-    document.querySelectorAll(".reveal").forEach(el => {
-      if (el.getBoundingClientRect().top < window.innerHeight - 50) el.classList.add("active");
-    });
-  }
-  window.addEventListener("scroll", reveal);
-  reveal();
-
-  const themeBtn = document.getElementById('theme-toggle-btn');
-  const themeIcon = document.getElementById('theme-icon');
-
-  // По умолчанию дневная тема
-  document.body.classList.remove('dark');
-  themeIcon.textContent = '☀️';
-
-  themeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    themeIcon.textContent = document.body.classList.contains('dark') ? '🌙' : '☀️';
-  });
-</script>
-
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
