@@ -7,10 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!quizOverlay || !quizContainer) return;
 
-  // Актуализированные вопросы для 2026 года
   const steps = [
     { key: 'total_debt', text: 'Укажите общую сумму долга', type: 'slider' },
-    { key: 'debt_structure', text: 'Кому вы должны?', type: 'options', 
+    { key: 'debt_structure', text: 'Кому вы должны? (можно выбрать несколько)', type: 'multiple', 
       choices: ['Только банки', 'Много микрозаймов (МФО)', 'Налоги и ЖКХ', 'Физические лица (расписки)'] },
     { key: 'property_deals', text: 'Были ли сделки с имуществом за последние 3 года?', type: 'options', 
       choices: ['Да, продавал/дарил', 'Нет, ничего не продавал'] },
@@ -64,10 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="quiz-header-with-back">
         ${currentStep > 0 ? `<button class="quiz-back-btn" data-action="back">← Назад</button>` : '<div></div>'}
       </div>
-      <h4 class="text-center mb-4 text-white">${step.text}</h4>
+      <h4 class="text-center mb-4 text-white" style="font-size: 1.1rem;">${step.text}</h4>
 
       <div style="flex:1; display:flex; flex-direction:column;">
-        ${step.type === 'slider' ? renderSlider() : renderOptions(step.choices)}
+        ${step.type === 'slider' ? renderSlider() : (step.type === 'multiple' ? renderMultiple(step.choices) : renderOptions(step.choices))}
       </div>
     `;
 
@@ -83,6 +82,23 @@ document.addEventListener('DOMContentLoaded', () => {
       range.addEventListener('input', () => label.textContent = formatRub(Number(range.value)));
       nextBtn.addEventListener('click', () => {
         answers.total_debt = sliderToDebtKey(Number(range.value));
+        next();
+      });
+    } else if (step.type === 'multiple') {
+      answers[step.key] = answers[step.key] || [];
+      quizContainer.querySelectorAll('[data-action="toggle"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = btn.getAttribute('data-value');
+          btn.classList.toggle('selected');
+          if (btn.classList.contains('selected')) {
+            if (!answers[step.key].includes(val)) answers[step.key].push(val);
+          } else {
+            answers[step.key] = answers[step.key].filter(v => v !== val);
+          }
+        });
+      });
+      quizContainer.querySelector('[data-action="next-multi"]').addEventListener('click', () => {
+        if (!answers[step.key] || answers[step.key].length === 0) answers[step.key] = ['Не указано'];
         next();
       });
     } else {
@@ -123,6 +139,20 @@ document.addEventListener('DOMContentLoaded', () => {
     return html;
   }
 
+  function renderMultiple(choices) {
+    let html = `<div class="quiz-grid-options">`;
+    choices.forEach(choice => {
+      html += `<button type="button" class="btn-quiz-option" data-action="toggle" data-value="${choice}">${choice}</button>`;
+    });
+    html += `</div>`;
+    html += `
+      <div style="margin-top:auto; padding-top: 20px; display: flex; justify-content: flex-end;">
+        <button type="button" class="quiz-submit-btn" style="width: auto; padding: 12px 32px; border-radius: var(--radius-btn);" data-action="next-multi">Далее →</button>
+      </div>
+    `;
+    return html;
+  }
+
   function next() {
     if (currentStep < steps.length - 1) {
       currentStep += 1;
@@ -160,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       
       <div class="text-center mb-4">
-        <h4 class="text-white">Ваша ситуация проанализирована!</h4>
+        <h4 class="text-white" style="font-size: 1.2rem;">Ваша ситуация проанализирована!</h4>
         <p class="text-muted small">Оставьте номер, чтобы получить бесплатный план списания ваших долгов и памятку «Как законно отвечать коллекторам».</p>
       </div>
 
@@ -217,11 +247,14 @@ document.addEventListener('DOMContentLoaded', () => {
           window.grecaptcha.execute(SITE_KEY, { action: 'consult' }).then(res).catch(rej);
         });
 
+        // Склеиваем мультивыбор в строку через запятую для отправки в app.py
+        const debtStructStr = Array.isArray(answers.debt_structure) ? answers.debt_structure.join(', ') : answers.debt_structure;
+
         const payload = {
           name: form.name.value || '—',
           phone: phone,
           total_debt: answers.total_debt,
-          debt_structure: answers.debt_structure,
+          debt_structure: debtStructStr,
           property_deals: answers.property_deals,
           current_stage: answers.current_stage,
           'g-recaptcha-response': token
