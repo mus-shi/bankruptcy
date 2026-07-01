@@ -345,3 +345,8 @@ body.quiz-open .quiz-overlay { display: flex; }
 input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 .form-control { background: #fff; border: 1px solid rgba(0,0,0,0.2); color: var(--text-main); padding: 12px; border-radius: var(--radius-btn); }
 .form-control:focus { border-color: var(--accent-color); outline: none; box-shadow: 0 0 0 3px rgba(13,110,253,0.2); }
+
+/* в самом конце style.css */
+.hero-viewport {
+  padding-top: 12px;
+}
