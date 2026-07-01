@@ -7,7 +7,7 @@
   
   --text-main: #2c3238; 
   --text-muted: #6c757d;
-  
+
   --primary-color: #1a1e23; 
   --accent-color: #0d6efd; 
   --quiz-theme-color: #0d6efd;
@@ -116,44 +116,24 @@ h1, h2, h3, h4, h5 {
 /* =========================
    КОМПАКТНЫЕ КАРТОЧКИ
    ========================= */
-.hero-viewport {
-  position: relative;
-  min-height: calc(100vh - 60px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-bottom: 10px;
-  padding-top: 15px;
-}
+/* Расширяем контейнер, чтобы блоки не казались узкими */
 
+.hero-viewport.container {
+  max-width: 1280px; 
+}
 .equal-block {
   background-color: var(--card-bg);
   border: 1px solid rgba(0,0,0,0.08);
   border-radius: var(--radius-card);
-  padding: 14px 10px !important;
+  padding: 18px 14px !important; /* Увеличили внутренние отступы (воздух внутри карточки) */
   height: 100%;
-  min-height: 130px; 
+  min-height: 140px; /* Чуть увеличили высоту */
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   transition: transform .22s ease, box-shadow .22s ease;
   box-shadow: var(--shadow-card);
-}
-.equal-block:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-card-hover);
-  border-color: var(--accent-color);
-}
-
-.equal-block .icon-wrapper {
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-  color: var(--accent-color);
 }
 /* Обновленный стиль для линейных SVG */
 .equal-block .icon-wrapper svg {
