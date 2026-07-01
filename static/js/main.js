@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="quiz-header-with-back">
         ${currentStep > 0 ? `<button class="quiz-back-btn" data-action="back">← Назад</button>` : '<div></div>'}
       </div>
-      <h4 class="text-center mb-4 text-white" style="font-size: 1.1rem;">${step.text}</h4>
+      <h4 class="text-center mb-4" style="font-size: 1.1rem; color: var(--primary-color); font-weight: 800;">${step.text}</h4>
 
       <div style="flex:1; display:flex; flex-direction:column;">
         ${step.type === 'slider' ? renderSlider() : (step.type === 'multiple' ? renderMultiple(step.choices) : renderOptions(step.choices))}
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       
       <div class="text-center mb-4">
-        <h4 class="text-white" style="font-size: 1.2rem;">Ваша ситуация проанализирована!</h4>
+        <h4 style="font-size: 1.2rem; color: var(--primary-color); font-weight: 800;">Ваша ситуация проанализирована!</h4>
         <p class="text-muted small">Оставьте номер, чтобы получить бесплатный план списания ваших долгов и памятку «Как законно отвечать коллекторам».</p>
       </div>
 
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="form-check mb-2">
           <input class="form-check-input" type="checkbox" id="agree" name="agree" required />
           <label class="form-check-label small text-muted" for="agree">
-            Принимаю условия <a href="/offer" target="_blank" class="text-white">оферты</a>
+            Принимаю условия <a href="/offer" target="_blank" style="color: var(--accent-color); font-weight: 600; text-decoration: none;">оферты</a>
           </label>
         </div>
         <div id="formMsg" class="mt-2 small"></div>
@@ -247,7 +247,6 @@ document.addEventListener('DOMContentLoaded', () => {
           window.grecaptcha.execute(SITE_KEY, { action: 'consult' }).then(res).catch(rej);
         });
 
-        // Склеиваем мультивыбор в строку через запятую для отправки в app.py
         const debtStructStr = Array.isArray(answers.debt_structure) ? answers.debt_structure.join(', ') : answers.debt_structure;
 
         const payload = {
