@@ -114,19 +114,18 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   КОМПАКТНЫЕ КАРТОЧКИ
+   КОМПАКТНЫЕ КАРТОЧКИ (УМЕНЬШЕННЫЕ)
    ========================= */
-/* Строго фиксируем размер карточек для идеальной симметрии */
 .equal-block {
   background-color: var(--card-bg);
   border: 1px solid rgba(0,0,0,0.08);
   border-radius: var(--radius-card);
-  padding: 16px 12px !important;
-  height: 140px; /* Жесткая одинаковая высота для всех 8 блоков */
+  padding: 12px 10px !important;
+  height: 110px !important;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Выравниваем контент точно по центру */
+  justify-content: center;
   text-align: center;
   transition: transform .22s ease, box-shadow .22s ease;
   box-shadow: var(--shadow-card);
@@ -138,68 +137,110 @@ h1, h2, h3, h4, h5 {
   border-color: var(--accent-color);
 }
 
-/* Намертво фиксируем размер иконок, чтобы они не взрывали верстку */
 .equal-block .icon-wrapper {
-  width: 36px !important;
-  height: 36px !important;
-  flex: 0 0 36px !important; /* Запрещаем растяжение или сжатие */
-  margin-bottom: 10px;
-  color: var(--primary-color); /* Делаем иконки темно-серыми для строгости */
+  width: 28px !important;
+  height: 28px !important;
+  flex: 0 0 28px !important;
+  margin-bottom: 6px !important;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* ЮРИДИЧЕСКИЙ СТИЛЬ ДЛЯ ИКОНОК */
+/* Блок преимуществ - чередование синего и золотого */
+.equal-block:nth-child(1) .icon-wrapper { color: #c9a84c !important; }
+.equal-block:nth-child(2) .icon-wrapper { color: #1a3a6b !important; }
+.equal-block:nth-child(3) .icon-wrapper { color: #c9a84c !important; }
+.equal-block:nth-child(4) .icon-wrapper { color: #1a3a6b !important; }
+
+/* Блок шагов - чередование золотого и синего */
+.step-col:nth-child(1) .icon-wrapper { color: #c9a84c !important; }
+.step-col:nth-child(2) .icon-wrapper { color: #1a3a6b !important; }
+.step-col:nth-child(3) .icon-wrapper { color: #c9a84c !important; }
+.step-col:nth-child(4) .icon-wrapper { color: #1a3a6b !important; }
+
 .equal-block .icon-wrapper svg {
   width: 100%;
   height: 100%;
   stroke: currentColor;
-  stroke-width: 1.5; /* Делаем линии иконок тоньше и элегантнее */
-  fill: none; 
-}
-/* Обновленный стиль для линейных SVG */
-.equal-block .icon-wrapper svg {
-  width: 100%;
-  height: 100%;
-  stroke: currentColor;
-  fill: none; 
+  stroke-width: 1.8 !important;
+  fill: none;
 }
 
 .block-title {
-  font-size: 0.85rem;
+  font-size: 0.75rem !important;
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 2px !important;
   color: var(--primary-color);
 }
+
 .block-text {
-  font-size: 0.72rem;
-  line-height: 1.3;
+  font-size: 0.65rem !important;
+  line-height: 1.2 !important;
   color: var(--text-muted);
 }
 
-
-
 /* =========================
-   КНОПКА
+   КНОПКА (НОВЫЙ ВАУ-ЭФФЕКТ)
    ========================= */
 .btn-start-online {
-  background: linear-gradient(135deg, var(--cta-a), var(--cta-b));
-  color: #fff;
-  padding: 14px 42px;
-  border-radius: var(--radius-btn);
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  text-transform: uppercase;
-  border: none;
-  transition: transform .2s ease, filter .2s ease, box-shadow .2s ease;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+  background: linear-gradient(135deg, #dc3545, #ff6b6b) !important;
+  color: #fff !important;
+  padding: 16px 48px !important;
+  border-radius: 50px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  border: none !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 1px !important;
+  box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.5) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  overflow: hidden !important;
+  cursor: pointer;
 }
+
+/* Эффект "волна" при наведении */
+.btn-start-online::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 0 !important;
+  height: 0 !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translate(-50%, -50%) !important;
+  transition: width 0.6s ease, height 0.6s ease !important;
+}
+
+.btn-start-online:hover::before {
+  width: 400px !important;
+  height: 400px !important;
+}
+
 .btn-start-online:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.05);
-  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+  transform: translateY(-3px) scale(1.03) !important;
+  box-shadow: 0 8px 30px rgba(220, 53, 69, 0.5) !important;
+}
+
+/* Эффект "сияние" - звёздочка */
+.btn-start-online::after {
+  content: '✨' !important;
+  position: absolute !important;
+  right: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  font-size: 20px !important;
+  opacity: 0 !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-start-online:hover::after {
+  opacity: 1 !important;
+  right: 18px !important;
 }
 
 /* =========================
@@ -251,7 +292,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   КВИЗ
+   КВИЗ (УМЕНЬШЕННЫЙ)
    ========================= */
 .quiz-overlay {
   position: fixed;
@@ -267,8 +308,8 @@ h1, h2, h3, h4, h5 {
 body.quiz-open .quiz-overlay { display: flex; }
 
 .quiz-card {
-  width: min(520px, 100%);
-  height: min(580px, 86svh);
+  width: min(460px, 95%);
+  height: min(520px, 80svh);
   background: var(--card-bg);
   border-radius: var(--radius-card);
   border: 1px solid rgba(0,0,0,0.1);
@@ -297,9 +338,19 @@ body.quiz-open .quiz-overlay { display: flex; }
 .btn-close-quiz:hover { background: rgba(0,0,0,0.1); }
 .btn-close-quiz svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; }
 
-.quiz-inner { padding: 50px 24px 24px; display: flex; flex-direction: column; height: 100%; }
+.quiz-inner { 
+  padding: 40px 20px 20px !important;
+  display: flex; 
+  flex-direction: column; 
+  height: 100%; 
+}
 
-.quiz-header-with-back { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.quiz-header-with-back { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  margin-bottom: 16px; 
+}
 
 .quiz-back-btn {
   border: 1px solid rgba(0,0,0,0.2);
@@ -312,18 +363,23 @@ body.quiz-open .quiz-overlay { display: flex; }
 }
 .quiz-back-btn:hover { background: rgba(0,0,0,0.05); }
 
-.quiz-grid-options { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.quiz-grid-options { 
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: 6px !important;
+}
+
 .btn-quiz-option {
   border: 1px solid rgba(0,0,0,0.1);
   background: #f8f9fa;
   color: var(--primary-color);
-  padding: 12px;
+  padding: 10px !important;
   font-weight: 600;
   cursor: pointer;
   transition: all .2s ease;
   text-align: left;
   border-radius: var(--radius-btn);
-  font-size: 0.9rem;
+  font-size: 0.85rem !important;
 }
 .btn-quiz-option:hover { border-color: var(--accent-color); background: rgba(13, 110, 253, 0.05); }
 .btn-quiz-option.selected { border-color: var(--accent-color); background: rgba(13, 110, 253, 0.1); box-shadow: inset 3px 0 0 var(--accent-color); }
@@ -331,7 +387,7 @@ body.quiz-open .quiz-overlay { display: flex; }
 .quiz-submit-btn {
   width: 100%;
   border: 0;
-  padding: 14px;
+  padding: 12px !important;
   font-weight: 800;
   text-transform: uppercase;
   color: #fff;
@@ -346,52 +402,6 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 .form-control { background: #fff; border: 1px solid rgba(0,0,0,0.2); color: var(--text-main); padding: 12px; border-radius: var(--radius-btn); }
 .form-control:focus { border-color: var(--accent-color); outline: none; box-shadow: 0 0 0 3px rgba(13,110,253,0.2); }
 
-/* в самом конце style.css */
 .hero-viewport {
   padding-top: 12px;
-}
-/* =========================
-   АНИМИРОВАННАЯ КНОПКА (усиленная версия)
-   ========================= */
-.btn-start-online {
-  background: linear-gradient(135deg, var(--cta-a), var(--cta-b)) !important;
-  color: #fff !important;
-  padding: 14px 42px !important;
-  border-radius: var(--radius-btn) !important;
-  font-family: 'Montserrat', sans-serif !important;
-  font-weight: 800 !important;
-  text-transform: uppercase !important;
-  border: none !important;
-  transition: transform .2s ease, filter .2s ease, box-shadow .2s ease !important;
-  font-size: 1rem !important;
-  letter-spacing: 0.5px !important;
-  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3) !important;
-  animation: gentlePulse 3s ease-in-out infinite !important;
-}
-
-.btn-start-online:hover {
-  transform: translateY(-2px) !important;
-  filter: brightness(1.05) !important;
-  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4) !important;
-}
-
-@keyframes gentlePulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
-  }
-  50% {
-    transform: scale(1.02);
-    box-shadow: 0 6px 25px rgba(220, 53, 69, 0.5);
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
-  }
-}
-
-@media (max-width: 576px) {
-  .btn-start-online {
-    animation: none !important;
-  }
 }
