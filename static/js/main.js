@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const step = steps[currentStep];
 
     quizContainer.innerHTML = `
-      <div style="height: 6px; background: #333; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+      <div style="height: 6px; background: #e9ecef; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
         <div style="height: 100%; width:${progressPercent()}%; background-color: var(--accent-color); transition: width 0.3s ease;"></div>
       </div>
 
@@ -86,6 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     } else if (step.type === 'multiple') {
       answers[step.key] = answers[step.key] || [];
+      const nextBtnMulti = quizContainer.querySelector('[data-action="next-multi"]');
+      
       quizContainer.querySelectorAll('[data-action="toggle"]').forEach(btn => {
         btn.addEventListener('click', () => {
           const val = btn.getAttribute('data-value');
@@ -95,18 +97,30 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             answers[step.key] = answers[step.key].filter(v => v !== val);
           }
+          // Снимаем disabled если выбран хотя бы 1 элемент
+          nextBtnMulti.disabled = answers[step.key].length === 0;
         });
       });
-      quizContainer.querySelector('[data-action="next-multi"]').addEventListener('click', () => {
+      nextBtnMulti.addEventListener('click', () => {
         if (!answers[step.key] || answers[step.key].length === 0) answers[step.key] = ['Не указано'];
         next();
       });
     } else {
+      // Обновленная логика для одиночных опций
+      const nextBtnSingle = quizContainer.querySelector('[data-action="next-single"]');
       quizContainer.querySelectorAll('[data-action="pick"]').forEach(btn => {
         btn.addEventListener('click', () => {
+          // Убираем класс selected со всех кнопок
+          quizContainer.querySelectorAll('[data-action="pick"]').forEach(b => b.classList.remove('selected'));
+          // Добавляем текущей
+          btn.classList.add('selected');
           answers[step.key] = btn.getAttribute('data-value');
-          next();
+          // Включаем кнопку Далее
+          nextBtnSingle.disabled = false;
         });
+      });
+      nextBtnSingle.addEventListener('click', () => {
+        if (answers[step.key]) next();
       });
     }
   }
@@ -136,6 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
       html += `<button type="button" class="btn-quiz-option" data-action="pick" data-value="${choice}">${choice}</button>`;
     });
     html += `</div>`;
+    html += `
+      <div style="margin-top:auto; padding-top: 20px;">
+        <button type="button" class="quiz-submit-btn" data-action="next-single" disabled>Далее →</button>
+      </div>
+    `;
     return html;
   }
 
@@ -146,8 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     html += `</div>`;
     html += `
-      <div style="margin-top:auto; padding-top: 20px; display: flex; justify-content: flex-end;">
-        <button type="button" class="quiz-submit-btn" style="width: auto; padding: 12px 32px; border-radius: var(--radius-btn);" data-action="next-multi">Далее →</button>
+      <div style="margin-top:auto; padding-top: 20px;">
+        <button type="button" class="quiz-submit-btn" data-action="next-multi" disabled>Далее →</button>
       </div>
     `;
     return html;
@@ -181,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderForm() {
     quizContainer.innerHTML = `
-      <div style="height: 6px; background: #333; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+      <div style="height: 6px; background: #e9ecef; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
         <div style="height: 100%; width:100%; background-color: var(--accent-color);"></div>
       </div>
 
@@ -233,10 +252,10 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const phone = form.phone.value;
       if (phone.replace(/\D/g, '').length !== 11) {
-        msg.textContent = 'Введите телефон полностью.'; msg.style.color = 'var(--accent-color)'; return;
+        msg.textContent = 'Введите телефон полностью.'; msg.style.color = 'var(--cta-a)'; return;
       }
       if (!form.agree.checked) {
-        msg.textContent = 'Нужно принять условия.'; msg.style.color = 'var(--accent-color)'; return;
+        msg.textContent = 'Нужно принять условия.'; msg.style.color = 'var(--cta-a)'; return;
       }
 
       submitBtn.disabled = true; submitBtn.textContent = 'Отправляю...';
@@ -266,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!res.ok) throw new Error();
         window.location.href = '/thanks';
       } catch (err) {
-        msg.textContent = 'Ошибка отправки. Позвоните нам.'; msg.style.color = 'var(--accent-color)';
+        msg.textContent = 'Ошибка отправки. Позвоните нам.'; msg.style.color = 'var(--cta-a)';
         submitBtn.disabled = false; submitBtn.textContent = 'Получить план и памятку';
       }
     });
