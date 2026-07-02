@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>БЕЗДОЛГОВ.ЛАЙФ | Банкротство под ключ</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=700;800;900&family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -35,6 +35,10 @@
     <div class="container h-100 d-flex flex-column justify-content-center pt-3 pb-3">
       <div class="row align-items-center h-100">
         
+        <div class="col-lg-5 d-none d-lg-flex justify-content-center align-items-end h-100 animate-up delay-1 relative-img-container">
+          <img src="{{ url_for('static', filename='img/big-main.png') }}" alt="Силуэт специалиста" class="hero-silhouette">
+        </div>
+
         <div class="col-lg-7 hero-text-col text-start animate-up">
           <h1 class="text-uppercase mb-2 hero-title" style="color: var(--primary-color);">
             Законно спишем ваши долги с гарантией сохранения имущества
@@ -85,23 +89,23 @@
             <div style="height: 1px; background: rgba(0,0,0,0.2); flex-grow: 1;"></div>
           </div>
 
-          <div class="d-flex justify-content-between mb-4 step-row animate-up delay-2">
-            <div class="step-item"><b>1.</b> Консультация</div>
+          <div class="d-flex justify-content-between mb-3 step-row animate-up delay-2">
+            <div class="step-item step-item-trigger active" data-step="1"><b>1.</b> Консультация</div>
             <div class="step-arrow">→</div>
-            <div class="step-item"><b>2.</b> Документы</div>
+            <div class="step-item step-item-trigger" data-step="2"><b>2.</b> Документы</div>
             <div class="step-arrow">→</div>
-            <div class="step-item"><b>3.</b> Суд</div>
+            <div class="step-item step-item-trigger" data-step="3"><b>3.</b> Суд</div>
             <div class="step-arrow">→</div>
-            <div class="step-item"><b>4.</b> Свобода</div>
+            <div class="step-item step-item-trigger" data-step="4"><b>4.</b> Свобода</div>
           </div>
 
-          <div class="animate-up delay-3">
+          <div id="step-desc-text" class="step-desc-box animate-up delay-2">
+            Детальный правовой аудит вашей ситуации. Мы анализируем структуру задолженности, оцениваем риски по ранее совершенным сделкам и выстраиваем жесткую стратегию защиты ваших имущественных прав. Никаких пустых обещаний — только сухой расчет шансов на списание.
+          </div>
+
+          <div class="animate-up delay-3 mt-4">
             <button type="button" id="show-form-btn" class="btn-start-online">Узнать шансы на списание</button>
           </div>
-        </div>
-
-        <div class="col-lg-5 d-none d-lg-flex justify-content-center align-items-end h-100 animate-up delay-1 relative-img-container">
-          <img src="{{ url_for('static', filename='img/big-main.png') }}" alt="Силуэт специалиста" class="hero-silhouette">
         </div>
 
       </div>
@@ -110,13 +114,13 @@
 
   <section class="snap-section info-section d-flex flex-column">
     
-    <div class="about-wrapper py-5 flex-shrink-0">
+    <div class="about-wrapper flex-shrink-0">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-lg-8 mx-auto text-center">
-            <h2 class="mb-3">Надежная правовая защита</h2>
-            <div style="height: 3px; width: 60px; background: var(--cta-a); margin: 0 auto 20px;"></div>
-            <p class="about-text">
+            <h2 class="mb-2">Надежная правовая защита</h2>
+            <div style="height: 3px; width: 60px; background: var(--cta-a); margin: 0 auto 15px;"></div>
+            <p class="about-text mb-0">
               Мы не являемся конвейером по штамповке типовых заявлений. Наша главная компетенция — <strong>глубокое понимание имущественных отношений и деловых обычаев</strong>. Перед тем как начать процедуру, мы досконально анализируем структуру ваших долгов и сделки за последние 3 года.
             </p>
           </div>
@@ -124,31 +128,31 @@
       </div>
     </div>
 
-    <div class="office-wrapper py-5 flex-grow-1 d-flex align-items-center bg-light">
+    <div class="office-wrapper flex-grow-1 d-flex align-items-center bg-light">
       <div class="container">
-        <h2 class="text-center mb-4">Очная консультация</h2>
+        <h2 class="text-center mb-3">Очная консультация</h2>
         <div class="row g-0 office-card">
-          <div class="col-md-6 p-4 p-md-5 d-flex flex-column justify-content-center bg-white">
-            <h3 class="h5 mb-3">Для жителей Ставропольского края</h3>
-            <p class="small text-muted mb-4">Вы можете прийти на закрытую консультацию в наш офис.</p>
-            <div class="mb-3">
+          <div class="col-md-6 p-4 p-md-4 d-flex flex-column justify-content-center bg-white">
+            <h3 class="h5 mb-2">Для жителей Ставропольского края</h3>
+            <p class="small text-muted mb-3">Вы можете прийти на закрытую консультацию в наш офис.</p>
+            <div class="mb-2">
               <p class="mb-1 text-dark"><strong>Адрес:</strong></p>
-              <p class="text-muted small">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
+              <p class="text-muted small mb-0">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
             </div>
             <div class="mt-3">
               <a href="tel:+790341500" class="btn btn-outline-dark px-4 py-2 sharp-btn">📞 Позвонить</a>
             </div>
           </div>
-          <div class="col-md-6" style="min-height: 350px;">
+          <div class="col-md-6 map-container">
             <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" width="100%" height="100%" frameborder="0"></iframe>
           </div>
         </div>
       </div>
     </div>
 
-    <footer class="text-center py-4 bg-white flex-shrink-0 border-top">
+    <footer class="text-center py-3 bg-white flex-shrink-0 border-top">
       <div class="container">
-        <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
+        <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
           <a href="https://wa.me/790341500" target="_blank" class="social-link" aria-label="WhatsApp">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="footer-social-img"><path fill="#25D366" d="M12 2a10 10 0 0 0-8.65 15.02L2 22l5.11-1.31A10 10 0 1 0 12 2Z"/><path fill="#FFFFFF" d="M17.42 14.59c-.3-.15-1.78-.88-2.06-.98s-.48-.15-.68.15-.78.98-.96 1.18-.35.22-.65.07a8.28 8.28 0 0 1-2.43-1.5a9.1 9.1 0 0 1-1.68-2.08c-.17-.3 0-.46.13-.61.13-.13.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53s-.68-1.63-.93-2.23c-.24-.58-.49-.5-.68-.5h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.17-1.44-.08-.12-.27-.2-.57-.35Z"/></svg>
           </a>
@@ -162,7 +166,7 @@
             <div style="width: 32px; height: 32px; background: url('https://maxicons.ru/icons/MAX.svg') center/contain no-repeat; display: block;"></div>
           </a>
         </div>
-        <p class="text-muted small mb-2 fw-bold">© 2026 БЕЗДОЛГОВ.ЛАЙФ. Работаем по всей России.</p>
+        <p class="text-muted small mb-1 fw-bold">© 2026 БЕЗДОЛГОВ.ЛАЙФ. Работаем по всей России.</p>
         <div class="d-flex justify-content-center gap-2">
           <a href="/privacy" class="footer-link">Политика</a>
           <span class="text-muted small">|</span>
