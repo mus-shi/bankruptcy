@@ -56,14 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const step = steps[currentStep];
 
     quizContainer.innerHTML = `
-      <div style="height: 6px; background: #e9ecef; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+      <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-bottom: 20px;">
         <div style="height: 100%; width:${progressPercent()}%; background-color: var(--accent-color); transition: width 0.3s ease;"></div>
       </div>
 
-      <div class="quiz-header-with-back">
+      <div class="d-flex align-items-center mb-3">
         ${currentStep > 0 ? `<button class="quiz-back-btn" data-action="back">← Назад</button>` : '<div></div>'}
       </div>
-      <h4 class="text-center mb-4" style="font-size: 1.1rem; color: var(--primary-color); font-weight: 800;">${step.text}</h4>
+      <h4 class="text-center mb-4" style="font-size: 1.1rem; color: var(--primary-color); font-weight: 900;">${step.text}</h4>
 
       <div style="flex:1; display:flex; flex-direction:column;">
         ${step.type === 'slider' ? renderSlider() : (step.type === 'multiple' ? renderMultiple(step.choices) : renderOptions(step.choices))}
@@ -97,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             answers[step.key] = answers[step.key].filter(v => v !== val);
           }
-          // Снимаем disabled если выбран хотя бы 1 элемент
           nextBtnMulti.disabled = answers[step.key].length === 0;
         });
       });
@@ -106,16 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
         next();
       });
     } else {
-      // Обновленная логика для одиночных опций
       const nextBtnSingle = quizContainer.querySelector('[data-action="next-single"]');
       quizContainer.querySelectorAll('[data-action="pick"]').forEach(btn => {
         btn.addEventListener('click', () => {
-          // Убираем класс selected со всех кнопок
           quizContainer.querySelectorAll('[data-action="pick"]').forEach(b => b.classList.remove('selected'));
-          // Добавляем текущей
           btn.classList.add('selected');
           answers[step.key] = btn.getAttribute('data-value');
-          // Включаем кнопку Далее
           nextBtnSingle.disabled = false;
         });
       });
@@ -132,12 +127,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="text-center mt-4">
           <span id="range-value-display" class="range-value-label">${formatRub(defaultValue)}</span>
           <input type="range" id="debtRange" min="200000" max="5000000" step="50000" value="${defaultValue}">
-          <div class="d-flex justify-content-between mt-2">
-            <small class="text-muted">200 000 ₽</small>
-            <small class="text-muted">&gt; 5 млн ₽</small>
+          <div class="d-flex justify-content-between mt-2 px-2">
+            <small class="text-muted fw-bold">200 000 ₽</small>
+            <small class="text-muted fw-bold">&gt; 5 млн ₽</small>
           </div>
         </div>
-        <div style="margin-top:auto;">
+        <div class="quiz-action-area">
           <button type="button" class="quiz-submit-btn" data-action="next">Далее</button>
         </div>
       </div>
@@ -151,8 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     html += `</div>`;
     html += `
-      <div style="margin-top:auto; padding-top: 20px;">
-        <button type="button" class="quiz-submit-btn" data-action="next-single" disabled>Далее →</button>
+      <div class="quiz-action-area">
+        <button type="button" class="quiz-submit-btn" data-action="next-single" disabled>Далее</button>
       </div>
     `;
     return html;
@@ -165,8 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     html += `</div>`;
     html += `
-      <div style="margin-top:auto; padding-top: 20px;">
-        <button type="button" class="quiz-submit-btn" data-action="next-multi" disabled>Далее →</button>
+      <div class="quiz-action-area">
+        <button type="button" class="quiz-submit-btn" data-action="next-multi" disabled>Далее</button>
       </div>
     `;
     return html;
@@ -200,17 +195,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderForm() {
     quizContainer.innerHTML = `
-      <div style="height: 6px; background: #e9ecef; border-radius: 4px; overflow: hidden; margin-bottom: 20px;">
+      <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-bottom: 20px;">
         <div style="height: 100%; width:100%; background-color: var(--accent-color);"></div>
       </div>
 
-      <div class="quiz-header-with-back">
+      <div class="d-flex align-items-center mb-2">
         <button class="quiz-back-btn" data-action="back">← Назад</button>
       </div>
       
       <div class="text-center mb-4">
-        <h4 style="font-size: 1.2rem; color: var(--primary-color); font-weight: 800;">Ваша ситуация проанализирована!</h4>
-        <p class="text-muted small">Оставьте номер, чтобы получить бесплатный план списания ваших долгов и памятку «Как законно отвечать коллекторам».</p>
+        <h4 style="font-size: 1.2rem; color: var(--primary-color); font-weight: 900; text-transform: uppercase;">Ситуация проанализирована</h4>
+        <p class="text-muted small">Оставьте номер, чтобы получить план списания долгов и памятку «Как законно отвечать коллекторам».</p>
       </div>
 
       <form id="leadForm" class="mt-2" novalidate style="display:flex; flex-direction:column; flex:1;">
@@ -223,13 +218,13 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="form-check mb-2">
           <input class="form-check-input" type="checkbox" id="agree" name="agree" required />
           <label class="form-check-label small text-muted" for="agree">
-            Принимаю условия <a href="/offer" target="_blank" style="color: var(--accent-color); font-weight: 600; text-decoration: none;">оферты</a>
+            Принимаю условия <a href="/offer" target="_blank" style="color: var(--primary-color); font-weight: 700;">оферты</a>
           </label>
         </div>
-        <div id="formMsg" class="mt-2 small"></div>
+        <div id="formMsg" class="mt-2 small text-center fw-bold"></div>
 
-        <div style="margin-top:auto;">
-          <button type="submit" class="quiz-submit-btn" id="submitBtn">Получить план и памятку</button>
+        <div class="quiz-action-area">
+          <button type="submit" class="quiz-submit-btn" id="submitBtn">Получить план</button>
         </div>
       </form>
     `;
@@ -258,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         msg.textContent = 'Нужно принять условия.'; msg.style.color = 'var(--cta-a)'; return;
       }
 
-      submitBtn.disabled = true; submitBtn.textContent = 'Отправляю...';
+      submitBtn.disabled = true; submitBtn.textContent = 'ОТПРАВЛЯЮ...';
 
       try {
         const token = await new Promise((res, rej) => {
@@ -286,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '/thanks';
       } catch (err) {
         msg.textContent = 'Ошибка отправки. Позвоните нам.'; msg.style.color = 'var(--cta-a)';
-        submitBtn.disabled = false; submitBtn.textContent = 'Получить план и памятку';
+        submitBtn.disabled = false; submitBtn.textContent = 'ПОЛУЧИТЬ ПЛАН';
       }
     });
   }
