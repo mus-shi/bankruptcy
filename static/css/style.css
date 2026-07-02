@@ -4,22 +4,21 @@
 :root {
   --bg-body: #f4f6f9; 
   --card-bg: #ffffff; 
-  
   --text-main: #2c3238; 
   --text-muted: #6c757d;
-
-  --primary-color: #1a1e23; 
-  --accent-color: #0d6efd; 
-  --quiz-theme-color: #0d6efd;
-
-  --cta-a: #dc3545; 
+  
+  --primary-color: #0b3b60; /* Глубокий синий из лого */
+  --accent-color: #1a56db;  /* Яркий синий для акцентов */
+  --quiz-theme-color: #1a56db;
+  
+  --cta-a: #dc3545; /* Оставляем красный для главной кнопки */
   --cta-b: #c82333;
 
-  --radius-card: 6px;
-  --radius-btn: 4px;
+  --radius-card: 8px;
+  --radius-btn: 6px;
 
   --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* =========================
@@ -114,18 +113,37 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   КОМПАКТНЫЕ КАРТОЧКИ (УМЕНЬШЕННЫЕ)
+   ГЛАВНЫЙ ЭКРАН И КАРТОЧКИ
    ========================= */
+.hero-viewport {
+  position: relative;
+  min-height: calc(100vh - 60px); 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  /* Полупрозрачный градиент + картинка из запроса пользователя (bg-main.png) */
+  background: linear-gradient(rgba(244, 246, 249, 0.88), rgba(244, 246, 249, 0.95)), url('../img/bg-main.png') center/cover no-repeat;
+}
+
+.hero-viewport .row {
+  max-width: 1050px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .equal-block {
   background-color: var(--card-bg);
-  border: 1px solid rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.06);
   border-radius: var(--radius-card);
-  padding: 12px 10px !important;
-  height: 110px !important;
+  padding: 24px 16px !important;
+  height: 100% !important;
+  min-height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   transition: transform .22s ease, box-shadow .22s ease;
   box-shadow: var(--shadow-card);
@@ -134,55 +152,52 @@ h1, h2, h3, h4, h5 {
 .equal-block:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-card-hover);
-  border-color: var(--accent-color);
 }
 
+/* Объемные стилизованные иконки */
 .equal-block .icon-wrapper {
-  width: 28px !important;
-  height: 28px !important;
-  flex: 0 0 28px !important;
-  margin-bottom: 6px !important;
+  width: 48px !important;
+  height: 48px !important;
+  flex: 0 0 48px !important;
+  margin-bottom: 12px !important;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 12px;
+  background: rgba(26, 86, 219, 0.08); 
+  color: var(--accent-color) !important;
+  transition: all 0.3s ease;
 }
 
-/* ЮРИДИЧЕСКИЙ СТИЛЬ ДЛЯ ИКОНОК */
-/* Блок преимуществ - чередование синего и золотого */
-.equal-block:nth-child(1) .icon-wrapper { color: #c9a84c !important; }
-.equal-block:nth-child(2) .icon-wrapper { color: #1a3a6b !important; }
-.equal-block:nth-child(3) .icon-wrapper { color: #c9a84c !important; }
-.equal-block:nth-child(4) .icon-wrapper { color: #1a3a6b !important; }
-
-/* Блок шагов - чередование золотого и синего */
-.step-col:nth-child(1) .icon-wrapper { color: #c9a84c !important; }
-.step-col:nth-child(2) .icon-wrapper { color: #1a3a6b !important; }
-.step-col:nth-child(3) .icon-wrapper { color: #c9a84c !important; }
-.step-col:nth-child(4) .icon-wrapper { color: #1a3a6b !important; }
+.equal-block:hover .icon-wrapper {
+  background: var(--accent-color);
+  color: #fff !important;
+  transform: scale(1.05);
+}
 
 .equal-block .icon-wrapper svg {
-  width: 100%;
-  height: 100%;
+  width: 24px;
+  height: 24px;
   stroke: currentColor;
-  stroke-width: 1.8 !important;
+  stroke-width: 2 !important;
   fill: none;
 }
 
 .block-title {
-  font-size: 0.75rem !important;
-  font-weight: 700;
-  margin-bottom: 2px !important;
+  font-size: 0.85rem !important;
+  font-weight: 800;
+  margin-bottom: 6px !important;
   color: var(--primary-color);
 }
 
 .block-text {
-  font-size: 0.65rem !important;
-  line-height: 1.2 !important;
+  font-size: 0.75rem !important;
+  line-height: 1.4 !important;
   color: var(--text-muted);
 }
 
 /* =========================
-   КНОПКА (НОВЫЙ ВАУ-ЭФФЕКТ)
+   КНОПКА 
    ========================= */
 .btn-start-online {
   background: linear-gradient(135deg, #dc3545, #ff6b6b) !important;
@@ -202,7 +217,6 @@ h1, h2, h3, h4, h5 {
   cursor: pointer;
 }
 
-/* Эффект "волна" при наведении */
 .btn-start-online::before {
   content: '' !important;
   position: absolute !important;
@@ -226,7 +240,6 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 8px 30px rgba(220, 53, 69, 0.5) !important;
 }
 
-/* Эффект "сияние" - звёздочка */
 .btn-start-online::after {
   content: '✨' !important;
   position: absolute !important;
@@ -292,20 +305,29 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   КВИЗ (УМЕНЬШЕННЫЙ)
+   КВИЗ
    ========================= */
 .quiz-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.6);
-  display: none;
   align-items: center;
   justify-content: center;
   padding: 16px;
-  z-index: 2000;
   backdrop-filter: blur(4px);
+  
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  display: flex !important;
+  z-index: -1;
 }
-body.quiz-open .quiz-overlay { display: flex; }
+
+body.quiz-open .quiz-overlay {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2000;
+}
 
 .quiz-card {
   width: min(460px, 95%);
@@ -317,16 +339,24 @@ body.quiz-open .quiz-overlay { display: flex; }
   display: flex;
   flex-direction: column;
   box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+body.quiz-open .quiz-card {
+  transform: scale(1) translateY(0);
+}
+
+/* Кнопка закрытия вынесена наружу */
 .btn-close-quiz {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
-  background: rgba(0,0,0,0.05);
-  border: 1px solid rgba(0,0,0,0.1);
+  top: -16px;
+  right: -16px;
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  border: none;
   color: var(--text-main);
   cursor: pointer;
   z-index: 3;
@@ -334,8 +364,10 @@ body.quiz-open .quiz-overlay { display: flex; }
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: background 0.2s;
 }
-.btn-close-quiz:hover { background: rgba(0,0,0,0.1); }
+.btn-close-quiz:hover { background: #f8f9fa; }
 .btn-close-quiz svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2; fill: none; }
 
 .quiz-inner { 
@@ -381,13 +413,14 @@ body.quiz-open .quiz-overlay { display: flex; }
   border-radius: var(--radius-btn);
   font-size: 0.85rem !important;
 }
-.btn-quiz-option:hover { border-color: var(--accent-color); background: rgba(13, 110, 253, 0.05); }
-.btn-quiz-option.selected { border-color: var(--accent-color); background: rgba(13, 110, 253, 0.1); box-shadow: inset 3px 0 0 var(--accent-color); }
+.btn-quiz-option:hover { border-color: var(--accent-color); background: rgba(26, 86, 219, 0.05); }
+.btn-quiz-option.selected { border-color: var(--accent-color); background: rgba(26, 86, 219, 0.1); box-shadow: inset 3px 0 0 var(--accent-color); }
 
 .quiz-submit-btn {
   width: 100%;
   border: 0;
-  padding: 12px !important;
+  padding: 14px !important;
+  font-size: 1rem !important;
   font-weight: 800;
   text-transform: uppercase;
   color: #fff;
@@ -396,12 +429,12 @@ body.quiz-open .quiz-overlay { display: flex; }
   border-radius: var(--radius-btn);
 }
 .quiz-submit-btn:hover { background: var(--cta-b); }
+.quiz-submit-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
 
 .range-value-label { font-size: 1.4rem; font-weight: 800; color: var(--primary-color); display: inline-block; margin-bottom: 10px; }
 input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 .form-control { background: #fff; border: 1px solid rgba(0,0,0,0.2); color: var(--text-main); padding: 12px; border-radius: var(--radius-btn); }
-.form-control:focus { border-color: var(--accent-color); outline: none; box-shadow: 0 0 0 3px rgba(13,110,253,0.2); }
-
-.hero-viewport {
-  padding-top: 12px;
-}
+.form-control:focus { border-color: var(--accent-color); outline: none; box-shadow: 0 0 0 3px rgba(26,86,219,0.2); }
