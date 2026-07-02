@@ -120,8 +120,16 @@ h1, h2, h3, h4, h5 {
   background: linear-gradient(to left, rgba(244, 246, 249, 1) 0%, rgba(244, 246, 249, 0.8) 100%), url('../img/bg-main.png') center/cover no-repeat;
 }
 
-.hero-title { font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.2; }
-.hero-subtitle { font-size: 1rem; font-weight: 500; }
+.hero-title { 
+  font-size: clamp(1.8rem, 3vw, 2.5rem); 
+  line-height: 1.2; 
+  text-align: justify; /* Выравнивание по ширине */
+}
+.hero-subtitle { 
+  font-size: 1rem; 
+  font-weight: 500; 
+  text-align: justify; /* Выравнивание по ширине */
+}
 
 .compact-block {
   background: var(--card-bg);
@@ -183,6 +191,7 @@ h1, h2, h3, h4, h5 {
   box-shadow: 2px 2px 0 rgba(0,0,0,0.03);
   min-height: 90px;
   transition: opacity 0.15s ease-in-out;
+  text-align: justify; /* Выравнивание по ширине */
 }
 
 .btn-start-online {
