@@ -5,6 +5,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const quizContainer = document.getElementById('quiz-container');
   const closeBtn = document.getElementById('quiz-close-btn');
 
+  // Логика интерактивного переключения шагов порядка работы
+  const stepTriggers = document.querySelectorAll('.step-item-trigger');
+  const stepDescText = document.getElementById('step-desc-text');
+  
+  const stepTexts = {
+    '1': 'Детальный правовой аудит вашей ситуации. Мы анализируем структуру задолженности, оцениваем риски по ранее совершенным сделкам и выстраиваем жесткую стратегию защиты ваших имущественных прав. Никаких пустых обещаний — только сухой расчет шансов на списание.',
+    '2': 'Формирование непробиваемой доказательной базы. Мы берем на себя всю бюрократию: запрашиваем необходимые справки, выписки из реестров и готовим заявление, которое арбитражный суд примет к производству с первого раза. Ваше участие минимально.',
+    '3': 'Активация полного правового щита. С момента введения процедуры кредиторы и коллекторы теряют право взаимодействовать с вами напрямую. Мы представляем ваши интересы на всех заседаниях, блокируя любые попытки оспорить сделки или изъять защищенное имущество.',
+    '4': 'Финальное определение суда. Все задолженности, начисленные пени и штрафы списываются безвозвратно в силу закона (127-ФЗ). Вы получаете на руки официальный судебный акт, подтверждающий вашу полную финансовую независимость.'
+  };
+
+  stepTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      if (trigger.classList.contains('active')) return;
+      
+      stepTriggers.forEach(t => t.classList.remove('active'));
+      trigger.classList.add('active');
+      
+      const stepKey = trigger.getAttribute('data-step');
+      if (stepDescText && stepTexts[stepKey]) {
+        stepDescText.style.opacity = '0';
+        setTimeout(() => {
+          stepDescText.textContent = stepTexts[stepKey];
+          stepDescText.style.opacity = '1';
+        }, 150);
+      }
+    });
+  });
+
   if (!quizOverlay || !quizContainer) return;
 
   const steps = [
@@ -55,8 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderStep() {
     const step = steps[currentStep];
 
+    // Добавлен отступ сверху (margin-top: 12px) шкалы прогресса, чтобы она не соприкасалась с крестиком закрытия квиза
     quizContainer.innerHTML = `
-      <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-bottom: 20px;">
+      <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-top: 12px; margin-bottom: 20px;">
         <div style="height: 100%; width:${progressPercent()}%; background-color: var(--accent-color); transition: width 0.3s ease;"></div>
       </div>
 
@@ -195,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderForm() {
     quizContainer.innerHTML = `
-      <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-bottom: 20px;">
+      <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-top: 12px; margin-bottom: 20px;">
         <div style="height: 100%; width:100%; background-color: var(--accent-color);"></div>
       </div>
 
