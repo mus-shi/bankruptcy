@@ -121,14 +121,14 @@ h1, h2, h3, h4, h5 {
 }
 
 .hero-title { 
-  font-size: clamp(1.8rem, 3vw, 2.5rem); 
+  font-size: clamp(1.4rem, 2.5vw, 2.1rem) !important; 
   line-height: 1.2; 
-  text-align: left; /* Возвращаем выравнивание по левому краю */
+  text-align: left; 
 }
 .hero-subtitle { 
   font-size: 1rem; 
   font-weight: 500; 
-  text-align: left; /* Возвращаем выравнивание по левому краю */
+  text-align: left; 
 }
 
 .compact-block {
@@ -139,7 +139,7 @@ h1, h2, h3, h4, h5 {
   align-items: center;
   gap: 12px;
   border-radius: var(--radius-card);
-  box-shadow: 2px 2px 0 rgba(0,0,0,0.05); /* Рубленый жесткий стиль */
+  box-shadow: 2px 2px 0 rgba(0,0,0,0.05); 
 }
 .c-icon {
   width: 36px; height: 36px;
@@ -165,7 +165,6 @@ h1, h2, h3, h4, h5 {
 }
 .step-arrow { color: var(--accent-color); font-weight: bold; user-select: none; }
 
-/* Стили для интерактивного порядка работы */
 .step-item-trigger {
   cursor: pointer;
   transition: all 0.2s ease;
@@ -191,7 +190,7 @@ h1, h2, h3, h4, h5 {
   box-shadow: 2px 2px 0 rgba(0,0,0,0.03);
   min-height: 90px;
   transition: opacity 0.15s ease-in-out;
-  text-align: justify; /* Выравнивание по ширине */
+  text-align: justify;
 }
 
 .btn-start-online {
@@ -212,18 +211,73 @@ h1, h2, h3, h4, h5 {
 }
 .btn-start-online:hover { background: var(--cta-b) !important; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 rgba(0,0,0,0.15); }
 
-/* Контейнер для фото-силуэта */
-.relative-img-container { position: relative; }
-.hero-silhouette {
-  max-height: 85%; 
+/* ==========================================================================
+   УВЕЛИЧЕНИЕ ФОТО И РЕЗЮМЕ
+   ========================================================================== */
+
+/* Увеличенное фото (Оставляем как есть, но увеличиваем масштаб) */
+.hero-silhouette-enlarged {
+  max-height: 60vh; /* Задаем базу высоты */
   width: auto;
   object-fit: contain;
   filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.2));
-  transform-origin: bottom center;
+  transform-origin: bottom center; /* Увеличивается вверх и в стороны, низ остается на месте */
+  transform: scale(1.15); /* Ключевой параметр для увеличения без ломки сетки */
+  z-index: 1;
+  margin-bottom: 30px; /* Отступ, чтобы влезло резюме */
+}
+
+/* Карточка резюме */
+.expert-resume-card {
+  position: relative;
+  margin-top: -30px; /* Нахлест поверх фото */
+  background: var(--card-bg);
+  border: 2px solid var(--primary-color);
+  box-shadow: 6px 6px 0 var(--cta-a); 
+  padding: 16px;
+  z-index: 10;
+}
+
+.expert-name {
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+  color: var(--text-main);
+  text-transform: uppercase;
+}
+
+.expert-role {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: var(--cta-a);
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.expert-facts {
+  font-size: 0.75rem;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.expert-facts li {
+  margin-bottom: 6px;
+  position: relative;
+  padding-left: 14px;
+}
+
+.expert-facts li::before {
+  content: '■'; 
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--primary-color);
+  font-size: 0.55rem;
+  line-height: 2;
 }
 
 /* =========================
-   ЧАСТЬ 2: О НАС И ОФИС (ОПТИМИЗИРОВАНО ПОД ХУДЫЕ ЭКРАНЫ)
+   ЧАСТЬ 2: О НАС И ОФИС
    ========================= */
 .info-section { 
   background: #fff; 
@@ -288,7 +342,6 @@ body.quiz-open .quiz-overlay { opacity: 1; visibility: visible; z-index: 2000; }
 }
 body.quiz-open .quiz-card { transform: scale(1) translateY(0); }
 
-/* Кнопка закрытия смещена чуть выше */
 .btn-close-quiz {
   position: absolute; top: 8px; right: 12px;
   width: 32px; height: 32px;
@@ -341,72 +394,3 @@ body.quiz-open .quiz-card { transform: scale(1) translateY(0); }
 input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 .form-control { border: 1px solid rgba(0,0,0,0.2); border-radius: var(--radius-btn); padding: 12px; font-weight: 500; }
 .form-control:focus { border-color: var(--primary-color); outline: none; box-shadow: none; }
-
-/* ==========================================================================
-   ОБНОВЛЕНИЯ ДЛЯ СИММЕТРИИ, ИСКЛЮЧЕНИЯ НАЛОЖЕНИЙ И СТРОГОГО СТИЛЯ РЕЗЮМЕ
-   ========================================================================== */
-
-/* Корректируем размер шрифта главного заголовка */
-.hero-title { 
-  font-size: clamp(1.4rem, 2.5vw, 2.1rem) !important; 
-}
-
-/* Строго ограничиваем высоту фото-силуэта для предотвращения вертикального переполнения экрана */
-.hero-silhouette {
-  max-height: 52vh !important; 
-  width: auto;
-  object-fit: contain;
-  filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.2));
-  transform-origin: bottom center;
-  z-index: 1;
-}
-
-/* Брутальная карточка резюме специалиста */
-.expert-resume-card {
-  position: relative;
-  margin-top: -40px; /* Компактный нахлест на нижнюю часть фото */
-  background: var(--card-bg);
-  border: 2px solid var(--primary-color);
-  box-shadow: 6px 6px 0 var(--cta-a); /* Жесткая рубленая тень в тон акцента */
-  padding: 16px;
-  z-index: 10;
-}
-
-.expert-name {
-  font-size: 1.1rem;
-  margin-bottom: 2px;
-  color: var(--text-main);
-  text-transform: uppercase;
-}
-
-.expert-role {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  font-weight: 900;
-  color: var(--cta-a);
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-}
-
-.expert-facts {
-  font-size: 0.75rem;
-  color: var(--text-main);
-  line-height: 1.4;
-}
-
-.expert-facts li {
-  margin-bottom: 6px;
-  position: relative;
-  padding-left: 14px;
-}
-
-/* Строгие квадратные маркеры списков взамен стандартных точек */
-.expert-facts li::before {
-  content: '■'; 
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--primary-color);
-  font-size: 0.55rem;
-  line-height: 2;
-}
