@@ -217,13 +217,16 @@ h1, h2, h3, h4, h5 {
 
 /* Увеличенное фото */
 .hero-silhouette-enlarged {
-  max-height: 60vh;
+  position: absolute;
+  bottom: 0; /* Жестко прижимает фото к самому низу экрана */
+  left: 50%;
+  transform: translateX(-50%) scale(1.1); /* Центрирует и слегка масштабирует */
+  max-height: 55vh; /* Ограничивает высоту, чтобы не было наезда на резюме */
   width: auto;
   object-fit: contain;
   filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.2));
   transform-origin: bottom center;
-  transform: scale(1.15);
-  z-index: 1;
+  z-index: 1; /* Уводит фото под резюме в случае критически низкого экрана */
 }
 
 /* Карточка резюме */
