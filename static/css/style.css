@@ -215,22 +215,20 @@ h1, h2, h3, h4, h5 {
    УВЕЛИЧЕНИЕ ФОТО И РЕЗЮМЕ
    ========================================================================== */
 
-/* Увеличенное фото (Оставляем как есть, но увеличиваем масштаб) */
+/* Увеличенное фото */
 .hero-silhouette-enlarged {
-  max-height: 60vh; /* Задаем базу высоты */
+  max-height: 60vh;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.2));
-  transform-origin: bottom center; /* Увеличивается вверх и в стороны, низ остается на месте */
-  transform: scale(1.15); /* Ключевой параметр для увеличения без ломки сетки */
+  transform-origin: bottom center;
+  transform: scale(1.15);
   z-index: 1;
-  margin-bottom: 30px; /* Отступ, чтобы влезло резюме */
 }
 
 /* Карточка резюме */
 .expert-resume-card {
   position: relative;
-  margin-top: -30px; /* Нахлест поверх фото */
   background: var(--card-bg);
   border: 2px solid var(--primary-color);
   box-shadow: 6px 6px 0 var(--cta-a); 
