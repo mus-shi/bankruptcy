@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>БЕЗДОЛГОВ.ЛАЙФ | Банкротство под ключ</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght=700;800;900&family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -35,9 +35,11 @@
     <div class="container h-100 d-flex flex-column justify-content-center pt-3 pb-3">
       <div class="row align-items-center h-100">
         
-        <div class="col-lg-5 d-none d-lg-flex flex-column justify-content-start align-items-center h-100 position-relative animate-up delay-1 pt-4">
+        <!-- ЛЕВАЯ КОЛОНКА: Резюме сверху → Фото снизу -->
+        <div class="col-lg-5 d-none d-lg-flex flex-column h-100 position-relative">
           
-          <div class="expert-resume-card text-start w-100 position-relative z-2">
+          <!-- Карточка резюме - сверху -->
+          <div class="expert-resume-card flex-shrink-0">
             <h5 class="expert-name">Рамазан Магомедович</h5>
             <div class="expert-role">Арбитражный управляющий</div>
             <ul class="expert-facts list-unstyled mt-2 mb-0">
@@ -47,10 +49,16 @@
               <li><b>Образование:</b> Подготовка при Арбитражном управлении (г. Москва), РИСИ.</li>
             </ul>
           </div>
-
-          <img src="{{ url_for('static', filename='img/big-main.png') }}" alt="Рамазан Магомедович" class="hero-silhouette-enlarged">
+          
+          <!-- Фото - снизу, жестко прижато к полу -->
+          <div class="hero-image-wrapper flex-grow-1 d-flex align-items-end">
+            <img src="{{ url_for('static', filename='img/big-main.png') }}" 
+                 alt="Рамазан Магомедович" 
+                 class="hero-silhouette-enlarged">
+          </div>
           
         </div>
+
         <div class="col-lg-7 hero-text-col text-start animate-up ps-lg-4">
           <h1 class="text-uppercase mb-2 hero-title" style="color: var(--primary-color);">
             Законно спишем ваши долги с гарантией сохранения имущества
