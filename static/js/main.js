@@ -84,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderStep() {
     const step = steps[currentStep];
 
-    // Добавлен отступ сверху (margin-top: 12px) шкалы прогресса, чтобы она не соприкасалась с крестиком закрытия квиза
     quizContainer.innerHTML = `
       <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-top: 12px; margin-bottom: 20px;">
         <div style="height: 100%; width:${progressPercent()}%; background-color: var(--accent-color); transition: width 0.3s ease;"></div>
