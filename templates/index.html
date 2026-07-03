@@ -35,11 +35,22 @@
     <div class="container h-100 d-flex flex-column justify-content-center pt-3 pb-3">
       <div class="row align-items-center h-100">
         
-        <div class="col-lg-5 d-none d-lg-flex justify-content-center align-items-end h-100 animate-up delay-1 relative-img-container">
-          <img src="{{ url_for('static', filename='img/big-main.png') }}" alt="Силуэт специалиста" class="hero-silhouette">
+        <div class="col-lg-4 d-none d-lg-flex flex-column justify-content-end align-items-center h-100 animate-up delay-1 position-relative pb-4">
+          <img src="{{ url_for('static', filename='img/big-main.png') }}" alt="Рамазан Магомедович" class="hero-silhouette">
+          
+          <div class="expert-resume-card text-start w-100">
+            <h5 class="expert-name">Рамазан Магомедович</h5>
+            <div class="expert-role">Арбитражный управляющий</div>
+            <ul class="expert-facts list-unstyled mt-2 mb-0">
+              <li><b>Статус:</b> Один из первых управляющих после введения 127-ФЗ. Колоссальный практический стаж.</li>
+              <li><b>Опыт:</b> Руководство банковскими структурами («Агро-Бизнес Банк», «Аграрник», «Гарант») и производством («Авант-Аква-Минерал»).</li>
+              <li><b>Специфика:</b> Доскональное понимание деловых обычаев и жесткая защита имущественных отношений должника.</li>
+              <li><b>Образование:</b> Подготовка при Арбитражном управлении (г. Москва), РИСИ.</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="col-lg-7 hero-text-col text-start animate-up">
+        <div class="col-lg-8 hero-text-col text-start animate-up">
           <h1 class="text-uppercase mb-2 hero-title" style="color: var(--primary-color);">
             Законно спишем ваши долги с гарантией сохранения имущества
           </h1>
