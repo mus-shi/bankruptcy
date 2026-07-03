@@ -506,3 +506,243 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     font-size: 0.85rem !important;
   }
 }
+/* =========================
+   СИММЕТРИЯ ПРАВОЙ КОЛОНКИ
+   ========================= */
+.hero-text-col {
+  display: flex !important;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 0 !important;
+}
+
+.hero-text-col .flex-grow-1 {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.hero-text-col .flex-shrink-0:last-child {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+/* =========================
+   МОБИЛЬНАЯ АДАПТАЦИЯ
+   ========================= */
+@media (max-width: 991.98px) {
+  .hero-text-col {
+    height: auto !important;
+    padding: 20px 0 !important;
+  }
+  
+  .hero-text-col .flex-grow-1 {
+    flex: none !important;
+  }
+  
+  .hero-text-col .flex-shrink-0:last-child {
+    margin-top: 10px !important;
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* Шапка */
+  .sticky-top-bar {
+    padding: 0 12px;
+    height: 54px;
+  }
+  .sticky-top-bar span.d-none.d-md-inline {
+    display: none !important;
+  }
+  .sticky-top-bar .header-phone {
+    display: none !important;
+  }
+  .btn-header-call {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+  }
+  .sticky-top-bar img {
+    height: 32px !important;
+  }
+  .sticky-top-bar span[style*="font-size"] {
+    font-size: 0.85rem !important;
+  }
+  
+  .snap-container {
+    margin-top: 54px;
+    height: calc(100vh - 54px);
+  }
+  
+  .snap-section {
+    min-height: calc(100vh - 54px);
+  }
+
+  /* Герой */
+  .hero-section {
+    height: auto;
+    min-height: calc(100vh - 54px);
+    padding: 15px 0;
+  }
+  .hero-section .container {
+    height: auto;
+  }
+  .hero-section .row {
+    height: auto;
+  }
+  
+  .hero-title {
+    font-size: 1.1rem !important;
+    text-align: center !important;
+  }
+  .hero-subtitle {
+    font-size: 0.85rem !important;
+    text-align: center !important;
+  }
+
+  .compact-block {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+  .c-icon {
+    width: 28px;
+    height: 28px;
+  }
+  .c-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .c-title {
+    font-size: 0.75rem;
+  }
+  .c-text {
+    font-size: 0.65rem;
+  }
+
+  .step-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2px 6px;
+    padding: 8px 10px;
+    font-size: 0.7rem;
+  }
+  .step-item {
+    font-size: 0.7rem;
+  }
+  .step-arrow {
+    font-size: 0.7rem;
+  }
+  
+  .step-desc-box {
+    min-height: 60px;
+    padding: 10px 14px;
+    font-size: 0.75rem;
+    text-align: left;
+  }
+
+  .btn-start-online {
+    padding: 12px 20px !important;
+    font-size: 0.8rem !important;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Вторая секция */
+  .info-section {
+    height: auto;
+    min-height: calc(100vh - 54px);
+    max-height: none;
+    overflow-y: visible;
+  }
+  
+  .about-wrapper {
+    padding-top: 1rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  .about-text {
+    font-size: 0.85rem;
+  }
+  
+  .office-wrapper {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  .office-card {
+    flex-direction: column;
+  }
+  .office-card .col-md-6 {
+    width: 100%;
+  }
+  .map-container {
+    height: 180px;
+  }
+
+  /* Квиз */
+  .quiz-card {
+    min-height: 380px;
+    max-height: 95vh;
+  }
+  .quiz-inner {
+    padding: 20px 16px 16px !important;
+  }
+  .quiz-card h4 {
+    font-size: 0.95rem !important;
+  }
+  .btn-quiz-option {
+    padding: 10px 14px !important;
+    font-size: 0.8rem !important;
+  }
+  .quiz-submit-btn {
+    min-width: 140px;
+    padding: 10px 16px !important;
+    font-size: 0.8rem !important;
+  }
+  .range-value-label {
+    font-size: 1.2rem;
+  }
+  .quiz-grid-options {
+    gap: 6px !important;
+  }
+  .quiz-action-area {
+    padding-top: 16px;
+  }
+  .quiz-back-btn {
+    font-size: 0.75rem;
+  }
+
+  /* Футер */
+  footer .d-flex.gap-4 {
+    gap: 12px !important;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .footer-social-img {
+    width: 28px;
+    height: 28px;
+  }
+  footer p {
+    font-size: 0.7rem;
+  }
+  .footer-link {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .sticky-top-bar span[style*="font-size"] {
+    font-size: 0.7rem !important;
+  }
+  .btn-header-call {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+  }
+  .hero-title {
+    font-size: 0.95rem !important;
+  }
+  .compact-block {
+    padding: 6px 8px;
+  }
+  .step-desc-box {
+    font-size: 0.7rem;
+    padding: 8px 12px;
+    min-height: 50px;
+  }
+}
