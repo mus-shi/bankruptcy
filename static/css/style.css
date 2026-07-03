@@ -10,10 +10,9 @@
   --primary-color: #0b3b60; 
   --accent-color: #1a56db;  
   
-  --cta-a: #c82333; /* Более глубокий красный для строгого вида */
+  --cta-a: #c82333;
   --cta-b: #a71d2a;
 
-  /* Строгие линии: минимальные закругления */
   --radius-card: 2px;
   --radius-btn: 2px;
 
@@ -31,7 +30,7 @@ html, body {
   background-color: var(--bg-body);
   line-height: 1.5;
   height: 100vh;
-  overflow: hidden; /* Блокируем стандартный скролл, всё внутри snap-container */
+  overflow: hidden;
 }
 
 h1, h2, h3, h4, h5 {
@@ -49,7 +48,7 @@ h1, h2, h3, h4, h5 {
    ========================= */
 .snap-container {
   height: calc(100vh - 60px);
-  margin-top: 60px; /* Отступ под шапку */
+  margin-top: 60px;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
@@ -212,32 +211,32 @@ h1, h2, h3, h4, h5 {
 .btn-start-online:hover { background: var(--cta-b) !important; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 rgba(0,0,0,0.15); }
 
 /* ==========================================================================
-   УВЕЛИЧЕНИЕ ФОТО И РЕЗЮМЕ
+   ИСПРАВЛЕНО: УВЕЛИЧЕНИЕ ФОТО И РЕЗЮМЕ
    ========================================================================== */
 
-/* Увеличенное фото */
+/* Увеличенное фото: упор в пол и безопасная высота */
 .hero-silhouette-enlarged {
   position: absolute;
-  bottom: 0; /* Жестко прижимает фото к самому низу экрана */
+  bottom: 0; 
   left: 50%;
-  transform: translateX(-50%) scale(1.1); /* Центрирует и слегка масштабирует */
-  max-height: 55vh; /* Ограничивает высоту, чтобы не было наезда на резюме */
+  transform: translateX(-50%); 
+  max-height: 48vh; /* Строгий лимит, чтобы лицо не уходило под карточку */
   width: auto;
   object-fit: contain;
   filter: drop-shadow(10px 10px 20px rgba(0,0,0,0.2));
   transform-origin: bottom center;
-  z-index: 1; /* Уводит фото под резюме в случае критически низкого экрана */
+  z-index: 1; 
 }
 
-/* Карточка резюме */
+/* Карточка резюме: позиция сверху без перекрытий */
 .expert-resume-card {
   position: relative;
   background: var(--card-bg);
   border: 2px solid var(--primary-color);
   box-shadow: 6px 6px 0 var(--cta-a); 
   padding: 16px;
-  z-index: 10; /* Гарантирует, что карточка всегда будет поверх фото */
-  margin-top: 20px; /* Отступ от верхней навигационной панели */
+  z-index: 10; 
+  margin-top: 10px; /* Аккуратный отступ сверху */
 }
 
 .expert-name {
