@@ -35,10 +35,7 @@
     <div class="container h-100 d-flex flex-column justify-content-center pt-3 pb-3">
       <div class="row align-items-center h-100">
         
-        <!-- ЛЕВАЯ КОЛОНКА: Резюме сверху → Фото снизу (НЕ ТРОГАТЬ) -->
         <div class="col-lg-5 d-none d-lg-flex flex-column h-100 position-relative">
-          
-          <!-- Карточка резюме - сверху -->
           <div class="expert-resume-card flex-shrink-0">
             <h5 class="expert-name">Рамазан Магомедович</h5>
             <div class="expert-role">Арбитражный управляющий</div>
@@ -49,20 +46,14 @@
               <li><b>Образование:</b> Подготовка при Арбитражном управлении (г. Москва), РИСИ.</li>
             </ul>
           </div>
-          
-          <!-- Фото - снизу, жестко прижато к полу -->
           <div class="hero-image-wrapper flex-grow-1 d-flex align-items-end">
             <img src="{{ url_for('static', filename='img/big-main.png') }}" 
                  alt="Рамазан Магомедович" 
                  class="hero-silhouette-enlarged">
           </div>
-          
         </div>
 
-        <!-- ПРАВАЯ КОЛОНКА: flex-контейнер на всю высоту -->
         <div class="col-lg-7 hero-text-col d-flex flex-column h-100 ps-lg-4">
-          
-          <!-- ВЕРХНЯЯ ЧАСТЬ: заголовок и подзаголовок (на уровне резюме) -->
           <div class="flex-shrink-0">
             <h1 class="text-uppercase mb-2 hero-title" style="color: var(--primary-color);">
               Законно спишем ваши долги с гарантией сохранения имущества
@@ -70,9 +61,7 @@
             <p class="text-muted mb-0 hero-subtitle">Процедура по 127-ФЗ. Жесткая юридическая защита от кредиторов с первого дня.</p>
           </div>
 
-          <!-- СРЕДНЯЯ ЧАСТЬ: преимущества, шаги, описание (занимает всё свободное место) -->
           <div class="flex-grow-1 d-flex flex-column justify-content-center py-3">
-            <!-- Блоки преимуществ с уменьшенными отступами -->
             <div class="row g-1 mb-2 animate-up delay-1">
               <div class="col-sm-6">
                 <div class="compact-block">
@@ -127,13 +116,11 @@
               <div class="step-item step-item-trigger" data-step="4"><b>4.</b> Свобода</div>
             </div>
 
-            <!-- Блок описания шага — исправлен размер шрифта и перенос -->
             <div id="step-desc-text" class="step-desc-box animate-up delay-2">
               Детальный правовой аудит вашей ситуации. Мы анализируем структуру задолженности, оцениваем риски по ранее совершенным сделкам и выстраиваем жесткую стратегию защиты ваших имущественных прав. Никаких пустых обещаний — только сухой расчет шансов на списание.
             </div>
           </div>
 
-          <!-- НИЖНЯЯ ЧАСТЬ: кнопка по центру, прижата к низу -->
           <div class="flex-shrink-0 pt-2 animate-up delay-3 text-center">
             <button type="button" id="show-form-btn" class="btn-start-online">Узнать шансы на списание</button>
           </div>
