@@ -236,7 +236,8 @@ h1, h2, h3, h4, h5 {
   border: 2px solid var(--primary-color);
   box-shadow: 6px 6px 0 var(--cta-a); 
   padding: 16px;
-  z-index: 10;
+  z-index: 10; /* Гарантирует, что карточка всегда будет поверх фото */
+  margin-top: 20px; /* Отступ от верхней навигационной панели */
 }
 
 .expert-name {
