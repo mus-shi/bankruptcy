@@ -35,7 +35,7 @@
     <div class="container h-100 d-flex flex-column justify-content-center pt-3 pb-3">
       <div class="row align-items-center h-100">
         
-        <!-- ЛЕВАЯ КОЛОНКА: Резюме сверху → Фото снизу -->
+        <!-- ЛЕВАЯ КОЛОНКА: Резюме сверху → Фото снизу (НЕ ТРОГАТЬ) -->
         <div class="col-lg-5 d-none d-lg-flex flex-column h-100 position-relative">
           
           <!-- Карточка резюме - сверху -->
@@ -59,81 +59,85 @@
           
         </div>
 
-     <div class="col-lg-7 hero-text-col d-flex flex-column h-100 ps-lg-4">
-  <!-- ВЕРХНЯЯ ЧАСТЬ: заголовок и подзаголовок (прижаты к верху) -->
-  <div class="flex-shrink-0">
-    <h1 class="text-uppercase mb-2 hero-title" style="color: var(--primary-color);">
-      Законно спишем ваши долги с гарантией сохранения имущества
-    </h1>
-    <p class="text-muted mb-0 hero-subtitle">Процедура по 127-ФЗ. Жесткая юридическая защита от кредиторов с первого дня.</p>
-  </div>
+        <!-- ПРАВАЯ КОЛОНКА: flex-контейнер на всю высоту -->
+        <div class="col-lg-7 hero-text-col d-flex flex-column h-100 ps-lg-4">
+          
+          <!-- ВЕРХНЯЯ ЧАСТЬ: заголовок и подзаголовок (на уровне резюме) -->
+          <div class="flex-shrink-0">
+            <h1 class="text-uppercase mb-2 hero-title" style="color: var(--primary-color);">
+              Законно спишем ваши долги с гарантией сохранения имущества
+            </h1>
+            <p class="text-muted mb-0 hero-subtitle">Процедура по 127-ФЗ. Жесткая юридическая защита от кредиторов с первого дня.</p>
+          </div>
 
-  <!-- СРЕДНЯЯ ЧАСТЬ: преимущества, шаги, описание (занимает всё свободное место) -->
-  <div class="flex-grow-1 d-flex flex-column justify-content-center py-3">
-    <div class="row g-2 mb-3 animate-up delay-1">
-      <div class="col-sm-6">
-        <div class="compact-block">
-          <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M9 15l2 2 4-4"></path></svg></div>
-          <div>
-            <div class="c-title">Без риска</div>
-            <div class="c-text">Оплата по факту решения</div>
+          <!-- СРЕДНЯЯ ЧАСТЬ: преимущества, шаги, описание (занимает всё свободное место) -->
+          <div class="flex-grow-1 d-flex flex-column justify-content-center py-3">
+            <!-- Блоки преимуществ с уменьшенными отступами -->
+            <div class="row g-1 mb-2 animate-up delay-1">
+              <div class="col-sm-6">
+                <div class="compact-block">
+                  <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M9 15l2 2 4-4"></path></svg></div>
+                  <div>
+                    <div class="c-title">Без риска</div>
+                    <div class="c-text">Оплата по факту решения</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="compact-block">
+                  <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
+                  <div>
+                    <div class="c-title">Стоп звонки</div>
+                    <div class="c-text">Полный правовой щит</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="compact-block">
+                  <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></div>
+                  <div>
+                    <div class="c-title">Защита активов</div>
+                    <div class="c-text">Исключение жилья из массы</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="compact-block">
+                  <div class="c-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
+                  <div>
+                    <div class="c-title">Анонимность</div>
+                    <div class="c-text">Строгое соблюдение тайны</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 mb-2 animate-up delay-2">
+              <span class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px;">Порядок работы</span>
+              <div style="height: 1px; background: rgba(0,0,0,0.2); flex-grow: 1;"></div>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2 step-row animate-up delay-2">
+              <div class="step-item step-item-trigger active" data-step="1"><b>1.</b> Консультация</div>
+              <div class="step-arrow">→</div>
+              <div class="step-item step-item-trigger" data-step="2"><b>2.</b> Документы</div>
+              <div class="step-arrow">→</div>
+              <div class="step-item step-item-trigger" data-step="3"><b>3.</b> Суд</div>
+              <div class="step-arrow">→</div>
+              <div class="step-item step-item-trigger" data-step="4"><b>4.</b> Свобода</div>
+            </div>
+
+            <!-- Блок описания шага — исправлен размер шрифта и перенос -->
+            <div id="step-desc-text" class="step-desc-box animate-up delay-2">
+              Детальный правовой аудит вашей ситуации. Мы анализируем структуру задолженности, оцениваем риски по ранее совершенным сделкам и выстраиваем жесткую стратегию защиты ваших имущественных прав. Никаких пустых обещаний — только сухой расчет шансов на списание.
+            </div>
+          </div>
+
+          <!-- НИЖНЯЯ ЧАСТЬ: кнопка по центру, прижата к низу -->
+          <div class="flex-shrink-0 pt-2 animate-up delay-3 text-center">
+            <button type="button" id="show-form-btn" class="btn-start-online">Узнать шансы на списание</button>
           </div>
         </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="compact-block">
-          <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
-          <div>
-            <div class="c-title">Стоп звонки</div>
-            <div class="c-text">Полный правовой щит</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="compact-block">
-          <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></div>
-          <div>
-            <div class="c-title">Защита активов</div>
-            <div class="c-text">Исключение жилья из массы</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="compact-block">
-          <div class="c-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
-          <div>
-            <div class="c-title">Анонимность</div>
-            <div class="c-text">Строгое соблюдение тайны</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="d-flex align-items-center gap-3 mb-2 animate-up delay-2">
-      <span class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px;">Порядок работы</span>
-      <div style="height: 1px; background: rgba(0,0,0,0.2); flex-grow: 1;"></div>
-    </div>
-
-    <div class="d-flex justify-content-between mb-2 step-row animate-up delay-2">
-      <div class="step-item step-item-trigger active" data-step="1"><b>1.</b> Консультация</div>
-      <div class="step-arrow">→</div>
-      <div class="step-item step-item-trigger" data-step="2"><b>2.</b> Документы</div>
-      <div class="step-arrow">→</div>
-      <div class="step-item step-item-trigger" data-step="3"><b>3.</b> Суд</div>
-      <div class="step-arrow">→</div>
-      <div class="step-item step-item-trigger" data-step="4"><b>4.</b> Свобода</div>
-    </div>
-
-    <div id="step-desc-text" class="step-desc-box animate-up delay-2">
-      Детальный правовой аудит вашей ситуации. Мы анализируем структуру задолженности, оцениваем риски по ранее совершенным сделкам и выстраиваем жесткую стратегию защиты ваших имущественных прав. Никаких пустых обещаний — только сухой расчет шансов на списание.
-    </div>
-  </div>
-
-  <!-- НИЖНЯЯ ЧАСТЬ: кнопка (прижата к низу) -->
-  <div class="flex-shrink-0 pt-2 animate-up delay-3">
-    <button type="button" id="show-form-btn" class="btn-start-online">Узнать шансы на списание</button>
-  </div>
-</div>
 
       </div>
     </div>
@@ -186,7 +190,7 @@
             <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="footer-social-img">
           </a>
           <a href="https://vk.com/club235261619?from=groups" target="_blank" class="social-link" aria-label="VK">
-            <svg class="footer-social-img" fill="#0077FF" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M25.217 22.402h-2.179c-0.825 0-1.080-0.656-2.562-2.158c-1.291-1.25-1.862-1.418-2.179-1.418c-0.445 0-0.572 0.127-0.572 0.741v1.968c0 0.53-0.169 0.847-1.566 0.847c-2.818-0.189-5.24-1.726-6.646-3.966l-0.021-0.035c-1.632-2.027-2.835-4.47-3.43-7.142l-0.022-0.117c0-0.317 0.127-0.614 0.741-0.614h2.179c0.55 0 0.762 0.254 0.975 0.846 1.078 3.112 2.878 5.842 3.619 5.842 0.275 0 0.402-0.127 0.402-0.825v-3.219c-0.085-1.482-0.868-1.608-0.868-2.137 0.009-0.283 0.241-0.509 0.525-0.509 0.009 0 0.017 0 0.026 0.001l-0.001-0h3.429c0.466 0 0.635 0.254 0.635 0.804v4.34c0 0.465 0.212 0.635 0.339 0.635 0.275 0 0.509-0.17 1.016-0.677 1.054-1.287 1.955-2.759 2.642-4.346l0.046-0.12c0.145-0.363 0.493-0.615 0.9-0.615 0.019 0 0.037 0.001 0.056 0.002l-0.003-0h2.179c0.656 0 0.805 0.337 0.656 0.804c-0.874 1.925-1.856 3.579-2.994 5.111l0.052-0.074c-0.232 0.381-0.317 0.55 0 0.975c0.232 0.317 0.995 0.973 1.503 1.566c0.735 0.727 1.351 1.573 1.816 2.507l0.025 0.055c0.212 0.612-0.106 0.93-0.72 0.93zM20.604 1.004h-9.207c-8.403 0-10.392 1.989-10.392 10.392v9.207c0 8.403 1.989 10.392 10.392 10.392h9.207c8.403 0 10.392-1.989 10.392-10.392v-9.207C31 3 29 1.004 20.604 1.004z"/></svg>
+            <svg class="footer-social-img" fill="#0077FF" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M25.217 22.402h-2.179c-0.825 0-1.080-0.656-2.562-2.158c-1.291-1.25-1.862-1.418-2.179-1.418c-0.445 0-0.572 0.127-0.572 0.741v1.968c0 0.53-0.169 0.847-1.566 0.847c-2.818-0.189-5.24-1.726-6.646-3.966l-0.021-0.035c-1.632-2.027-2.835-4.47-3.43-7.142l-0.022-0.117c0-0.317 0.127-0.614 0.741-0.614h2.179c0.55 0 0.762 0.254 0.975 0.846 1.078 3.112 2.878 5.842 3.619 5.842c0.275 0 0.402-0.127 0.402-0.825v-3.219c-0.085-1.482-0.868-1.608-0.868-2.137 0.009-0.283 0.241-0.509 0.525-0.509 0.009 0 0.017 0 0.026 0.001l-0.001-0h3.429c0.466 0 0.635 0.254 0.635 0.804v4.34c0 0.465 0.212 0.635 0.339 0.635 0.275 0 0.509-0.17 1.016-0.677 1.054-1.287 1.955-2.759 2.642-4.346l0.046-0.12c0.145-0.363 0.493-0.615 0.9-0.615 0.019 0 0.037 0.001 0.056 0.002l-0.003-0h2.179c0.656 0 0.805 0.337 0.656 0.804c-0.874 1.925-1.856 3.579-2.994 5.111l0.052-0.074c-0.232 0.381-0.317 0.55 0 0.975c0.232 0.317 0.995 0.973 1.503 1.566c0.735 0.727 1.351 1.573 1.816 2.507l0.025 0.055c0.212 0.612-0.106 0.93-0.72 0.93zM20.604 1.004h-9.207c-8.403 0-10.392 1.989-10.392 10.392v9.207c0 8.403 1.989 10.392 10.392 10.392h9.207c8.403 0 10.392-1.989 10.392-10.392v-9.207C31 3 29 1.004 20.604 1.004z"/></svg>
           </a>
           <a href="https://max.com/790341500" target="_blank" class="social-link" aria-label="Max">
             <div style="width: 32px; height: 32px; background: url('https://maxicons.ru/icons/MAX.svg') center/contain no-repeat; display: block;"></div>
