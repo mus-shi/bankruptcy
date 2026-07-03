@@ -144,10 +144,8 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   ЛЕВАЯ КОЛОНКА - НОВАЯ ЛОГИКА ПОЗИЦИОНИРОВАНИЯ
+   ЛЕВАЯ КОЛОНКА
    ========================= */
-
-/* Колонка - flex-контейнер на всю высоту */
 .hero-section .col-lg-5 {
   display: flex !important;
   flex-direction: column;
@@ -157,7 +155,7 @@ h1, h2, h3, h4, h5 {
   padding-right: 0 !important;
 }
 
-/* Карточка резюме - сверху, сжимается при необходимости */
+/* Карточка резюме - сверху */
 .expert-resume-card {
   flex-shrink: 0;
   background: var(--card-bg);
@@ -209,7 +207,7 @@ h1, h2, h3, h4, h5 {
   line-height: 2;
 }
 
-/* Обертка для фото - занимает всё оставшееся место */
+/* Обертка для фото */
 .hero-image-wrapper {
   flex: 1 1 auto;
   min-height: 0;
@@ -219,10 +217,10 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   position: relative;
   overflow: hidden;
-  margin-bottom: -8px; /* Компенсируем отступ контейнера */
+  margin-bottom: -8px; 
 }
 
-/* Само фото - жесткий упор в пол */
+/* Само фото */
 .hero-silhouette-enlarged {
   display: block;
   width: auto;
@@ -240,17 +238,18 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   БЛОКИ ПРЕИМУЩЕСТВ
+   БЛОКИ ПРЕИМУЩЕСТВ (ИСПРАВЛЕНО)
    ========================= */
 .compact-block {
   background: var(--card-bg);
   border: 1px solid rgba(0,0,0,0.1);
-  padding: 12px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   border-radius: var(--radius-card);
   box-shadow: 2px 2px 0 rgba(0,0,0,0.05); 
+  height: 100%; /* Занимает всю высоту строки, убирая пустоту */
 }
 .c-icon {
   width: 36px; height: 36px;
@@ -265,7 +264,7 @@ h1, h2, h3, h4, h5 {
 .c-text { font-size: 0.75rem; color: var(--text-muted); line-height: 1.2; }
 
 /* =========================
-   ШАГИ РАБОТЫ
+   ШАГИ РАБОТЫ (ИСПРАВЛЕНО)
    ========================= */
 .step-row {
   background: rgba(0,0,0,0.03);
@@ -298,14 +297,17 @@ h1, h2, h3, h4, h5 {
   background: var(--card-bg);
   border: 1px solid rgba(0,0,0,0.1);
   border-left: 4px solid var(--cta-a);
-  padding: 14px 18px;
+  padding: 12px 16px;
   font-size: 0.9rem;
-  line-height: 1.5;
+  line-height: 1.45;
   color: var(--text-main);
   box-shadow: 2px 2px 0 rgba(0,0,0,0.03);
-  min-height: 90px;
+  min-height: 95px;
+  max-height: 120px;
+  overflow-y: auto; /* Текст гарантированно не вылетает */
   transition: opacity 0.15s ease-in-out;
-  text-align: justify;
+  text-align: left; /* Убирает рваные пробелы justify верстки */
+  word-wrap: break-word;
 }
 
 /* =========================
@@ -451,62 +453,6 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 .form-control:focus { border-color: var(--primary-color); outline: none; box-shadow: none; }
 
 /* =========================
-   АДАПТИВНОСТЬ
-   ========================= */
-@media (max-width: 991.98px) {
-  .hero-section .col-lg-5 {
-    display: none !important;
-  }
-}
-
-@media (max-height: 700px) {
-  .expert-resume-card {
-    padding: 10px 14px;
-    max-height: 35vh;
-    font-size: 0.8rem;
-  }
-  .expert-resume-card .expert-facts li {
-    margin-bottom: 3px;
-  }
-  .expert-name {
-    font-size: 0.95rem;
-  }
-  .step-desc-box {
-    min-height: 60px;
-    padding: 10px 14px;
-    font-size: 0.8rem;
-  }
-  .step-row {
-    padding: 8px 12px;
-  }
-}
-
-@media (max-width: 767.98px) {
-  .hero-title {
-    font-size: 1.2rem !important;
-  }
-  .compact-block {
-    padding: 8px;
-    gap: 8px;
-  }
-  .c-icon {
-    width: 28px;
-    height: 28px;
-  }
-  .c-icon svg {
-    width: 16px;
-    height: 16px;
-  }
-  .step-desc-box {
-    min-height: 70px;
-    font-size: 0.8rem;
-  }
-  .btn-start-online {
-    padding: 12px 24px !important;
-    font-size: 0.85rem !important;
-  }
-}
-/* =========================
    СИММЕТРИЯ ПРАВОЙ КОЛОНКИ
    ========================= */
 .hero-text-col {
@@ -527,20 +473,43 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 }
 
 /* =========================
-   МОБИЛЬНАЯ АДАПТАЦИЯ
+   АДAПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ
    ========================= */
 @media (max-width: 991.98px) {
+  .hero-section .col-lg-5 {
+    display: none !important;
+  }
   .hero-text-col {
     height: auto !important;
     padding: 20px 0 !important;
   }
-  
   .hero-text-col .flex-grow-1 {
     flex: none !important;
   }
-  
   .hero-text-col .flex-shrink-0:last-child {
     margin-top: 10px !important;
+  }
+}
+
+@media (max-height: 700px) {
+  .expert-resume-card {
+    padding: 10px 14px;
+    max-height: 35vh;
+    font-size: 0.8rem;
+  }
+  .expert-resume-card .expert-facts li {
+    margin-bottom: 3px;
+  }
+  .expert-name {
+    font-size: 0.95rem;
+  }
+  .step-desc-box {
+    min-height: 75px;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+  .step-row {
+    padding: 8px 12px;
   }
 }
 
@@ -632,9 +601,9 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   }
   
   .step-desc-box {
-    min-height: 60px;
+    min-height: 75px;
     padding: 10px 14px;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     text-align: left;
   }
 
@@ -741,8 +710,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     padding: 6px 8px;
   }
   .step-desc-box {
-    font-size: 0.7rem;
-    padding: 8px 12px;
-    min-height: 50px;
+    font-size: 0.72rem;
+    padding: 8px 10px;
+    min-height: 65px;
   }
 }
