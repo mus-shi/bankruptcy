@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
   const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
   const startBtn = document.getElementById('show-form-btn');
+  // Кнопка "Заказать обратный звонок" на втором экране
+const callBackBtn = document.getElementById('call-back-btn');
+if (callBackBtn) {
+  callBackBtn.addEventListener('click', openQuiz);
+}
   const quizOverlay = document.getElementById('quiz-overlay');
   const quizContainer = document.getElementById('quiz-container');
   const closeBtn = document.getElementById('quiz-close-btn');
