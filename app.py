@@ -46,6 +46,7 @@ def consult():
 
         name = data.get('name', '—')
         phone = data.get('phone', '—')
+        city = data.get('city', 'Не указано') # <-- ИЗВЛЕКАЕМ НОВОЕ ПОЛЕ "ГОРОД"
         
         # Обновленные ключи из нового квиза
         debt_map = {
@@ -64,11 +65,13 @@ def consult():
         utm_medium = data.get('utm_medium', '—')
         utm_campaign = data.get('utm_campaign', '—')
 
+        # ФОРМИРУЕМ СООБЩЕНИЕ С ГОРОДОМ
         message = f"""
 🔥 НОВЫЙ ЛИД (БЕЗДОЛГОВ.ЛАЙФ)
 
 👤 Имя: {name}
 📱 Телефон: {phone}
+📍 Город: {city}
 
 📊 АНАЛИЗ СИТУАЦИИ:
 1. Сумма: {total_debt}
@@ -82,6 +85,7 @@ def consult():
 • Кампания: {utm_campaign}
         """
 
+        # Внутреннее уведомление о новой заявке отправляется в Telegram
         if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
             requests.post(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage", data={
                 'chat_id': TELEGRAM_CHAT_ID,
