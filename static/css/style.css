@@ -588,4 +588,86 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .hero-title { font-size: 0.95rem !important; }
   .step-desc-box { font-size: 0.75rem; padding: 10px; }
 }
- 
+ /* =========================
+   НОВЫЕ СТИЛИ ДЛЯ ВТОРОГО ЭКРАНА
+   ========================= */
+
+.stats-wrapper {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1rem !important;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border: 2px solid var(--primary-color);
+  box-shadow: 4px 4px 0 var(--cta-a);
+  padding: 20px;
+  text-align: center;
+  height: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--cta-a);
+}
+
+.stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.stat-icon svg {
+  width: 48px;
+  height: 48px;
+}
+
+.stat-number {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 900;
+  font-size: 2rem;
+  color: var(--primary-color);
+  line-height: 1.2;
+}
+
+.stat-label {
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.contact-map-wrapper {
+  padding-top: 1rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.contact-map-card {
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: var(--radius-card);
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.05);
+  overflow: hidden;
+  height: auto;
+}
+
+.map-container {
+  height: 250px;
+}
+@media (min-height: 750px) {
+  .map-container { height: 300px; }
+}
+
+/* =========================
+   ФУТЕР — ЧЁРНО-БЕЛЫЕ ИКОНКИ
+   ========================= */
+.footer-social-img {
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+.social-link:hover .footer-social-img {
+  filter: grayscale(0%);
+}
+
+/* Остальные стили футера уже есть, не меняем */
