@@ -244,12 +244,20 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="mb-3">
           <input id="phoneInput" class="form-control" type="tel" name="phone" placeholder="+7 (900) 000 00 00" required />
         </div>
-        <div class="form-check mb-2">
-          <input class="form-check-input" type="checkbox" id="agree" name="agree" required />
-          <label class="form-check-label small text-muted" for="agree">
-            Принимаю условия <a href="/offer" target="_blank" style="color: var(--primary-color); font-weight: 700;">оферты</a>
+        
+        <div class="form-check mb-2" style="background: #f8faff; padding: 12px 16px; border-radius: 4px; border-left: 3px solid var(--primary-color);">
+          <input class="form-check-input" type="checkbox" id="agree" name="agree" required style="margin-top: 2px;" />
+          <label class="form-check-label small" for="agree" style="color: #1a1a1a; line-height: 1.5;">
+            <span style="font-weight: 600;">Я даю согласие на бесплатный анализ моей ситуации</span>
+            <span style="display: block; margin-top: 4px; font-size: 0.7rem; color: #6c757d;">
+              Подробнее — 
+              <a href="/offer" target="_blank" style="color: var(--primary-color); font-weight: 600; text-decoration: underline;">Пользовательское соглашение</a> 
+              и 
+              <a href="/privacy" target="_blank" style="color: var(--primary-color); font-weight: 600; text-decoration: underline;">Политика конфиденциальности</a>
+            </span>
           </label>
         </div>
+        
         <div id="formMsg" class="mt-2 small text-center fw-bold"></div>
 
         <div class="quiz-action-area">
@@ -276,13 +284,18 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const phone = form.phone.value;
       if (phone.replace(/\D/g, '').length !== 11) {
-        msg.textContent = 'Введите телефон полностью.'; msg.style.color = 'var(--cta-a)'; return;
+        msg.textContent = 'Введите телефон полностью.'; 
+        msg.style.color = 'var(--cta-a)'; 
+        return;
       }
       if (!form.agree.checked) {
-        msg.textContent = 'Нужно принять условия.'; msg.style.color = 'var(--cta-a)'; return;
+        msg.textContent = 'Пожалуйста, дайте согласие на обработку данных для получения плана.'; 
+        msg.style.color = 'var(--cta-a)'; 
+        return;
       }
 
-      submitBtn.disabled = true; submitBtn.textContent = 'ОТПРАВЛЯЮ...';
+      submitBtn.disabled = true; 
+      submitBtn.textContent = 'ОТПРАВЛЯЮ...';
 
       try {
         const token = await new Promise((res, rej) => {
@@ -303,14 +316,18 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const res = await fetch('/consult', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify(payload),
         });
 
         if (!res.ok) throw new Error();
         window.location.href = '/thanks';
       } catch (err) {
-        msg.textContent = 'Ошибка отправки. Позвоните нам.'; msg.style.color = 'var(--cta-a)';
-        submitBtn.disabled = false; submitBtn.textContent = 'ПОЛУЧИТЬ ПЛАН';
+        msg.textContent = 'Ошибка отправки. Позвоните нам.'; 
+        msg.style.color = 'var(--cta-a)';
+        submitBtn.disabled = false; 
+        submitBtn.textContent = 'ПОЛУЧИТЬ ПЛАН';
       }
     });
   }
