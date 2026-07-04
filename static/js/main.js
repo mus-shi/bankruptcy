@@ -205,23 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  const PREFIX = '+7 (9';
-  function applyPhoneMask(input) {
-    let digits = (input.value.match(/\d/g) || []).join('');
-    if (!digits.startsWith('7')) digits = '7' + digits;
-    if (digits.length === 1) digits = '79';
-    if (digits[1] !== '9') digits = '79' + digits.slice(2);
-    digits = digits.slice(0, 11);
-
-    const a = digits.slice(1, 4), b = digits.slice(4, 7), c = digits.slice(7, 9), e = digits.slice(9, 11);
-    let s = '+7 (';
-    s += a; if (a.length === 3) s += ') ';
-    if (b.length) s += b; if (b.length === 3 && (c.length || e.length)) s += ' ';
-    if (c.length) s += c; if (c.length === 2 && e.length) s += ' ';
-    if (e.length) s += e;
-    input.value = s.length < PREFIX.length ? PREFIX : s;
-  }
-
   function renderForm() {
     quizContainer.innerHTML = `
       <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-top: 12px; margin-bottom: 20px;">
@@ -275,15 +258,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const msg = quizContainer.querySelector('#formMsg');
     const phoneInput = quizContainer.querySelector('#phoneInput');
 
-    phoneInput.addEventListener('focus', () => { if(!phoneInput.value) phoneInput.value = PREFIX; applyPhoneMask(phoneInput); });
-    phoneInput.addEventListener('input', () => applyPhoneMask(phoneInput));
+    // НАСТРОЙКА НОВОЙ МАСКИ ДЛЯ ТЕЛЕФОНА (IMask)
+    const phoneMask = IMask(phoneInput, {
+      mask: '+{7} (000) 000-00-00',
+      // Если клиент по привычке нажмет "8", скрипт проигнорирует её, чтобы он сразу вводил "9"
+      prepare: function (appended, masked) {
+        if (appended === '8' && masked.value === '') return '';
+        return appended;
+      }
+    });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       msg.textContent = '';
       
-      const phone = form.phone.value;
-      if (phone.replace(/\D/g, '').length !== 11) {
+      // Проверяем длину введенного номера (только цифры)
+      const unmaskedPhone = phoneMask.unmaskedValue;
+      if (unmaskedPhone.length !== 11) {
         msg.textContent = 'Введите телефон полностью.'; 
         msg.style.color = 'var(--cta-a)'; 
         return;
@@ -305,14 +296,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const debtStructStr = Array.isArray(answers.debt_structure) ? answers.debt_structure.join(', ') : answers.debt_structure;
 
+        // Считываем UTM-метки из URL
+        const urlParams = new URLSearchParams(window.location.search);
+
         const payload = {
           name: form.name.value || '—',
-          phone: phone,
+          phone: phoneMask.value, // Отправляем красивый номер +7 (999) 999-99-99
           total_debt: answers.total_debt,
           debt_structure: debtStructStr,
           property_deals: answers.property_deals,
           current_stage: answers.current_stage,
-          'g-recaptcha-response': token
+          'g-recaptcha-response': token,
+          // Передаем метки
+          utm_source: urlParams.get('utm_source') || 'Прямой заход / Неизвестно',
+          utm_medium: urlParams.get('utm_medium') || '—',
+          utm_campaign: urlParams.get('utm_campaign') || '—'
         };
 
         const res = await fetch('/consult', {
