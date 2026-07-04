@@ -1,115 +1,344 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Форматирование чисел (например, 1 000 000 ₽)
-    function formatCurrency(number) {
-        return new Intl.NumberFormat('ru-RU').format(number) + ' ₽';
+document.addEventListener('DOMContentLoaded', () => {
+  const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
+  const startBtn = document.getElementById('show-form-btn');
+  const quizOverlay = document.getElementById('quiz-overlay');
+  const quizContainer = document.getElementById('quiz-container');
+  const closeBtn = document.getElementById('quiz-close-btn');
+
+  // Логика интерактивного переключения шагов порядка работы
+  const stepTriggers = document.querySelectorAll('.step-item-trigger');
+  const stepDescText = document.getElementById('step-desc-text');
+  
+  const stepTexts = {
+    '1': 'Детальный правовой аудит вашей ситуации. Мы анализируем структуру задолженности, оцениваем риски по ранее совершенным сделкам и выстраиваем жесткую стратегию защиты ваших имущественных прав. Никаких пустых обещаний — только сухой расчет шансов на списание.',
+    '2': 'Формирование непробиваемой доказательной базы. Мы берем на себя всю бюрократию: запрашиваем необходимые справки, выписки из реестров и готовим заявление, которое арбитражный суд примет к производству с первого раза. Ваше участие минимально.',
+    '3': 'Активация полного правового щита. С момента введения процедуры кредиторы и коллекторы теряют право взаимодействовать с вами напрямую. Мы представляем ваши интересы на всех заседаниях, блокируя любые попытки оспорить сделки или изъять защищенное имущество.',
+    '4': 'Финальное определение суда. Все задолженности, начисленные пени и штрафы списываются безвозвратно в силу закона (127-ФЗ). Вы получаете на руки официальный судебный акт, подтверждающий вашу полную финансовую независимость.'
+  };
+
+  stepTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      if (trigger.classList.contains('active')) return;
+      
+      stepTriggers.forEach(t => t.classList.remove('active'));
+      trigger.classList.add('active');
+      
+      const stepKey = trigger.getAttribute('data-step');
+      if (stepDescText && stepTexts[stepKey]) {
+        stepDescText.style.opacity = '0';
+        setTimeout(() => {
+          stepDescText.textContent = stepTexts[stepKey];
+          stepDescText.style.opacity = '1';
+        }, 150);
+      }
+    });
+  });
+
+  if (!quizOverlay || !quizContainer) return;
+
+  const steps = [
+    { key: 'total_debt', text: 'Укажите общую сумму долга', type: 'slider' },
+    { key: 'debt_structure', text: 'Кому вы должны? (можно выбрать несколько)', type: 'multiple', 
+      choices: ['Только банки', 'Много микрозаймов (МФО)', 'Налоги и ЖКХ', 'Физические лица (расписки)'] },
+    { key: 'property_deals', text: 'Были ли сделки с имуществом за последние 3 года?', type: 'options', 
+      choices: ['Да, продавал/дарил', 'Нет, ничего не продавал'] },
+    { key: 'current_stage', text: 'На какой стадии сейчас ситуация?', type: 'options', 
+      choices: ['Плачу из последних сил', 'Начались просрочки', 'Звонят коллекторы', 'Дело у приставов (ФССП)'] },
+  ];
+
+  let currentStep = 0;
+  const answers = {};
+
+  const formatRub = (n) => new Intl.NumberFormat('ru-RU').format(n) + ' ₽';
+  
+  function sliderToDebtKey(v) {
+    if (v < 200000) return 'under200k';
+    if (v < 500000) return '200k-500k';
+    if (v < 1000000) return '500k-1m';
+    return 'over1m';
+  }
+
+  function openQuiz() {
+    document.body.classList.add('quiz-open');
+    quizOverlay.setAttribute('aria-hidden', 'false');
+    currentStep = 0;
+    renderStep();
+  }
+
+  function closeQuiz() {
+    document.body.classList.remove('quiz-open');
+    quizOverlay.setAttribute('aria-hidden', 'true');
+    quizContainer.innerHTML = '';
+    currentStep = 0;
+    Object.keys(answers).forEach(k => delete answers[k]);
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeQuiz);
+  quizOverlay.addEventListener('click', (e) => { if (e.target === quizOverlay) closeQuiz(); });
+  if (startBtn) startBtn.addEventListener('click', openQuiz);
+
+  function progressPercent() {
+    return Math.round(((currentStep + 1) / (steps.length + 1)) * 100);
+  }
+
+  function renderStep() {
+    const step = steps[currentStep];
+
+    quizContainer.innerHTML = `
+      <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-top: 12px; margin-bottom: 20px;">
+        <div style="height: 100%; width:${progressPercent()}%; background-color: var(--accent-color); transition: width 0.3s ease;"></div>
+      </div>
+
+      <div class="d-flex align-items-center mb-3">
+        ${currentStep > 0 ? `<button class="quiz-back-btn" data-action="back">← Назад</button>` : '<div></div>'}
+      </div>
+      <h4 class="text-center mb-4" style="font-size: 1.1rem; color: var(--primary-color); font-weight: 900;">${step.text}</h4>
+
+      <div style="flex:1; display:flex; flex-direction:column;">
+        ${step.type === 'slider' ? renderSlider() : (step.type === 'multiple' ? renderMultiple(step.choices) : renderOptions(step.choices))}
+      </div>
+    `;
+
+    const backBtn = quizContainer.querySelector('[data-action="back"]');
+    if (backBtn) backBtn.addEventListener('click', () => { currentStep -= 1; renderStep(); });
+
+    if (step.type === 'slider') {
+      const range = quizContainer.querySelector('#debtRange');
+      const label = quizContainer.querySelector('#range-value-display');
+      const nextBtn = quizContainer.querySelector('[data-action="next"]');
+
+      label.textContent = formatRub(Number(range.value));
+      range.addEventListener('input', () => label.textContent = formatRub(Number(range.value)));
+      nextBtn.addEventListener('click', () => {
+        answers.total_debt = sliderToDebtKey(Number(range.value));
+        next();
+      });
+    } else if (step.type === 'multiple') {
+      answers[step.key] = answers[step.key] || [];
+      const nextBtnMulti = quizContainer.querySelector('[data-action="next-multi"]');
+      
+      quizContainer.querySelectorAll('[data-action="toggle"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = btn.getAttribute('data-value');
+          btn.classList.toggle('selected');
+          if (btn.classList.contains('selected')) {
+            if (!answers[step.key].includes(val)) answers[step.key].push(val);
+          } else {
+            answers[step.key] = answers[step.key].filter(v => v !== val);
+          }
+          nextBtnMulti.disabled = answers[step.key].length === 0;
+        });
+      });
+      nextBtnMulti.addEventListener('click', () => {
+        if (!answers[step.key] || answers[step.key].length === 0) answers[step.key] = ['Не указано'];
+        next();
+      });
+    } else {
+      const nextBtnSingle = quizContainer.querySelector('[data-action="next-single"]');
+      quizContainer.querySelectorAll('[data-action="pick"]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          quizContainer.querySelectorAll('[data-action="pick"]').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          answers[step.key] = btn.getAttribute('data-value');
+          nextBtnSingle.disabled = false;
+        });
+      });
+      nextBtnSingle.addEventListener('click', () => {
+        if (answers[step.key]) next();
+      });
     }
+  }
 
-    // --- ЛОГИКА КАЛЬКУЛЯТОРА НА ВТОРОМ ЭКРАНЕ ---
-    const calcSlider = document.getElementById('calcDebtSlider');
-    const calcDebtValue = document.getElementById('calcDebtValue');
-    const calcSavedValue = document.getElementById('calcSavedValue');
-    
-    // Стоимость процедуры условно зафиксируем для расчета экономии (можно менять логику)
-    const PROCEDURE_COST = 120000; 
+  function renderSlider() {
+    const defaultValue = 500000;
+    return `
+      <div style="display:flex; flex-direction:column; height:100%;">
+        <div class="text-center mt-4">
+          <span id="range-value-display" class="range-value-label">${formatRub(defaultValue)}</span>
+          <input type="range" id="debtRange" min="200000" max="5000000" step="50000" value="${defaultValue}">
+          <div class="d-flex justify-content-between mt-2 px-2">
+            <small class="text-muted fw-bold">200 000 ₽</small>
+            <small class="text-muted fw-bold">&gt; 5 млн ₽</small>
+          </div>
+        </div>
+        <div class="quiz-action-area">
+          <button type="button" class="quiz-submit-btn" data-action="next">Далее</button>
+        </div>
+      </div>
+    `;
+  }
 
-    calcSlider.addEventListener('input', function() {
-        let debt = parseInt(this.value);
-        calcDebtValue.textContent = formatCurrency(debt);
+  function renderOptions(choices) {
+    let html = `<div class="quiz-grid-options">`;
+    choices.forEach(choice => {
+      html += `<button type="button" class="btn-quiz-option" data-action="pick" data-value="${choice}">${choice}</button>`;
+    });
+    html += `</div>`;
+    html += `
+      <div class="quiz-action-area">
+        <button type="button" class="quiz-submit-btn" data-action="next-single" disabled>Далее</button>
+      </div>
+    `;
+    return html;
+  }
+
+  function renderMultiple(choices) {
+    let html = `<div class="quiz-grid-options">`;
+    choices.forEach(choice => {
+      html += `<button type="button" class="btn-quiz-option" data-action="toggle" data-value="${choice}">${choice}</button>`;
+    });
+    html += `</div>`;
+    html += `
+      <div class="quiz-action-area">
+        <button type="button" class="quiz-submit-btn" data-action="next-multi" disabled>Далее</button>
+      </div>
+    `;
+    return html;
+  }
+
+  function next() {
+    if (currentStep < steps.length - 1) {
+      currentStep += 1;
+      renderStep();
+    } else {
+      renderForm();
+    }
+  }
+
+  function renderForm() {
+    quizContainer.innerHTML = `
+      <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-top: 12px; margin-bottom: 20px;">
+        <div style="height: 100%; width:100%; background-color: var(--accent-color);"></div>
+      </div>
+
+      <div class="d-flex align-items-center mb-2">
+        <button class="quiz-back-btn" data-action="back">← Назад</button>
+      </div>
+      
+      <div class="text-center mb-4">
+        <h4 style="font-size: 1.2rem; color: var(--primary-color); font-weight: 900; text-transform: uppercase;">Ситуация проанализирована</h4>
+        <p class="text-muted small">Оставьте номер, чтобы получить план списания долгов и памятку «Как законно отвечать коллекторам».</p>
+      </div>
+
+      <form id="leadForm" class="mt-2" novalidate style="display:flex; flex-direction:column; flex:1;">
+        <div class="mb-3">
+          <input class="form-control" type="text" name="name" placeholder="Как к вам обращаться" autocomplete="name" />
+        </div>
+        <div class="mb-3">
+          <input class="form-control" type="text" name="city" placeholder="Откуда вы? (Ваш город/регион)" required />
+        </div>
+        <div class="mb-3">
+          <input id="phoneInput" class="form-control" type="tel" name="phone" placeholder="+7 (900) 000 00 00" required />
+        </div>
         
-        let saved = debt - PROCEDURE_COST;
-        if (saved < 0) saved = 0;
-        calcSavedValue.textContent = formatCurrency(saved);
+        <div class="form-check mb-2" style="background: #f8faff; padding: 12px 16px; border-radius: 4px; border-left: 3px solid var(--primary-color);">
+          <input class="form-check-input" type="checkbox" id="agree" name="agree" required style="margin-top: 2px;" />
+          <label class="form-check-label small" for="agree" style="color: #1a1a1a; line-height: 1.5;">
+            <span style="font-weight: 600;">Я даю согласие на бесплатный анализ моей ситуации</span>
+            <span style="display: block; margin-top: 4px; font-size: 0.7rem; color: #6c757d;">
+              Подробнее — 
+              <a href="/offer" target="_blank" style="color: var(--primary-color); font-weight: 600; text-decoration: underline;">Пользовательское соглашение</a> 
+              и 
+              <a href="/privacy" target="_blank" style="color: var(--primary-color); font-weight: 600; text-decoration: underline;">Политика конфиденциальности</a>
+            </span>
+          </label>
+        </div>
+        
+        <div id="formMsg" class="mt-2 small text-center fw-bold"></div>
+
+        <div class="quiz-action-area">
+          <button type="submit" class="quiz-submit-btn" id="submitBtn">Получить план</button>
+        </div>
+      </form>
+    `;
+
+    quizContainer.querySelector('[data-action="back"]').addEventListener('click', () => {
+      currentStep = steps.length - 1; renderStep();
     });
 
-    // --- ЛОГИКА КВИЗА (МОДАЛЬНОЕ ОКНО) ---
-    const quizOverlay = document.getElementById('quizOverlay');
-    const startQuizBtn = document.getElementById('startQuizBtn');
-    const calcToQuizBtn = document.getElementById('calcToQuizBtn');
-    const quizClose = document.getElementById('quizClose');
-    
-    const quizSlider = document.getElementById('quizDebtSlider');
-    const quizDebtValue = document.getElementById('quizDebtValue');
-    const hiddenDebt = document.getElementById('hiddenDebt');
+    const form = quizContainer.querySelector('#leadForm');
+    const submitBtn = quizContainer.querySelector('#submitBtn');
+    const msg = quizContainer.querySelector('#formMsg');
+    const phoneInput = quizContainer.querySelector('#phoneInput');
 
-    // Функция открытия квиза
-    function openQuiz() {
-        quizOverlay.classList.add('show');
-    }
-
-    // Открытие квиза с главного экрана
-    startQuizBtn.addEventListener('click', openQuiz);
-
-    // Открытие квиза из калькулятора (проброс суммы в квиз)
-    calcToQuizBtn.addEventListener('click', function() {
-        let selectedDebt = calcSlider.value;
-        quizSlider.value = selectedDebt;
-        quizDebtValue.textContent = formatCurrency(selectedDebt);
-        hiddenDebt.value = selectedDebt;
-        openQuiz();
+    // НАСТРОЙКА НОВОЙ МАСКИ ДЛЯ ТЕЛЕФОНА (IMask)
+    const phoneMask = IMask(phoneInput, {
+      mask: '+{7} (000) 000-00-00',
+      // Если клиент по привычке нажмет "8", скрипт проигнорирует её, чтобы он сразу вводил "9"
+      prepare: function (appended, masked) {
+        if (appended === '8' && masked.value === '') return '';
+        return appended;
+      }
     });
 
-    // Закрытие квиза
-    quizClose.addEventListener('click', function() {
-        quizOverlay.classList.remove('show');
-    });
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      
+      // Проверяем длину введенного номера (только цифры)
+      const unmaskedPhone = phoneMask.unmaskedValue;
+      if (unmaskedPhone.length !== 11) {
+        msg.textContent = 'Введите телефон полностью.'; 
+        msg.style.color = 'var(--cta-a)'; 
+        return;
+      }
+      
+      // Проверка на заполнение поля Город
+      if (!form.city.value.trim()) {
+        msg.textContent = 'Укажите, пожалуйста, ваш город.'; 
+        msg.style.color = 'var(--cta-a)'; 
+        return;
+      }
 
-    // Обновление суммы внутри самого квиза
-    quizSlider.addEventListener('input', function() {
-        quizDebtValue.textContent = formatCurrency(this.value);
-        hiddenDebt.value = this.value;
-    });
+      if (!form.agree.checked) {
+        msg.textContent = 'Пожалуйста, дайте согласие на обработку данных для получения плана.'; 
+        msg.style.color = 'var(--cta-a)'; 
+        return;
+      }
 
-    // --- НАВИГАЦИЯ ВНУТРИ КВИЗА ---
-    const nextButtons = document.querySelectorAll('.next-step');
-    const prevButtons = document.querySelectorAll('.prev-step');
-    const quizCityInput = document.getElementById('quizCity');
-    const hiddenCity = document.getElementById('hiddenCity');
+      submitBtn.disabled = true; 
+      submitBtn.textContent = 'ОТПРАВЛЯЮ...';
 
-    nextButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            // Проверка поля город на втором шаге перед переходом к шагу 3
-            if (this.getAttribute('data-next') === 'step3') {
-                if (quizCityInput.value.trim() === '') {
-                    quizCityInput.classList.add('is-invalid');
-                    return; // Не пускаем дальше, если город не введен
-                } else {
-                    quizCityInput.classList.remove('is-invalid');
-                    hiddenCity.value = quizCityInput.value.trim(); // Сохраняем для отправки
-                }
-            }
-
-            const currentStep = this.closest('.quiz-step');
-            const nextStepId = this.getAttribute('data-next');
-            const nextStep = document.getElementById(nextStepId);
-            
-            currentStep.classList.add('d-none');
-            currentStep.classList.remove('active');
-            
-            nextStep.classList.remove('d-none');
-            nextStep.classList.add('active');
+      try {
+        const token = await new Promise((res, rej) => {
+          if (!window.grecaptcha) rej('reCAPTCHA error');
+          window.grecaptcha.execute(SITE_KEY, { action: 'consult' }).then(res).catch(rej);
         });
-    });
 
-    prevButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const currentStep = this.closest('.quiz-step');
-            const prevStepId = this.getAttribute('data-prev');
-            const prevStep = document.getElementById(prevStepId);
-            
-            currentStep.classList.add('d-none');
-            currentStep.classList.remove('active');
-            
-            prevStep.classList.remove('d-none');
-            prevStep.classList.add('active');
+        const debtStructStr = Array.isArray(answers.debt_structure) ? answers.debt_structure.join(', ') : answers.debt_structure;
+
+        // Считываем UTM-метки из URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const payload = {
+          name: form.name.value || '—',
+          city: form.city.value.trim(),
+          phone: phoneMask.value, // Отправляем красивый номер +7 (999) 999-99-99
+          total_debt: answers.total_debt,
+          debt_structure: debtStructStr,
+          property_deals: answers.property_deals,
+          current_stage: answers.current_stage,
+          'g-recaptcha-response': token,
+          // Передаем метки
+          utm_source: urlParams.get('utm_source') || 'Прямой заход / Неизвестно',
+          utm_medium: urlParams.get('utm_medium') || '—',
+          utm_campaign: urlParams.get('utm_campaign') || '—'
+        };
+
+        const res = await fetch('/consult', {
+          method: 'POST', 
+          headers: { 'Content-Type': 'application/json' }, 
+          body: JSON.stringify(payload),
         });
-    });
-    
-    // Снимаем красную обводку ошибки при вводе города
-    quizCityInput.addEventListener('input', function() {
-        if (this.value.trim() !== '') {
-            this.classList.remove('is-invalid');
-        }
-    });
 
+        if (!res.ok) throw new Error();
+        window.location.href = '/thanks';
+      } catch (err) {
+        msg.textContent = 'Ошибка отправки. Позвоните нам.'; 
+        msg.style.color = 'var(--cta-a)';
+        submitBtn.disabled = false; 
+        submitBtn.textContent = 'ПОЛУЧИТЬ ПЛАН';
+      }
+    });
+  }
 });
