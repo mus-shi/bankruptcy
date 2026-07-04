@@ -59,6 +59,11 @@ def consult():
         property_deals = data.get('property_deals', 'Не указано')
         current_stage = data.get('current_stage', 'Не указано')
 
+        # Получаем UTM-метки
+        utm_source = data.get('utm_source', 'Прямой заход / Неизвестно')
+        utm_medium = data.get('utm_medium', '—')
+        utm_campaign = data.get('utm_campaign', '—')
+
         message = f"""
 🔥 НОВЫЙ ЛИД (БЕЗДОЛГОВ.ЛАЙФ)
 
@@ -70,6 +75,11 @@ def consult():
 2. Кому должны: {debt_structure}
 3. Сделки за 3 года: {property_deals}
 4. Текущая стадия: {current_stage}
+
+🎯 ОТКУДА ПРИШЕЛ:
+• Источник: {utm_source}
+• Тип трафика: {utm_medium}
+• Кампания: {utm_campaign}
         """
 
         if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
