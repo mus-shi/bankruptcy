@@ -225,6 +225,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <input class="form-control" type="text" name="name" placeholder="Как к вам обращаться" autocomplete="name" />
         </div>
         <div class="mb-3">
+          <input class="form-control" type="text" name="city" placeholder="Откуда вы? (Ваш город/регион)" required />
+        </div>
+        <div class="mb-3">
           <input id="phoneInput" class="form-control" type="tel" name="phone" placeholder="+7 (900) 000 00 00" required />
         </div>
         
@@ -279,6 +282,14 @@ document.addEventListener('DOMContentLoaded', () => {
         msg.style.color = 'var(--cta-a)'; 
         return;
       }
+      
+      // Проверка на заполнение поля Город
+      if (!form.city.value.trim()) {
+        msg.textContent = 'Укажите, пожалуйста, ваш город.'; 
+        msg.style.color = 'var(--cta-a)'; 
+        return;
+      }
+
       if (!form.agree.checked) {
         msg.textContent = 'Пожалуйста, дайте согласие на обработку данных для получения плана.'; 
         msg.style.color = 'var(--cta-a)'; 
@@ -301,6 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const payload = {
           name: form.name.value || '—',
+          city: form.city.value.trim(),
           phone: phoneMask.value, // Отправляем красивый номер +7 (999) 999-99-99
           total_debt: answers.total_debt,
           debt_structure: debtStructStr,
