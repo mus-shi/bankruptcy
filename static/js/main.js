@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
   const startBtn = document.getElementById('show-form-btn');
-  // Кнопка "Заказать обратный звонок" (ранее была на втором экране, теперь удалена или переименована, но оставим для совместимости если вдруг вернется)
   const callBackBtn = document.getElementById('call-back-btn');
   if (callBackBtn) {
     callBackBtn.addEventListener('click', openQuiz);
@@ -45,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCalc(); 
   }
 
-  // Привязываем кнопку калькулятора к открытию квиза
   if (calcStartBtn) {
     calcStartBtn.addEventListener('click', openQuiz);
   }
