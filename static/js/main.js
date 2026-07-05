@@ -1,14 +1,54 @@
 document.addEventListener('DOMContentLoaded', () => {
   const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
   const startBtn = document.getElementById('show-form-btn');
-  // Кнопка "Заказать обратный звонок" на втором экране
-const callBackBtn = document.getElementById('call-back-btn');
-if (callBackBtn) {
-  callBackBtn.addEventListener('click', openQuiz);
-}
+  // Кнопка "Заказать обратный звонок" (ранее была на втором экране, теперь удалена или переименована, но оставим для совместимости если вдруг вернется)
+  const callBackBtn = document.getElementById('call-back-btn');
+  if (callBackBtn) {
+    callBackBtn.addEventListener('click', openQuiz);
+  }
   const quizOverlay = document.getElementById('quiz-overlay');
   const quizContainer = document.getElementById('quiz-container');
   const closeBtn = document.getElementById('quiz-close-btn');
+
+  // Логика калькулятора
+  const calcDebt = document.getElementById('calc-debt');
+  const calcPayment = document.getElementById('calc-payment');
+  const calcDebtVal = document.getElementById('calc-debt-val');
+  const calcPaymentVal = document.getElementById('calc-payment-val');
+  const resWrittenOff = document.getElementById('res-written-off');
+  const resMonthlyStop = document.getElementById('res-monthly-stop');
+  const resSavings = document.getElementById('res-savings');
+  const calcStartBtn = document.getElementById('calc-start-btn');
+
+  if (calcDebt && calcPayment) {
+    const formatCurrency = (val) => new Intl.NumberFormat('ru-RU').format(val) + ' ₽';
+    
+    const updateCalc = () => {
+      const debt = Number(calcDebt.value);
+      const payment = Number(calcPayment.value);
+      
+      calcDebtVal.textContent = formatCurrency(debt);
+      calcPaymentVal.textContent = formatCurrency(payment);
+      
+      resWrittenOff.textContent = formatCurrency(debt);
+      resMonthlyStop.textContent = formatCurrency(payment) + ' / мес';
+      
+      const procedureCost = 120000;
+      let savings = debt - procedureCost;
+      if (savings < 0) savings = 0;
+      
+      resSavings.textContent = formatCurrency(savings);
+    };
+
+    calcDebt.addEventListener('input', updateCalc);
+    calcPayment.addEventListener('input', updateCalc);
+    updateCalc(); 
+  }
+
+  // Привязываем кнопку калькулятора к открытию квиза
+  if (calcStartBtn) {
+    calcStartBtn.addEventListener('click', openQuiz);
+  }
 
   // Логика интерактивного переключения шагов порядка работы
   const stepTriggers = document.querySelectorAll('.step-item-trigger');
@@ -266,10 +306,8 @@ if (callBackBtn) {
     const msg = quizContainer.querySelector('#formMsg');
     const phoneInput = quizContainer.querySelector('#phoneInput');
 
-    // НАСТРОЙКА НОВОЙ МАСКИ ДЛЯ ТЕЛЕФОНА (IMask)
     const phoneMask = IMask(phoneInput, {
       mask: '+{7} (000) 000-00-00',
-      // Если клиент по привычке нажмет "8", скрипт проигнорирует её, чтобы он сразу вводил "9"
       prepare: function (appended, masked) {
         if (appended === '8' && masked.value === '') return '';
         return appended;
@@ -280,7 +318,6 @@ if (callBackBtn) {
       e.preventDefault();
       msg.textContent = '';
       
-      // Проверяем длину введенного номера (только цифры)
       const unmaskedPhone = phoneMask.unmaskedValue;
       if (unmaskedPhone.length !== 11) {
         msg.textContent = 'Введите телефон полностью.'; 
@@ -288,7 +325,6 @@ if (callBackBtn) {
         return;
       }
       
-      // Проверка на заполнение поля Город
       if (!form.city.value.trim()) {
         msg.textContent = 'Укажите, пожалуйста, ваш город.'; 
         msg.style.color = 'var(--cta-a)'; 
@@ -311,20 +347,17 @@ if (callBackBtn) {
         });
 
         const debtStructStr = Array.isArray(answers.debt_structure) ? answers.debt_structure.join(', ') : answers.debt_structure;
-
-        // Считываем UTM-метки из URL
         const urlParams = new URLSearchParams(window.location.search);
 
         const payload = {
           name: form.name.value || '—',
           city: form.city.value.trim(),
-          phone: phoneMask.value, // Отправляем красивый номер +7 (999) 999-99-99
+          phone: phoneMask.value, 
           total_debt: answers.total_debt,
           debt_structure: debtStructStr,
           property_deals: answers.property_deals,
           current_stage: answers.current_stage,
           'g-recaptcha-response': token,
-          // Передаем метки
           utm_source: urlParams.get('utm_source') || 'Прямой заход / Неизвестно',
           utm_medium: urlParams.get('utm_medium') || '—',
           utm_campaign: urlParams.get('utm_campaign') || '—'
