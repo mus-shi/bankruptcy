@@ -404,7 +404,7 @@ h5 {
 }
 
 /* =========================
-   ЧАСТЬ 2: НОВЫЙ ВТОРОЙ ЭКРАН
+   ЧАСТЬ 2: ВТОРОЙ ЭКРАН (info-section)
    ========================= */
 .info-section {
   background: #fff;
@@ -416,55 +416,77 @@ h5 {
   justify-content: space-between;
 }
 
-/* Статистика (Удалена, теперь калькулятор) */
-.stats-wrapper {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1rem !important;
+/* Калькулятор */
+.calculator-wrapper {
+  background-color: var(--card-bg);
+  flex-shrink: 0;
 }
-
-.stat-card {
+.calc-card {
+  background: #f8faff;
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-card);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+}
+.calc-result-card {
   background: var(--card-bg);
   border: 2px solid var(--primary-color);
-  box-shadow: 4px 4px 0 var(--cta-a);
-  padding: 20px;
-  text-align: center;
-  height: 100%;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.stat-card:hover {
-  transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 var(--cta-a);
-}
-
-.stat-icon {
-  display: inline-flex;
-  align-items: center;
+  border-radius: var(--radius-card);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  margin-bottom: 10px;
 }
-.stat-icon svg {
-  width: 48px;
-  height: 48px;
+.custom-range {
+  width: 100%;
+  accent-color: var(--accent-color);
+  height: 6px;
+  background: #e9ecef;
+  border-radius: 5px;
+  outline: none;
+  -webkit-appearance: none;
 }
-
-.stat-number {
+.custom-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  cursor: pointer;
+}
+.calc-value {
+  display: inline-block;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 900;
-  font-size: 2rem;
-  color: var(--primary-color);
-  line-height: 1.2;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--accent-color);
+  background: #fff;
+  padding: 4px 16px;
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 20px;
+  margin-top: 8px;
+}
+.text-success {
+  color: #198754 !important;
 }
 
-.stat-label {
-  font-weight: 600;
-  color: var(--text-muted);
-  font-size: 0.9rem;
+/* Кнопка "Узнать точные шансы" по центру */
+.calc-result-card .d-flex.justify-content-center {
+  width: 100%;
+}
+.calc-result-card .btn-start-online {
+  max-width: 100% !important;
 }
 
 /* Контакты + карта */
 .contact-map-wrapper {
-  padding-top: 1rem !important;
-  padding-bottom: 1.5rem !important;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
 }
 
 .contact-map-card {
@@ -473,14 +495,16 @@ h5 {
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.05);
   overflow: hidden;
   height: auto;
+  max-height: 100%;
 }
 
 .map-container {
-  height: 250px;
+  height: 200px;
+  min-height: 150px;
 }
 @media (min-height: 750px) {
   .map-container {
-    height: 300px;
+    height: 250px;
   }
 }
 
@@ -490,22 +514,15 @@ h5 {
   text-transform: uppercase;
 }
 
+/* Футер */
+footer {
+  flex-shrink: 0;
+  min-height: 100px;
+}
+
 /* =========================
-   ФУТЕР
+   ИКОНКИ СОЦСЕТЕЙ В ФУТЕРЕ
    ========================= */
-footer .d-flex.gap-4 {
-  gap: 1.5rem !important;
-}
-
-.social-link {
-  display: inline-flex;
-  transition: transform .2s ease;
-}
-.social-link:hover {
-  transform: translateY(-2px);
-}
-
-/* Черно-белые иконки, при наведении цветные */
 .footer-social-img {
   filter: grayscale(100%);
   transition: filter 0.3s ease;
@@ -515,6 +532,19 @@ footer .d-flex.gap-4 {
 }
 .social-link:hover .footer-social-img {
   filter: grayscale(0%);
+}
+
+/* Убираем анимацию для WhatsApp */
+.wa-styled-link {
+  animation: none !important;
+}
+
+.social-link {
+  display: inline-flex;
+  transition: transform .2s ease;
+}
+.social-link:hover {
+  transform: translateY(-2px);
 }
 
 .footer-link {
@@ -699,21 +729,6 @@ input[type="range"] {
 }
 
 /* =========================
-   СИММЕТРИЯ ПРАВОЙ КОЛОНКИ (1-й экран)
-   ========================= */
-.hero-text-col {
-  display: flex !important;
-  flex-direction: column;
-  height: 100%;
-  padding-bottom: 0 !important;
-}
-
-.hero-text-col .flex-grow-1 {
-  flex: 1 1 auto;
-  min-height: 0;
-}
-
-/* =========================
    АДАПТИВНОСТЬ
    ========================= */
 @media (max-width: 991.98px) {
@@ -839,6 +854,7 @@ input[type="range"] {
     max-width: none;
   }
 
+  /* Адаптив второго экрана */
   .info-section {
     height: auto;
     min-height: calc(100vh - 54px);
@@ -846,15 +862,12 @@ input[type="range"] {
     overflow-y: visible;
   }
 
-  .stats-wrapper {
-    padding-top: 1rem !important;
-    padding-bottom: 0.5rem !important;
-  }
-
   .contact-map-wrapper {
     padding-top: 0.5rem !important;
     padding-bottom: 0.5rem !important;
+    flex: 0 0 auto;
   }
+  
   .contact-map-card {
     flex-direction: column;
   }
@@ -863,6 +876,25 @@ input[type="range"] {
   }
   .map-container {
     height: 180px;
+  }
+
+  /* Адаптив футера */
+  footer {
+    min-height: 80px;
+    padding: 0.75rem 0 !important;
+  }
+  footer .d-flex.gap-4 {
+    gap: 12px !important;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .footer-social-img {
+    width: 28px;
+    height: 28px;
+  }
+  footer p,
+  .footer-link {
+    font-size: 0.7rem;
   }
 
   .quiz-card {
@@ -896,20 +928,6 @@ input[type="range"] {
   .quiz-back-btn {
     font-size: 0.75rem;
   }
-
-  footer .d-flex.gap-4 {
-    gap: 12px !important;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .footer-social-img {
-    width: 28px;
-    height: 28px;
-  }
-  footer p,
-  .footer-link {
-    font-size: 0.7rem;
-  }
 }
 
 @media (max-width: 420px) {
@@ -927,93 +945,10 @@ input[type="range"] {
     font-size: 0.75rem;
     padding: 10px;
   }
-}
-
-/* =========================
-   КАЛЬКУЛЯТОР ВЫГОДЫ
-   ========================= */
-.calculator-wrapper {
-  background-color: var(--card-bg);
-}
-.calc-card {
-  background: #f8faff;
-  border: 2px solid rgba(0, 0, 0, 0.05);
-  border-radius: var(--radius-card);
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
-}
-.calc-result-card {
-  background: var(--card-bg);
-  border: 2px solid var(--primary-color);
-  box-shadow: 6px 6px 0 var(--cta-a);
-  border-radius: var(--radius-card);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.custom-range {
-  width: 100%;
-  accent-color: var(--accent-color);
-  height: 6px;
-  background: #e9ecef;
-  border-radius: 5px;
-  outline: none;
-  -webkit-appearance: none;
-}
-.custom-range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--accent-color);
-  cursor: pointer;
-}
-.calc-value {
-  display: inline-block;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  font-size: 1.2rem;
-  color: var(--accent-color);
-  background: #fff;
-  padding: 4px 16px;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 20px;
-  margin-top: 8px;
-}
-.text-success {
-  color: #198754 !important;
-}
-
-/* =========================
-   WhatsApp Стилизация
-   ========================= */
-.wa-styled-link {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  background-color: #25D366;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: pulse-wa 2s infinite;
-  text-decoration: none;
-}
-.wa-styled-link:hover {
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 6px 14px rgba(37, 211, 102, 0.6);
-  animation: none;
-}
-.wa-styled-icon {
-  width: 26px;
-  height: 26px;
-  fill: white;
-}
-@keyframes pulse-wa {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-  70% { box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  .map-container {
+    height: 140px;
+  }
+  footer {
+    min-height: 70px;
+  }
 }
