@@ -225,24 +225,20 @@
 
   <footer class="text-center py-3 bg-white flex-shrink-0 border-top">
     <div class="container">
-      <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
+    <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
         
         <a href="https://wa.me/790341500" target="_blank" class="social-link" aria-label="WhatsApp">
-          <svg class="footer-social-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 32px; height: 32px;">
-            <path d="M12 2a10 10 0 0 0-8.65 15.02L2 22l5.11-1.31A10 10 0 1 0 12 2Z"/>
-            <path d="M17.42 14.59c-.3-.15-1.78-.88-2.06-.98s-.48-.15-.68.15-.78.98-.96 1.18-.35.22-.65.07a8.28 8.28 0 0 1-2.43-1.5 9.1 9.1 0 0 1-1.68-2.08c-.17-.3 0-.46.13-.61.13-.13.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.38-.02-.53s-.68-1.63-.93-2.23c-.24-.58-.49-.5-.68-.5h-.58c-.2 0-.53.08-.8.38-.28.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.12 3.24 5.13 4.54.72.31 1.28.5 1.72.64.72.23 1.37.2 1.88.12.57-.09 1.78-.73 2.03-1.44.25-.71.25-1.32.17-1.44-.08-.12-.27-.2-.57-.35Z"/>
-          </svg>
+          <img src="{{ url_for('static', filename='img/WhatsApp_logo-color-vertical.svg.webp') }}" alt="WhatsApp" class="footer-social-img">
         </a>
 
         <a href="https://t.me/ripe_man" target="_blank" class="social-link" aria-label="Telegram">
-          <svg class="footer-social-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="width: 32px; height: 32px;">
-            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-          </svg>
+          <img src="{{ url_for('static', filename='img/Telegram_logo.svg.webp') }}" alt="Telegram" class="footer-social-img">
         </a>
 
         <a href="https://max.com/790341500" target="_blank" class="social-link" aria-label="Max">
-          <div class="footer-social-img" style="width:32px; height:32px; background: currentColor; mask: url('https://maxicons.ru/icons/MAX.svg') center/contain no-repeat; -webkit-mask: url('https://maxicons.ru/icons/MAX.svg') center/contain no-repeat;"></div>
+          <img src="{{ url_for('static', filename='img/Логотип_MAX.svg.webp') }}" alt="Max" class="footer-social-img">
         </a>
+        
       </div>
       <p class="text-muted small mb-1 fw-bold">© 2026 БЕЗДОЛГОВ.ЛАЙФ. Работаем по всей России.</p>
       <div class="d-flex justify-content-center gap-2">
