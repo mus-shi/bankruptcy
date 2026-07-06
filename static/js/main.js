@@ -1,7 +1,140 @@
 document.addEventListener('DOMContentLoaded', () => {
   const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
   
-  // Кнопки открытия квиза
+  // =========================
+  // НАВИГАЦИОННАЯ ШКАЛА
+  // =========================
+  const snapContainer = document.querySelector('.snap-container');
+  const navDots = document.querySelectorAll('.snap-nav-dot');
+  const slides = document.querySelectorAll('.snap-slide');
+  
+  function updateNav(index) {
+    navDots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+  
+  function goToSlide(index) {
+    if (index < 0 || index >= slides.length) return;
+    const slide = slides[index];
+    if (slide) {
+      slide.scrollIntoView({ behavior: 'smooth' });
+      updateNav(index);
+    }
+  }
+  
+  navDots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      const index = parseInt(dot.dataset.index, 10);
+      goToSlide(index);
+    });
+  });
+  
+  // Отслеживание активного слайда при скролле
+  let currentSlideIndex = 0;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const slides = document.querySelectorAll('.snap-slide');
+        const index = Array.from(slides).indexOf(entry.target);
+        if (index !== -1 && index !== currentSlideIndex) {
+          currentSlideIndex = index;
+          updateNav(index);
+        }
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  document.querySelectorAll('.snap-slide').forEach(slide => {
+    observer.observe(slide);
+  });
+
+  // =========================
+  // КАРУСЕЛЬ СУДЕБНОЙ ПРАКТИКИ
+  // =========================
+  const track = document.getElementById('carouselTrack');
+  const prevBtn = document.getElementById('carouselPrev');
+  const nextBtn = document.getElementById('carouselNext');
+  const dotsContainer = document.getElementById('carouselDots');
+  
+  if (track && prevBtn && nextBtn && dotsContainer) {
+    const slides_carousel = track.querySelectorAll('.carousel-slide');
+    const totalSlides = slides_carousel.length;
+    let currentIndex = 0;
+    let isTransitioning = false;
+    
+    // Создаем точки
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      dot.dataset.index = i;
+      dot.addEventListener('click', () => goToSlide_carousel(i));
+      dotsContainer.appendChild(dot);
+    }
+    
+    const dots = dotsContainer.querySelectorAll('.carousel-dot');
+    
+    function updateCarousel() {
+      if (isTransitioning) return;
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+    
+    function goToSlide_carousel(index) {
+      if (isTransitioning || index === currentIndex) return;
+      currentIndex = index;
+      updateCarousel();
+    }
+    
+    function nextSlide() {
+      if (isTransitioning) return;
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateCarousel();
+    }
+    
+    function prevSlide() {
+      if (isTransitioning) return;
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+    
+    // Обработчики
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    
+    // Клавиатура
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+    
+    // Свайп для мобильных
+    let startX = 0;
+    let endX = 0;
+    const container = track.closest('.carousel-wrapper');
+    if (container) {
+      container.addEventListener('touchstart', (e) => {
+        startX = e.changedTouches[0].screenX;
+      });
+      container.addEventListener('touchend', (e) => {
+        endX = e.changedTouches[0].screenX;
+        const diff = startX - endX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) nextSlide();
+          else prevSlide();
+        }
+      });
+    }
+    
+    // Обновляем при изменении размера
+    window.addEventListener('resize', updateCarousel);
+  }
+
+  // =========================
+  // КНОПКИ ОТКРЫТИЯ КВИЗА
+  // =========================
   const startBtn = document.getElementById('show-form-btn');
   const quizButtons = document.querySelectorAll('.call-quiz-btn');
   
