@@ -22,19 +22,19 @@
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Изменено: Убран overflow: hidden для нормального скролла */
-html,
-body {
+html, body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
   color: var(--text-main);
   background-color: var(--bg-body);
   line-height: 1.5;
-  height: auto; 
-  overflow-x: hidden;
+  height: 100%;
+  overflow: hidden;
 }
 
 h1, h2, h3, h4, h5 {
@@ -55,6 +55,110 @@ h1, h2, h3, h4, h5 {
   width: 60px; 
   background: var(--cta-a); 
   margin: 0 auto 20px;
+}
+
+/* =========================
+   СКРОЛЛСНАП КОНТЕЙНЕР
+   ========================= */
+.snap-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding-top: 60px;
+}
+
+.snap-slide {
+  height: calc(100vh - 60px);
+  scroll-snap-align: start;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* =========================
+   НАВИГАЦИОННАЯ ШКАЛА
+   ========================= */
+.snap-nav {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.85);
+  padding: 12px 8px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.snap-nav-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(11, 59, 96, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border: 2px solid transparent;
+  flex-shrink: 0;
+}
+
+.snap-nav-dot:hover {
+  transform: scale(1.3);
+}
+
+.snap-nav-dot.active {
+  background: var(--primary-color);
+  border-color: var(--cta-a);
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(200, 35, 51, 0.3);
+}
+
+.snap-nav-label {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary-color);
+  color: #fff;
+  padding: 2px 12px;
+  border-radius: 4px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.snap-nav-dot:hover .snap-nav-label {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .snap-nav {
+    right: 10px;
+    padding: 8px 6px;
+    gap: 10px;
+  }
+  .snap-nav-dot {
+    width: 12px;
+    height: 12px;
+  }
+  .snap-nav-label {
+    display: none;
+  }
 }
 
 /* =========================
@@ -119,9 +223,6 @@ h1, h2, h3, h4, h5 {
    ========================= */
 .hero-section {
   background: linear-gradient(to left, rgba(244, 246, 249, 1) 0%, rgba(244, 246, 249, 0.8) 100%), url('../img/bg-main.png') center/cover no-repeat;
-  min-height: calc(100vh - 60px);
-  margin-top: 60px; /* Отступ под фиксированный хедер */
-  overflow: hidden;
 }
 
 .hero-title {
@@ -140,7 +241,7 @@ h1, h2, h3, h4, h5 {
 .hero-subtitle {
   font-size: 1rem;
   font-weight: 500;
-  text-align: left;
+  text-align: center;
 }
 
 /* ЛЕВАЯ КОЛОНКА */
@@ -227,13 +328,14 @@ h1, h2, h3, h4, h5 {
   background: var(--card-bg);
   border: 2px solid var(--primary-color);
   box-shadow: 4px 4px 0 var(--cta-a);
-  padding: 12px;
+  padding: 14px 16px;
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: 14px;
   border-radius: var(--radius-card);
   height: 100%;
   transition: transform 0.2s ease;
+  min-height: 90px;
 }
 .compact-block:hover {
   transform: translate(-2px, -2px);
@@ -241,8 +343,8 @@ h1, h2, h3, h4, h5 {
 }
 
 .c-icon {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   background: var(--primary-color);
   color: #fff;
   display: flex;
@@ -250,11 +352,12 @@ h1, h2, h3, h4, h5 {
   justify-content: center;
   border-radius: 0;
   flex-shrink: 0;
+  margin-top: 2px;
 }
-.c-icon svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; }
-.c-title { font-size: 0.85rem; font-weight: 900; color: var(--primary-color); text-transform: uppercase; }
-.c-text { font-size: 0.75rem; color: var(--text-main); line-height: 1.2; margin-top: 2px; }
-.c-desc { font-size: 0.65rem; color: var(--text-muted); line-height: 1.2; margin-top: 4px; }
+.c-icon svg { width: 22px; height: 22px; stroke: currentColor; stroke-width: 2; fill: none; }
+.c-title { font-size: 0.9rem; font-weight: 900; color: var(--primary-color); text-transform: uppercase; }
+.c-text { font-size: 0.85rem; color: var(--text-main); line-height: 1.3; margin-top: 2px; }
+.c-desc { font-size: 0.7rem; color: var(--text-muted); line-height: 1.3; margin-top: 4px; }
 
 /* ШАГИ РАБОТЫ */
 .step-container { display: flex; flex-direction: column; }
@@ -307,36 +410,71 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   СУДЕБНАЯ ПРАКТИКА
+   ЭКРАН 2: СУДЕБНАЯ ПРАКТИКА (КАРУСЕЛЬ)
    ========================= */
+.practice-section {
+  background: #ffffff;
+}
+
+.carousel-wrapper {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+.carousel-track-container {
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  will-change: transform;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  padding: 0 4px;
+}
+
 .practice-card {
   background: #fff;
   border: 2px solid var(--primary-color);
   box-shadow: 6px 6px 0 var(--cta-a);
   display: flex;
-  flex-direction: column;
-  height: 100%;
+  flex-direction: row;
+  min-height: 380px;
 }
+
 .practice-img {
-  width: 100%;
-  height: 250px;
+  width: 45%;
+  flex-shrink: 0;
   background: #f0f0f0;
-  border-bottom: 2px solid var(--primary-color);
+  border-right: 2px solid var(--primary-color);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 12px;
 }
+
 .practice-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
+  object-fit: contain;
+  max-height: 500px;
 }
+
 .practice-content {
-  padding: 24px;
+  padding: 24px 28px;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
 .case-number {
   font-weight: 900;
   color: var(--cta-a);
@@ -345,7 +483,7 @@ h1, h2, h3, h4, h5 {
   letter-spacing: 1px;
 }
 .case-title {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   margin-bottom: 12px;
   color: var(--primary-color);
 }
@@ -363,126 +501,267 @@ h1, h2, h3, h4, h5 {
 }
 .case-list li { margin-bottom: 6px; }
 
-/* =========================
-   СТОИМОСТЬ И ГАРАНТИИ
-   ========================= */
-.pricing-card {
-  border: 2px solid var(--primary-color);
-  box-shadow: 6px 6px 0 var(--primary-color);
-}
-.price-stage {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding-bottom: 16px;
-  margin-bottom: 16px;
-  border-bottom: 1px dashed #ccc;
-}
-.price-stage.last {
-  border-bottom: none;
-  padding-bottom: 0;
-  margin-bottom: 0;
-}
-.stage-amount {
-  background: #f4f6f9;
-  border: 2px solid var(--primary-color);
-  padding: 8px 12px;
-  font-weight: 900;
-  font-size: 1.1rem;
-  color: var(--primary-color);
-  min-width: 110px;
-  text-align: center;
-}
-.stage-amount.highlight {
-  background: var(--cta-a);
-  color: #fff;
-  border-color: var(--cta-a);
-}
-.stage-info strong {
-  display: block;
-  color: var(--text-main);
-  font-size: 1rem;
-  margin-bottom: 4px;
-}
-.stage-info span {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  line-height: 1.4;
-}
-.costs-card {
+/* КНОПКИ КАРУСЕЛИ */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
   background: var(--primary-color);
+  color: #fff;
   border: 2px solid #fff;
-  box-shadow: 6px 6px 0 var(--cta-a);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 10;
+  font-size: 0;
 }
-.guarantee-box {
-  background: #fff;
-  border: 2px solid var(--cta-a);
-  box-shadow: 4px 4px 0 var(--primary-color);
+
+.carousel-btn:hover {
+  background: var(--cta-a);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-btn svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.carousel-prev {
+  left: 0;
+}
+.carousel-next {
+  right: 0;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(11, 59, 96, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.carousel-dot.active {
+  background: var(--primary-color);
+  border-color: var(--cta-a);
+  transform: scale(1.2);
 }
 
 /* =========================
-   СТРАХИ (ПРЕИМУЩЕСТВА)
+   ЭКРАН 3: СТРАХИ
    ========================= */
-.fear-card {
+.fears-section {
   background: #f8faff;
-  border: 1px solid rgba(0,0,0,0.1);
-  padding: 24px;
+}
+
+.fear-card {
+  background: #fff;
+  border: 2px solid var(--primary-color);
+  border-top: 5px solid var(--cta-a);
+  padding: 24px 22px;
   height: 100%;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
 }
 .fear-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--primary-color);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
 }
 .fear-icon {
-  font-size: 2.5rem;
-  margin-bottom: 16px;
+  font-size: 2.8rem;
+  margin-bottom: 14px;
 }
 .fear-card h5 {
-  font-size: 1rem;
-  margin-bottom: 12px;
+  font-size: 1.05rem;
+  margin-bottom: 10px;
   color: var(--primary-color);
 }
 .fear-card p {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--text-main);
-  margin-bottom: 0;
+  margin-bottom: 10px;
+  flex-grow: 1;
+}
+.fear-detail {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding-top: 10px;
+  border-top: 1px dashed rgba(0,0,0,0.08);
+  margin-top: auto;
+  line-height: 1.4;
 }
 
 /* =========================
-   КАРТА И КОНТАКТЫ
+   ЭКРАН 4: ФИНАНСОВАЯ ВЫГОДА
    ========================= */
+.benefits-section {
+  background: #ffffff;
+}
+
+.benefits-card {
+  background: #f8faff;
+  border: 2px solid var(--primary-color);
+  padding: 30px;
+  height: 100%;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.benefit-item:last-child {
+  border-bottom: none;
+}
+
+.benefit-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  width: 48px;
+  text-align: center;
+}
+
+.benefit-item h5 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  text-transform: none;
+}
+.benefit-item p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.savings-card {
+  background: var(--primary-color);
+  border: 2px solid #fff;
+  box-shadow: 6px 6px 0 var(--cta-a);
+  padding: 30px;
+  color: #fff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.savings-badge {
+  background: var(--cta-a);
+  color: #fff;
+  padding: 4px 20px;
+  font-weight: 900;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.savings-number {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.savings-text {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 24px;
+}
+
+.savings-example {
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  width: 100%;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.savings-example-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.9);
+}
+
+.savings-example-value {
+  font-weight: 700;
+}
+
+.savings-example-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+  margin: 8px 0;
+}
+
+/* =========================
+   ЭКРАН 5: КОНТАКТЫ
+   ========================= */
+.contact-section {
+  background: #f4f6f9;
+}
+
 .contact-map-card {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.05);
+  border: 2px solid var(--primary-color);
+  box-shadow: 6px 6px 0 var(--cta-a);
   overflow: hidden;
+  background: #fff;
 }
+
 .map-container {
-  height: 350px;
-  min-height: 250px;
+  height: 100%;
+  min-height: 350px;
 }
+
 .sharp-btn {
   border-radius: var(--radius-btn) !important;
   font-weight: 700;
   text-transform: uppercase;
 }
 
-/* =========================
-   ФУТЕР
-   ========================= */
-.footer-social-img {
+/* ФУТЕР внутри контактного экрана */
+.contact-section footer {
+  border-top: 1px solid rgba(0,0,0,0.08) !important;
+  margin-top: 20px !important;
+}
+.contact-section footer .footer-social-img {
   filter: grayscale(100%);
   transition: filter 0.3s ease;
   width: 32px;
   height: 32px;
   display: block;
 }
-.social-link:hover .footer-social-img { filter: grayscale(0%); }
-.social-link { display: inline-flex; transition: transform .2s ease; }
-.social-link:hover { transform: translateY(-2px); }
-.footer-link { text-decoration: none; color: var(--text-muted); font-size: .85rem; font-weight: 600; }
-.footer-link:hover { color: var(--primary-color); }
+.contact-section footer .social-link:hover .footer-social-img { filter: grayscale(0%); }
+.contact-section footer .social-link { display: inline-flex; transition: transform .2s ease; }
+.contact-section footer .social-link:hover { transform: translateY(-2px); }
+.contact-section footer .footer-link { text-decoration: none; color: var(--text-muted); font-size: .85rem; font-weight: 600; }
+.contact-section footer .footer-link:hover { color: var(--primary-color); }
 
 /* =========================
    МОДАЛЬНОЕ ОКНО КВИЗА
@@ -561,6 +840,23 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .hero-text-col { height: auto !important; padding: 0 0 20px 0 !important; }
   .hero-text-col .flex-grow-1 { flex: none !important; }
   .price-stage { flex-direction: column; gap: 8px; }
+  
+  .practice-card {
+    flex-direction: column;
+    min-height: auto;
+  }
+  .practice-img {
+    width: 100%;
+    height: 300px;
+    border-right: none;
+    border-bottom: 2px solid var(--primary-color);
+  }
+  .practice-img img {
+    object-fit: contain;
+  }
+  .carousel-wrapper {
+    padding: 0 40px;
+  }
 }
 
 @media (max-height: 700px) {
@@ -568,6 +864,12 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .expert-resume-card .expert-facts li { margin-bottom: 3px; }
   .expert-name { font-size: 0.95rem; }
   .step-desc-box { padding: 12px 14px; font-size: 0.85rem; }
+  .compact-block { padding: 10px 12px; min-height: 70px; }
+  .c-icon { width: 32px; height: 32px; }
+  .c-icon svg { width: 18px; height: 18px; }
+  .c-title { font-size: 0.75rem; }
+  .c-text { font-size: 0.7rem; }
+  .c-desc { font-size: 0.6rem; }
 }
 
 @media (max-width: 767.98px) {
@@ -577,15 +879,17 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .btn-header-call { font-size: 0.75rem; padding: 4px 12px; }
   .sticky-top-bar img { height: 32px !important; }
 
-  .hero-section { margin-top: 54px; min-height: calc(100vh - 54px); padding: 15px 0; }
+  .snap-container { padding-top: 54px; }
+  .snap-slide { height: calc(100vh - 54px); }
+
   .text-justify { text-align: center !important; text-align-last: center; }
   .hero-title { font-size: 1.1rem !important; }
   .hero-subtitle { font-size: 0.85rem !important; text-align: center !important; }
 
-  .compact-block { padding: 10px; gap: 10px; box-shadow: 3px 3px 0 var(--cta-a); }
-  .c-icon { width: 32px; height: 32px; }
-  .c-title { font-size: 0.75rem; }
-  .c-text { font-size: 0.7rem; }
+  .compact-block { padding: 10px; gap: 10px; box-shadow: 3px 3px 0 var(--cta-a); min-height: 60px; }
+  .c-icon { width: 28px; height: 28px; }
+  .c-title { font-size: 0.7rem; }
+  .c-text { font-size: 0.65rem; }
   .c-desc { display: none; }
 
   .step-row { flex-wrap: wrap; justify-content: center; gap: 2px 6px; font-size: 0.75rem; }
@@ -593,17 +897,27 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .step-desc-box { padding: 12px; font-size: 0.8rem; }
 
   .btn-start-online { padding: 14px 20px !important; font-size: 0.9rem !important; width: 100%; max-width: none; }
+  
   .practice-img { height: 200px; }
+  .carousel-wrapper { padding: 0 30px; }
+  .carousel-btn { width: 36px; height: 36px; }
+  .carousel-btn svg { width: 18px; height: 18px; }
+  .practice-content { padding: 16px; }
+  .case-title { font-size: 1rem; }
   
   .contact-map-card { flex-direction: column; }
   .contact-map-card .col-md-6 { width: 100%; }
   .map-container { height: 250px; }
 
-  footer .d-flex.gap-4 { gap: 12px !important; flex-wrap: wrap; justify-content: center; }
-  .footer-social-img { width: 28px; height: 28px; }
-  
+  .benefits-card { padding: 20px; }
+  .savings-card { padding: 20px; }
+  .savings-number { font-size: 2.2rem; }
+
   .quiz-card { min-height: 380px; max-height: 95vh; }
   .quiz-inner { padding: 20px 16px 16px !important; }
   .quiz-card h4 { font-size: 0.95rem !important; }
   .btn-quiz-option { padding: 10px 14px !important; font-size: 0.8rem !important; }
+  
+  .snap-nav { right: 6px; padding: 6px 4px; gap: 8px; }
+  .snap-nav-dot { width: 10px; height: 10px; }
 }
