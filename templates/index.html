@@ -29,7 +29,6 @@
   </div>
 </nav>
 
-<!-- Первый экран остается без изменений -->
 <section class="hero-section">
   <div class="container h-100 d-flex flex-column justify-content-center pt-3 pb-3">
     <div class="row align-items-center h-100">
@@ -53,7 +52,7 @@
       </div>
 
       <div class="col-lg-7 hero-text-col d-flex flex-column h-100 ps-lg-4">
-        <div class="flex-shrink-0 mb-3">
+        <div class="text-center flex-shrink-0 mb-3">
           <h1 class="text-uppercase mb-2 hero-title" style="color: var(--primary-color);">
             Законно спишем ваши долги с гарантией сохранения имущества
           </h1>
@@ -131,121 +130,72 @@
         <div class="flex-shrink-0 pt-3 animate-up delay-3 d-flex justify-content-center">
           <button type="button" id="show-form-btn" class="btn-start-online">Узнать шансы на списание</button>
         </div>
+        <div class="screen-indicator">
+          <div class="indicator-dot active" data-screen="1"></div>
+          <div class="indicator-dot" data-screen="2"></div>
+          <div class="indicator-dot" data-screen="3"></div>
+          <div class="indicator-dot" data-screen="4"></div>
+        </div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- Внедрение 1: Судебная практика -->
-<section class="practice-section py-5 bg-white">
+
+<section class="py-5 bg-white">
   <div class="container">
+
     <div class="text-center mb-5">
       <h2>Наша реальная судебная практика</h2>
       <div class="divider"></div>
       <p class="text-muted">Мы не просто списываем долги, мы бьемся за ваше имущество и доходы.</p>
     </div>
     
-    <div class="row g-4">
-      <!-- Дело 1 -->
-      <div class="col-lg-6">
-        <div class="practice-card">
-          <div class="practice-img">
-            <!-- Загрузите скриншот 1-й страницы определения -->
-            <img src="{{ url_for('static', filename='img/case1.jpg') }}" alt="Определение суда Дело № А77-2160/2023" loading="lazy">
+    <!-- Карусель судебной практики -->
+    <div class="practice-carousel-container position-relative" style="max-width: 900px; margin: 0 auto;">
+      <div class="practice-carousel-slides">
+        <div class="practice-slide active">
+          <div class="practice-card">
+            <div class="practice-img">
+              <img src="{{ url_for('static', filename='img/case1.jpg') }}" alt="Определение суда Дело № А77-2160/2023" loading="lazy">
+            </div>
+            <div class="practice-content">
+              <div class="case-number">Дело № А77-2160/2023</div>
+              <h4 class="case-title">Списание долга + Защита доходов</h4>
+              <p class="case-desc">Успешно завершили процедуру банкротства. Помимо полного списания долгов, в процессе процедуры мы защитили доходы клиента, добившись исключения из конкурсной массы:</p>
+              <ul class="case-list">
+                <li>Суммы сверх прожиточного минимума (19 817 ₽).</li>
+                <li>Средств на аренду жилья — 15 000 ₽ ежемесячно.</li>
+                <li>Соц. выплат медработнику: 159 935 ₽ за 2024 г. и 84 970 ₽ за 2025 г.</li>
+                <li>Денег на приобретение лекарств (6 827 ₽).</li>
+              </ul>
+            </div>
           </div>
-          <div class="practice-content">
-            <div class="case-number">Дело № А77-2160/2023</div>
-            <h4 class="case-title">Списание долга + Защита доходов</h4>
-            <p class="case-desc">Успешно завершили процедуру банкротства. Помимо полного списания долгов, в процессе процедуры мы защитили доходы клиента, добившись исключения из конкурсной массы:</p>
-            <ul class="case-list">
-              <li>Суммы сверх прожиточного минимума (19 817 ₽).</li>
-              <li>Средств на аренду жилья — 15 000 ₽ ежемесячно.</li>
-              <li>Соц. выплат медработнику: 159 935 ₽ за 2024 г. и 84 970 ₽ за 2025 г.</li>
-              <li>Денег на приобретение лекарств (6 827 ₽).</li>
-            </ul>
+        </div>
+        <div class="practice-slide">
+          <div class="practice-card">
+            <div class="practice-img">
+              <img src="{{ url_for('static', filename='img/case2.jpg') }}" alt="Определение суда Дело № А63-17799/2023" loading="lazy">
+            </div>
+            <div class="practice-content">
+              <div class="case-number">Дело № А63-17799/2023</div>
+              <h4 class="case-title">Спасение личного автомобиля</h4>
+              <p class="case-desc">В рамках реализации имущества транспортные средства обычно выставляются на торги. Однако в этом деле мы провели сложнейшую работу.</p>
+              <p class="case-desc mb-0">Через суд, предоставив железобетонные и веские основания, нам удалось <strong>полностью исключить автомобиль из конкурсной массы</strong>. Клиент освободился от долгов и сохранил свою машину.</p>
+            </div>
           </div>
         </div>
       </div>
-      
-      <!-- Дело 2 -->
-      <div class="col-lg-6">
-        <div class="practice-card">
-          <div class="practice-img">
-             <!-- Загрузите скриншот 1-й страницы определения -->
-            <img src="{{ url_for('static', filename='img/case2.jpg') }}" alt="Определение суда Дело № А63-17799/2023" loading="lazy">
-          </div>
-          <div class="practice-content">
-            <div class="case-number">Дело № А63-17799/2023</div>
-            <h4 class="case-title">Спасение личного автомобиля</h4>
-            <p class="case-desc">В рамках реализации имущества транспортные средства обычно выставляются на торги. Однако в этом деле мы провели сложнейшую работу.</p>
-            <p class="case-desc mb-0">Через суд, предоставив железобетонные и веские основания, нам удалось <strong>полностью исключить автомобиль из конкурсной массы</strong>. Клиент освободился от долгов и сохранил свою машину.</p>
-          </div>
-        </div>
-      </div>
+      <button type="button" class="practice-nav practice-prev">&larr;</button>
+      <button type="button" class="practice-nav practice-next">&rarr;</button>
     </div>
   </div>
 </section>
 
-<!-- Внедрение 2: Стоимость и гарантии (По договору) -->
-<section class="pricing-section py-5 bg-light">
-  <div class="container">
-    <div class="text-center mb-5">
-      <h2>Стоимость прозрачна и зафиксирована в договоре</h2>
-      <div class="divider"></div>
-      <p class="text-muted fw-bold">Это существенно дешевле, чем в федеральных компаниях — вы не платите за нашу рекламу и раздутый штат колл-центров.</p>
-    </div>
 
-    <div class="row align-items-center g-4">
-      <div class="col-lg-7">
-        <div class="pricing-card p-4 p-md-5 bg-white">
-          <h3 class="mb-4 text-dark">Юридическое сопровождение: 150 000 ₽</h3>
-          <p class="text-muted mb-4">Мы не требуем всю сумму сразу. Оплата разбита на 3 комфортных этапа, привязанных к реальным результатам:</p>
-          
-          <div class="price-stage">
-            <div class="stage-amount">20 000 ₽</div>
-            <div class="stage-info">
-              <strong>Этап 1: Старт работы</strong>
-              <span>Первичный правовой аудит, разработка стратегии защиты, детальный анализ ваших сделок за последние 3 года.</span>
-            </div>
-          </div>
-          
-          <div class="price-stage">
-            <div class="stage-amount">50 000 ₽</div>
-            <div class="stage-info">
-              <strong>Этап 2: Суд начал работу</strong>
-              <span>Оплачивается только после того, как Арбитражный суд вынесет определение о введении процедуры и утвердит управляющего.</span>
-            </div>
-          </div>
 
-          <div class="price-stage last">
-            <div class="stage-amount highlight">80 000 ₽</div>
-            <div class="stage-info">
-              <strong>Этап 3: Финал и списание</strong>
-              <span>Финальный платеж! Вы платите эту сумму <u>только после вынесения судом определения о завершении процедуры</u>. Наша главная мотивация — довести дело до конца.</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-5">
-        <div class="costs-card p-4 mb-4">
-          <h4 class="mb-3 text-white">Обязательные суд. расходы</h4>
-          <div class="fs-2 fw-bold text-white mb-2">50 000 ₽</div>
-          <p class="text-white-50 small mb-0">Это установленные законом платежи (25 000 ₽ на депозит суда, публикации ЕФРСБ, почта). <strong>Вы оплачиваете их сами напрямую по квитанциям.</strong> Мы не берем эти деньги в руки — никаких скрытых накруток.</p>
-        </div>
-
-        <div class="guarantee-box p-4">
-          <h4 class="mb-2" style="color: var(--cta-a);">Железобетонная гарантия</h4>
-          <p class="mb-0 text-dark small fw-bold">Мы прописываем в договоре: если суд не признает вас банкротом (при соблюдении вами условий договора и предоставлении достоверных данных), <strong>МЫ ВЕРНЕМ ВАМ ДЕНЬГИ</strong>.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Внедрение 3: Преимущества и страхи -->
-<section class="fears-section py-5 bg-white">
+<section class="py-5" style="background-color: #f8fafc;">
   <div class="container">
     <div class="text-center mb-5">
       <h2>Развеиваем страхи о процедуре</h2>
@@ -289,8 +239,9 @@
   </div>
 </section>
 
-<!-- Карта и контакты -->
-<section class="contact-map-wrapper bg-light py-5 border-top">
+
+
+<section class="py-5">
   <div class="container">
     <div class="row g-0 contact-map-card">
       <div class="col-md-6 p-4 p-md-5 d-flex flex-column justify-content-center bg-white">
@@ -318,24 +269,18 @@
   </div>
 </section>
 
-<footer class="text-center py-4 bg-white border-top">
+
+
+<footer class="bg-light py-4 mt-5">
   <div class="container">
-  <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
-      <a href="https://wa.me/790341500" target="_blank" class="social-link" aria-label="WhatsApp">
-        <img src="{{ url_for('static', filename='img/WA.webp') }}" alt="WhatsApp" class="footer-social-img">
-      </a>
-      <a href="https://t.me/ripe_man" target="_blank" class="social-link" aria-label="Telegram">
-        <img src="{{ url_for('static', filename='img/TG.webp') }}" alt="Telegram" class="footer-social-img">
-      </a>
-      <a href="https://max.com/790341500" target="_blank" class="social-link" aria-label="Max">
-        <img src="{{ url_for('static', filename='img/MAX.webp') }}" alt="Max" class="footer-social-img">
-      </a>
-    </div>
-    <p class="text-muted small mb-2 fw-bold">© 2026 БЕЗДОЛГОВ.ЛАЙФ. Работаем по всей России.</p>
-    <div class="d-flex justify-content-center gap-3">
-      <a href="/privacy" class="footer-link">Политика</a>
-      <span class="text-muted small">|</span>
-      <a href="/offer" class="footer-link">Оферта</a>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+      <div class="text-muted small">
+        © 2026 БЕЗДОЛГОВ.ЛАЙФ. Работаем по всей России.
+      </div>
+      <div class="d-flex gap-4">
+        <a href="/privacy" class="footer-link">Политика</a>
+        <a href="/offer" class="footer-link">Оферта</a>
+      </div>
     </div>
   </div>
 </footer>
