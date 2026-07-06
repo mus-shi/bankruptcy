@@ -1,52 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
+  
+  // Кнопки открытия квиза
   const startBtn = document.getElementById('show-form-btn');
-  const callBackBtn = document.getElementById('call-back-btn');
-  if (callBackBtn) {
-    callBackBtn.addEventListener('click', openQuiz);
-  }
+  const quizButtons = document.querySelectorAll('.call-quiz-btn');
+  
   const quizOverlay = document.getElementById('quiz-overlay');
   const quizContainer = document.getElementById('quiz-container');
   const closeBtn = document.getElementById('quiz-close-btn');
-
-  // Логика калькулятора
-  const calcDebt = document.getElementById('calc-debt');
-  const calcPayment = document.getElementById('calc-payment');
-  const calcDebtVal = document.getElementById('calc-debt-val');
-  const calcPaymentVal = document.getElementById('calc-payment-val');
-  const resWrittenOff = document.getElementById('res-written-off');
-  const resMonthlyStop = document.getElementById('res-monthly-stop');
-  const resSavings = document.getElementById('res-savings');
-  const calcStartBtn = document.getElementById('calc-start-btn');
-
-  if (calcDebt && calcPayment) {
-    const formatCurrency = (val) => new Intl.NumberFormat('ru-RU').format(val) + ' ₽';
-    
-    const updateCalc = () => {
-      const debt = Number(calcDebt.value);
-      const payment = Number(calcPayment.value);
-      
-      calcDebtVal.textContent = formatCurrency(debt);
-      calcPaymentVal.textContent = formatCurrency(payment);
-      
-      resWrittenOff.textContent = formatCurrency(debt);
-      resMonthlyStop.textContent = formatCurrency(payment) + ' / мес';
-      
-      const procedureCost = 120000;
-      let savings = debt - procedureCost;
-      if (savings < 0) savings = 0;
-      
-      resSavings.textContent = formatCurrency(savings);
-    };
-
-    calcDebt.addEventListener('input', updateCalc);
-    calcPayment.addEventListener('input', updateCalc);
-    updateCalc(); 
-  }
-
-  if (calcStartBtn) {
-    calcStartBtn.addEventListener('click', openQuiz);
-  }
 
   // Логика интерактивного переключения шагов порядка работы
   const stepTriggers = document.querySelectorAll('.step-item-trigger');
@@ -118,7 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (closeBtn) closeBtn.addEventListener('click', closeQuiz);
   quizOverlay.addEventListener('click', (e) => { if (e.target === quizOverlay) closeQuiz(); });
+  
   if (startBtn) startBtn.addEventListener('click', openQuiz);
+  quizButtons.forEach(btn => btn.addEventListener('click', openQuiz));
 
   function progressPercent() {
     return Math.round(((currentStep + 1) / (steps.length + 1)) * 100);
