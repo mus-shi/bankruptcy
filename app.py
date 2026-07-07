@@ -1,6 +1,4 @@
-
-# === APP.PY ===
-app_py = r'''from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify
 import os
 import requests
 
@@ -101,9 +99,4 @@ def consult():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)'''
-
-with open('/mnt/agents/output/app.py', 'w', encoding='utf-8') as f:
-    f.write(app_py)
-
-print("app.py saved successfully")
+    app.run(host='0.0.0.0', port=port, debug=False)
