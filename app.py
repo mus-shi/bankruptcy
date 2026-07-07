@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, jsonify
+
+# === APP.PY ===
+app_py = r'''from flask import Flask, render_template, request, jsonify
 import os
 import requests
 
 app = Flask(__name__)
-# Теперь ключи разделены для безопасности
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'fallback-secret')
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
@@ -15,10 +16,11 @@ def verify_recaptcha(token):
     try:
         resp = requests.post(
             'https://www.google.com/recaptcha/api/siteverify',
-            data={'secret': RECAPTCHA_SECRET_KEY, 'response': token}
+            data={'secret': RECAPTCHA_SECRET_KEY, 'response': token},
+            timeout=10
         )
         return resp.json().get('success', False)
-    except:
+    except Exception:
         return False
 
 @app.route('/')
@@ -41,14 +43,16 @@ def thanks():
 def consult():
     try:
         data = request.get_json()
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+            
         if not verify_recaptcha(data.get('g-recaptcha-response')):
             return jsonify({'error': 'reCAPTCHA failed'}), 400
 
         name = data.get('name', '—')
         phone = data.get('phone', '—')
-        city = data.get('city', 'Не указано') # <-- ИЗВЛЕКАЕМ НОВОЕ ПОЛЕ "ГОРОД"
+        city = data.get('city', 'Не указано')
         
-        # Обновленные ключи из нового квиза
         debt_map = {
             'under200k': 'Менее 200 тыс. ₽',
             '200k-500k': 'От 200 до 500 тыс. ₽',
@@ -60,12 +64,10 @@ def consult():
         property_deals = data.get('property_deals', 'Не указано')
         current_stage = data.get('current_stage', 'Не указано')
 
-        # Получаем UTM-метки
         utm_source = data.get('utm_source', 'Прямой заход / Неизвестно')
         utm_medium = data.get('utm_medium', '—')
         utm_campaign = data.get('utm_campaign', '—')
 
-        # ФОРМИРУЕМ СООБЩЕНИЕ С ГОРОДОМ
         message = f"""
 🔥 НОВЫЙ ЛИД (БЕЗДОЛГОВ.ЛАЙФ)
 
@@ -85,17 +87,23 @@ def consult():
 • Кампания: {utm_campaign}
         """
 
-        # Внутреннее уведомление о новой заявке отправляется в Telegram
         if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
-            requests.post(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage", data={
-                'chat_id': TELEGRAM_CHAT_ID,
-                'text': message
-            })
+            requests.post(
+                f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage",
+                data={'chat_id': TELEGRAM_CHAT_ID, 'text': message},
+                timeout=10
+            )
 
         return jsonify({'ok': True})
     except Exception as e:
+        app.logger.error(f"Consult error: {e}")
         return jsonify({'error': 'Server error'}), 500
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=False)'''
+
+with open('/mnt/agents/output/app.py', 'w', encoding='utf-8') as f:
+    f.write(app_py)
+
+print("app.py saved successfully")
