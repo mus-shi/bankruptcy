@@ -34,7 +34,7 @@
 
 <!-- ====== ЭКРАН 1: ГЛАВНЫЙ ====== -->
 <section class="hero-section snap-slide">
-  <div class="container h-100 d-flex flex-column justify-content-center pt-3 pb-3">
+  <div class="container h-100 d-flex flex-column justify-content-center">
     <div class="row align-items-stretch h-100">
       <!-- ЛЕВАЯ КОЛОНКА -->
       <div class="col-lg-5 d-flex flex-column position-relative mobile-expert-col">
@@ -142,7 +142,7 @@
 
 <!-- ====== ЭКРАН 2: СУДЕБНАЯ ПРАКТИКА (КАРУСЕЛЬ) ====== -->
 <section class="practice-section snap-slide">
-  <div class="container h-100 d-flex flex-column justify-content-center py-4">
+  <div class="container h-100 d-flex flex-column justify-content-center">
     <div class="text-center mb-4">
       <h2>Наша реальная судебная практика</h2>
       <div class="divider"></div>
@@ -226,7 +226,7 @@
 
 <!-- ====== ЭКРАН 3: СТРАХИ ====== -->
 <section class="fears-section snap-slide">
-  <div class="container h-100 d-flex flex-column justify-content-center py-4">
+  <div class="container h-100 d-flex flex-column justify-content-center">
     <div class="text-center mb-4">
       <h2>Вопросы и страхи о банкротстве</h2>
       <div class="divider"></div>
@@ -317,9 +317,10 @@
     </div>
   </div>
 </section>
+
 <!-- ====== ЭКРАН 4: ФИНАНСОВАЯ ВЫГОДА ====== -->
 <section class="pricing-section snap-slide">
-  <div class="container h-100 d-flex flex-column justify-content-center py-4">
+  <div class="container h-100 d-flex flex-column justify-content-center">
     <div class="text-center mb-4">
       <h2>Прозрачная стоимость услуг</h2>
       <div class="divider"></div>
@@ -380,16 +381,14 @@
 
 <!-- ====== ЭКРАН 5: КАРТА И КОНТАКТЫ ====== -->
 <section class="contact-section snap-slide d-flex flex-column">
-  <!-- Контейнер с картой и контактами растягивается на всё доступное пространство -->
-  <div class="container flex-grow-1 d-flex flex-column py-4">
-    <div class="row g-0 contact-map-card flex-grow-1 h-100">
+  <div class="container flex-grow-1 d-flex flex-column">
+    <div class="row g-0 contact-map-card flex-grow-1">
       
       <!-- Контакты -->
       <div class="col-md-5 p-4 p-md-5 d-flex flex-column bg-white">
         <h3 class="h4 mb-3">Приглашаем на очную консультацию</h3>
         <p class="text-muted mb-4">Приезжайте в наш офис для детального разбора. Мы изучим документы и дадим честный прогноз без «воды».</p>
         
-        <!-- НОВОЕ: Чек-лист для заполнения пустоты -->
         <div class="mb-4 bg-light p-3 rounded border-start border-primary border-4">
           <h6 class="fw-bold mb-2 text-dark">Что взять с собой:</h6>
           <ul class="text-muted small mb-0 ps-3">
@@ -421,8 +420,8 @@
     </div>
   </div>
 
-  <!-- ФУТЕР (Прибит к низу благодаря d-flex flex-column на section и flex-grow-1 на верхнем container) -->
-  <footer class="text-center py-3 bg-white border-top w-100 mt-auto">
+  <!-- ФУТЕР -->
+  <footer class="text-center py-3 bg-white border-top w-100">
     <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
       <a href="https://wa.me/790341500" target="_blank" class="social-link" aria-label="WhatsApp">
         <img src="{{ url_for('static', filename='img/WA.webp') }}" alt="WhatsApp" class="footer-social-img">
@@ -445,7 +444,7 @@
 
 </div><!-- /snap-container -->
 
-<!-- НАВИГАЦИОННАЯ ШКАЛА (5 экранов) -->
+<!-- НАВИГАЦИОННАЯ ШКАЛА -->
 <div class="snap-nav" id="snapNav">
   <div class="snap-nav-dot" data-index="0"><span class="snap-nav-label">Главная</span></div>
   <div class="snap-nav-dot" data-index="1"><span class="snap-nav-label">Практика</span></div>
