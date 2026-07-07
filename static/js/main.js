@@ -2,9 +2,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
   
   // =========================
-  // НАВИГАЦИОННАЯ ШКАЛА
+  // БЛОКИРОВКА ПРОКРУТКИ КОЛЕСИКОМ МЫШИ
   // =========================
   const snapContainer = document.querySelector('.snap-container');
+  
+  if (snapContainer) {
+    // Блокируем прокрутку колесиком мыши
+    snapContainer.addEventListener('wheel', (e) => {
+      e.preventDefault();
+    }, { passive: false });
+    
+    // Блокируем прокрутку стрелками клавиатуры
+    snapContainer.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || 
+          e.key === 'PageUp' || e.key === 'PageDown' ||
+          e.key === 'Home' || e.key === 'End') {
+        e.preventDefault();
+      }
+    });
+  }
+  
+  // =========================
+  // НАВИГАЦИОННАЯ ШКАЛА
+  // =========================
   const navDots = document.querySelectorAll('.snap-nav-dot');
   const slides = document.querySelectorAll('.snap-slide');
   
