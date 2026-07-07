@@ -18,6 +18,8 @@
 
   --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+  
+  --header-height: 60px;
 }
 
 * {
@@ -66,17 +68,18 @@ h1, h2, h3, h4, h5 {
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  padding-top: 60px;
+  padding-top: var(--header-height);
 }
 
 .snap-slide {
-  height: calc(100vh - 60px);
+  height: calc(100vh - var(--header-height));
   scroll-snap-align: start;
-  overflow: hidden;
+  overflow-y: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
+  padding: 20px 0;
 }
 
 /* =========================
@@ -184,7 +187,7 @@ h1, h2, h3, h4, h5 {
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+  height: var(--header-height);
   background-color: #fff;
   z-index: 1000;
   display: flex;
@@ -223,6 +226,7 @@ h1, h2, h3, h4, h5 {
    ========================= */
 .hero-section {
   background: linear-gradient(to left, rgba(244, 246, 249, 1) 0%, rgba(244, 246, 249, 0.8) 100%), url('../img/bg-main.png') center/cover no-repeat;
+  padding: 20px 0;
 }
 
 .hero-title {
@@ -242,13 +246,6 @@ h1, h2, h3, h4, h5 {
   font-size: 1rem;
   font-weight: 500;
   text-align: center;
-   /* Устранение наложения на шапку */
-.hero-section .container {
-  padding-top: 80px !important;
-}
-@media (max-width: 767.98px) {
-  .hero-section .container { padding-top: 65px !important; }
-}
 }
 
 /* ЛЕВАЯ КОЛОНКА */
@@ -619,10 +616,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   ЭКРАН 4: ФИНАНСОВАЯ ВЫГОДА
-   ========================= */
-/* =========================
-   ЭКРАН 4: ЦЕНЫ (ПО СКРИНШОТУ)
+   ЭКРАН 4: ЦЕНЫ
    ========================= */
 .pricing-section {
   background: #ffffff;
@@ -832,13 +826,14 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 
 @media (max-width: 767.98px) {
   .sticky-top-bar { padding: 0 12px; height: 54px; }
+  :root { --header-height: 54px; }
   .sticky-top-bar span.d-none.d-md-inline,
   .sticky-top-bar .header-phone { display: none !important; }
   .btn-header-call { font-size: 0.75rem; padding: 4px 12px; }
   .sticky-top-bar img { height: 32px !important; }
 
-  .snap-container { padding-top: 54px; }
-  .snap-slide { height: calc(100vh - 54px); }
+  .snap-container { padding-top: var(--header-height); }
+  .snap-slide { height: calc(100vh - var(--header-height)); }
 
   .text-justify { text-align: center !important; text-align-last: center; }
   .hero-title { font-size: 1.1rem !important; }
