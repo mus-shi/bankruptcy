@@ -391,7 +391,8 @@ document.addEventListener('DOMContentLoaded', () => {
       </form>
     `;
 
-    quizContainer.querySelector('[data-action="back"]').addEventListener('click', () => {
+    const backBtn = quizContainer.querySelector('[data-action="back"]');
+    if (backBtn) backBtn.addEventListener('click', () => {
       currentStep = steps.length - 1; renderStep();
     });
 
@@ -400,32 +401,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const msg = quizContainer.querySelector('#formMsg');
     const phoneInput = quizContainer.querySelector('#phoneInput');
 
-    const phoneMask = IMask(phoneInput, {
-      mask: '+{7} (000) 000-00-00',
-      prepare: function (appended, masked) {
-        if (appended === '8' && masked.value === '') return '';
-        return appended;
-      }
-    });
+    let phoneMask;
+    if (phoneInput && typeof IMask !== 'undefined') {
+      phoneMask = IMask(phoneInput, {
+        mask: '+{7} (000) 000-00-00',
+        prepare: function (appended, masked) {
+          if (appended === '8' && masked.value === '') return '';
+          return appended;
+        }
+      });
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       msg.textContent = '';
+      msg.style.color = '';
       
-      const unmaskedPhone = phoneMask.unmaskedValue;
-      if (unmaskedPhone.length !== 11) {
-        msg.textContent = 'Введите телефон полностью.'; 
-        msg.style.color = 'var(--cta-a)'; 
-        return;
+      if (phoneMask) {
+        const unmaskedPhone = phoneMask.unmaskedValue;
+        if (unmaskedPhone.length !== 11) {
+          msg.textContent = 'Введите телефон полностью.'; 
+          msg.style.color = 'var(--cta-a)'; 
+          return;
+        }
       }
       
-      if (!form.city.value.trim()) {
+      const cityInput = form.querySelector('[name="city"]');
+      if (!cityInput || !cityInput.value.trim()) {
         msg.textContent = 'Укажите, пожалуйста, ваш город.'; 
         msg.style.color = 'var(--cta-a)'; 
         return;
       }
 
-      if (!form.agree.checked) {
+      const agreeCheckbox = form.querySelector('#agree');
+      if (!agreeCheckbox || !agreeCheckbox.checked) {
         msg.textContent = 'Пожалуйста, дайте согласие на обработку данных для получения плана.'; 
         msg.style.color = 'var(--cta-a)'; 
         return;
@@ -445,8 +454,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const payload = {
           name: form.name.value || '—',
-          city: form.city.value.trim(),
-          phone: phoneMask.value, 
+          city: cityInput.value.trim(),
+          phone: phoneMask ? phoneMask.value : form.phone.value, 
           total_debt: answers.total_debt,
           debt_structure: debtStructStr,
           property_deals: answers.property_deals,
