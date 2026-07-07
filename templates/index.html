@@ -1,6 +1,4 @@
-
-# === INDEX.HTML ===
-index_html = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -31,415 +29,353 @@ index_html = r'''<!DOCTYPE html>
   </div>
 </nav>
 
-<!-- ====== ЭКРАН 1: ГЛАВНЫЙ ====== -->
-<section class="hero-section snap-slide" id="slide-hero">
-  <div class="container d-flex flex-column justify-content-center py-4">
-    <div class="row align-items-stretch">
-      <!-- ЛЕВАЯ КОЛОНКА -->
-      <div class="col-lg-5 d-flex flex-column position-relative mobile-expert-col">
-        <div class="expert-resume-card flex-shrink-0">
-          <h5 class="expert-name">Рамазан Магомедович</h5>
-          <div class="expert-role">Арбитражный управляющий</div>
-          <ul class="expert-facts list-unstyled mt-2 mb-0">
-            <li><b>Статус:</b> Один из первых управляющих после введения 127-ФЗ. Колоссальный практический стаж.</li>
-            <li><b>Опыт:</b> Руководство банковскими структурами («Агро-Бизнес Банк», «Аграрник», «Гарант») и производством.</li>
-            <li><b>Специфика:</b> Доскональное понимание деловых обычаев и жесткая защита имущества.</li>
-            <li><b>Образование:</b> Подготовка при Арбитражном управлении (г. Москва), РИСИ.</li>
-          </ul>
+<div class="snap-container">
+  <section class="hero-section snap-slide" id="slide-hero">
+    <div class="container d-flex flex-column justify-content-center py-4">
+      <div class="row align-items-stretch">
+        <div class="col-lg-5 d-flex flex-column position-relative mobile-expert-col">
+          <div class="expert-resume-card flex-shrink-0">
+            <h5 class="expert-name">Рамазан Магомедович</h5>
+            <div class="expert-role">Арбитражный управляющий</div>
+            <ul class="expert-facts list-unstyled mt-2 mb-0">
+              <li><b>Статус:</b> Один из первых управляющих после введения 127-ФЗ. Колоссальный практический стаж.</li>
+              <li><b>Опыт:</b> Руководство банковскими структурами и производством.</li>
+              <li><b>Специфика:</b> Доскональное понимание деловых обычаев и жесткая защита имущества.</li>
+              <li><b>Образование:</b> Подготовка при Арбитражном управлении (г. Москва), РИСИ.</li>
+            </ul>
+          </div>
+          <div class="hero-image-wrapper flex-grow-1 d-none d-lg-flex align-items-end">
+            <img src="{{ url_for('static', filename='img/big-main.png') }}" 
+                 alt="Рамазан Магомедович" 
+                 class="hero-silhouette-enlarged">
+          </div>
         </div>
-        <div class="hero-image-wrapper flex-grow-1 d-none d-lg-flex align-items-end">
-          <img src="{{ url_for('static', filename='img/big-main.png') }}" 
-               alt="Рамазан Магомедович" 
-               class="hero-silhouette-enlarged">
+
+        <div class="col-lg-7 hero-text-col d-flex flex-column ps-lg-4">
+          <div class="flex-shrink-0 mb-3 text-center">
+            <h1 class="text-uppercase mb-2 hero-title" style="color: var(--primary-color);">
+              Законно спишем ваши долги с гарантией сохранения имущества
+            </h1>
+            <p class="text-muted mb-0 hero-subtitle">Процедура по 127-ФЗ. Жесткая юридическая защита от кредиторов с первого дня.</p>
+          </div>
+
+          <div class="flex-grow-1 d-flex flex-column justify-content-center py-2">
+            <div class="row g-2 mb-3 animate-up delay-1">
+              <div class="col-sm-6">
+                <div class="compact-block">
+                  <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M9 15l2 2 4-4"></path></svg></div>
+                  <div>
+                    <div class="c-title">Без риска</div>
+                    <div class="c-text fw-bold">Оплата по факту решения</div>
+                    <div class="c-desc">Стоимость фиксируется в договоре. Никаких скрытых платежей.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="compact-block">
+                  <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
+                  <div>
+                    <div class="c-title">Стоп звонки</div>
+                    <div class="c-text fw-bold">Полный правовой щит</div>
+                    <div class="c-desc">Жестко блокируем любое давление коллекторов и ФССП.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="compact-block">
+                  <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></div>
+                  <div>
+                    <div class="c-title">Защита активов</div>
+                    <div class="c-text fw-bold">Исключение жилья из массы</div>
+                    <div class="c-desc">Выстраиваем оборону единственного жилья и доходов.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="compact-block">
+                  <div class="c-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
+                  <div>
+                    <div class="c-title">Анонимность</div>
+                    <div class="c-text fw-bold">Строгое соблюдение тайны</div>
+                    <div class="c-desc">Изолируем процесс от вашего работодателя и окружения.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 mb-2 animate-up delay-2">
+              <span class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px;">Порядок работы</span>
+              <div style="height: 2px; background: var(--primary-color); flex-grow: 1;"></div>
+            </div>
+
+            <div class="step-container animate-up delay-2">
+              <div class="d-flex justify-content-between mb-2 step-row flex-wrap">
+                <div class="step-item step-item-trigger active" data-step="1"><b>1.</b> Консультация</div>
+                <div class="step-arrow">→</div>
+                <div class="step-item step-item-trigger" data-step="2"><b>2.</b> Документы</div>
+                <div class="step-arrow">→</div>
+                <div class="step-item step-item-trigger" data-step="3"><b>3.</b> Суд</div>
+                <div class="step-arrow">→</div>
+                <div class="step-item step-item-trigger" data-step="4"><b>4.</b> Свобода</div>
+              </div>
+
+              <div id="step-desc-text" class="step-desc-box">
+                Детальный правовой аудит вашей ситуации. Мы анализируем структуру задолженности, оцениваем риски по ранее совершенным сделкам и выстраиваем жесткую стратегию защиты ваших имущественных прав. Никаких пустых обещаний — только сухой расчет шансов на списание.
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-shrink-0 pt-3 animate-up delay-3 d-flex justify-content-center">
+            <button type="button" id="show-form-btn" class="btn-start-online">Узнать шансы на списание</button>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- ПРАВАЯ КОЛОНКА -->
-      <div class="col-lg-7 hero-text-col d-flex flex-column ps-lg-4">
-        <div class="flex-shrink-0 mb-3 text-center">
-          <h1 class="text-uppercase mb-2 hero-title" style="color: var(--primary-color);">
-            Законно спишем ваши долги с гарантией сохранения имущества
-          </h1>
-          <p class="text-muted mb-0 hero-subtitle">Процедура по 127-ФЗ. Жесткая юридическая защита от кредиторов с первого дня.</p>
-        </div>
+  <section class="practice-section snap-slide" id="slide-practice">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Реальная судебная практика</h2>
+        <div class="divider mx-auto"></div>
+        <p class="text-muted fs-5">Симметрия закона: мы защищаем ваши права так же четко, как выстроен этот процесс.</p>
+      </div>
 
-        <div class="flex-grow-1 d-flex flex-column justify-content-center py-2">
+      <div class="custom-slider-container">
+        <div class="custom-slider-track" id="practiceSlider">
           
-          <div class="row g-2 mb-3 animate-up delay-1">
-            <div class="col-sm-6">
-              <div class="compact-block">
-                <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M9 15l2 2 4-4"></path></svg></div>
-                <div>
-                  <div class="c-title">Без риска</div>
-                  <div class="c-text fw-bold">Оплата по факту решения</div>
-                  <div class="c-desc">Стоимость фиксируется в договоре. Никаких скрытых платежей.</div>
-                </div>
+          <div class="custom-slide">
+            <div class="modern-practice-card">
+              <div class="doc-container">
+                <img src="{{ url_for('static', filename='img/case1.jpg') }}" alt="Документ по делу" loading="lazy">
+                <div class="doc-overlay">Определение суда</div>
               </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="compact-block">
-                <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
-                <div>
-                  <div class="c-title">Стоп звонки</div>
-                  <div class="c-text fw-bold">Полный правовой щит</div>
-                  <div class="c-desc">Жестко блокируем любое давление коллекторов и ФССП.</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="compact-block">
-                <div class="c-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg></div>
-                <div>
-                  <div class="c-title">Защита активов</div>
-                  <div class="c-text fw-bold">Исключение жилья из массы</div>
-                  <div class="c-desc">Выстраиваем оборону единственного жилья и доходов.</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="compact-block">
-                <div class="c-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>
-                <div>
-                  <div class="c-title">Анонимность</div>
-                  <div class="c-text fw-bold">Строгое соблюдение тайны</div>
-                  <div class="c-desc">Изолируем процесс от вашего работодателя и окружения.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-flex align-items-center gap-3 mb-2 animate-up delay-2">
-            <span class="text-muted small text-uppercase fw-bold" style="letter-spacing: 1px;">Порядок работы</span>
-            <div style="height: 2px; background: var(--primary-color); flex-grow: 1;"></div>
-          </div>
-
-          <div class="step-container animate-up delay-2">
-            <div class="d-flex justify-content-between mb-2 step-row flex-wrap">
-              <div class="step-item step-item-trigger active" data-step="1"><b>1.</b> Консультация</div>
-              <div class="step-arrow">→</div>
-              <div class="step-item step-item-trigger" data-step="2"><b>2.</b> Документы</div>
-              <div class="step-arrow">→</div>
-              <div class="step-item step-item-trigger" data-step="3"><b>3.</b> Суд</div>
-              <div class="step-arrow">→</div>
-              <div class="step-item step-item-trigger" data-step="4"><b>4.</b> Свобода</div>
-            </div>
-
-            <div id="step-desc-text" class="step-desc-box">
-              Детальный правовой аудит вашей ситуации. Мы анализируем структуру задолженности, оцениваем риски по ранее совершенным сделкам и выстраиваем жесткую стратегию защиты ваших имущественных прав. Никаких пустых обещаний — только сухой расчет шансов на списание.
-            </div>
-          </div>
-
-        </div>
-
-        <div class="flex-shrink-0 pt-3 animate-up delay-3 d-flex justify-content-center">
-          <button type="button" id="show-form-btn" class="btn-start-online">Узнать шансы на списание</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== ЭКРАН 2: СУДЕБНАЯ ПРАКТИКА (КАРУСЕЛЬ) ====== -->
-<section class="practice-section snap-slide" id="slide-practice">
-  <div class="container d-flex flex-column justify-content-center py-4">
-    <div class="text-center mb-4">
-      <h2>Наша реальная судебная практика</h2>
-      <div class="divider"></div>
-      <p class="text-muted">Мы не просто списываем долги, мы бьемся за ваше имущество и доходы.</p>
-    </div>
-
-    <div class="row text-center mb-4 g-3 d-none d-md-flex">
-      <div class="col-md-4">
-        <div class="p-3 border bg-white rounded shadow-sm" style="border-left: 4px solid var(--cta-a);">
-          <h3 class="text-dark mb-1">&gt; 500 млн ₽</h3>
-          <p class="text-muted small fw-bold mb-0">Успешно списанных долгов</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="p-3 border bg-white rounded shadow-sm" style="border-left: 4px solid var(--primary-color);">
-          <h3 class="text-dark mb-1">99.8%</h3>
-          <p class="text-muted small fw-bold mb-0">Дел завершено с полным списанием</p>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="p-3 border bg-white rounded shadow-sm" style="border-left: 4px solid var(--cta-a);">
-          <h3 class="text-dark mb-1">&gt; 10 лет</h3>
-          <p class="text-muted small fw-bold mb-0">Опыт арбитражного управления</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="carousel-wrapper">
-      <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Предыдущий кейс">
-        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      
-      <div class="carousel-track-container">
-        <div class="carousel-track" id="carouselTrack">
-          <div class="carousel-slide">
-            <div class="practice-card">
-              <div class="practice-img">
-                <img src="{{ url_for('static', filename='img/case1.jpg') }}" alt="Дело № А77-2160/2023" loading="lazy">
-              </div>
-              <div class="practice-content">
-                <div class="case-number">Дело № А77-2160/2023</div>
-                <h4 class="case-title">Списание долга + Защита доходов</h4>
-                <p class="case-desc">Успешно завершили процедуру банкротства. Помимо полного списания долгов, мы защитили доходы клиента, исключив из конкурсной массы:</p>
-                <ul class="case-list">
-                  <li>Суммы сверх прожиточного минимума (19 817 ₽).</li>
-                  <li>Средства на аренду жилья — 15 000 ₽ ежемесячно.</li>
-                  <li>Соц. выплаты медработнику (более 240 000 ₽).</li>
-                  <li>Деньги на приобретение лекарств (6 827 ₽).</li>
+              <div class="content-container">
+                <span class="badge-modern">Дело № А77-2160/2023</span>
+                <h4>Списание долга + Защита доходов</h4>
+                <p>Успешное завершение процедуры банкротства с полным сохранением доходов сверх прожиточного минимума. Исключено из массы:</p>
+                <ul class="modern-list">
+                  <li>Аренда жилья (15 000 ₽/мес)</li>
+                  <li>Медицинские соцвыплаты (>240 000 ₽)</li>
+                  <li>Средства на медикаменты</li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="carousel-slide">
-            <div class="practice-card">
-              <div class="practice-img">
-                <img src="{{ url_for('static', filename='img/case2.jpg') }}" alt="Дело № А63-17799/2023" loading="lazy">
+
+          <div class="custom-slide">
+            <div class="modern-practice-card">
+              <div class="doc-container">
+                <img src="{{ url_for('static', filename='img/case2.jpg') }}" alt="Документ по делу" loading="lazy">
+                <div class="doc-overlay">Решение об исключении</div>
               </div>
-              <div class="practice-content">
-                <div class="case-number">Дело № А63-17799/2023</div>
-                <h4 class="case-title">Спасение личного автомобиля</h4>
-                <p class="case-desc">Обычно транспортные средства выставляются на торги. В этом деле мы провели сложнейшую работу.</p>
-                <p class="case-desc mb-0">Через суд, предоставив веские основания, нам удалось <strong>полностью исключить автомобиль из конкурсной массы</strong>. Клиент освободился от долгов и сохранил машину.</p>
+              <div class="content-container">
+                <span class="badge-modern">Дело № А63-17799/2023</span>
+                <h4>Спасение личного автомобиля</h4>
+                <p>Нестандартная практика. В обход стандартных торгов, предоставив веские основания, мы добились полного исключения ТС из конкурсной массы.</p>
+                <div class="highlight-box">Клиент освободился от долгов и сохранил машину для работы.</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        
+        <div class="slider-controls">
+          <button class="slider-arrow" id="prevSlide" aria-label="Назад"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"></path></svg></button>
+          <div class="slider-pagination" id="sliderPagination"></div>
+          <button class="slider-arrow" id="nextSlide" aria-label="Вперед"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"></path></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fears-section snap-slide" id="slide-fears">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <h2 class="section-title text-white">Развеиваем страхи</h2>
+        <div class="divider bg-white mx-auto"></div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="interactive-card">
+            <div class="card-front">
+              <div class="icon-wrapper">🏠</div>
+              <h5>Заберут жилье?</h5>
+            </div>
+            <div class="card-back">
+              <p>По ст. 446 ГПК РФ единственное жилье имеет абсолютный иммунитет. Никто не вправе изъять его за кредитные долги.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="interactive-card">
+            <div class="card-front">
+              <div class="icon-wrapper">💼</div>
+              <h5>Узнают на работе?</h5>
+            </div>
+            <div class="card-back">
+              <p>Процедура строго конфиденциальна. Любые звонки коллекторов в отдел кадров незаконны и немедленно нами блокируются.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="interactive-card">
+            <div class="card-front">
+              <div class="icon-wrapper">✈️</div>
+              <h5>Закроют выезд?</h5>
+            </div>
+            <div class="card-back">
+              <p>Ограничение возможно лишь на короткий срок самого суда. После завершения дела вы абсолютно свободны в перемещениях.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="interactive-card">
+            <div class="card-front">
+              <div class="icon-wrapper">💳</div>
+              <h5>Останусь без денег?</h5>
+            </div>
+            <div class="card-back">
+              <p>Вам гарантирован прожиточный минимум. Мы также ходатайствуем о сохранении средств на аренду жилья и лекарства.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5">
+        <button type="button" class="btn-modern call-quiz-btn">Пройти тест на списание долгов</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-section snap-slide" id="slide-pricing">
+    <div class="container py-5">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Математика свободы</h2>
+        <div class="divider mx-auto"></div>
+        <p class="text-muted">Абсолютно прозрачная структура расходов без скрытых платежей.</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-lg-5">
+          <div class="modern-price-card highlight-card h-100">
+            <div class="card-header-price">
+              <h3>Гонорар за ведение дела</h3>
+              <div class="total-price">150 000 ₽</div>
+              <span class="subtitle">Оплата разбита на 3 этапа по результату</span>
+            </div>
+            <ul class="price-breakdown">
+              <li>
+                <span class="step-name">Этап 1: Правовой аудит и старт</span>
+                <span class="step-cost">20 000 ₽</span>
+              </li>
+              <li>
+                <span class="step-name">Этап 2: Суд ввел процедуру</span>
+                <span class="step-cost">50 000 ₽</span>
+              </li>
+              <li class="final-step">
+                <span class="step-name">Этап 3: Долги списаны (Финал)</span>
+                <span class="step-cost">80 000 ₽</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="modern-price-card h-100 d-flex flex-column">
+            <div class="card-header-price secondary">
+              <h3>Обязательные расходы</h3>
+              <div class="total-price">~ 50 000 ₽</div>
+              <span class="subtitle">Оплачиваются вами напрямую по квитанциям</span>
+            </div>
+            <div class="costs-details flex-grow-1">
+              <p>Сюда входят платежи, установленные законом:</p>
+              <ul>
+                <li>Депозит суда (25 000 ₽)</li>
+                <li>Публикации в газете "Коммерсантъ" и ЕФРСБ</li>
+                <li>Почтовые расходы для уведомления кредиторов</li>
+              </ul>
+              <div class="guarantee-alert mt-auto">
+                <strong>Гарантия:</strong> Если суд не признает вас банкротом (при достоверных данных), мы вернем наш гонорар.
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Следующий кейс">
-        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
     </div>
-    
-    <div class="carousel-dots" id="carouselDots"></div>
-  </div>
-</section>
+  </section>
 
-<!-- ====== ЭКРАН 3: СТРАХИ ====== -->
-<section class="fears-section snap-slide" id="slide-fears">
-  <div class="container d-flex flex-column justify-content-center py-4">
-    <div class="text-center mb-4">
-      <h2>Вопросы и страхи о банкротстве</h2>
-      <div class="divider"></div>
-    </div>
-
-    <div class="row g-4 align-items-center">
-      <div class="col-lg-6">
-        <div class="row g-3">
-          <div class="col-sm-6">
-            <div class="fear-card p-3">
-              <div class="fear-icon mb-2" style="font-size: 2rem;">🏠</div>
-              <h5 style="font-size: 0.95rem;">Заберут жилье?</h5>
-              <p class="small mb-0">По закону (ст. 446 ГПК РФ) ваше единственное жилье имеет иммунитет. Его нельзя изъять за долги.</p>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="fear-card p-3">
-              <div class="fear-icon mb-2" style="font-size: 2rem;">👁️</div>
-              <h5 style="font-size: 0.95rem;">Узнают на работе?</h5>
-              <p class="small mb-0">Процедура конфиденциальна. Звонки от коллекторов в отдел кадров незаконны и жестко блокируются.</p>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="fear-card p-3">
-              <div class="fear-icon mb-2" style="font-size: 2rem;">✈️</div>
-              <h5 style="font-size: 0.95rem;">Закроют выезд?</h5>
-              <p class="small mb-0">Запрет возможен лишь на время суда. После списания долгов вы абсолютно свободны летать куда угодно.</p>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="fear-card p-3">
-              <div class="fear-icon mb-2" style="font-size: 2rem;">💳</div>
-              <h5 style="font-size: 0.95rem;">Останусь без денег?</h5>
-              <p class="small mb-0">Вам выделяется прожиточный минимум. Мы дополнительно добиваемся сохранения средств на аренду и лекарства.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="col-lg-6">
-        <div class="accordion" id="faqAccordion">
-          <div class="accordion-item border-2 border-primary mb-2">
-            <h2 class="accordion-header">
-              <button class="accordion-button fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                Сколько длится процедура списания?
-              </button>
-            </h2>
-            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-              <div class="accordion-body small text-muted">
-                В среднем от 6 до 8 месяцев. При этом <strong>от звонков коллекторов и удержаний приставов вы избавляетесь уже через 3-4 недели</strong> после начала нашей работы.
+  <section class="contact-section snap-slide d-flex flex-column" id="slide-contact">
+    <div class="container flex-grow-1 d-flex flex-column justify-content-center py-4">
+      <div class="modern-contact-wrapper shadow-lg">
+        <div class="row g-0 h-100">
+          <div class="col-md-5 d-flex flex-column justify-content-center p-5 bg-white">
+            <h3 class="mb-4 text-uppercase fw-bold" style="color: var(--primary-color);">Ждем вас в офисе</h3>
+            <p class="text-muted mb-4">Для глубокого анализа вашей ситуации мы рекомендуем очную встречу. Возьмите с собой паспорт и кредитные договоры.</p>
+            
+            <div class="contact-info-block mb-4">
+              <div class="contact-item">
+                <span class="icon">📍</span>
+                <div>
+                  <strong>Адрес:</strong><br>
+                  г. Железноводск, пгт. Иноземцево,<br>ул. Маяковского, 25, офис №1
+                </div>
+              </div>
+              <div class="contact-item mt-3">
+                <span class="icon">📞</span>
+                <div>
+                  <strong>Телефон:</strong><br>
+                  <a href="tel:+790341500" class="text-dark text-decoration-none fs-5 fw-bold">+7 (903) 415-00-XX</a>
+                </div>
               </div>
             </div>
+            <button class="btn-modern w-100 call-quiz-btn">Оставить заявку</button>
           </div>
           
-          <div class="accordion-item border-2 border-primary mb-2">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                Спишут ли долги по ЖКХ и налогам?
-              </button>
-            </h2>
-            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body small text-muted">
-                Да. По 127-ФЗ полностью списываются кредиты, кредитные карты, микрозаймы, долги по распискам физическим лицам, налоги и задолженности по ЖКХ. Не списываются только алименты и возмещение вреда здоровью.
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion-item border-2 border-primary mb-2">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                А если у меня ипотека?
-              </button>
-            </h2>
-            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-              <div class="accordion-body small text-muted">
-                С 2024 года закон позволяет сохранить ипотечное жилье при банкротстве. Для этого составляется локальный план реструктуризации конкретно под ипотеку, а остальные потребительские кредиты списываются.
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="mt-4 text-center">
-          <button type="button" class="btn-start-online call-quiz-btn w-100">Пройти тест на списание долгов</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== ЭКРАН 4: ФИНАНСОВАЯ ВЫГОДА ====== -->
-<section class="pricing-section snap-slide" id="slide-pricing">
-  <div class="container d-flex flex-column justify-content-center py-4">
-    <div class="text-center mb-4">
-      <h2>Прозрачная стоимость услуг</h2>
-      <div class="divider"></div>
-      <p class="text-muted fw-bold mb-0">Это существенно дешевле, чем в федеральных компаниях — вы не платите за нашу рекламу и раздутый штат колл-центров.</p>
-    </div>
-
-    <div class="row g-4 align-items-stretch mt-1">
-      <div class="col-lg-7">
-        <div class="pricing-card h-100">
-          <h3 class="pricing-title">ЮРИДИЧЕСКОЕ СОПРОВОЖДЕНИЕ: 150 000 ₽</h3>
-          <p class="pricing-desc">Мы не требуем всю сумму сразу. Оплата разбита на 3 комфортных этапа, привязанных к реальным результатам:</p>
-          
-          <div class="price-step">
-            <div class="price-badge">20 000 ₽</div>
-            <div class="price-text">
-              <h5>Этап 1: Старт работы</h5>
-              <p>Первичный правовой аудит, разработка стратегии защиты, детальный анализ ваших сделок за последние 3 года.</p>
-            </div>
-          </div>
-          <hr class="price-hr">
-          
-          <div class="price-step">
-            <div class="price-badge">50 000 ₽</div>
-            <div class="price-text">
-              <h5>Этап 2: Суд начал работу</h5>
-              <p>Оплачивается только после того, как Арбитражный суд вынесет определение о введении процедуры и утвердит управляющего.</p>
-            </div>
-          </div>
-          <hr class="price-hr">
-          
-          <div class="price-step">
-            <div class="price-badge red-badge">80 000 ₽</div>
-            <div class="price-text">
-              <h5>Этап 3: Финал и списание</h5>
-              <p>Финальный платеж! Вы платите эту сумму <u>только после вынесения судом определения о завершении процедуры</u>. Наша главная мотивация — довести дело до конца.</p>
-            </div>
+          <div class="col-md-7 position-relative">
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" 
+                    width="100%" height="100%" frameborder="0" style="min-height: 400px; filter: grayscale(20%);"></iframe>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="col-lg-5 d-flex flex-column gap-3">
-        <div class="court-costs-card flex-grow-1">
-          <h4>ОБЯЗАТЕЛЬНЫЕ СУД. РАСХОДЫ</h4>
-          <div class="court-price">50 000 ₽</div>
-          <p>Это установленные законом платежи (25 000 ₽ на депозит суда, публикации ЕФРСБ, почта). <strong>Вы оплачиваете их сами напрямую по квитанциям.</strong> Мы не берем эти деньги в руки — никаких скрытых накруток.</p>
+    <footer class="site-footer w-100 mt-auto">
+      <div class="container text-center">
+        <div class="d-flex justify-content-center align-items-center gap-4 mb-3">
+          <a href="https://wa.me/790341500" target="_blank" class="social-link" aria-label="WhatsApp">
+            <img src="{{ url_for('static', filename='img/WA.webp') }}" alt="WhatsApp" class="footer-social-img">
+          </a>
+          <a href="https://t.me/ripe_man" target="_blank" class="social-link" aria-label="Telegram">
+            <img src="{{ url_for('static', filename='img/TG.webp') }}" alt="Telegram" class="footer-social-img">
+          </a>
+          <a href="https://max.com/790341500" target="_blank" class="social-link" aria-label="Max">
+            <img src="{{ url_for('static', filename='img/MAX.webp') }}" alt="Max" class="footer-social-img">
+          </a>
         </div>
-        
-        <div class="guarantee-card">
-          <h4>ЖЕЛЕЗОБЕТОННАЯ ГАРАНТИЯ</h4>
-          <p>Мы прописываем в договоре: если суд не признает вас банкротом (при соблюдении вами условий договора и предоставлении достоверных данных), <strong>МЫ ВЕРНЕМ ВАМ ДЕНЬГИ.</strong></p>
+        <p class="text-muted small mb-2 fw-bold">© 2026 БЕЗДОЛГОВ.ЛАЙФ. Работаем по всей России.</p>
+        <div class="d-flex justify-content-center gap-3">
+          <a href="/privacy" class="footer-link">Политика</a>
+          <span class="text-muted small">|</span>
+          <a href="/offer" class="footer-link">Оферта</a>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </footer>
+  </section>
+</div>
 
-<!-- ====== ЭКРАН 5: КАРТА И КОНТАКТЫ ====== -->
-<section class="contact-section snap-slide" id="slide-contact">
-  <div class="container flex-grow-1 d-flex flex-column">
-    <div class="row g-0 contact-map-card flex-grow-1">
-      
-      <div class="col-md-5 p-4 p-md-5 d-flex flex-column bg-white">
-        <h3 class="h4 mb-3">Приглашаем на очную консультацию</h3>
-        <p class="text-muted mb-4">Приезжайте в наш офис для детального разбора. Мы изучим документы и дадим честный прогноз без «воды».</p>
-        
-        <div class="mb-4 bg-light p-3 rounded border-start border-primary border-4">
-          <h6 class="fw-bold mb-2 text-dark">Что взять с собой:</h6>
-          <ul class="text-muted small mb-0 ps-3">
-            <li>Паспорт гражданина РФ</li>
-            <li>Кредитные договоры и графики платежей (если сохранились)</li>
-            <li>Справки из банков о размере задолженности</li>
-          </ul>
-        </div>
-        
-        <div class="d-flex align-items-center gap-2 mb-3 mt-auto">
-          <span class="text-dark fw-bold">Телефон:</span>
-          <a href="tel:+790341500" class="text-dark fw-bold text-decoration-none fs-5">+7 (903) 415-00-XX</a>
-        </div>
-        <div>
-          <a href="tel:+790341500" class="btn btn-outline-dark px-4 py-2 sharp-btn w-100 mb-4" style="max-width: 250px;">📞 Позвонить сейчас</a>
-        </div>
-        
-        <div>
-          <p class="mb-1 text-dark"><strong>Наш адрес:</strong></p>
-          <p class="text-muted mb-1">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
-          <p class="text-danger small fw-bold">Приём ведется строго по записи.</p>
-        </div>
-      </div>
-      
-      <div class="col-md-7 map-container">
-        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" width="100%" height="100%" frameborder="0"></iframe>
-      </div>
-    </div>
-  </div>
-
-  <footer class="site-footer text-center w-100 mt-4">
-    <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
-      <a href="https://wa.me/790341500" target="_blank" class="social-link" aria-label="WhatsApp">
-        <img src="{{ url_for('static', filename='img/WA.webp') }}" alt="WhatsApp" class="footer-social-img">
-      </a>
-      <a href="https://t.me/ripe_man" target="_blank" class="social-link" aria-label="Telegram">
-        <img src="{{ url_for('static', filename='img/TG.webp') }}" alt="Telegram" class="footer-social-img">
-      </a>
-      <a href="https://max.com/790341500" target="_blank" class="social-link" aria-label="Max">
-        <img src="{{ url_for('static', filename='img/MAX.webp') }}" alt="Max" class="footer-social-img">
-      </a>
-    </div>
-    <p class="text-muted small mb-1 fw-bold">© 2026 БЕЗДОЛГОВ.ЛАЙФ. Работаем по всей России.</p>
-    <div class="d-flex justify-content-center gap-3">
-      <a href="/privacy" class="footer-link">Политика</a>
-      <span class="text-muted small">|</span>
-      <a href="/offer" class="footer-link">Оферта</a>
-    </div>
-  </footer>
-</section>
-
-<!-- НАВИГАЦИОННАЯ ШКАЛА -->
 <div class="snap-nav" id="snapNav">
   <div class="snap-nav-dot" data-index="0" data-target="slide-hero"><span class="snap-nav-label">Главная</span></div>
   <div class="snap-nav-dot" data-index="1" data-target="slide-practice"><span class="snap-nav-label">Практика</span></div>
   <div class="snap-nav-dot" data-index="2" data-target="slide-fears"><span class="snap-nav-label">Страхи</span></div>
-  <div class="snap-nav-dot" data-index="3" data-target="slide-pricing"><span class="snap-nav-label">Выгода</span></div>
+  <div class="snap-nav-dot" data-index="3" data-target="slide-pricing"><span class="snap-nav-label">Цены</span></div>
   <div class="snap-nav-dot" data-index="4" data-target="slide-contact"><span class="snap-nav-label">Контакты</span></div>
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО КВИЗА -->
 <div id="quiz-overlay" class="quiz-overlay" aria-hidden="true">
   <div class="quiz-card" role="dialog" aria-modal="true">
     <button type="button" class="btn-close-quiz" id="quiz-close-btn">
@@ -454,9 +390,4 @@ index_html = r'''<!DOCTYPE html>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
-</html>'''
-
-with open('/mnt/agents/output/index.html', 'w', encoding='utf-8') as f:
-    f.write(index_html)
-
-print("index.html saved successfully")
+</html>
