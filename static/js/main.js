@@ -1,44 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
+
+# === MAIN.JS ===
+main_js = r'''document.addEventListener('DOMContentLoaded', () => {
   const SITE_KEY = '6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK';
-  
+
   // =========================
-  // БЛОКИРОВКА ПРОКРУТКИ КОЛЕСИКОМ МЫШИ
-  // =========================
-  const snapContainer = document.querySelector('.snap-container');
-  
-  if (snapContainer) {
-    // Блокируем прокрутку колесиком мыши
-    snapContainer.addEventListener('wheel', (e) => {
-      e.preventDefault();
-    }, { passive: false });
-    
-    // Блокируем прокрутку стрелками клавиатуры
-    snapContainer.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || 
-          e.key === 'PageUp' || e.key === 'PageDown' ||
-          e.key === 'Home' || e.key === 'End') {
-        e.preventDefault();
-      }
-    });
-  }
-  
-  // =========================
-  // НАВИГАЦИОННАЯ ШКАЛА
+  // НАВИГАЦИОННАЯ ШКАЛА + SCROLL-SNAP
   // =========================
   const navDots = document.querySelectorAll('.snap-nav-dot');
   const slides = document.querySelectorAll('.snap-slide');
   
   function updateNav(index) {
-    navDots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === index);
-    });
+    navDots.forEach((dot, i) => dot.classList.toggle('active', i === index));
   }
   
   function goToSlide(index) {
-    if (index < 0 || index >= slides.length) return;
     const slide = slides[index];
     if (slide) {
-      slide.scrollIntoView({ behavior: 'smooth' });
+      slide.scrollIntoView({ behavior: 'smooth', block: 'start' });
       updateNav(index);
     }
   }
@@ -50,24 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // Отслеживание активного слайда при скролле
-  let currentSlideIndex = 0;
+  // IntersectionObserver для отслеживания активного слайда
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        const slides = document.querySelectorAll('.snap-slide');
         const index = Array.from(slides).indexOf(entry.target);
-        if (index !== -1 && index !== currentSlideIndex) {
-          currentSlideIndex = index;
-          updateNav(index);
-        }
+        if (index !== -1) updateNav(index);
       }
     });
   }, { threshold: 0.5 });
   
-  document.querySelectorAll('.snap-slide').forEach(slide => {
-    observer.observe(slide);
-  });
+  slides.forEach(slide => observer.observe(slide));
 
   // =========================
   // КАРУСЕЛЬ СУДЕБНОЙ ПРАКТИКИ
@@ -78,91 +49,64 @@ document.addEventListener('DOMContentLoaded', () => {
   const dotsContainer = document.getElementById('carouselDots');
   
   if (track && prevBtn && nextBtn && dotsContainer) {
-    const slides_carousel = track.querySelectorAll('.carousel-slide');
-    const totalSlides = slides_carousel.length;
+    const carouselSlides = track.querySelectorAll('.carousel-slide');
+    const totalSlides = carouselSlides.length;
     let currentIndex = 0;
-    let isTransitioning = false;
     
     // Создаем точки
     for (let i = 0; i < totalSlides; i++) {
       const dot = document.createElement('div');
       dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
       dot.dataset.index = i;
-      dot.addEventListener('click', () => goToSlide_carousel(i));
+      dot.addEventListener('click', () => goToCarouselSlide(i));
       dotsContainer.appendChild(dot);
     }
     
     const dots = dotsContainer.querySelectorAll('.carousel-dot');
     
     function updateCarousel() {
-      if (isTransitioning) return;
       track.style.transform = `translateX(-${currentIndex * 100}%)`;
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentIndex);
-      });
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === currentIndex));
     }
     
-    function goToSlide_carousel(index) {
-      if (isTransitioning || index === currentIndex) return;
+    function goToCarouselSlide(index) {
+      if (index === currentIndex) return;
       currentIndex = index;
       updateCarousel();
     }
     
     function nextSlide() {
-      if (isTransitioning) return;
       currentIndex = (currentIndex + 1) % totalSlides;
       updateCarousel();
     }
     
     function prevSlide() {
-      if (isTransitioning) return;
       currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
       updateCarousel();
     }
     
-    // Обработчики
     nextBtn.addEventListener('click', nextSlide);
     prevBtn.addEventListener('click', prevSlide);
     
-    // Клавиатура
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') nextSlide();
-      if (e.key === 'ArrowLeft') prevSlide();
-    });
-    
     // Свайп для мобильных
     let startX = 0;
-    let endX = 0;
     const container = track.closest('.carousel-wrapper');
     if (container) {
       container.addEventListener('touchstart', (e) => {
         startX = e.changedTouches[0].screenX;
-      });
+      }, { passive: true });
       container.addEventListener('touchend', (e) => {
-        endX = e.changedTouches[0].screenX;
-        const diff = startX - endX;
+        const diff = startX - e.changedTouches[0].screenX;
         if (Math.abs(diff) > 50) {
-          if (diff > 0) nextSlide();
-          else prevSlide();
+          diff > 0 ? nextSlide() : prevSlide();
         }
-      });
+      }, { passive: true });
     }
-    
-    // Обновляем при изменении размера
-    window.addEventListener('resize', updateCarousel);
   }
 
   // =========================
-  // КНОПКИ ОТКРЫТИЯ КВИЗА
+  // ШАГИ РАБОТЫ (ИНТЕРАКТИВ)
   // =========================
-  const startBtn = document.getElementById('show-form-btn');
-  const quizButtons = document.querySelectorAll('.call-quiz-btn');
-  
-  const quizOverlay = document.getElementById('quiz-overlay');
-  const quizContainer = document.getElementById('quiz-container');
-  const closeBtn = document.getElementById('quiz-close-btn');
-
-  // Логика интерактивного переключения шагов порядка работы
   const stepTriggers = document.querySelectorAll('.step-item-trigger');
   const stepDescText = document.getElementById('step-desc-text');
   
@@ -190,6 +134,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // =========================
+  // КВИЗ
+  // =========================
+  const startBtn = document.getElementById('show-form-btn');
+  const quizButtons = document.querySelectorAll('.call-quiz-btn');
+  const quizOverlay = document.getElementById('quiz-overlay');
+  const quizContainer = document.getElementById('quiz-container');
+  const closeBtn = document.getElementById('quiz-close-btn');
 
   if (!quizOverlay || !quizContainer) return;
 
@@ -219,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('quiz-open');
     quizOverlay.setAttribute('aria-hidden', 'false');
     currentStep = 0;
+    Object.keys(answers).forEach(k => delete answers[k]);
     renderStep();
   }
 
@@ -226,12 +180,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('quiz-open');
     quizOverlay.setAttribute('aria-hidden', 'true');
     quizContainer.innerHTML = '';
-    currentStep = 0;
-    Object.keys(answers).forEach(k => delete answers[k]);
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closeQuiz);
-  quizOverlay.addEventListener('click', (e) => { if (e.target === quizOverlay) closeQuiz(); });
+  quizOverlay.addEventListener('click', (e) => { 
+    if (e.target === quizOverlay) closeQuiz(); 
+  });
   
   if (startBtn) startBtn.addEventListener('click', openQuiz);
   quizButtons.forEach(btn => btn.addEventListener('click', openQuiz));
@@ -332,12 +286,10 @@ document.addEventListener('DOMContentLoaded', () => {
     choices.forEach(choice => {
       html += `<button type="button" class="btn-quiz-option" data-action="pick" data-value="${choice}">${choice}</button>`;
     });
-    html += `</div>`;
-    html += `
+    html += `</div>
       <div class="quiz-action-area">
         <button type="button" class="quiz-submit-btn" data-action="next-single" disabled>Далее</button>
-      </div>
-    `;
+      </div>`;
     return html;
   }
 
@@ -346,12 +298,10 @@ document.addEventListener('DOMContentLoaded', () => {
     choices.forEach(choice => {
       html += `<button type="button" class="btn-quiz-option" data-action="toggle" data-value="${choice}">${choice}</button>`;
     });
-    html += `</div>`;
-    html += `
+    html += `</div>
       <div class="quiz-action-area">
         <button type="button" class="quiz-submit-btn" data-action="next-multi" disabled>Далее</button>
-      </div>
-    `;
+      </div>`;
     return html;
   }
 
@@ -413,7 +363,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const backBtn = quizContainer.querySelector('[data-action="back"]');
     if (backBtn) backBtn.addEventListener('click', () => {
-      currentStep = steps.length - 1; renderStep();
+      currentStep = steps.length - 1;
+      renderStep();
     });
 
     const form = quizContainer.querySelector('#leadForm');
@@ -469,7 +420,9 @@ document.addEventListener('DOMContentLoaded', () => {
           window.grecaptcha.execute(SITE_KEY, { action: 'consult' }).then(res).catch(rej);
         });
 
-        const debtStructStr = Array.isArray(answers.debt_structure) ? answers.debt_structure.join(', ') : answers.debt_structure;
+        const debtStructStr = Array.isArray(answers.debt_structure) 
+          ? answers.debt_structure.join(', ') 
+          : answers.debt_structure;
         const urlParams = new URLSearchParams(window.location.search);
 
         const payload = {
@@ -502,4 +455,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-});
+});'''
+
+with open('/mnt/agents/output/main.js', 'w', encoding='utf-8') as f:
+    f.write(main_js)
+
+print("main.js saved successfully")
