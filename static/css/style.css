@@ -24,7 +24,6 @@
   box-sizing: border-box;
 }
 
-/* Изменено: Убран overflow: hidden для нормального скролла */
 html,
 body {
   margin: 0;
@@ -319,19 +318,21 @@ h1, h2, h3, h4, h5 {
 }
 .practice-img {
   width: 100%;
-  height: 250px;
-  background: #f0f0f0;
+  height: 350px; /* Увеличено для полного отображения судебных актов */
+  background: #f4f6f9;
   border-bottom: 2px solid var(--primary-color);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 15px; /* Отступы, чтобы документ не прилипал к краям */
 }
 .practice-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top;
+  object-fit: contain; /* Исправлено: теперь документ не обрезается */
+  object-position: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Легкая тень для бумажного листа */
 }
 .practice-content {
   padding: 24px;
@@ -593,7 +594,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .step-desc-box { padding: 12px; font-size: 0.8rem; }
 
   .btn-start-online { padding: 14px 20px !important; font-size: 0.9rem !important; width: 100%; max-width: none; }
-  .practice-img { height: 200px; }
+  
+  .practice-img { height: 250px; } /* Адаптив для документов на мобильных */
   
   .contact-map-card { flex-direction: column; }
   .contact-map-card .col-md-6 { width: 100%; }
