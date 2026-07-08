@@ -46,7 +46,7 @@ def consult():
 
         name = data.get('name', '—')
         phone = data.get('phone', '—')
-        city = data.get('city', 'Не указано') # <-- ИЗВЛЕКАЕМ НОВОЕ ПОЛЕ "ГОРОД"
+        city = data.get('city', 'Не указано') 
         
         # Обновленные ключи из нового квиза
         debt_map = {
