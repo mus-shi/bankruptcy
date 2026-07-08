@@ -38,6 +38,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ЛОГИКА КАРАУСЕЛИ СУДЕБНОЙ ПРАКТИКИ (ЭКРАН 2)
+  const prevCaseBtn = document.getElementById('prev-case-btn');
+  const nextCaseBtn = document.getElementById('next-case-btn');
+  const caseSlides = document.querySelectorAll('.practice-slide-item');
+  let currentCaseIndex = 0;
+
+  function updateCaseSlide(index) {
+    caseSlides.forEach((slide, idx) => {
+      if (idx === index) {
+        slide.classList.remove('d-none');
+        slide.classList.add('active');
+      } else {
+        slide.classList.remove('active');
+        slide.classList.add('d-none');
+      }
+    });
+  }
+
+  if (prevCaseBtn && nextCaseBtn && caseSlides.length > 0) {
+    prevCaseBtn.addEventListener('click', () => {
+      currentCaseIndex = (currentCaseIndex === 0) ? caseSlides.length - 1 : currentCaseIndex - 1;
+      updateCaseSlide(currentCaseIndex);
+    });
+
+    nextCaseBtn.addEventListener('click', () => {
+      currentCaseIndex = (currentCaseIndex === caseSlides.length - 1) ? 0 : currentCaseIndex + 1;
+      updateCaseSlide(currentCaseIndex);
+    });
+  }
+
   if (!quizOverlay || !quizContainer) return;
 
   const steps = [
