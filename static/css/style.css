@@ -322,44 +322,32 @@ h1, h2, h3, h4, h5 {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  height: 480px; /* Увеличена высота блока для лучшей читаемости документа */
+  height: 420px; /* Укоротили блок для симметрии с правым экраном */
 }
 
 /* Контейнер изображения судебного акта */
 .practice-img {
-  width: 60%; /* Увеличено до 60% ширины, чтобы документ стал крупнее */
+  width: 50%; /* Сбалансированная ширина */
   background: #e9ecef;
   border-right: 2px solid var(--primary-color);
-  overflow-y: auto;
-  display: block;
-  padding: 0;
-  scrollbar-width: thin;
-  scrollbar-color: var(--primary-color) #e9ecef;
-}
-
-/* Стилизация скроллбара для Webkit (Chrome, Safari) */
-.practice-img::-webkit-scrollbar {
-  width: 6px;
-}
-.practice-img::-webkit-scrollbar-track {
-  background: #e9ecef;
-}
-.practice-img::-webkit-scrollbar-thumb {
-  background-color: var(--primary-color);
-  border-radius: 4px;
+  display: flex;
+  align-items: center; /* Центрируем по вертикали */
+  justify-content: center;
+  padding: 15px; /* Небольшой отступ, чтобы акт не прилипал к краям */
 }
 
 .practice-img img {
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%; /* Жестко ограничиваем высоту картинки рамками блока */
+  width: auto;
   height: auto;
-  display: block; 
+  object-fit: contain; /* Картинка масштабируется целиком, скролл больше не нужен */
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  margin: 0 auto;
 }
 
 /* Текстовая часть карточки */
 .practice-content {
-  width: 40%; /* Текстовая часть теперь занимает 40% */
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
