@@ -40,7 +40,7 @@
             <h5 class="expert-name">Рамазанов Рамазан Магомедович</h5>
             <div class="expert-role">Главный эксперт проекта</div>
             <ul class="expert-facts list-unstyled mt-2 mb-0">
-              <li><b>Бэкграунд:</b> С 2015 по 2021 год состоял в СРО АУ «Единство» в качестве арбитражного управляющего.</li>
+              <li><b>Бэкграунд:</b> С 2015 по 2021 год состоял в СРО АУ «Единство» in качестве арбитражного управляющего.</li>
               <li><b>Методология:</b> Автор стратегии защиты. Его колоссальный practical стаж лег в основу работы нашей юридической команды.</li>
               <li><b>Опыт:</b> Руководство банковскими структурами («Агро-Бизнес Банк», «Аграрник», «Гарант») и доскональное понимание логики кредиторов.</li>
               <li><b>Образование:</b> Подготовка при Арбитражном управлении (г. Москва), РИСИ.</li>
@@ -138,35 +138,32 @@
     </div>
   </section>
 
-  <!-- Экран 2: Добавлена оболочка .pricing-fixed-wrap, убран align-items-stretch на align-items-start -->
   <section class="scroll-screen practice-pricing-section py-3 bg-white">
     <div class="container h-100 d-flex flex-column justify-content-center">
       
       <div class="row g-4 d-none d-lg-flex flex-shrink-0 mb-3">
         <div class="col-lg-6">
           <div class="text-center sync-header">
-            <h2 style="font-size: 1.2rem; margin-bottom: 4px;">Наша реальная судебная практика</h2>
-            <div class="divider" style="margin-bottom: 6px;"></div>
+            <h2>Наша реальная судебная практика</h2>
+            <div class="divider"></div>
             <p class="text-muted small mb-0">Мы добросовестно представляем ваши интересы в Арбитражном суде.</p>
           </div>
         </div>
         <div class="col-lg-6">
           <div class="text-center sync-header">
-            <h2 style="font-size: 1.2rem; margin-bottom: 4px;">Стоимость прозрачна и зафиксирована в договоре</h2>
-            <div class="divider" style="margin-bottom: 6px;"></div>
+            <h2>Стоимость прозрачна и зафиксирована в договоре</h2>
+            <div class="divider"></div>
             <p class="text-muted small mb-0 fw-bold">Адекватная ценовая политика за счет работы без раздутого штата посредников.</p>
           </div>
         </div>
       </div>
 
-      <!-- Изменен align-items-stretch на align-items-start, чтобы блоки не тянулись к низу экрана -->
       <div class="row g-4 align-items-start flex-grow-1 pb-3 pb-lg-0">
         
-        <!-- Левая колонка: Практика -->
-        <div class="col-lg-6 d-flex flex-column justify-content-start">
+        <div class="col-lg-6 d-flex flex-column justify-content-start sub-column-gap">
           <div class="text-center mb-3 d-lg-none sync-header">
-            <h2 style="font-size: 1.2rem; margin-bottom: 4px;">Наша реальная судебная практика</h2>
-            <div class="divider" style="margin-bottom: 6px;"></div>
+            <h2>Наша реальная судебная практика</h2>
+            <div class="divider"></div>
             <p class="text-muted small mb-0">Мы добросовестно представляем ваши интересы в Арбитражном суде.</p>
           </div>
           
@@ -206,61 +203,63 @@
             <button type="button" class="slider-arrow-btn prev" id="prev-case-btn" aria-label="Назад">‹</button>
             <button type="button" class="slider-arrow-btn next" id="next-case-btn" aria-label="Вперед">›</button>
           </div>
+
+          <div class="stats-card p-3 d-flex flex-column justify-content-center sub-block-height">
+            <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">Результаты работы проекта</h4>
+            <div class="fw-bold text-white mb-1" style="font-size: 1.1rem; font-family: 'Montserrat', sans-serif;">Более 200 успешных дел</div>
+            <p class="text-white-50 small mb-0" style="font-size: 0.75rem; line-height: 1.3;">Законно освободили граждан от непосильного бремени. Всего списано свыше <strong>270 000 000 ₽</strong>. Средняя сумма задолженности клиентов: 1,2 – 1,5 млн ₽.</p>
+          </div>
         </div>
         
-        <!-- Правая колонка: Цены -->
-        <div class="col-lg-6 d-flex flex-column justify-content-start">
+        <div class="col-lg-6 d-flex flex-column justify-content-start sub-column-gap">
           <div class="text-center mb-3 d-lg-none sync-header">
-            <h2 style="font-size: 1.2rem; margin-bottom: 4px;">Стоимость прозрачна и зафиксирована в договоре</h2>
-            <div class="divider" style="margin-bottom: 6px;"></div>
+            <h2>Стоимость прозрачна и зафиксирована в договоре</h2>
+            <div class="divider"></div>
             <p class="text-muted small mb-0 fw-bold">Адекватная ценовая политика за счет работы без раздутого штата посредников.</p>
           </div>
 
-          <!-- Обертка фиксированной высоты (420px), дублирующая левую карточку -->
-          <div class="pricing-fixed-wrap w-100">
-            <div class="pricing-card p-3 bg-white mb-3 flex-grow-1 d-flex flex-column justify-content-center">
-              <h3 class="mb-3 text-dark text-center" style="font-size: 1.15rem;">Юридическое сопровождение: 150 000 ₽</h3>
-              <p class="text-muted text-center small mb-4">Оплата разбита на 3 комфортных этапа, привязанных к ходу процесса:</p>
-              
-              <div class="price-stage pb-2 mb-3">
-                <div class="stage-amount py-1 px-2" style="min-width: 80px; font-size: 0.95rem;">20 000 ₽</div>
-                <div class="stage-info">
-                  <strong style="font-size: 0.9rem; margin-bottom: 2px;">Этап 1: Старт работы</strong>
-                  <span style="font-size: 0.8rem; line-height: 1.3;">Первичный правовой аудит, разработка стратегии защиты, анализ сделок за 3 года.</span>
-                </div>
+          <div class="pricing-card p-3 bg-white d-flex flex-column justify-content-center main-pricing-block">
+            <h3 class="mb-3 text-dark text-center" style="font-size: 1.15rem;">Юридическое сопровождение: 150 000 ₽</h3>
+            <p class="text-muted text-center small mb-4">Оплата разбита на 3 комфортных этапа, привязанных к ходу процесса:</p>
+            
+            <div class="price-stage pb-2 mb-3">
+              <div class="stage-amount py-1 px-2">20 000 ₽</div>
+              <div class="stage-info">
+                <strong>Этап 1: Старт работы</strong>
+                <span>Первичный правовой аудит, разработка стратегии защиты, анализ сделок за 3 года.</span>
               </div>
-              
-              <div class="price-stage pb-2 mb-3">
-                <div class="stage-amount py-1 px-2" style="min-width: 80px; font-size: 0.95rem;">50 000 ₽</div>
-                <div class="stage-info">
-                  <strong style="font-size: 0.9rem; margin-bottom: 2px;">Этап 2: Суд начал работу</strong>
-                  <span style="font-size: 0.8rem; line-height: 1.3;">После вынесения определений о введении процедуры и утверждении управляющего.</span>
-                </div>
-              </div>
-
-              <div class="price-stage last">
-                <div class="stage-amount highlight py-1 px-2" style="min-width: 80px; font-size: 0.95rem;">80 000 ₽</div>
-                <div class="stage-info">
-                  <strong style="font-size: 0.9rem; margin-bottom: 2px;">Этап 3: Завершение процедуры</strong>
-                  <span style="font-size: 0.8rem; line-height: 1.3;">Вы платите эту сумму <u>только после вынесения судом акта о списании долгов</u>.</span>
-                </div>
+            </div>
+            
+            <div class="price-stage pb-2 mb-3">
+              <div class="stage-amount py-1 px-2">50 000 ₽</div>
+              <div class="stage-info">
+                <strong>Этап 2: Суд начал работу</strong>
+                <span>После вынесения определений о введении процедуры и утверждении управляющего.</span>
               </div>
             </div>
 
-            <div class="row g-2 flex-shrink-0">
-              <div class="col-sm-6">
-                <div class="costs-card p-3 h-100 d-flex flex-column justify-content-center">
-                  <h4 class="mb-1 text-white" style="font-size: 0.85rem;">Обязательные суд. расходы</h4>
-                  <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">50 000 ₽</div>
-                  <p class="text-white-50 small mb-0" style="font-size: 0.75rem; line-height: 1.3;">Законные платежи (депозит, публикации, почта). <strong>Оплачиваются напрямую по реквизитам суда.</strong></p>
-                </div>
+            <div class="price-stage last">
+              <div class="stage-amount highlight py-1 px-2">80 000 ₽</div>
+              <div class="stage-info">
+                <strong>Этап 3: Завершение процедуры</strong>
+                <span>Вы платите эту сумму <u>только после вынесения судом акта о списании долгов</u>.</span>
               </div>
-              
-              <div class="col-sm-6">
-                <div class="guarantee-box p-3 h-100 d-flex flex-column justify-content-center">
-                  <h4 class="mb-1" style="color: var(--cta-a); font-size: 0.85rem;">Финансовая ответственность</h4>
-                  <p class="mb-0 text-dark small fw-bold" style="font-size: 0.75rem; line-height: 1.3;">Если суд откажет в процедуре по нашей вине (при предоставлении честных данных), <strong>мы полностью вернем уплаченный аванс</strong>.</p>
-                </div>
+            </div>
+          </div>
+
+          <div class="row g-2 w-100 m-0 p-0">
+            <div class="col-sm-6 ps-0 pe-sm-1 p-0 mb-2 mb-sm-0">
+              <div class="costs-card p-3 d-flex flex-column justify-content-center sub-block-height">
+                <h4 class="mb-1 text-white" style="font-size: 0.85rem;">Обязательные суд. расходы</h4>
+                <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">50 000 ₽</div>
+                <p class="text-white-50 small mb-0" style="font-size: 0.75rem; line-height: 1.3;">Законные платежи (депозит, публикации, почта). <strong>Оплачиваются напрямую по реквизитам суда.</strong></p>
+              </div>
+            </div>
+            
+            <div class="col-sm-6 pe-0 ps-sm-1 p-0">
+              <div class="guarantee-box p-3 d-flex flex-column justify-content-center sub-block-height">
+                <h4 class="mb-1" style="color: var(--cta-a); font-size: 0.85rem;">Финансовая ответственность</h4>
+                <p class="mb-0 text-dark small fw-bold" style="font-size: 0.75rem; line-height: 1.3;">Если суд откажет в процедуре по нашей вине (при предоставлении честных данных), <strong>мы полностью вернем уплаченный аванс</strong>.</p>
               </div>
             </div>
           </div>
@@ -270,18 +269,17 @@
     </div>
   </section>
 
-  <!-- Экран 3 -->
   <section class="scroll-screen contact-audit-section bg-light d-flex flex-column justify-content-between pt-3">
     <div class="container flex-grow-1 d-flex flex-column justify-content-center py-2">
-      <div class="row g-0 contact-map-card bg-white align-items-stretch mx-auto" style="max-width: 1050px; width: 100%;">
+      <div class="row g-0 contact-map-card bg-white align-items-stretch mx-auto" style="max-width: 1140px; width: 100%;">
         
-        <div class="col-md-6 p-3 p-md-4 d-flex flex-column justify-content-center bg-white contact-left-panel">
+        <div class="col-lg-4 p-3 p-md-4 d-flex flex-column justify-content-center bg-white contact-left-panel">
           <h3 class="h3 mb-2 text-uppercase" style="color: var(--primary-color); font-weight: 900; font-size: clamp(0.95rem, 1.2vw, 1.15rem);">Приглашаем вас на правовой аудит</h3>
           <div class="divider ms-0 mb-3" style="margin-left: 0; width: 40px;"></div>
           <p class="text-muted mb-3" style="font-size: 0.85rem;">Приезжайте в офис для детального разбора вашей ситуации. Мы изучим документы и дадим честный правовой прогноз хода дела.</p>
           
           <div class="mb-3">
-            <p class="mb-1 text-muted small text-uppercase fw-bold">Наш адрес:</p>
+            <p class="mb-1 text-muted small text-uppercase fw-bold">Наш address:</p>
             <p class="text-dark fw-bold mb-1" style="font-size: clamp(0.8rem, 0.9vw, 0.9rem);">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
             <p class="text-danger small fw-bold mb-0">Приём ведется строго по предварительной записи.</p>
           </div>
@@ -296,14 +294,22 @@
           </div>
         </div>
         
-        <div class="col-md-6 map-container-snap position-relative">
+        <div class="col-lg-4 p-3 p-md-4 d-flex flex-column justify-content-center align-items-center contact-mid-panel">
+          <h3 class="h3 mb-2 text-uppercase text-center" style="color: var(--primary-color); font-weight: 900; font-size: clamp(0.95rem, 1.2vw, 1.15rem);">География работы</h3>
+          <div class="divider mb-3" style="width: 40px;"></div>
+          <p class="text-muted text-center mb-3" style="font-size: 0.85rem;">Защищаем ваши интересы в судах Ставропольского края и по всей территории РФ.</p>
+          <div class="regions-img-wrapper w-100 flex-grow-1">
+            <img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы БЕЗДОЛГОВ.ЛАЙФ" class="regions-static-map">
+          </div>
+        </div>
+        
+        <div class="col-lg-4 map-container-snap position-relative">
           <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" width="100%" height="100%" frameborder="0" style="position: absolute; top:0; left:0; width: 100%; height: 100%; border: 0;"></iframe>
         </div>
         
       </div>
     </div>
 
-    <!-- Футер -->
     <footer class="text-center py-3 bg-white border-top flex-shrink-0">
       <div class="container">
         <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
