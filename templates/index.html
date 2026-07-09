@@ -119,7 +119,7 @@
                 <div class="step-arrow">→</div>
                 <div class="step-item step-item-trigger" data-step="3"><b>3.</b> Суд</div>
                 <div class="step-arrow">→</div>
-                <div class="step-item step-item-trigger" data-step="4"><b>4.</b> Свобода</div>
+                <div class="step-item step-item-trigger" data-step="4"><b>4.</b> Судебный акт</div>
               </div>
 
               <div id="step-desc-text" class="step-desc-box">
@@ -139,7 +139,6 @@
   </section>
 
   <section class="scroll-screen practice-pricing-section py-3 bg-white">
-    <!-- Добавлен класс aesthetic-container для сужения ширины контента -->
     <div class="container aesthetic-container h-100 d-flex flex-column justify-content-center pt-lg-5">
       
       <div class="row g-4 d-none d-lg-flex flex-shrink-0 mb-3">
@@ -171,7 +170,6 @@
           <div class="practice-slider-container position-relative w-100">
             <div class="practice-slide-item active w-100" data-case="0">
               <div class="practice-card mb-0 w-100">
-                <!-- Добавлен класс zoomable-image и вызов функции -->
                 <div class="practice-img position-relative zoomable-image" onclick="openLightbox(this.querySelector('img').src)">
                   <img src="{{ url_for('static', filename='img/case1.jpg') }}" alt="Определение суда Дело № А77-2160/2023" loading="lazy">
                 </div>
@@ -206,19 +204,18 @@
             <button type="button" class="slider-arrow-btn next" id="next-case-btn" aria-label="Вперед">›</button>
           </div>
 
-          <!-- Новый разделенный блок результатов -->
           <div class="row g-2 w-100 m-0 p-0">
             <div class="col-sm-6 ps-0 pe-sm-1 p-0 mb-2 mb-sm-0">
               <div class="stats-card p-3 d-flex flex-column justify-content-center sub-block-height">
                 <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase;">Количество дел</h4>
                 <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">> 200 успешных</div>
-                <p class="text-white-50 small mb-0" style="font-size: 0.7rem; line-height: 1.3;">Законно освободили граждан от непосильного бремени.</p>
+                <p class="text-white-50 small mb-0" style="font-size: 0.7rem; line-height: 1.3;">Успешно завершенные дела в рамках ФЗ №127.</p>
               </div>
             </div>
             
             <div class="col-sm-6 pe-0 ps-sm-1 p-0">
               <div class="stats-card p-3 d-flex flex-column justify-content-center sub-block-height">
-                <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase;">Списано долгов</h4>
+                <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase;">Урегулировано задолженностей</h4>
                 <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">> 270 000 000 ₽</div>
                 <p class="text-white-50 small mb-0" style="font-size: 0.7rem; line-height: 1.3;">Средняя сумма задолженности клиентов: 1,2 – 1,5 млн ₽.</p>
               </div>
@@ -274,7 +271,7 @@
             <div class="col-sm-6 pe-0 ps-sm-1 p-0">
               <div class="guarantee-box p-3 d-flex flex-column justify-content-center sub-block-height">
                 <h4 class="mb-1" style="color: var(--cta-a); font-size: 0.85rem;">Финансовая ответственность</h4>
-                <p class="mb-0 text-dark small fw-bold" style="font-size: 0.75rem; line-height: 1.3;">Если суд откажет в процедуре по нашей вине (при предоставлении честных данных), <strong>мы полностью вернем уплаченный аванс</strong>.</p>
+                <p class="mb-0 text-dark small fw-bold" style="font-size: 0.75rem; line-height: 1.3;">Если суд не введет процедуру по нашей вине (при предоставлении честных данных), <strong>мы полностью вернем уплаченный аванс</strong>.</p>
               </div>
             </div>
           </div>
@@ -284,12 +281,10 @@
     </div>
   </section>
 
-  <!-- Полностью переработанный 3-й экран -->
   <section class="scroll-screen bg-white d-flex flex-column justify-content-between pt-3">
     <div class="container aesthetic-container flex-grow-1 d-flex flex-column justify-content-center py-3">
       <div class="row g-4 h-100 align-items-center flex-grow-1">
         
-        <!-- Левая колонка: Аудит и Карта -->
         <div class="col-lg-6 d-flex flex-column h-100">
           <div class="contact-audit-card bg-white p-4 mb-3">
             <h3 class="h3 mb-2 text-uppercase" style="color: var(--primary-color); font-weight: 900; font-size: clamp(1rem, 1.2vw, 1.15rem);">Приглашаем вас на правовой аудит</h3>
@@ -315,22 +310,20 @@
           </div>
         </div>
         
-        <!-- Правая колонка: Регионы на чистом фоне -->
         <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center bg-white h-100 py-3 py-lg-0">
           <div class="text-center mb-3">
             <h3 class="h3 mb-2 text-uppercase" style="color: var(--primary-color); font-weight: 900; font-size: clamp(1.1rem, 1.4vw, 1.3rem);">География работы</h3>
             <div class="divider mb-3 mx-auto" style="width: 40px;"></div>
-            <p class="text-muted" style="font-size: 0.9rem;">Защищаем ваши интересы в судах Ставропольского края<br>и по всей территории РФ.</p>
+            <p class="text-muted" style="font-size: 0.9rem;">Защищаем ваши интересы в судах Ставропольского края и КМВ.</p>
           </div>
-          <div class="w-100 flex-grow-1 d-flex align-items-center justify-content-center">
-            <img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы" class="img-fluid" style="max-height: 85%; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05));">
+          <div class="w-100 flex-grow-1 d-flex align-items-center justify-content-center" style="width: 100%;">
+            <img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы" class="img-fluid" style="max-height: 100%; width: 100%; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05));">
           </div>
         </div>
         
       </div>
     </div>
 
-    <!-- Футер (неизменен) -->
     <footer class="text-center py-3 bg-white border-top flex-shrink-0">
       <div class="container">
         <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
@@ -346,7 +339,7 @@
         </div>
         
         <div class="mb-2" style="font-size: 0.75rem; line-height: 1.4;">
-          <p class="text-muted small mb-1 fw-bold">Юридические услуги предоставляет: Рамазанов Рамазан Магомедович, самозанятый</p>
+          <p class="text-muted small mb-1 fw-bold">Юридические услуги предоставляет: Мусаев Ш.И., самозанятый</p>
           <p class="text-muted small mb-1 fw-bold">ИНН: 123456789012</p>
           <p class="text-muted small mb-0">© 2026 БЕЗДОЛГОВ.ЛАЙФ. Работаем по всей России.</p>
         </div>
@@ -371,10 +364,13 @@
   </div>
 </div>
 
-<!-- Модальное окно для зума изображений (Lightbox) -->
 <div id="image-lightbox" class="lightbox-overlay" onclick="closeLightbox()">
   <span class="lightbox-close">&times;</span>
   <img id="lightbox-img" src="" alt="Zoomed Court Act">
+</div>
+
+<div class="legal-disclaimer-banner">
+  Банкротство влечет негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ
 </div>
 
 <script src="https://unpkg.com/imask"></script>
