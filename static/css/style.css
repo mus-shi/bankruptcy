@@ -33,7 +33,7 @@ body {
   background-color: var(--bg-body);
   line-height: 1.5;
   height: 100%; 
-  overflow: hidden; /* Фиксируем body, скролл идет внутри .scroll-container */
+  overflow: hidden;
 }
 
 h1, h2, h3, h4, h5 {
@@ -320,25 +320,32 @@ h1, h2, h3, h4, h5 {
   border: 2px solid var(--primary-color);
   box-shadow: 6px 6px 0 var(--cta-a);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: stretch;
   height: 100%;
+  min-height: 310px;
 }
 .practice-img {
-  width: 100%;
-  height: 220px;
+  width: 35%;
   background: #f4f6f9;
-  border-bottom: 2px solid var(--primary-color);
+  border-right: 2px solid var(--primary-color);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 15px;
 }
 .practice-img img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.practice-content {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .case-number {
   font-weight: 900;
@@ -430,16 +437,16 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   ЭКРАН 3: КАРТА И АУДИТ
+   ЭКРАН 3: ПАРАЛЛАКС И АУДИТ
    ========================= */
-.contact-map-card {
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.05);
+.contact-audit-section {
   overflow: hidden;
 }
-.map-container-snap {
-  width: 100%;
-  height: 100%;
+.contact-floating-card {
+  background: #ffffff;
+  border: 2px solid var(--primary-color);
+  box-shadow: 8px 8px 0 var(--cta-a);
+  position: relative;
 }
 .sharp-btn {
   border-radius: var(--radius-btn) !important;
@@ -533,7 +540,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 .form-control:focus { border-color: var(--primary-color); outline: none; box-shadow: none; }
 
 /* =========================
-   АДАПТИВНОСТЬ / МЕДИА
+   АДAПТИВНОСТЬ / МЕДИА
    ========================= */
 @media (max-width: 991.98px) {
   body { overflow: auto; height: auto; }
@@ -543,7 +550,11 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .price-stage { flex-direction: column; gap: 8px; }
   .slider-arrow-btn.prev { left: 4px; }
   .slider-arrow-btn.next { right: 4px; }
-  .practice-img { height: 260px; }
+  
+  /* Адаптивная перестройка карточки практики в столбец */
+  .practice-card { flex-direction: column; }
+  .practice-img { width: 100%; height: 220px; border-right: none; border-bottom: 2px solid var(--primary-color); }
+  .practice-content { width: 100%; }
 }
 
 @media (max-height: 720px) and (min-width: 992px) {
@@ -552,7 +563,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .step-desc-box { padding: 10px; font-size: 0.8rem; }
   .hero-title { font-size: 1.4rem !important; }
   .compact-block { padding: 8px; }
-  .practice-img { height: 160px; }
+  .practice-card { min-height: 250px; }
+  .practice-img { height: 100%; }
 }
 
 @media (max-width: 767.98px) {
@@ -576,7 +588,4 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .step-item, .step-arrow { font-size: 0.75rem; }
   .step-desc-box { padding: 12px; font-size: 0.8rem; }
   .btn-start-online { padding: 14px 20px !important; font-size: 0.9rem !important; width: 100%; max-width: none; }
-  
-  .contact-map-card { flex-direction: column; }
-  .map-container-snap { height: 250px; }
 }
