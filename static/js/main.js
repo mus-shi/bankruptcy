@@ -146,8 +146,18 @@ document.addEventListener('DOMContentLoaded', () => {
       label.textContent = formatRub(Number(range.value));
       range.addEventListener('input', () => label.textContent = formatRub(Number(range.value)));
       nextBtn.addEventListener('click', () => {
-        answers.total_debt = sliderToDebtKey(Number(range.value));
-        next();
+        const val = Number(range.value);
+        answers.total_debt = sliderToDebtKey(val);
+        
+        // ВЕТКА МФЦ: Пропуск шагов, если сумма < 300 000
+        if (val < 300000) {
+          answers.is_mfc = true;
+          currentStep = steps.length; // Прыжок на финальный экран
+          renderForm();
+        } else {
+          answers.is_mfc = false;
+          next();
+        }
       });
     } else if (step.type === 'multiple') {
       answers[step.key] = answers[step.key] || [];
@@ -242,6 +252,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderForm() {
+    // Выбор заголовка в зависимости от ветки
+    const formHeader = answers.is_mfc
+      ? `<h4 style="font-size: 1.2rem; color: #198754; font-weight: 900; text-transform: uppercase;">Вам доступно БЕСПЛАТНОЕ списание через МФЦ</h4>
+         <p class="text-muted small">Сама процедура бесплатна. Но если вы ошибетесь в форме МФЦ или забудете указать хотя бы одного кредитора — долг не спишут. Мы предлагаем пакет «МФЦ под ключ» за 20 000 ₽: соберем все справки и безошибочно заполним заявление. Оставьте номер для бесплатной проверки ваших критериев.</p>`
+      : `<h4 style="font-size: 1.2rem; color: var(--primary-color); font-weight: 900; text-transform: uppercase;">Данные приняты</h4>
+         <p class="text-muted small">Оставьте номер, чтобы получить пошаговый план процедуры и консультацию.</p>`;
+
     quizContainer.innerHTML = `
       <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-top: 12px; margin-bottom: 20px;">
         <div style="height: 100%; width:100%; background-color: var(--accent-color);"></div>
@@ -252,8 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       
       <div class="text-center mb-4">
-        <h4 style="font-size: 1.2rem; color: var(--primary-color); font-weight: 900; text-transform: uppercase;">Данные приняты</h4>
-        <p class="text-muted small">Оставьте номер, чтобы получить пошаговый план процедуры и консультацию.</p>
+        ${formHeader}
       </div>
 
       <form id="leadForm" class="mt-2" novalidate style="display:flex; flex-direction:column; flex:1;">
@@ -289,7 +305,13 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     quizContainer.querySelector('[data-action="back"]').addEventListener('click', () => {
-      currentStep = steps.length - 1; renderStep();
+      // Если пришли по ветке МФЦ, кнопка "Назад" должна вернуть сразу на первый шаг (ползунок)
+      if (answers.is_mfc) {
+          currentStep = 0;
+      } else {
+          currentStep = steps.length - 1;
+      }
+      renderStep();
     });
 
     const form = quizContainer.querySelector('#leadForm');
@@ -337,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
           window.grecaptcha.execute(SITE_KEY, { action: 'consult' }).then(res).catch(rej);
         });
 
-        const debtStructStr = Array.isArray(answers.debt_structure) ? answers.debt_structure.join(', ') : answers.debt_structure;
+        const debtStructStr = Array.isArray(answers.debt_structure) ? answers.debt_structure.join(', ') : (answers.debt_structure || 'Не указано');
         const urlParams = new URLSearchParams(window.location.search);
 
         const payload = {
@@ -346,8 +368,9 @@ document.addEventListener('DOMContentLoaded', () => {
           phone: phoneMask.value, 
           total_debt: answers.total_debt,
           debt_structure: debtStructStr,
-          property_deals: answers.property_deals,
-          current_stage: answers.current_stage,
+          property_deals: answers.property_deals || 'Не указано',
+          current_stage: answers.current_stage || 'Не указано',
+          is_mfc: answers.is_mfc || false, // Флаг для бэкенда
           'g-recaptcha-response': token,
           utm_source: urlParams.get('utm_source') || 'Прямой заход / Неизвестно',
           utm_medium: urlParams.get('utm_medium') || '—',
