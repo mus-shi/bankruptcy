@@ -316,10 +316,10 @@
             <div class="divider mb-3 mx-auto" style="width: 40px;"></div>
             <p class="text-muted" style="font-size: 0.9rem;">Защищаем ваши интересы в судах Ставропольского края и КМВ.</p>
           </div>
-          <div class="w-100 flex-grow-1 d-flex align-items-center justify-content-center" style="width: 100%;">
-            <img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы" class="img-fluid" style="max-height: 100%; width: 100%; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05));">
-          </div>
-        </div>
+      <div class="w-100 flex-grow-1 d-flex align-items-center justify-content-center" style="width: 100%;">
+  <!-- Добавлено transform: scale(1.15) для визуального увеличения картинки на 15% -->
+  <img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы" class="img-fluid" style="max-height: 100%; width: 100%; object-fit: contain; transform: scale(1.15); transform-origin: center; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05));">
+</div>
         
       </div>
     </div>
