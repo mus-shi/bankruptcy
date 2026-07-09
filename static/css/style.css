@@ -315,7 +315,6 @@ h1, h2, h3, h4, h5 {
 .practice-slide-item {
   transition: opacity 0.3s ease;
 }
-/* Делаем активный слайд flex-контейнером для работы высоты в 100% */
 .practice-slide-item.active {
   display: flex !important;
 }
@@ -331,32 +330,34 @@ h1, h2, h3, h4, h5 {
 
 /* Контейнер изображения судебного акта */
 .practice-img {
-  width: 45%; /* Сделано чуть шире для документов */
-  background: #e9ecef;
+  width: 50%; /* Было 45%, даем больше места документу */
+  background: #e9ecef; /* Нейтральный фон вокруг документа */
   border-right: 2px solid var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0; /* Убраны все пустоты по краям */
+  padding: 16px; /* Отступы, чтобы документ не прилипал к краям */
   overflow: hidden;
 }
 
 .practice-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Изображение заполняет всю форму без пустот */
-  object-position: top center; /* Фокус на шапке судебного документа */
-  border-radius: 0; 
+  object-fit: contain; /* Показываем документ ЦЕЛИКОМ, без обрезки */
+  object-position: center; 
+  box-shadow: 2px 4px 12px rgba(0,0,0,0.15); /* Эффект тени от листа бумаги */
+  background: #fff; /* Белый фон на случай прозрачных PNG/улучшения читаемости */
+  border-radius: 0;
 }
 
 /* Текстовая часть карточки */
 .practice-content {
-  width: 55%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow-y: auto;
-  padding: 20px 24px; /* Увеличены отступы для читабельности */
+  padding: 20px 24px; /* Отступы для читабельности текста */
 }
 
 .case-number {
@@ -672,8 +673,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .slider-arrow-btn.next { right: 4px; }
   
   .practice-card { flex-direction: column; height: auto; }
-  /* Корректировка высоты документа на мобильных */
-  .practice-img { width: 100%; height: 280px; border-right: none; border-bottom: 2px solid var(--primary-color); }
+  /* Корректировка контейнера для мобильных устройств */
+  .practice-img { width: 100%; height: 280px; border-right: none; border-bottom: 2px solid var(--primary-color); padding: 15px; }
   .practice-content { width: 100%; padding: 16px; }
   
   .sync-header { height: auto; min-height: 50px; }
