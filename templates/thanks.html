@@ -6,13 +6,27 @@
     <title>Спасибо!</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
         body {
             font-family: 'Lora', serif;
-            text-align: center;
-            padding: 50px 20px;
             background: #f9f9f9;
             color: #1a1a1a;
-            margin: 0;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 7vh; /* Отступ для баннера */
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            text-align: center;
         }
         .container {
             max-width: 600px;
@@ -36,13 +50,68 @@
             display: inline-block;
             margin-top: 16px;
         }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            border-top: 1px solid #eee;
+            font-size: 0.75rem;
+            color: #5a6268;
+            line-height: 1.4;
+        }
+        .footer-link {
+            text-decoration: none;
+            color: #5a6268;
+            font-weight: 600;
+        }
+        .footer-link:hover {
+            color: #0b3b60;
+        }
+        .legal-disclaimer-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            min-height: 7vh;
+            background-color: #f8f9fa;
+            color: #1a1a1a;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5px 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-top: 2px solid #ccc;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Спасибо!</h2>
-        <p>Я свяжусь с вами в ближайшее время и подскажу, какой путь банкротства вам подходит.</p>
-        <a href="/">← Вернуться на главную</a>
+    <div class="main-content">
+        <div class="container">
+            <h2>Спасибо!</h2>
+            <p>Я свяжусь с вами в ближайшее время и подскажу, какой путь банкротства вам подходит.</p>
+            <a href="/">← Вернуться на главную</a>
+        </div>
+    </div>
+    
+    <footer>
+        <div style="margin-bottom: 10px;">
+            <p style="margin: 0; font-weight: bold;">Юридические услуги предоставляет: Мусаев Ш.И., самозанятый</p>
+            <p style="margin: 0; font-weight: bold;">ИНН: 123456789012</p>
+            <p style="margin: 0;">© 2026 БЕЗДОЛГОВ.ЛАЙФ. Работаем по всей России.</p>
+        </div>
+        <div style="display: flex; justify-content: center; gap: 15px;">
+            <a href="/privacy" class="footer-link">Политика конфиденциальности</a>
+            <span>|</span>
+            <a href="/offer" class="footer-link">Оферта</a>
+        </div>
+    </footer>
+
+    <div class="legal-disclaimer-banner">
+        Банкротство влечет негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ
     </div>
 </body>
 </html>
