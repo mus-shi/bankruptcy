@@ -327,13 +327,12 @@ h1, h2, h3, h4, h5 {
 
 /* Контейнер изображения судебного акта */
 .practice-img {
-  width: 45%; /* Увеличена ширина для чтения */
-  background: #e9ecef; /* Слегка затемненный фон, чтобы белый документ выделялся */
+  width: 50%; /* Изменено с 45% */
+  background: #e9ecef;
   border-right: 2px solid var(--primary-color);
-  overflow-y: auto; /* Включаем вертикальный скролл внутри документа */
-  display: block; /* Сброс центровки, чтобы документ всегда начинался сверху */
-  padding: 10px;
-  /* Стилизация скроллбара для Firefox */
+  overflow-y: auto;
+  display: block;
+  padding: 0; /* Убраны пустые пространства (было 10px) */
   scrollbar-width: thin;
   scrollbar-color: var(--primary-color) #e9ecef;
 }
@@ -360,7 +359,7 @@ h1, h2, h3, h4, h5 {
 
 /* Текстовая часть карточки */
 .practice-content {
-  width: 55%;
+  width: 50%; /* Изменено с 55% */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -564,8 +563,10 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
    АДAПТИВНОСТЬ / МЕДИА
    ========================= */
 @media (max-width: 991.98px) {
-  body { overflow: auto; height: auto; }
-  .scroll-container { height: auto; margin-top: 54px; }
+  /* Переопределяем скрытый скролл для мобилок */
+  html, body { overflow: visible !important; height: auto !important; }
+  .scroll-container { height: auto !important; margin-top: 54px; overflow: visible !important; }
+  
   .mobile-expert-col { margin-bottom: 15px !important; }
   .hero-text-col { height: auto !important; padding: 0 0 20px 0 !important; }
   .price-stage { flex-direction: column; gap: 8px; }
@@ -616,4 +617,9 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .contact-left-panel { border-right: none; border-bottom: 2px solid var(--primary-color); }
   .contact-map-card { min-height: auto; }
   .map-container-snap { height: 350px; position: relative; }
+}
+
+/* Запрет переноса строк только для ПК, чтобы не сломать мобильную версию */
+@media (min-width: 992px) {
+  .nowrap-lg { white-space: nowrap; }
 }
