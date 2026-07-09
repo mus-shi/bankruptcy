@@ -440,6 +440,13 @@ h1, h2, h3, h4, h5 {
 /* =========================
    ЭКРАН 2: БЛОК ЦЕНЫ И ГАРАНТИЙ
    ========================= */
+/* Оболочка для симметрии (420px) с левым блоком */
+.pricing-fixed-wrap {
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+}
+
 .pricing-card {
   border: 2px solid var(--primary-color);
   box-shadow: 4px 4px 0 var(--primary-color);
@@ -673,7 +680,9 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .slider-arrow-btn.prev { left: 4px; }
   .slider-arrow-btn.next { right: 4px; }
   
-  .practice-card { flex-direction: column; height: auto; }
+  /* Сброс высоты на мобильных */
+  .practice-card, .pricing-fixed-wrap { flex-direction: column; height: auto; }
+  
   .practice-img { width: 100%; height: 280px; border-right: none; border-bottom: 2px solid var(--primary-color); padding: 15px; }
   .practice-content { width: 100%; padding: 16px; }
   
