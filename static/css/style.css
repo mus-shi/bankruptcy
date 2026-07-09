@@ -1,180 +1,3 @@
-
-Gemini
-New chat
-Search chats
-Images
-Videos
-Library
-New notebook
-Examination Topics for Insolvency Practitioners Training Program
-Исправление верстки и стилей сайта
-Снижение налога на недвижимость и землю
-Блок 1. Теория
-Заявление о пересмотре судебного акта
-Блок 2. Практика
-
-Activity
-Greece
-From your IP address
-Update location
-Conversation with Gemini
-Ознакомься с сайтом. Ответь можешь ли ты сделать так чтобы 2-й экран (scrollsnap) выглядел при масштабирование 100 процентов, ровно также как 110 процентов сейчас?
-
-
-
-Дело № А77-2160/2023
-
-Успешное завершение + Защита доходов эти надписи должны быть выровнены по центру, а их описание по ширине
-
-
-
-Дело № А63-17799/2023
-
-Исключение автомобиля из массы эти надписи должны быть выровнены по центру, а их описание по ширине
-
-
-
-Обязательные суд. расходы
-
-50 000 ₽ выровни по центру
-
-Финансовая ответственность выровни по центру
-
-Количество дел
-
-> 200 успешных тоже по центру
-
-Списано долгов
-
-> 270 000 000 ₽ по центру
-
-
-
-на 3 экране яндекс карта накладывается на футер .фото.пнг, которая ниже География работы должна быть увеличина в размере сейчас маленькая.
-
-
-
-Скажи что ты будешь делать
-
-Да, я без проблем могу реализовать все эти изменения. Вот подробный план того, что именно я сделаю для решения каждой вашей задачи:
-
-1. Эффект масштаба 110% для второго экрана
-Браузерное масштабирование пропорционально увеличивает все размеры и шрифты. Чтобы добиться такого же вида на 100% масштабе, я:
-
-Увеличу ширину ограничивающего контейнера .aesthetic-container на 10% (с 1140px до 1254px).
-
-Увеличу жестко заданную высоту блоков .main-pricing-block и .practice-slider-container (с 420px до 462px), а также блоков со статистикой (с 115px до 126px).
-
-2. Выравнивание текста судебной практики
-Для классов .case-number (Дело №...) и .case-title (Заголовок) я добавлю свойство text-align: center;.
-
-Для класса .case-desc (Текст описания) я добавлю свойство text-align: justify;, чтобы текст равномерно распределялся от левого до правого края.
-
-3. Центрирование блоков статистики и стоимости
-Так как карточки стоимости и статистики (.stats-card, .costs-card, .guarantee-box) используют Flexbox, я добавлю в них свойства text-align: center; и align-items: center;. Это выровняет заголовки, суммы («50 000 ₽», «> 270 000 000 ₽», «> 200 успешных») и поясняющий текст строго по центру.
-
-4. Исправление наложения Яндекс.Карт на футер
-Наложение происходит из-за особенностей расчета высоты во Flexbox — контент (карта) пытается занять больше места, чем позволяет экран, и «выдавливает» контейнер на футер. Я добавлю свойство min-height: 0; родительским колонкам на третьем экране. Это заставит карту строго вписываться в оставшееся пространство между текстовым блоком и футером, не выходя за его пределы.
-
-5. Увеличение карты регионов
-В HTML-коде изображения у вас сейчас задано max-height: 85%;. Я изменю это значение на 100%, добавлю width: 100%, а также применю CSS-свойство transform: scale(1.15);. Это позволит оптически увеличить картинку без потери качества и нарушения сетки.
-
-Код для внесения правок
-Вы можете просто добавить этот код в конец вашего файла style.css:
-
-CSS
-/* --- ПРАВКИ ДЛЯ 2-ГО И 3-ГО ЭКРАНОВ --- */
-
-/* 1. Эффект масштаба 110% (применяется только для больших экранов) */
-@media (min-width: 1200px) {
-  .aesthetic-container {
-    max-width: 1254px !important;
-  }
-}
-@media (min-width: 992px) {
-  .main-pricing-block, 
-  .practice-slider-container, 
-  .practice-card {
-    height: 462px !important;
-    min-height: 462px !important;
-  }
-  .sub-block-height {
-    height: 126px !important;
-    min-height: 126px !important;
-  }
-}
-
-/* 2. Выравнивание в карточках практики */
-.case-number, 
-.case-title {
-  text-align: center;
-}
-.case-desc {
-  text-align: justify;
-}
-
-/* 3. Центрирование статистики и расходов */
-.stats-card, 
-.costs-card, 
-.guarantee-box {
-  text-align: center;
-  align-items: center; /* Центрирует элементы по поперечной оси во flex-колонке */
-}
-.stats-card p, 
-.costs-card p, 
-.guarantee-box p {
-  text-align: center !important;
-}
-
-/* 4. Фикс наложения карты на футер */
-.scroll-screen .row.h-100 .col-lg-6 {
-  min-height: 0; 
-}
-А в файле index.html найдите строку с картинкой карты регионов на 3-м экране и замените её стили на следующие:
-
-HTML
-<img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы" class="img-fluid" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05)); transform: scale(1.15);">
-Вышли 2 полных файла
-
-sЯ подготовил для вас два полностью готовых файла со всеми интегрированными правками: увеличением масштаба (эффект 110%) для блоков второго экрана, выравниванием текста и статистики, а также исправлением наложения карты и её увеличением на третьем экране.
-
-Ваши файлы index.html и style.css готовы:
-HTML icon
-index
- HTML 
-Open
-CSS icon
-style
- CSS 
-Open
-
-Что было изменено внутри:
-В файле index.html:
-
-Для изображения map-regions.png добавлен класс .map-img-container и .magnified-map-img, что обеспечило правильное масштабирование (transform: scale(1.22);) и обрезку лишнего пространства без смещения верстки.
-
-Добавлен класс .section3-col колонкам 3-го экрана для исправления наложения карты на футер.
-
-В файле style.css:
-
-Изменён параметр .aesthetic-container (max-width увеличен с 1140px до 1254px), что пропорционально расширило рабочую область на 10%.
-
-Высота блоков второго экрана (.main-pricing-block, .sub-block-height, .practice-card и .practice-slider-container) пропорционально увеличена под новый масштаб с 420px/115px до 462px/126px на десктопе.
-
-Заголовки и номера судебных дел выровнены по центру (text-align: center;), а их описания — по ширине (text-align: justify;).
-
-Во все карточки с ценами и статистикой (.stats-card, .costs-card, .guarantee-box) добавлены Flex-свойства для строгого центрирования по вертикали и горизонтали.
-
-Добавлен фикс для 3-го экрана (.scroll-screen .row.h-100 { min-height: 0; } и свойства для .section3-col), который не позволяет Flexbox-контейнерам выталкивать контент за пределы экрана и залезать на подвал (footer.
-
-Просто скачайте оба файла и замените ими текущие версии на вашем сервере.
-
-
-
-
-Gemini is AI and can make mistakes, including about people. Your privacy & GeminiOpens in a new window
-
-Loading index.html.
 /* =========================
    ПАЛИТРА И ПЕРЕМЕННЫЕ
    ========================= */
@@ -232,9 +55,9 @@ h1, h2, h3, h4, h5 {
   margin: 0 auto 20px;
 }
 
-/* Ограничитель ширины (увеличен на 10% для имитации масштаба 110%) */
+/* Ограничитель ширины для устранения расплющенности */
 .aesthetic-container {
-  max-width: 1254px !important;
+  max-width: 1140px !important;
   margin: 0 auto;
 }
 
@@ -510,7 +333,7 @@ h1, h2, h3, h4, h5 {
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  height: 462px; /* Увеличено с 420px (эффект 110%) */
+  height: 420px;
   flex-shrink: 0;
 }
 
@@ -599,6 +422,7 @@ h1, h2, h3, h4, h5 {
   color: var(--cta-a);
 }
 
+
 .practice-content {
   width: 50%;
   display: flex;
@@ -608,29 +432,24 @@ h1, h2, h3, h4, h5 {
   padding: 20px 24px;
 }
 
-/* Правка: Выравнивание заголовков по центру */
 .case-number {
   font-weight: 900;
   color: var(--cta-a);
   font-size: 0.75rem; 
   margin-bottom: 2px;
   letter-spacing: 0.5px;
-  text-align: center;
 }
 .case-title {
   color: var(--primary-color);
   font-size: 0.9rem; 
   margin-bottom: 4px;
   line-height: 1.2;
-  text-align: center;
 }
-/* Правка: Выравнивание описания по ширине */
 .case-desc {
   color: var(--text-main);
   font-size: 0.75rem; 
   margin-bottom: 4px;
   line-height: 1.3;
-  text-align: justify;
 }
 .case-list {
   padding-left: 16px;
@@ -693,39 +512,30 @@ h1, h2, h3, h4, h5 {
     gap: 16px !important;
   }
   .main-pricing-block {
-    height: 462px !important; /* Увеличено с 420px (эффект 110%) */
-    min-height: 462px !important;
+    height: 420px !important;
+    min-height: 420px !important;
     border: 2px solid var(--primary-color);
     box-shadow: 4px 4px 0 var(--primary-color);
     margin-bottom: 0 !important;
     flex-shrink: 0;
   }
   .sub-block-height {
-    height: 126px !important; /* Увеличено с 115px (эффект 110%) */
-    min-height: 126px !important;
+    height: 115px !important;
+    min-height: 115px !important;
     flex-shrink: 0;
   }
   .practice-slider-container {
-    height: 462px !important; /* Увеличено с 420px (эффект 110%) */
-    min-height: 462px !important;
+    height: 420px !important;
+    min-height: 420px !important;
     flex-shrink: 0;
   }
 }
 
-/* Правка: Выравнивание карточек статистики по центру */
 .stats-card {
   background: var(--primary-color);
   border: 2px solid var(--primary-color);
   box-shadow: 4px 4px 0 var(--cta-a);
   border-radius: var(--radius-card);
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.stats-card h4, .stats-card div, .stats-card p {
-  text-align: center !important;
 }
 
 .pricing-card {
@@ -777,41 +587,44 @@ h1, h2, h3, h4, h5 {
   line-height: 1.2;
 }
 
-/* Правка: Выравнивание карточки обязательных расходов по центру */
 .costs-card {
   background: var(--primary-color);
   border: 2px solid #fff;
   box-shadow: 4px 4px 0 var(--cta-a);
   padding: 0.8rem !important;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
-.costs-card h4, .costs-card div, .costs-card p {
-  text-align: center !important;
+.costs-card h4 {
+  font-size: 0.75rem;
+  margin-bottom: 2px;
+}
+.costs-card .fw-bold {
+  font-size: 1rem;
+}
+.costs-card .text-white-50 {
+  font-size: 0.65rem;
+  line-height: 1.2;
 }
 
-/* Правка: Выравнивание карточки финансовой ответственности по центру */
 .guarantee-box {
   background: #fff;
   border: 2px solid var(--cta-a);
   box-shadow: 4px 4px 0 var(--primary-color);
   padding: 0.8rem !important;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
-.guarantee-box h4, .guarantee-box p {
-  text-align: center !important;
+.guarantee-box h4 {
+  font-size: 0.75rem;
+  margin-bottom: 2px;
+}
+.guarantee-box p {
+  font-size: 0.65rem;
+  line-height: 1.2;
+  margin-bottom: 0;
 }
 
 /* =========================
    ЭКРАН 3: КАРТА, РЕГИОНЫ И АУДИТ
    ========================= */
+
 .contact-audit-card {
   border: 2px solid var(--primary-color);
   border-left: 6px solid var(--cta-a);
@@ -836,31 +649,8 @@ h1, h2, h3, h4, h5 {
   position: relative;
 }
 
-/* Правка: Фикс предотвращения наложения карты на футер для десктопов */
 @media (min-width: 992px) {
   .nowrap-lg { white-space: nowrap; }
-  .section3-col {
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .scroll-screen .row.h-100 {
-    min-height: 0;
-  }
-}
-
-/* Правка: Стили для увеличенной карты регионов */
-.map-img-container {
-  overflow: hidden;
-  width: 100%;
-}
-.magnified-map-img {
-  max-height: 100%; 
-  width: auto; 
-  object-fit: contain; 
-  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05)); 
-  transform: scale(1.22); /* Карта увеличена на ~22% */
-  transform-origin: center;
 }
 
 /* =========================
@@ -961,7 +751,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .slider-arrow-btn.prev { left: 4px; }
   .slider-arrow-btn.next { right: 4px; }
   
-  .practice-card { flex-direction: column; height: auto !important; }
+  .practice-card { flex-direction: column; height: auto; }
   
   .practice-img { width: 100%; height: 280px; border-right: none; border-bottom: 2px solid var(--primary-color); padding: 15px; }
   .practice-content { width: 100%; padding: 16px; }
@@ -973,7 +763,6 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .sub-block-height { height: auto !important; min-height: 0 !important; }
   
   .map-container-snap { height: 300px; }
-  .magnified-map-img { transform: scale(1); }
 }
 
 @media (max-height: 720px) and (min-width: 992px) {
@@ -1006,5 +795,3 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .step-desc-box { padding: 12px; font-size: 0.8rem; }
   .btn-start-online { padding: 14px 20px !important; font-size: 0.9rem !important; width: 100%; max-width: none; }
 }
-style.css
-Displaying style.css.
