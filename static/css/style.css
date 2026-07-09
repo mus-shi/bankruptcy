@@ -306,7 +306,7 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   ЭКРАН 2: КАРУСЕЛЬ ПРАКТИКИ
+   ЭКРАН 2: КАРУСЕЛЬ ПРАКТИКИ (С ВОЗМОЖНОСТЬЮ ПРОКРУТКИ ИЗОБРАЖЕНИЯ)
    ========================= */
 .practice-slider-container {
   width: 100%;
@@ -322,31 +322,51 @@ h1, h2, h3, h4, h5 {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  height: 100%;
-  min-height: 310px;
+  height: 420px; /* Фиксированная высота для скролла документа */
 }
+
+/* Контейнер изображения судебного акта */
 .practice-img {
-  width: 35%;
-  background: #f4f6f9;
+  width: 45%; /* Увеличена ширина для чтения */
+  background: #e9ecef; /* Слегка затемненный фон, чтобы белый документ выделялся */
   border-right: 2px solid var(--primary-color);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
+  overflow-y: auto; /* Включаем вертикальный скролл внутри документа */
+  display: block; /* Сброс центровки, чтобы документ всегда начинался сверху */
+  padding: 10px;
+  /* Стилизация скроллбара для Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) #e9ecef;
 }
+
+/* Стилизация скроллбара для Webkit (Chrome, Safari) */
+.practice-img::-webkit-scrollbar {
+  width: 6px;
+}
+.practice-img::-webkit-scrollbar-track {
+  background: #e9ecef;
+}
+.practice-img::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 4px;
+}
+
 .practice-img img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
+  height: auto;
+  display: block; /* Убирает лишний отступ снизу */
   box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  margin: 0 auto;
 }
+
+/* Текстовая часть карточки */
 .practice-content {
-  width: 65%;
+  width: 55%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow-y: auto;
 }
+
 .case-number {
   font-weight: 900;
   color: var(--cta-a);
@@ -437,16 +457,17 @@ h1, h2, h3, h4, h5 {
 }
 
 /* =========================
-   ЭКРАН 3: ПАРАЛЛАКС И АУДИТ
+   ЭКРАН 3: КАРТА И АУДИТ
    ========================= */
-.contact-audit-section {
-  overflow: hidden;
-}
-.contact-floating-card {
-  background: #ffffff;
+.contact-map-card {
   border: 2px solid var(--primary-color);
   box-shadow: 8px 8px 0 var(--cta-a);
-  position: relative;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  min-height: 480px; /* Задаем красивую высоту для блока */
+}
+.contact-left-panel {
+  border-right: 2px solid var(--primary-color);
 }
 .sharp-btn {
   border-radius: var(--radius-btn) !important;
@@ -552,8 +573,9 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .slider-arrow-btn.next { right: 4px; }
   
   /* Адаптивная перестройка карточки практики в столбец */
-  .practice-card { flex-direction: column; }
-  .practice-img { width: 100%; height: 220px; border-right: none; border-bottom: 2px solid var(--primary-color); }
+  .practice-card { flex-direction: column; height: auto; }
+  /* Оставляем фиксированную высоту изображения на мобилках для скролла */
+  .practice-img { width: 100%; height: 350px; border-right: none; border-bottom: 2px solid var(--primary-color); }
   .practice-content { width: 100%; }
 }
 
@@ -563,8 +585,9 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .step-desc-box { padding: 10px; font-size: 0.8rem; }
   .hero-title { font-size: 1.4rem !important; }
   .compact-block { padding: 8px; }
-  .practice-card { min-height: 250px; }
-  .practice-img { height: 100%; }
+  
+  .practice-card { height: 320px; }
+  .contact-map-card { min-height: 380px; }
 }
 
 @media (max-width: 767.98px) {
@@ -588,4 +611,9 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .step-item, .step-arrow { font-size: 0.75rem; }
   .step-desc-box { padding: 12px; font-size: 0.8rem; }
   .btn-start-online { padding: 14px 20px !important; font-size: 0.9rem !important; width: 100%; max-width: none; }
+
+  /* Адаптив третьего экрана для мобильных (карта под контактами) */
+  .contact-left-panel { border-right: none; border-bottom: 2px solid var(--primary-color); }
+  .contact-map-card { min-height: auto; }
+  .map-container-snap { height: 350px; position: relative; }
 }
