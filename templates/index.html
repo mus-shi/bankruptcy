@@ -139,7 +139,8 @@
   </section>
 
   <section class="scroll-screen practice-pricing-section py-3 bg-white">
-    <div class="container h-100 d-flex flex-column justify-content-center pt-lg-5">
+    <!-- Добавлен класс aesthetic-container для сужения ширины контента -->
+    <div class="container aesthetic-container h-100 d-flex flex-column justify-content-center pt-lg-5">
       
       <div class="row g-4 d-none d-lg-flex flex-shrink-0 mb-3">
         <div class="col-lg-6">
@@ -170,7 +171,8 @@
           <div class="practice-slider-container position-relative w-100">
             <div class="practice-slide-item active w-100" data-case="0">
               <div class="practice-card mb-0 w-100">
-                <div class="practice-img">
+                <!-- Добавлен класс zoomable-image и вызов функции -->
+                <div class="practice-img position-relative zoomable-image" onclick="openLightbox(this.querySelector('img').src)">
                   <img src="{{ url_for('static', filename='img/case1.jpg') }}" alt="Определение суда Дело № А77-2160/2023" loading="lazy">
                 </div>
                 <div class="practice-content py-3 px-4">
@@ -188,7 +190,7 @@
             
             <div class="practice-slide-item d-none w-100" data-case="1">
               <div class="practice-card mb-0 w-100">
-                <div class="practice-img">
+                <div class="practice-img position-relative zoomable-image" onclick="openLightbox(this.querySelector('img').src)">
                   <img src="{{ url_for('static', filename='img/case2.jpg') }}" alt="Определение суда Дело № А63-17799/2023" loading="lazy">
                 </div>
                 <div class="practice-content py-3 px-4">
@@ -204,10 +206,23 @@
             <button type="button" class="slider-arrow-btn next" id="next-case-btn" aria-label="Вперед">›</button>
           </div>
 
-          <div class="stats-card p-3 d-flex flex-column justify-content-center sub-block-height">
-            <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px;">Результаты работы проекта</h4>
-            <div class="fw-bold text-white mb-1" style="font-size: 1.1rem; font-family: 'Montserrat', sans-serif;">Более 200 успешных дел</div>
-            <p class="text-white-50 small mb-0" style="font-size: 0.75rem; line-height: 1.3;">Законно освободили граждан от непосильного бремени. Всего списано свыше <strong>270 000 000 ₽</strong>. Средняя сумма задолженности клиентов: 1,2 – 1,5 млн ₽.</p>
+          <!-- Новый разделенный блок результатов -->
+          <div class="row g-2 w-100 m-0 p-0">
+            <div class="col-sm-6 ps-0 pe-sm-1 p-0 mb-2 mb-sm-0">
+              <div class="stats-card p-3 d-flex flex-column justify-content-center sub-block-height">
+                <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase;">Количество дел</h4>
+                <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">> 200 успешных</div>
+                <p class="text-white-50 small mb-0" style="font-size: 0.7rem; line-height: 1.3;">Законно освободили граждан от непосильного бремени.</p>
+              </div>
+            </div>
+            
+            <div class="col-sm-6 pe-0 ps-sm-1 p-0">
+              <div class="stats-card p-3 d-flex flex-column justify-content-center sub-block-height">
+                <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase;">Списано долгов</h4>
+                <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">> 270 000 000 ₽</div>
+                <p class="text-white-50 small mb-0" style="font-size: 0.7rem; line-height: 1.3;">Средняя сумма задолженности клиентов: 1,2 – 1,5 млн ₽.</p>
+              </div>
+            </div>
           </div>
         </div>
         
@@ -269,47 +284,53 @@
     </div>
   </section>
 
-  <section class="scroll-screen contact-audit-section bg-light d-flex flex-column justify-content-between pt-3">
-    <div class="container-fluid px-3 px-xl-5 flex-grow-1 d-flex flex-column justify-content-center py-2">
-      <div class="row g-0 contact-map-card bg-white align-items-stretch mx-auto" style="max-width: 1400px; width: 100%;">
+  <!-- Полностью переработанный 3-й экран -->
+  <section class="scroll-screen bg-white d-flex flex-column justify-content-between pt-3">
+    <div class="container aesthetic-container flex-grow-1 d-flex flex-column justify-content-center py-3">
+      <div class="row g-4 h-100 align-items-center flex-grow-1">
         
-        <div class="col-lg-4 p-3 p-md-4 d-flex flex-column justify-content-center bg-white contact-left-panel">
-          <h3 class="h3 mb-2 text-uppercase" style="color: var(--primary-color); font-weight: 900; font-size: clamp(0.95rem, 1.2vw, 1.15rem);">Приглашаем вас на правовой аудит</h3>
-          <div class="divider ms-0 mb-3" style="margin-left: 0; width: 40px;"></div>
-          <p class="text-muted mb-3" style="font-size: 0.85rem;">Приезжайте в офис для детального разбора вашей ситуации. Мы изучим документы и дадим честный правовой прогноз хода дела.</p>
-          
-          <div class="mb-3">
-            <p class="mb-1 text-muted small text-uppercase fw-bold">Наш address:</p>
-            <p class="text-dark fw-bold mb-1" style="font-size: clamp(0.8rem, 0.9vw, 0.9rem);">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
-            <p class="text-danger small fw-bold mb-0">Приём ведется строго по предварительной записи.</p>
+        <!-- Левая колонка: Аудит и Карта -->
+        <div class="col-lg-6 d-flex flex-column h-100">
+          <div class="contact-audit-card bg-white p-4 mb-3">
+            <h3 class="h3 mb-2 text-uppercase" style="color: var(--primary-color); font-weight: 900; font-size: clamp(1rem, 1.2vw, 1.15rem);">Приглашаем вас на правовой аудит</h3>
+            <div class="divider ms-0 mb-3" style="margin-left: 0; width: 40px;"></div>
+            <p class="text-muted mb-4" style="font-size: 0.85rem;">Приезжайте в офис для детального разбора вашей ситуации. Мы изучим документы и дадим честный правовой прогноз хода дела.</p>
+            
+            <div class="d-flex flex-column flex-md-row gap-3 justify-content-between">
+              <div>
+                <p class="mb-1 text-muted small text-uppercase fw-bold">Наш адрес:</p>
+                <p class="text-dark fw-bold mb-1" style="font-size: 0.85rem;">г. Железноводск, пгт. Иноземцево,<br>ул. Маяковского, 25, офис №1</p>
+                <p class="text-danger small fw-bold mb-0">Приём строго по записи.</p>
+              </div>
+              <div class="text-md-end text-start">
+                <p class="mb-1 text-muted small text-uppercase fw-bold">Телефон:</p>
+                <a href="tel:+79034150000" class="text-dark fw-bold text-decoration-none d-block mb-2" style="font-size: 1.2rem; color: var(--cta-a) !important; letter-spacing: 1px;">+7 (903) 415-00-00</a>
+                <a href="tel:+79034150000" class="btn btn-outline-dark px-3 py-1 sharp-btn text-uppercase" style="font-weight: 800; border-width: 2px; font-size: 0.75rem;">📞 Позвонить</a>
+              </div>
+            </div>
           </div>
           
-          <div class="mb-3">
-            <p class="mb-1 text-muted small text-uppercase fw-bold">Телефон:</p>
-            <a href="tel:+79034150000" class="text-dark fw-bold text-decoration-none" style="font-size: 1.4rem; color: var(--cta-a) !important; letter-spacing: 1px;">+7 (903) 415-00-00</a>
-          </div>
-          
-          <div>
-            <a href="tel:+79034150000" class="btn btn-outline-dark px-4 py-2 sharp-btn w-100 text-uppercase" style="width: max-content !important; font-weight: 800; border-width: 2px; font-size: 0.8rem;">📞 Позвонить сейчас</a>
+          <div class="map-container-snap position-relative flex-grow-1 border-primary-custom">
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" width="100%" height="100%" frameborder="0" style="position: absolute; top:0; left:0; width: 100%; height: 100%; border: 0;"></iframe>
           </div>
         </div>
         
-        <div class="col-lg-4 p-3 p-md-4 d-flex flex-column justify-content-center align-items-center contact-mid-panel">
-          <h3 class="h3 mb-2 text-uppercase text-center" style="color: var(--primary-color); font-weight: 900; font-size: clamp(0.95rem, 1.2vw, 1.15rem);">География работы</h3>
-          <div class="divider mb-3" style="width: 40px;"></div>
-          <p class="text-muted text-center mb-3" style="font-size: 0.85rem;">Защищаем ваши интересы в судах Ставропольского края и по всей территории РФ.</p>
-          <div class="regions-img-wrapper w-100 flex-grow-1">
-            <img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы БЕЗДОЛГОВ.ЛАЙФ" class="regions-static-map">
+        <!-- Правая колонка: Регионы на чистом фоне -->
+        <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center bg-white h-100 py-3 py-lg-0">
+          <div class="text-center mb-3">
+            <h3 class="h3 mb-2 text-uppercase" style="color: var(--primary-color); font-weight: 900; font-size: clamp(1.1rem, 1.4vw, 1.3rem);">География работы</h3>
+            <div class="divider mb-3 mx-auto" style="width: 40px;"></div>
+            <p class="text-muted" style="font-size: 0.9rem;">Защищаем ваши интересы в судах Ставропольского края<br>и по всей территории РФ.</p>
           </div>
-        </div>
-        
-        <div class="col-lg-4 map-container-snap position-relative">
-          <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" width="100%" height="100%" frameborder="0" style="position: absolute; top:0; left:0; width: 100%; height: 100%; border: 0;"></iframe>
+          <div class="w-100 flex-grow-1 d-flex align-items-center justify-content-center">
+            <img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы" class="img-fluid" style="max-height: 85%; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05));">
+          </div>
         </div>
         
       </div>
     </div>
 
+    <!-- Футер (неизменен) -->
     <footer class="text-center py-3 bg-white border-top flex-shrink-0">
       <div class="container">
         <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
@@ -350,8 +371,24 @@
   </div>
 </div>
 
+<!-- Модальное окно для зума изображений (Lightbox) -->
+<div id="image-lightbox" class="lightbox-overlay" onclick="closeLightbox()">
+  <span class="lightbox-close">&times;</span>
+  <img id="lightbox-img" src="" alt="Zoomed Court Act">
+</div>
+
 <script src="https://unpkg.com/imask"></script>
 <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script>
+  // Логика для лайтбокса
+  function openLightbox(imgSrc) {
+    document.getElementById('lightbox-img').src = imgSrc;
+    document.getElementById('image-lightbox').classList.add('active');
+  }
+  function closeLightbox() {
+    document.getElementById('image-lightbox').classList.remove('active');
+  }
+</script>
 </body>
 </html>
