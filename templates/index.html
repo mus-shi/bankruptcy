@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -40,8 +40,8 @@
             <h5 class="expert-name">Рамазанов Рамазан Магомедович</h5>
             <div class="expert-role">Главный эксперт проекта</div>
             <ul class="expert-facts list-unstyled mt-2 mb-0">
-              <li><b>Бэкграунд:</b> С 2015 по 2021 год состоял в СРО АУ «Единство» in качестве арбитражного управляющего.</li>
-              <li><b>Методология:</b> Автор стратегии защиты. Его колоссальный practical стаж лег в основу работы нашей юридической команды.</li>
+              <li><b>Бэкграунд:</b> С 2015 по 2021 год состоял в СРО АУ «Единство» в качестве арбитражного управляющего.</li>
+              <li><b>Методология:</b> Автор стратегии защиты. Его колоссальный практический стаж лег в основу работы нашей юридической команды.</li>
               <li><b>Опыт:</b> Руководство банковскими структурами («Агро-Бизнес Банк», «Аграрник», «Гарант») и доскональное понимание логики кредиторов.</li>
               <li><b>Образование:</b> Подготовка при Арбитражном управлении (г. Москва), РИСИ.</li>
             </ul>
@@ -139,7 +139,6 @@
   </section>
 
   <section class="scroll-screen practice-pricing-section py-3 bg-white">
-    <!-- Добавлен класс aesthetic-container для сужения ширины контента -->
     <div class="container aesthetic-container h-100 d-flex flex-column justify-content-center pt-lg-5">
       
       <div class="row g-4 d-none d-lg-flex flex-shrink-0 mb-3">
@@ -171,7 +170,6 @@
           <div class="practice-slider-container position-relative w-100">
             <div class="practice-slide-item active w-100" data-case="0">
               <div class="practice-card mb-0 w-100">
-                <!-- Добавлен класс zoomable-image и вызов функции -->
                 <div class="practice-img position-relative zoomable-image" onclick="openLightbox(this.querySelector('img').src)">
                   <img src="{{ url_for('static', filename='img/case1.jpg') }}" alt="Определение суда Дело № А77-2160/2023" loading="lazy">
                 </div>
@@ -206,7 +204,6 @@
             <button type="button" class="slider-arrow-btn next" id="next-case-btn" aria-label="Вперед">›</button>
           </div>
 
-          <!-- Новый разделенный блок результатов -->
           <div class="row g-2 w-100 m-0 p-0">
             <div class="col-sm-6 ps-0 pe-sm-1 p-0 mb-2 mb-sm-0">
               <div class="stats-card p-3 d-flex flex-column justify-content-center sub-block-height">
@@ -284,13 +281,11 @@
     </div>
   </section>
 
-  <!-- Полностью переработанный 3-й экран -->
   <section class="scroll-screen bg-white d-flex flex-column justify-content-between pt-3">
     <div class="container aesthetic-container flex-grow-1 d-flex flex-column justify-content-center py-3">
       <div class="row g-4 h-100 align-items-center flex-grow-1">
         
-        <!-- Левая колонка: Аудит и Карта -->
-        <div class="col-lg-6 d-flex flex-column h-100">
+        <div class="col-lg-6 d-flex flex-column h-100 section3-col">
           <div class="contact-audit-card bg-white p-4 mb-3">
             <h3 class="h3 mb-2 text-uppercase" style="color: var(--primary-color); font-weight: 900; font-size: clamp(1rem, 1.2vw, 1.15rem);">Приглашаем вас на правовой аудит</h3>
             <div class="divider ms-0 mb-3" style="margin-left: 0; width: 40px;"></div>
@@ -315,22 +310,20 @@
           </div>
         </div>
         
-        <!-- Правая колонка: Регионы на чистом фоне -->
-        <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center bg-white h-100 py-3 py-lg-0">
+        <div class="col-lg-6 d-flex flex-column align-items-center justify-content-center bg-white h-100 py-3 py-lg-0 section3-col">
           <div class="text-center mb-3">
             <h3 class="h3 mb-2 text-uppercase" style="color: var(--primary-color); font-weight: 900; font-size: clamp(1.1rem, 1.4vw, 1.3rem);">География работы</h3>
             <div class="divider mb-3 mx-auto" style="width: 40px;"></div>
             <p class="text-muted" style="font-size: 0.9rem;">Защищаем ваши интересы в судах Ставропольского края<br>и по всей территории РФ.</p>
           </div>
-          <div class="w-100 flex-grow-1 d-flex align-items-center justify-content-center">
-            <img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы" class="img-fluid" style="max-height: 85%; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05));">
+          <div class="w-100 flex-grow-1 d-flex align-items-center justify-content-center map-img-container">
+            <img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы" class="img-fluid magnified-map-img">
           </div>
         </div>
         
       </div>
     </div>
 
-    <!-- Футер (неизменен) -->
     <footer class="text-center py-3 bg-white border-top flex-shrink-0">
       <div class="container">
         <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
@@ -371,7 +364,6 @@
   </div>
 </div>
 
-<!-- Модальное окно для зума изображений (Lightbox) -->
 <div id="image-lightbox" class="lightbox-overlay" onclick="closeLightbox()">
   <span class="lightbox-close">&times;</span>
   <img id="lightbox-img" src="" alt="Zoomed Court Act">
@@ -381,7 +373,6 @@
 <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 <script>
-  // Логика для лайтбокса
   function openLightbox(imgSrc) {
     document.getElementById('lightbox-img').src = imgSrc;
     document.getElementById('image-lightbox').classList.add('active');
