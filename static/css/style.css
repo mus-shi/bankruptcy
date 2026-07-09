@@ -318,6 +318,8 @@ h1, h2, h3, h4, h5 {
 .practice-slide-item.active {
   display: flex !important;
 }
+
+/* Добавлено жесткое ограничение на изменение высоты через flex-shrink */
 .practice-card {
   background: #fff;
   border: 2px solid var(--primary-color);
@@ -326,7 +328,8 @@ h1, h2, h3, h4, h5 {
   flex-direction: row;
   align-items: stretch;
   width: 100%;
-  height: 420px; 
+  height: 420px;
+  flex-shrink: 0;
 }
 
 .practice-img {
@@ -432,19 +435,28 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 0;
 }
 
-/* СТИЛИ АБСОЛЮТНОЙ СИММЕТРИИ (ЭКРАН 2) */
+/* СТИЛИ АБСОЛЮТНОЙ СИММЕТРИИ И ЖЕСТКОЙ ВЫСОТЫ (ЭКРАН 2) */
 @media (min-width: 992px) {
   .sub-column-gap {
     gap: 16px !important;
   }
   .main-pricing-block {
     height: 420px !important;
+    min-height: 420px !important;
     border: 2px solid var(--primary-color);
     box-shadow: 4px 4px 0 var(--primary-color);
     margin-bottom: 0 !important;
+    flex-shrink: 0; /* Запрет на сжатие flexbox */
   }
   .sub-block-height {
     height: 115px !important;
+    min-height: 115px !important;
+    flex-shrink: 0; /* Запрет на сжатие flexbox */
+  }
+  .practice-slider-container {
+    height: 420px !important;
+    min-height: 420px !important;
+    flex-shrink: 0;
   }
 }
 
@@ -570,7 +582,6 @@ h1, h2, h3, h4, h5 {
   margin-bottom: 0.5rem;
 }
 
-/* Обновленный блок для визуального увеличения карты регионов */
 .regions-img-wrapper {
   display: flex;
   align-items: center;
@@ -583,7 +594,7 @@ h1, h2, h3, h4, h5 {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transform: scale(1.15); /* Визуальное увеличение для плотности заполнения */
+  transform: scale(1.15);
   transition: transform 0.3s ease;
 }
 
@@ -710,13 +721,13 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .sync-header { height: auto; min-height: 50px; }
   
   .sub-column-gap { gap: 12px !important; }
-  .main-pricing-block { height: auto !important; }
-  .sub-block-height { height: auto !important; }
+  .main-pricing-block { height: auto !important; min-height: 0 !important; }
+  .sub-block-height { height: auto !important; min-height: 0 !important; }
   .stats-card { box-shadow: 4px 4px 0 var(--cta-a); margin-top: 4px; }
 
   .contact-left-panel { border-right: none; border-bottom: 2px solid var(--primary-color); }
   .contact-mid-panel { border-right: none; border-bottom: 2px solid var(--primary-color); padding: 1.5rem !important; }
-  .regions-img-wrapper { height: 250px !important; } /* Немного увеличил высоту на мобильных */
+  .regions-img-wrapper { height: 250px !important; }
   .contact-map-card { min-height: auto; }
   .map-container-snap { height: 280px; }
 }
