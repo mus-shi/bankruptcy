@@ -315,6 +315,10 @@ h1, h2, h3, h4, h5 {
 .practice-slide-item {
   transition: opacity 0.3s ease;
 }
+/* Делаем активный слайд flex-контейнером для работы высоты в 100% */
+.practice-slide-item.active {
+  display: flex !important;
+}
 .practice-card {
   background: #fff;
   border: 2px solid var(--primary-color);
@@ -322,56 +326,55 @@ h1, h2, h3, h4, h5 {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  height: 260px; /* уменьшено до 260px – теперь блоки короткие и компактные */
+  width: 100%;
 }
 
 /* Контейнер изображения судебного акта */
 .practice-img {
-  width: 40%;
+  width: 45%; /* Сделано чуть шире для документов */
   background: #e9ecef;
   border-right: 2px solid var(--primary-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px; /* минимальные отступы, чтобы изображение занимало максимум места */
-  overflow: hidden; /* чтобы обрезать лишнее при cover */
+  padding: 0; /* Убраны все пустоты по краям */
+  overflow: hidden;
 }
 
 .practice-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* полностью заполняет контейнер, обрезая края, но сохраняя пропорции */
-  object-position: center; /* центрирует кадр, чтобы важная информация была видна */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  border-radius: 0; /* чтобы не было скруглений */
+  object-fit: cover; /* Изображение заполняет всю форму без пустот */
+  object-position: top center; /* Фокус на шапке судебного документа */
+  border-radius: 0; 
 }
 
 /* Текстовая часть карточки */
 .practice-content {
-  width: 60%;
+  width: 55%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow-y: auto;
-  padding: 12px 16px; /* уменьшены отступы */
+  padding: 20px 24px; /* Увеличены отступы для читабельности */
 }
 
 .case-number {
   font-weight: 900;
   color: var(--cta-a);
-  font-size: 0.75rem; /* уменьшен */
+  font-size: 0.75rem; 
   margin-bottom: 2px;
   letter-spacing: 0.5px;
 }
 .case-title {
   color: var(--primary-color);
-  font-size: 0.9rem; /* уменьшен */
+  font-size: 0.9rem; 
   margin-bottom: 4px;
   line-height: 1.2;
 }
 .case-desc {
   color: var(--text-main);
-  font-size: 0.75rem; /* уменьшен */
+  font-size: 0.75rem; 
   margin-bottom: 4px;
   line-height: 1.3;
 }
@@ -379,7 +382,7 @@ h1, h2, h3, h4, h5 {
   padding-left: 16px;
   font-weight: 600;
   color: var(--text-main);
-  font-size: 0.7rem; /* уменьшен */
+  font-size: 0.7rem; 
   margin-bottom: 0;
 }
 .case-list li {
@@ -412,10 +415,10 @@ h1, h2, h3, h4, h5 {
 
 /* Синхронизация заголовков 2-го экрана */
 .sync-header {
-  height: 70px; /* немного уменьшена */
+  height: auto; 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
 }
@@ -438,7 +441,7 @@ h1, h2, h3, h4, h5 {
 .pricing-card {
   border: 2px solid var(--primary-color);
   box-shadow: 4px 4px 0 var(--primary-color);
-  padding: 1rem !important;
+  padding: 1.2rem !important;
 }
 .pricing-card h3 {
   font-size: 1rem;
@@ -669,8 +672,10 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .slider-arrow-btn.next { right: 4px; }
   
   .practice-card { flex-direction: column; height: auto; }
-  .practice-img { width: 100%; height: 240px; border-right: none; border-bottom: 2px solid var(--primary-color); }
-  .practice-content { width: 100%; }
+  /* Корректировка высоты документа на мобильных */
+  .practice-img { width: 100%; height: 280px; border-right: none; border-bottom: 2px solid var(--primary-color); }
+  .practice-content { width: 100%; padding: 16px; }
+  
   .sync-header { height: auto; min-height: 50px; }
   .contact-left-panel { border-right: none; border-bottom: 2px solid var(--primary-color); }
   .contact-map-card { min-height: auto; }
@@ -684,7 +689,6 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .hero-title { font-size: 1.4rem !important; }
   .compact-block { padding: 8px; }
   
-  .practice-card { height: 230px; }
   .contact-map-card { min-height: 300px; }
   .map-container-snap { height: 300px; }
 }
