@@ -153,7 +153,6 @@
             <div class="practice-slide-item active" data-case="0">
               <div class="practice-card mb-0">
                 <div class="practice-img">
-                  <!-- Изображение акта, контейнер имеет внутренний скролл -->
                   <img src="{{ url_for('static', filename='img/case1.jpg') }}" alt="Определение суда Дело № А77-2160/2023" loading="lazy">
                 </div>
                 <div class="practice-content py-3 px-4">
@@ -173,7 +172,6 @@
             <div class="practice-slide-item d-none" data-case="1">
               <div class="practice-card mb-0">
                 <div class="practice-img">
-                  <!-- Изображение акта, контейнер имеет внутренний скролл -->
                   <img src="{{ url_for('static', filename='img/case2.jpg') }}" alt="Определение суда Дело № А63-17799/2023" loading="lazy">
                 </div>
                 <div class="practice-content py-3 px-4">
@@ -248,20 +246,18 @@
     </div>
   </section>
 
-  <!-- Полностью переработанный экран 3: 50 на 50, современный вид -->
   <section class="scroll-screen contact-audit-section bg-light d-flex flex-column justify-content-between pt-4">
-    <div class="container flex-grow-1 d-flex flex-column justify-content-center py-2">
+    <div class="container-fluid px-3 px-xl-5 flex-grow-1 d-flex flex-column justify-content-center py-2">
       <div class="row g-0 contact-map-card bg-white align-items-stretch">
         
-        <!-- Левая часть с контактами -->
         <div class="col-md-6 p-4 p-md-5 d-flex flex-column justify-content-center bg-white contact-left-panel">
-          <h3 class="h3 mb-3 text-uppercase" style="color: var(--primary-color); font-weight: 900;">Приглашаем вас на правовой аудит</h3>
+          <h3 class="h3 mb-3 text-uppercase nowrap-lg" style="color: var(--primary-color); font-weight: 900; font-size: clamp(1.1rem, 1.6vw, 1.75rem);">Приглашаем вас на правовой аудит</h3>
           <div class="divider ms-0 mb-4" style="margin-left: 0;"></div>
           <p class="text-muted mb-4">Приезжайте в офис для детального разбора вашей ситуации. Мы изучим документы и дадим честный правовой прогноз хода дела.</p>
           
           <div class="mb-4">
             <p class="mb-1 text-muted small text-uppercase fw-bold">Наш адрес:</p>
-            <p class="text-dark fw-bold mb-1" style="font-size: 1.1rem;">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
+            <p class="text-dark fw-bold mb-1 nowrap-lg" style="font-size: clamp(0.85rem, 1vw, 1.1rem);">г. Железноводск, пгт. Иноземцево, ул. Маяковского, 25, офис №1</p>
             <p class="text-danger small fw-bold mb-0">Приём ведется строго по предварительной записи.</p>
           </div>
           
@@ -271,11 +267,10 @@
           </div>
           
           <div>
-            <a href="tel:+79034150000" class="btn btn-outline-dark px-4 py-3 sharp-btn w-100 text-uppercase" style="max-width: 250px; font-weight: 800; border-width: 2px;">📞 Позвонить сейчас</a>
+            <a href="tel:+79034150000" class="btn btn-outline-dark px-4 py-3 sharp-btn w-100 text-uppercase nowrap-lg" style="width: max-content !important; font-weight: 800; border-width: 2px;">📞 Позвонить сейчас</a>
           </div>
         </div>
         
-        <!-- Правая часть с картой -->
         <div class="col-md-6 map-container-snap position-relative">
           <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A0713197a833c671ca137efaec01d049487b29fb96ce34c1c38712dbc170dba1c" width="100%" height="100%" frameborder="0" style="position: absolute; top:0; left:0; width: 100%; height: 100%; border: 0;"></iframe>
         </div>
@@ -283,7 +278,6 @@
       </div>
     </div>
 
-    <!-- Футер -->
     <footer class="text-center py-3 bg-white border-top flex-shrink-0">
       <div class="container">
         <div class="d-flex justify-content-center align-items-center gap-4 mb-2">
