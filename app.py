@@ -65,10 +65,14 @@ def consult():
         utm_medium = data.get('utm_medium', '—')
         utm_campaign = data.get('utm_campaign', '—')
 
+        # Проверка на ветку МФЦ
+        is_mfc = data.get('is_mfc', False)
+        mfc_tag = "❗️ [ВЕТКА МФЦ - Долг менее 300к]\n" if is_mfc else ""
+
         # ФОРМИРУЕМ СООБЩЕНИЕ С ГОРОДОМ
         message = f"""
 🔥 НОВЫЙ ЛИД (БЕЗДОЛГОВ.ЛАЙФ)
-
+{mfc_tag}
 👤 Имя: {name}
 📱 Телефон: {phone}
 📍 Город: {city}
