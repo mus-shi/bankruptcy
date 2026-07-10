@@ -75,33 +75,21 @@ def thanks():
 # --- ОБНОВЛЕННЫЙ WEBHOOK ---
 @app.route('/bot_webhook', methods=['POST'])
 def bot_webhook():
-    try:
-        update = request.get_json()
+    update = request.get_json()
+    # Печатаем в логи все, что пришло от MAX
+    print(f"ПОЛУЧЕНО ОТ MAX: {update}") 
+    
+    if update:
+        # Пытаемся найти chat_id в любых возможных местах
+        chat_id = update.get("chat_id") or (update.get("message", {}).get("chat", {}).get("id"))
         
-        # Просто выводим в логи, что сообщение пришло
-        if update:
-            chat_id = None
-            if "message" in update and "chat" in update["message"]:
-                chat_id = update["message"]["chat"]["id"]
-            elif "chat_id" in update:
-                chat_id = update["chat_id"]
-            elif "user" in update and "user_id" in update["user"]:
-                chat_id = update["user"]["user_id"]
-
-            if chat_id:
-                # Отправляем только текст. 
-                # Кнопку MAX прицепит автоматически согласно настройкам на сайте
-                welcome_text = (
-                    "Здравствуйте! 👋 Я — виртуальный помощник БЕЗДОЛГОВ.ЛАЙФ.\n\n"
-                    "Мы специализируемся на законном сопровождении процедур по 127-ФЗ.\n\n"
-                    "Нажмите кнопку запуска приложения ниже, чтобы начать аудит."
-                )
-                send_bot_message(chat_id, welcome_text)
-                
-        return jsonify({'ok': True}), 200
-    except Exception as e:
-        print(f"Ошибка в webhook: {e}")
-        return jsonify({'error': 'Webhook processing error'}), 500
+        if chat_id:
+            print(f"НАЙДЕН CHAT_ID: {chat_id}")
+            send_bot_message(chat_id, "Бот получил ваше сообщение!")
+        else:
+            print("CHAT_ID НЕ НАЙДЕН в этом запросе")
+            
+    return jsonify({'ok': True}), 200
 
 # --- ОБРАБОТКА ФОРМЫ (КВИЗА) ---
 @app.route('/consult', methods=['POST'])
