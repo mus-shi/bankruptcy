@@ -77,45 +77,29 @@ def thanks():
 def bot_webhook():
     try:
         update = request.get_json()
+        print(f"DEBUG: Получено обновление: {update}") # Это появится в логах Render
         
+        chat_id = None
+        # Пробуем достать chat_id разными способами
         if update:
-            chat_id = None
-            
-            # Извлекаем chat_id в зависимости от типа события MAX
             if "message" in update and "chat" in update["message"]:
                 chat_id = update["message"]["chat"]["id"]
             elif "chat_id" in update:
                 chat_id = update["chat_id"]
             elif "user" in update and "user_id" in update["user"]:
                 chat_id = update["user"]["user_id"]
-
-            if chat_id:
-                welcome_text = (
-                    "Здравствуйте! 👋 Я — виртуальный помощник БЕЗДОЛГОВ.ЛАЙФ.\n\n"
-                    "Моя главная задача — помочь вам разобраться в вашей финансовой ситуации. "
-                    "Мы специализируемся на законном сопровождении процедур по 127-ФЗ.\n\n"
-                    "Нажмите на кнопку ниже, чтобы запустить бесплатный правовой аудит."
-                )
-                
-                # Формируем кнопку типа open_app по документации MAX
-                attachments = [
-                    {
-                        "type": "inline_keyboard",
-                        "payload": {
-                            "buttons": [
-                                [
-                                    {
-                                        "type": "open_app",
-                                        "text": "🚀 Запустить аудит"
-                                    }
-                                ]
-                            ]
-                        }
-                    }
-                ]
-                
-                send_bot_message(chat_id, welcome_text, attachments=attachments)
-                
+        
+        if chat_id:
+            # Текст и кнопка
+            welcome_text = "Здравствуйте! Нажмите кнопку ниже для запуска аудита."
+            attachments = [{
+                "type": "inline_keyboard",
+                "payload": {"buttons": [[{"type": "open_app", "text": "🚀 Запустить аудит"}]]}
+            }]
+            send_bot_message(chat_id, welcome_text, attachments=attachments)
+            return jsonify({'ok': True}), 200
+        
+        # Если chat_id не нашли, всё равно отвечаем 200, чтобы платформа не слала запрос снова
         return jsonify({'ok': True}), 200
     except Exception as e:
         print(f"Ошибка в webhook: {e}")
