@@ -136,7 +136,7 @@ def consult():
 3. Сделки за 3 года: {property_deals}
 4. Текущая стадия: {current_stage}
 
-🎯 ОТКУДА ПРИШЕЛ:
+🎯 ОТКУДА:
 • Источник: {utm_source}
 • Тип трафика: {utm_medium}
 • Кампания: {utm_campaign}
