@@ -1,26 +1,14 @@
 from flask import Flask, render_template, request, jsonify
 import os
 import requests
-import urllib3
 
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 app = Flask(__name__)
-
-# --- КЛЮЧИ И НАСТРОЙКИ ---
-# Ключи для безопасности сайта
+# Теперь ключи разделены для безопасности
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'fallback-secret')
-RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY')
-
-# Настройки для ВНУТРЕННИХ уведомлений (в твой Telegram)
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
+RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY')
 
-# Настройки для КЛИЕНТСКОГО бота (в мессенджере MAX)
-CLIENT_BOT_TOKEN = os.environ.get('CLIENT_BOT_TOKEN')
-# Новый адрес API из документации MAX
-MAX_API_URL = "https://platform-api2.max.ru/messages"
-
-# --- ФУНКЦИИ ---
 def verify_recaptcha(token):
     if not RECAPTCHA_SECRET_KEY:
         return True 
@@ -33,26 +21,6 @@ def verify_recaptcha(token):
     except:
         return False
 
-def send_bot_message(chat_id, text, attachments=None):
-    if not CLIENT_BOT_TOKEN:
-        return
-    
-    headers = {
-        'Authorization': CLIENT_BOT_TOKEN,
-        'Content-Type': 'application/json'
-    }
-    
-    payload = {'chat_id': chat_id, 'text': text}
-    if attachments:
-        payload['attachments'] = attachments
-        
-    try:
-        # verify=False отключает ту самую проверку SSL, которая вызывает ошибку
-        requests.post(MAX_API_URL, json=payload, headers=headers, verify=False)
-    except Exception as e:
-        print(f"Ошибка отправки сообщения ботом MAX: {e}")
-
-# --- СТАНДАРТНЫЕ МАРШРУТЫ САЙТА ---
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -69,31 +37,6 @@ def privacy():
 def thanks():
     return render_template('thanks.html')
 
-# --- ИСПРАВЛЕННЫЙ WEBHOOK ---
-@app.route('/bot_webhook', methods=['POST'])
-def bot_webhook():
-    try:
-        update = request.get_json()
-        
-        # Извлекаем chat_id из структуры, которую мы увидели в логах: 
-        # message -> recipient -> chat_id
-        chat_id = update.get("message", {}).get("recipient", {}).get("chat_id")
-        
-        if chat_id:
-            welcome_text = (
-                "Здравствуйте! 👋 Я — виртуальный помощник БЕЗДОЛГОВ.ЛАЙФ.\n\n"
-                "Мы специализируемся на законном сопровождении процедур по 127-ФЗ.\n\n"
-                "Нажмите кнопку запуска приложения ниже, чтобы начать аудит."
-            )
-            # Отправляем ответ
-            send_bot_message(chat_id, welcome_text)
-            
-        return jsonify({'ok': True}), 200
-    except Exception as e:
-        print(f"Ошибка в webhook: {e}")
-        return jsonify({'error': 'Webhook processing error'}), 500
-
-# --- ОБРАБОТКА ФОРМЫ (КВИЗА) ---
 @app.route('/consult', methods=['POST'])
 def consult():
     try:
@@ -105,6 +48,7 @@ def consult():
         phone = data.get('phone', '—')
         city = data.get('city', 'Не указано') 
         
+        # Обновленные ключи из нового квиза
         debt_map = {
             'under200k': 'Менее 200 тыс. ₽',
             '200k-500k': 'От 200 до 500 тыс. ₽',
@@ -116,13 +60,16 @@ def consult():
         property_deals = data.get('property_deals', 'Не указано')
         current_stage = data.get('current_stage', 'Не указано')
 
+        # Получаем UTM-метки
         utm_source = data.get('utm_source', 'Прямой заход / Неизвестно')
         utm_medium = data.get('utm_medium', '—')
         utm_campaign = data.get('utm_campaign', '—')
 
+        # Проверка на ветку МФЦ
         is_mfc = data.get('is_mfc', False)
         mfc_tag = "❗️ [ВЕТКА МФЦ - Долг менее 300к]\n" if is_mfc else ""
 
+        # ФОРМИРУЕМ СООБЩЕНИЕ С ГОРОДОМ
         message = f"""
 🔥 НОВЫЙ ЛИД (БЕЗДОЛГОВ.ЛАЙФ)
 {mfc_tag}
@@ -136,7 +83,7 @@ def consult():
 3. Сделки за 3 года: {property_deals}
 4. Текущая стадия: {current_stage}
 
-🎯 ОТКУДА:
+🎯 ОТКУДА ПРИШЕЛ:
 • Источник: {utm_source}
 • Тип трафика: {utm_medium}
 • Кампания: {utm_campaign}
