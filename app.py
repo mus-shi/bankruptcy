@@ -3,22 +3,12 @@ import os
 import requests
 
 app = Flask(__name__)
-
-# --- КЛЮЧИ И НАСТРОЙКИ ---
-# Ключи для безопасности сайта
+# Теперь ключи разделены для безопасности
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'fallback-secret')
-RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY')
-
-# Настройки для ВНУТРЕННИХ уведомлений (в ваш Telegram)
 TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
+RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY')
 
-# Настройки для КЛИЕНТСКОГО бота (в мессенджере MAX)
-CLIENT_BOT_TOKEN = os.environ.get('CLIENT_BOT_TOKEN')
-# ВНИМАНИЕ: Если у MAX другой формат API URL, его нужно будет поправить здесь
-MAX_API_URL = f"https://api.max.ru/bot{CLIENT_BOT_TOKEN}" if CLIENT_BOT_TOKEN else ""
-
-# --- ФУНКЦИИ ---
 def verify_recaptcha(token):
     if not RECAPTCHA_SECRET_KEY:
         return True 
@@ -31,25 +21,6 @@ def verify_recaptcha(token):
     except:
         return False
 
-def send_bot_message(chat_id, text, reply_markup=None):
-    if not CLIENT_BOT_TOKEN:
-        return
-    
-    payload = {
-        'chat_id': chat_id,
-        'text': text
-    }
-    
-    # Если передана клавиатура, добавляем её к сообщению
-    if reply_markup:
-        payload['reply_markup'] = reply_markup
-        
-    try:
-        requests.post(f"{MAX_API_URL}/sendMessage", json=payload)
-    except Exception as e:
-        print(f"Ошибка отправки сообщения ботом MAX: {e}")
-
-# --- СТАНДАРТНЫЕ МАРШРУТЫ САЙТА ---
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -66,46 +37,6 @@ def privacy():
 def thanks():
     return render_template('thanks.html')
 
-# --- WEBHOOK ДЛЯ БОТА MAX ---
-@app.route('/bot_webhook', methods=['POST'])
-def bot_webhook():
-    try:
-        update = request.get_json()
-        
-        # Проверяем, пришло ли текстовое сообщение от клиента
-        if update and "message" in update and "text" in update["message"]:
-            chat_id = update["message"]["chat"]["id"]
-
-            welcome_text = (
-                "Здравствуйте! 👋 Я — виртуальный помощник БЕЗДОЛГОВ.ЛАЙФ.\n\n"
-                "Моя главная задача — помочь вам разобраться в вашей финансовой ситуации. "
-                "Мы специализируемся на законном сопровождении процедур по 127-ФЗ.\n\n"
-                "Нажмите на кнопку ниже, чтобы запустить бесплатный правовой аудит."
-            )
-            
-            # Формируем кнопку для открытия мини-приложения
-            keyboard = {
-                "inline_keyboard": [
-                    [
-                        {
-                            "text": "🚀 Запустить аудит",
-                            "web_app": {
-                                "url": "https://bankruptcy-ro8n.onrender.com/"
-                            }
-                        }
-                    ]
-                ]
-            }
-            
-            # Отправляем сообщение вместе с кнопкой
-            send_bot_message(chat_id, welcome_text, reply_markup=keyboard)
-                
-        return jsonify({'ok': True}), 200
-    except Exception as e:
-        print(f"Ошибка в webhook: {e}")
-        return jsonify({'error': 'Webhook processing error'}), 500
-
-# --- ОБРАБОТКА ФОРМЫ (КВИЗА) ---
 @app.route('/consult', methods=['POST'])
 def consult():
     try:
@@ -117,6 +48,7 @@ def consult():
         phone = data.get('phone', '—')
         city = data.get('city', 'Не указано') 
         
+        # Обновленные ключи из нового квиза
         debt_map = {
             'under200k': 'Менее 200 тыс. ₽',
             '200k-500k': 'От 200 до 500 тыс. ₽',
@@ -128,13 +60,16 @@ def consult():
         property_deals = data.get('property_deals', 'Не указано')
         current_stage = data.get('current_stage', 'Не указано')
 
+        # Получаем UTM-метки
         utm_source = data.get('utm_source', 'Прямой заход / Неизвестно')
         utm_medium = data.get('utm_medium', '—')
         utm_campaign = data.get('utm_campaign', '—')
 
+        # Проверка на ветку МФЦ
         is_mfc = data.get('is_mfc', False)
         mfc_tag = "❗️ [ВЕТКА МФЦ - Долг менее 300к]\n" if is_mfc else ""
 
+        # ФОРМИРУЕМ СООБЩЕНИЕ С ГОРОДОМ
         message = f"""
 🔥 НОВЫЙ ЛИД (БЕЗДОЛГОВ.ЛАЙФ)
 {mfc_tag}
