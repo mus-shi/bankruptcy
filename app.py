@@ -72,34 +72,32 @@ def privacy():
 def thanks():
     return render_template('thanks.html')
 
-# --- WEBHOOK ДЛЯ БОТА MAX ---
+# --- ОБНОВЛЕННЫЙ WEBHOOK ---
 @app.route('/bot_webhook', methods=['POST'])
 def bot_webhook():
     try:
         update = request.get_json()
-        print(f"DEBUG: Получено обновление: {update}") # Это появится в логах Render
         
-        chat_id = None
-        # Пробуем достать chat_id разными способами
+        # Просто выводим в логи, что сообщение пришло
         if update:
+            chat_id = None
             if "message" in update and "chat" in update["message"]:
                 chat_id = update["message"]["chat"]["id"]
             elif "chat_id" in update:
                 chat_id = update["chat_id"]
             elif "user" in update and "user_id" in update["user"]:
                 chat_id = update["user"]["user_id"]
-        
-        if chat_id:
-            # Текст и кнопка
-            welcome_text = "Здравствуйте! Нажмите кнопку ниже для запуска аудита."
-            attachments = [{
-                "type": "inline_keyboard",
-                "payload": {"buttons": [[{"type": "open_app", "text": "🚀 Запустить аудит"}]]}
-            }]
-            send_bot_message(chat_id, welcome_text, attachments=attachments)
-            return jsonify({'ok': True}), 200
-        
-        # Если chat_id не нашли, всё равно отвечаем 200, чтобы платформа не слала запрос снова
+
+            if chat_id:
+                # Отправляем только текст. 
+                # Кнопку MAX прицепит автоматически согласно настройкам на сайте
+                welcome_text = (
+                    "Здравствуйте! 👋 Я — виртуальный помощник БЕЗДОЛГОВ.ЛАЙФ.\n\n"
+                    "Мы специализируемся на законном сопровождении процедур по 127-ФЗ.\n\n"
+                    "Нажмите кнопку запуска приложения ниже, чтобы начать аудит."
+                )
+                send_bot_message(chat_id, welcome_text)
+                
         return jsonify({'ok': True}), 200
     except Exception as e:
         print(f"Ошибка в webhook: {e}")
