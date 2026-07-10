@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 import os
 import requests
+import urllib3
 
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 app = Flask(__name__)
 
 # --- КЛЮЧИ И НАСТРОЙКИ ---
@@ -35,23 +37,18 @@ def send_bot_message(chat_id, text, attachments=None):
     if not CLIENT_BOT_TOKEN:
         return
     
-    # Токен передается в заголовке Authorization по правилам MAX
     headers = {
         'Authorization': CLIENT_BOT_TOKEN,
         'Content-Type': 'application/json'
     }
     
-    payload = {
-        'chat_id': chat_id,
-        'text': text
-    }
-    
-    # Добавляем вложения (клавиатуру) при наличии
+    payload = {'chat_id': chat_id, 'text': text}
     if attachments:
         payload['attachments'] = attachments
         
     try:
-        requests.post(MAX_API_URL, json=payload, headers=headers)
+        # verify=False отключает ту самую проверку SSL, которая вызывает ошибку
+        requests.post(MAX_API_URL, json=payload, headers=headers, verify=False)
     except Exception as e:
         print(f"Ошибка отправки сообщения ботом MAX: {e}")
 
