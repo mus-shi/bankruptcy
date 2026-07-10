@@ -72,24 +72,29 @@ def privacy():
 def thanks():
     return render_template('thanks.html')
 
-# --- ОБНОВЛЕННЫЙ WEBHOOK ---
+# --- ИСПРАВЛЕННЫЙ WEBHOOK ---
 @app.route('/bot_webhook', methods=['POST'])
 def bot_webhook():
-    update = request.get_json()
-    # Печатаем в логи все, что пришло от MAX
-    print(f"ПОЛУЧЕНО ОТ MAX: {update}") 
-    
-    if update:
-        # Пытаемся найти chat_id в любых возможных местах
-        chat_id = update.get("chat_id") or (update.get("message", {}).get("chat", {}).get("id"))
+    try:
+        update = request.get_json()
+        
+        # Извлекаем chat_id из структуры, которую мы увидели в логах: 
+        # message -> recipient -> chat_id
+        chat_id = update.get("message", {}).get("recipient", {}).get("chat_id")
         
         if chat_id:
-            print(f"НАЙДЕН CHAT_ID: {chat_id}")
-            send_bot_message(chat_id, "Бот получил ваше сообщение!")
-        else:
-            print("CHAT_ID НЕ НАЙДЕН в этом запросе")
+            welcome_text = (
+                "Здравствуйте! 👋 Я — виртуальный помощник БЕЗДОЛГОВ.ЛАЙФ.\n\n"
+                "Мы специализируемся на законном сопровождении процедур по 127-ФЗ.\n\n"
+                "Нажмите кнопку запуска приложения ниже, чтобы начать аудит."
+            )
+            # Отправляем ответ
+            send_bot_message(chat_id, welcome_text)
             
-    return jsonify({'ok': True}), 200
+        return jsonify({'ok': True}), 200
+    except Exception as e:
+        print(f"Ошибка в webhook: {e}")
+        return jsonify({'error': 'Webhook processing error'}), 500
 
 # --- ОБРАБОТКА ФОРМЫ (КВИЗА) ---
 @app.route('/consult', methods=['POST'])
