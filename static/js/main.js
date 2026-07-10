@@ -245,18 +245,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderForm() {
     // Определяем ветку на основе всех ответов:
-    // До 500 тыс И стадия НЕ "Дело у приставов (ФССП)"
     const isDebtUnder500k = answers.total_debt_value < 500000;
     const hasBailiffs = answers.current_stage === 'Дело у приставов (ФССП)';
     
-    answers.is_mfc = (isDebtUnder500k && !hasBailiffs);
+    const isNotSuitable = isDebtUnder500k && hasBailiffs;
+    answers.is_mfc = isDebtUnder500k && !hasBailiffs;
 
     // Выбор заголовка в зависимости от ветки
-    const formHeader = answers.is_mfc
-      ? `<h4 style="font-size: 1.2rem; color: #198754; font-weight: 900; text-transform: uppercase;">Вам подходит списание через МФЦ</h4>
-         <p class="text-muted small">Мы предлагаем пакет «МФЦ под ключ» за 20 000 ₽: соберем все справки и безошибочно заполним заявление. Оставьте номер для получения детального плана.</p>`
-      : `<h4 style="font-size: 1.2rem; color: var(--primary-color); font-weight: 900; text-transform: uppercase;">Вам подходит судебное банкротство</h4>
-         <p class="text-muted small">Оставьте номер, чтобы получить пошаговый план процедуры и консультацию.</p>`;
+    let formHeader = '';
+    if (isNotSuitable) {
+      formHeader = `<h4 style="font-size: 1.2rem; color: #dc3545; font-weight: 900; text-transform: uppercase;">Банкротство пока не подходит</h4>
+         <p class="text-muted small">Но мы можем помочь! Оставьте номер: мы проанализируем дело, поможем <b>защитить прожиточный минимум</b> и спасти ваши доходы от удержаний приставов.</p>`;
+    } else if (answers.is_mfc) {
+      formHeader = `<h4 style="font-size: 1.2rem; color: #198754; font-weight: 900; text-transform: uppercase;">Вам подходит списание через МФЦ</h4>
+         <p class="text-muted small">Мы предлагаем пакет «МФЦ под ключ» за 20 000 ₽: соберем все справки и безошибочно заполним заявление. Оставьте номер для получения детального плана.</p>`;
+    } else {
+      formHeader = `<h4 style="font-size: 1.2rem; color: var(--primary-color); font-weight: 900; text-transform: uppercase;">Вам подходит судебное банкротство</h4>
+         <p class="text-muted small">Оставьте номер, чтобы получить пошаговый план процедуры и бесплатную консультацию.</p>`;
+    }
 
     quizContainer.innerHTML = `
       <div style="height: 4px; background: #e9ecef; overflow: hidden; margin-top: 12px; margin-bottom: 20px;">
