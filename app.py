@@ -3,11 +3,28 @@ import os
 import requests
 
 app = Flask(__name__)
-# Теперь ключи разделены для безопасности
+# Ключи для безопасности и уведомлений
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'fallback-secret')
-TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN')
-TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID')
+TELEGRAM_BOT_TOKEN = os.environ.get('TELEGRAM_BOT_TOKEN') # Бот для твоих внутренних уведомлений
+TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID') # Твой ID для получения лидов
 RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY')
+
+# --- НОВЫЙ БЛОК ДЛЯ КЛИЕНТСКОГО БОТА ---
+# Токен бота, с которым будут общаться клиенты (тот, что ты только что скопировал)
+CLIENT_BOT_TOKEN = os.environ.get('CLIENT_BOT_TOKEN')
+BOT_API_URL = f"https://api.telegram.org/bot{CLIENT_BOT_TOKEN}" if CLIENT_BOT_TOKEN else ""
+
+def send_bot_message(chat_id, text):
+    if not CLIENT_BOT_TOKEN:
+        return
+    try:
+        requests.post(f"{BOT_API_URL}/sendMessage", json={
+            'chat_id': chat_id,
+            'text': text
+        })
+    except Exception as e:
+        print(f"Ошибка отправки сообщения ботом: {e}")
+# --------------------------------------
 
 def verify_recaptcha(token):
     if not RECAPTCHA_SECRET_KEY:
@@ -37,6 +54,33 @@ def privacy():
 def thanks():
     return render_template('thanks.html')
 
+# --- НОВЫЙ МАРШРУТ (WEBHOOK) ДЛЯ БОТА ---
+@app.route('/bot_webhook', methods=['POST'])
+def bot_webhook():
+    try:
+        update = request.get_json()
+        
+        # Проверяем, есть ли текст во входящем сообщении
+        if update and "message" in update and "text" in update["message"]:
+            chat_id = update["message"]["chat"]["id"]
+            text = update["message"]["text"]
+
+            # Если человек нажал "Запустить" (отправилась команда /start)
+            if text == '/start':
+                welcome_text = (
+                    "Здравствуйте! 👋 Я — виртуальный помощник БЕЗДОЛГОВ.ЛАЙФ.\n\n"
+                    "Моя главная задача — помочь вам разобраться в вашей финансовой ситуации. "
+                    "Мы специализируемся на законном сопровождении процедур по 127-ФЗ.\n\n"
+                    "Напишите мне общую сумму вашего долга, чтобы мы могли начать."
+                )
+                send_bot_message(chat_id, welcome_text)
+                
+        return jsonify({'ok': True}), 200
+    except Exception as e:
+        print(f"Ошибка в webhook: {e}")
+        return jsonify({'error': 'Webhook processing error'}), 500
+# ----------------------------------------
+
 @app.route('/consult', methods=['POST'])
 def consult():
     try:
@@ -48,7 +92,6 @@ def consult():
         phone = data.get('phone', '—')
         city = data.get('city', 'Не указано') 
         
-        # Обновленные ключи из нового квиза
         debt_map = {
             'under200k': 'Менее 200 тыс. ₽',
             '200k-500k': 'От 200 до 500 тыс. ₽',
@@ -60,16 +103,13 @@ def consult():
         property_deals = data.get('property_deals', 'Не указано')
         current_stage = data.get('current_stage', 'Не указано')
 
-        # Получаем UTM-метки
         utm_source = data.get('utm_source', 'Прямой заход / Неизвестно')
         utm_medium = data.get('utm_medium', '—')
         utm_campaign = data.get('utm_campaign', '—')
 
-        # Проверка на ветку МФЦ
         is_mfc = data.get('is_mfc', False)
         mfc_tag = "❗️ [ВЕТКА МФЦ - Долг менее 300к]\n" if is_mfc else ""
 
-        # ФОРМИРУЕМ СООБЩЕНИЕ С ГОРОДОМ
         message = f"""
 🔥 НОВЫЙ ЛИД (БЕЗДОЛГОВ.ЛАЙФ)
 {mfc_tag}
@@ -89,7 +129,6 @@ def consult():
 • Кампания: {utm_campaign}
         """
 
-        # Внутреннее уведомление о новой заявке отправляется в Telegram
         if TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID:
             requests.post(f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage", data={
                 'chat_id': TELEGRAM_CHAT_ID,
