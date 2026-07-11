@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>БЕЗДОЛГОВ.ЛАЙФ | Сопровождение банкротства</title>
 
-  <!-- Оптимизация загрузки шрифтов -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
@@ -27,6 +23,8 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/110576857" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
+
+
 </head>
 <body>
 
@@ -43,17 +41,6 @@
   
   <div class="sticky-actions d-flex align-items-center gap-3">
     <span class="d-none d-md-inline small text-muted fw-bold">Пн-Пт 9:00–18:00</span>
-    
-    <!-- Иконки мессенджеров в шапке -->
-    <div class="d-flex align-items-center gap-2">
-      <a href="https://wa.me/79034150000" target="_blank" class="header-messenger-link" aria-label="WhatsApp">
-        <img src="{{ url_for('static', filename='img/WA.webp') }}" alt="WhatsApp" class="header-messenger-img">
-      </a>
-      <a href="https://t.me/ripe_man" target="_blank" class="header-messenger-link" aria-label="Telegram">
-        <img src="{{ url_for('static', filename='img/TG.webp') }}" alt="Telegram" class="header-messenger-img">
-      </a>
-    </div>
-
     <a href="tel:+79034150000" class="header-phone d-none d-md-inline">+7 (903) 415-00-00</a>
     <a href="tel:+79034150000" class="btn-header-call">📞 Позвонить</a>
   </div>
