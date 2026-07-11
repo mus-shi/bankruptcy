@@ -84,10 +84,9 @@ h1, h2, h3, h4, h5 {
   box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
 }
 
-/* Выводим бейдж reCAPTCHA над дисклеймером (7vh) */
+/* Выводим бейдж reCAPTCHA поверх дисклеймера */
 .grecaptcha-badge {
   z-index: 1000 !important;
-  bottom: calc(7vh + 10px) !important;
 }
 
 /* =========================
@@ -169,21 +168,6 @@ h1, h2, h3, h4, h5 {
 .btn-header-call:hover {
   background-color: var(--primary-color);
   color: #fff;
-}
-
-.header-messenger-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease;
-}
-.header-messenger-link:hover {
-  transform: translateY(-2px);
-}
-.header-messenger-img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
 }
 
 /* =========================
@@ -819,9 +803,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .sticky-top-bar { padding: 0 12px; height: 54px; }
   .sticky-top-bar span.d-none.d-md-inline,
   .sticky-top-bar .header-phone { display: none !important; }
-  .btn-header-call { font-size: 0.75rem; padding: 4px 10px; }
-  .header-messenger-img { width: 20px; height: 20px; }
-  .sticky-top-bar img.logo-img { height: 32px !important; }
+  .btn-header-call { font-size: 0.75rem; padding: 4px 12px; }
+  .sticky-top-bar img { height: 32px !important; }
 
   .hero-section { padding: 15px 0; }
   .hero-title { font-size: 1.2rem !important; text-align: center !important; }
