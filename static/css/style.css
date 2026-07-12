@@ -296,12 +296,21 @@ h1, h2, h3, h4, h5 {
 .c-desc { font-size: 0.65rem; color: var(--text-muted); line-height: 1.2; margin-top: 4px; }
 
 .step-container { display: flex; flex-direction: column; }
-.step-row { background: transparent; padding: 0 0 6px 0; }
+.step-row { background: transparent; padding: 0 0 6px 0; gap: 4px; }
 .step-item { font-size: 0.8rem; font-weight: 700; color: var(--text-main); }
-.step-arrow { color: var(--primary-color); font-weight: bold; user-select: none; }
+.step-arrow { color: var(--primary-color); font-weight: bold; user-select: none; display: flex; align-items: center; }
 
 .step-item-trigger {
-  cursor: pointer; transition: all 0.2s ease; padding: 2px 6px; border-radius: var(--radius-btn); border: 1px solid transparent;
+  cursor: pointer; 
+  transition: all 0.2s ease; 
+  padding: 4px 8px; 
+  border-radius: var(--radius-btn); 
+  border: 1px solid transparent;
+  flex: 1 1 0; /* Равномерное распределение ширины */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 .step-item-trigger:hover { color: var(--cta-a); border-color: rgba(0, 0, 0, 0.1); }
 .step-item-trigger.active { color: #fff !important; background: var(--primary-color); border-color: var(--primary-color); }
@@ -316,8 +325,8 @@ h1, h2, h3, h4, h5 {
   line-height: 1.4;
   color: var(--text-main);
   transition: opacity 0.15s ease-in-out;
-  /* Изменено на выравнивание по ширине */
-  text-align: justify;
+  /* Возвращаем левое выравнивание во избежание "дыр" между словами */
+  text-align: left;
 }
 
 .btn-start-online {
@@ -337,14 +346,13 @@ h1, h2, h3, h4, h5 {
   box-shadow: 4px 4px 0 var(--primary-color);
   width: 100%;
   max-width: 360px;
-  /* Добавлена анимация */
+  /* Анимация пульсации */
   animation: pulseSales 2s infinite ease-in-out;
 }
 .btn-start-online:hover {
   background: var(--cta-b) !important;
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 var(--primary-color);
-  /* Останавливаем анимацию при наведении */
   animation-play-state: paused;
 }
 
@@ -551,8 +559,9 @@ h1, h2, h3, h4, h5 {
     flex-shrink: 0;
   }
   .sub-block-height {
-    height: 115px !important;
-    min-height: 115px !important;
+    /* Увеличиваем высоту блоков для устранения обрезки текста */
+    height: 160px !important;
+    min-height: 160px !important;
     flex-shrink: 0;
   }
   .practice-slider-container {
@@ -824,6 +833,10 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 
   .step-row { flex-wrap: wrap; justify-content: center; gap: 2px 6px; font-size: 0.75rem; }
   .step-item, .step-arrow { font-size: 0.75rem; }
+  
+  /* Отменяем флекс 1 для маленьких экранов, чтобы они аккуратно переносились на вторую строку */
+  .step-item-trigger { flex: 0 0 auto; }
+  
   .step-desc-box { padding: 12px; font-size: 0.8rem; }
   .btn-start-online { padding: 14px 20px !important; font-size: 0.9rem !important; width: 100%; max-width: none; }
 }
