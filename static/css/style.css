@@ -48,6 +48,11 @@ h1, h2, h3, h4, h5 {
   color: var(--text-muted) !important;
 }
 
+/* Вспомогательный класс для выравнивания по ширине */
+.text-justify {
+  text-align: justify;
+}
+
 .divider {
   height: 3px; 
   width: 60px; 
@@ -71,7 +76,7 @@ h1, h2, h3, h4, h5 {
    ========================= */
 .scroll-container {
   margin-top: 60px;
-  height: calc(100vh - 60px); /* Учет шапки */
+  height: calc(100vh - 60px);
   overflow-y: auto;
 }
 
@@ -104,6 +109,13 @@ h1, h2, h3, h4, h5 {
 .delay-1 { animation-delay: 0.1s; }
 .delay-2 { animation-delay: 0.2s; }
 .delay-3 { animation-delay: 0.3s; }
+
+/* Анимация для кнопки продаж */
+@keyframes pulseSales {
+  0% { transform: scale(1); box-shadow: 4px 4px 0 var(--primary-color); }
+  50% { transform: scale(1.02); box-shadow: 6px 6px 0 var(--primary-color); }
+  100% { transform: scale(1); box-shadow: 4px 4px 0 var(--primary-color); }
+}
 
 /* =========================
    ВЕРХНЯЯ ПАНЕЛЬ
@@ -304,7 +316,8 @@ h1, h2, h3, h4, h5 {
   line-height: 1.4;
   color: var(--text-main);
   transition: opacity 0.15s ease-in-out;
-  text-align: left;
+  /* Изменено на выравнивание по ширине */
+  text-align: justify;
 }
 
 .btn-start-online {
@@ -324,11 +337,15 @@ h1, h2, h3, h4, h5 {
   box-shadow: 4px 4px 0 var(--primary-color);
   width: 100%;
   max-width: 360px;
+  /* Добавлена анимация */
+  animation: pulseSales 2s infinite ease-in-out;
 }
 .btn-start-online:hover {
   background: var(--cta-b) !important;
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 var(--primary-color);
+  /* Останавливаем анимацию при наведении */
+  animation-play-state: paused;
 }
 
 /* =========================
@@ -440,7 +457,6 @@ h1, h2, h3, h4, h5 {
   color: var(--cta-a);
 }
 
-
 .practice-content {
   width: 50%;
   display: flex;
@@ -525,9 +541,7 @@ h1, h2, h3, h4, h5 {
 }
 
 @media (min-width: 992px) {
-  .sub-column-gap {
-    gap: 16px !important;
-  }
+  .sub-column-gap { gap: 16px !important; }
   .main-pricing-block {
     height: 420px !important;
     min-height: 420px !important;
@@ -663,7 +677,6 @@ h1, h2, h3, h4, h5 {
 .map-container-snap {
   height: 300px;
   position: relative;
-  /* Добавлено для устранения нахлеста карты на футер */
   margin-bottom: 20px; 
 }
 
