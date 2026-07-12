@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>БЕЗДОЛГОВ.ЛАЙФ | Сопровождение банкротства</title>
 
+  <!-- Добавлен фавикон -->
+  <link rel="icon" href="{{ url_for('static', filename='img/logo.jpg') }}" type="image/jpeg">
+
   <!-- Оптимизация загрузки шрифтов -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +59,8 @@
         <img src="{{ url_for('static', filename='img/TG.webp') }}" alt="Telegram" class="header-messenger-img">
       </a>
       <a href="https://web.max.ru/368896560" target="_blank" class="header-messenger-link" aria-label="Max">
-        <img src="{{ url_for('static', filename='img/Max.webp') }}" alt="Max" class="header-messenger-img">
+        <!-- ИСПРАВЛЕН ПУТЬ К ИКОНКЕ MAX (с Max на MAX) -->
+        <img src="{{ url_for('static', filename='img/MAX.webp') }}" alt="Max" class="header-messenger-img">
       </a>
     </div>
 
@@ -209,14 +213,14 @@
             <div class="practice-slide-item active w-100" data-case="0">
               <div class="practice-card mb-0 w-100">
                 <div class="practice-img position-relative zoomable-image" onclick="openLightbox(this.querySelector('img').src)">
-                  <!-- Убран loading="lazy" -->
                   <img src="{{ url_for('static', filename='img/case1.jpg') }}" alt="Определение суда Дело № А77-2160/2023">
                 </div>
                 <div class="practice-content py-3 px-4">
                   <div class="case-number">Дело № А77-2160/2023</div>
-                  <h4 class="case-title" style="font-size: 1rem; margin-bottom: 6px;">Успешное завершение + Защита доходов</h4>
-                  <p class="case-desc small mb-2">Успешно сопроводили процедуру банкротства. В процессе судебного разбирательства мы доказали необходимость исключения из конкурсной массы следующих доходов гражданина:</p>
-                  <ul class="case-list small mb-0">
+                  <!-- Добавлены классы text-center и text-justify -->
+                  <h4 class="case-title text-center" style="font-size: 1rem; margin-bottom: 6px;">Успешное завершение + Защита доходов</h4>
+                  <p class="case-desc text-justify small mb-2">Успешно сопроводили процедуру банкротства. В процессе судебного разбирательства мы доказали необходимость исключения из конкурсной массы следующих доходов гражданина:</p>
+                  <ul class="case-list text-justify small mb-0">
                     <li>Суммы в размере прожиточного минимума.</li>
                     <li>Средства на оплату аренды жилья.</li>
                     <li>Специальные социальные выплаты медицинским работникам.</li>
@@ -228,14 +232,14 @@
             <div class="practice-slide-item d-none w-100" data-case="1">
               <div class="practice-card mb-0 w-100">
                 <div class="practice-img position-relative zoomable-image" onclick="openLightbox(this.querySelector('img').src)">
-                  <!-- Убран loading="lazy" -->
                   <img src="{{ url_for('static', filename='img/case2.jpg') }}" alt="Определение суда Дело № А63-17799/2023">
                 </div>
                 <div class="practice-content py-3 px-4">
                   <div class="case-number">Дело № А63-17799/2023</div>
-                  <h4 class="case-title" style="font-size: 1rem; margin-bottom: 6px;">Исключение автомобиля из массы</h4>
-                  <p class="case-desc small mb-2">В рамках реализации имущества транспортные средства обычно выставляются на торги. В данном деле была проведена сложная юридическая работа.</p>
-                  <p class="case-desc small mb-0">Через суд, предоставив веские основания, нам удалось <strong>добиться исключения автомобиля из конкурсной массы</strong>. Процедура была благополучно завершена.</p>
+                  <!-- Добавлены классы text-center и text-justify -->
+                  <h4 class="case-title text-center" style="font-size: 1rem; margin-bottom: 6px;">Исключение автомобиля из массы</h4>
+                  <p class="case-desc text-justify small mb-2">В рамках реализации имущества транспортные средства обычно выставляются на торги. В данном деле была проведена сложная юридическая работа.</p>
+                  <p class="case-desc text-justify small mb-0">Через суд, предоставив веские основания, нам удалось <strong>добиться исключения автомобиля из конкурсной массы</strong>. Процедура была благополучно завершена.</p>
                 </div>
               </div>
             </div>
@@ -246,18 +250,23 @@
 
           <div class="row g-2 w-100 m-0 p-0">
             <div class="col-sm-6 ps-0 pe-sm-1 p-0 mb-2 mb-sm-0">
-              <div class="stats-card p-3 d-flex flex-column justify-content-center sub-block-height">
-                <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase;">Количество дел</h4>
-                <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">> 200 успешных</div>
-                <p class="text-white-50 small mb-0" style="font-size: 0.7rem; line-height: 1.3;">Успешно завершенные дела в рамках ФЗ №127.</p>
+              <!-- Использован flex и justify-content-between для распределения + text-center -->
+              <div class="stats-card p-3 d-flex flex-column justify-content-between sub-block-height text-center">
+                <div>
+                  <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase;">Количество дел</h4>
+                  <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">> 200 успешных</div>
+                </div>
+                <p class="text-white-50 text-justify small mb-0 mt-1" style="font-size: 0.7rem; line-height: 1.3;">Успешно завершенные дела в рамках ФЗ №127.</p>
               </div>
             </div>
             
             <div class="col-sm-6 pe-0 ps-sm-1 p-0">
-              <div class="stats-card p-3 d-flex flex-column justify-content-center sub-block-height">
-                <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase;">Урегулировано задолженностей</h4>
-                <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">> 270 000 000 ₽</div>
-                <p class="text-white-50 small mb-0" style="font-size: 0.7rem; line-height: 1.3;">Средняя сумма задолженности клиентов: 1,2 – 1,5 млн ₽.</p>
+              <div class="stats-card p-3 d-flex flex-column justify-content-between sub-block-height text-center">
+                <div>
+                  <h4 class="mb-1 text-white" style="font-size: 0.85rem; text-transform: uppercase;">Урегулировано задолженностей</h4>
+                  <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">> 270 000 000 ₽</div>
+                </div>
+                <p class="text-white-50 text-justify small mb-0 mt-1" style="font-size: 0.7rem; line-height: 1.3;">Средняя сумма задолженности клиентов: 1,2 – 1,5 млн ₽.</p>
               </div>
             </div>
           </div>
@@ -301,17 +310,21 @@
 
           <div class="row g-2 w-100 m-0 p-0">
             <div class="col-sm-6 ps-0 pe-sm-1 p-0 mb-2 mb-sm-0">
-              <div class="costs-card p-3 d-flex flex-column justify-content-center sub-block-height">
-                <h4 class="mb-1 text-white" style="font-size: 0.85rem;">Обязательные суд. расходы</h4>
-                <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">50 000 ₽</div>
-                <p class="text-white-50 small mb-0" style="font-size: 0.75rem; line-height: 1.3;">Законные платежи (депозит, публикации, почта). <strong>Оплачиваются напрямую по реквизитам суда.</strong></p>
+              <div class="costs-card p-3 d-flex flex-column justify-content-between sub-block-height text-center">
+                <div>
+                  <h4 class="mb-1 text-white" style="font-size: 0.85rem;">Обязательные суд. расходы</h4>
+                  <div class="fw-bold text-white mb-1" style="font-size: 1.1rem;">50 000 ₽</div>
+                </div>
+                <p class="text-white-50 text-justify small mb-0 mt-1" style="font-size: 0.75rem; line-height: 1.3;">Законные платежи (депозит, публикации, почта). <strong>Оплачиваются напрямую по реквизитам суда.</strong></p>
               </div>
             </div>
             
             <div class="col-sm-6 pe-0 ps-sm-1 p-0">
-              <div class="guarantee-box p-3 d-flex flex-column justify-content-center sub-block-height">
-                <h4 class="mb-1" style="color: var(--cta-a); font-size: 0.85rem;">Финансовая ответственность</h4>
-                <p class="mb-0 text-dark small fw-bold" style="font-size: 0.75rem; line-height: 1.3;">Если суд не введет процедуру по нашей вине (при предоставлении честных данных), <strong>мы полностью вернем уплаченный аванс</strong>.</p>
+              <div class="guarantee-box p-3 d-flex flex-column justify-content-between sub-block-height text-center">
+                <div>
+                  <h4 class="mb-1" style="color: var(--cta-a); font-size: 0.85rem;">Финансовая ответственность</h4>
+                </div>
+                <p class="mb-0 text-dark text-justify small fw-bold mt-1" style="font-size: 0.75rem; line-height: 1.3;">Если суд не введет процедуру по нашей вине (при предоставлении честных данных), <strong>мы полностью вернем уплаченный аванс</strong>.</p>
               </div>
             </div>
           </div>
@@ -357,18 +370,15 @@
             <p class="text-muted" style="font-size: 0.9rem;">Работаем по всему Северному Кавказу: берем на себя полное ведение вашего дела в Арбитражных судах СКФО. </p>
           </div>
       <div class="w-100 flex-grow-1 d-flex align-items-center justify-content-center" style="width: 100%;">
-  <!-- Добавлено transform: scale(1.15) для визуального увеличения картинки на 15% -->
   <img src="{{ url_for('static', filename='img/map-regions.png') }}" alt="Регионы работы" class="img-fluid" style="max-height: 100%; width: 100%; object-fit: contain; transform: scale(1.15); transform-origin: center; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.05));">
 </div>
         
       </div>
     </div>
 
-    <!-- Обновленный футер со встроенным дисклеймером -->
     <footer class="text-center py-3 bg-white border-top flex-shrink-0" style="position: relative; z-index: 10;">
       <div class="container">
         
-        <!-- Перенесенный дисклеймер -->
         <div class="mb-3 p-2 rounded text-start text-md-center" style="background-color: rgba(200, 35, 51, 0.05); border: 1px solid rgba(200, 35, 51, 0.15); font-size: 0.7rem; color: #5a6268; line-height: 1.4;">
           <strong>Важно:</strong> Банкротство влечет негативные последствия, в том числе ограничения на получение кредита и повторное банкротство в течение пяти лет. Предварительно обратитесь к своему кредитору и в МФЦ. Информация на сайте не является публичной офертой.
         </div>
@@ -421,7 +431,6 @@
 <script src="https://www.google.com/recaptcha/api.js?render=6Lc_4kIsAAAAAIosVgEXXSdjvdSRmVJEzPhD5YhK"></script>
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 <script>
-  // Логика для лайтбокса
   function openLightbox(imgSrc) {
     document.getElementById('lightbox-img').src = imgSrc;
     document.getElementById('image-lightbox').classList.add('active');
