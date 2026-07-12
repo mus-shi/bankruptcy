@@ -53,6 +53,13 @@ h1, h2, h3, h4, h5 {
   text-align: justify;
 }
 
+.justify-text-hyphens {
+  text-align: justify !important;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+}
+
 .divider {
   height: 3px; 
   width: 60px; 
@@ -325,8 +332,10 @@ h1, h2, h3, h4, h5 {
   line-height: 1.4;
   color: var(--text-main);
   transition: opacity 0.15s ease-in-out;
-  /* Возвращаем левое выравнивание во избежание "дыр" между словами */
-  text-align: left;
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
 }
 
 .btn-start-online {
@@ -559,7 +568,6 @@ h1, h2, h3, h4, h5 {
     flex-shrink: 0;
   }
   .sub-block-height {
-    /* Увеличиваем высоту блоков для устранения обрезки текста */
     height: 160px !important;
     min-height: 160px !important;
     flex-shrink: 0;
@@ -576,6 +584,8 @@ h1, h2, h3, h4, h5 {
   border: 2px solid var(--primary-color);
   box-shadow: 4px 4px 0 var(--cta-a);
   border-radius: var(--radius-card);
+  justify-content: flex-start !important;
+  gap: 12px;
 }
 
 .pricing-card {
@@ -632,17 +642,8 @@ h1, h2, h3, h4, h5 {
   border: 2px solid #fff;
   box-shadow: 4px 4px 0 var(--cta-a);
   padding: 0.8rem !important;
-}
-.costs-card h4 {
-  font-size: 0.75rem;
-  margin-bottom: 2px;
-}
-.costs-card .fw-bold {
-  font-size: 1rem;
-}
-.costs-card .text-white-50 {
-  font-size: 0.65rem;
-  line-height: 1.2;
+  justify-content: flex-start !important;
+  gap: 12px;
 }
 
 .guarantee-box {
@@ -650,15 +651,13 @@ h1, h2, h3, h4, h5 {
   border: 2px solid var(--cta-a);
   box-shadow: 4px 4px 0 var(--primary-color);
   padding: 0.8rem !important;
+  justify-content: flex-start !important;
+  gap: 12px;
 }
-.guarantee-box h4 {
-  font-size: 0.75rem;
-  margin-bottom: 2px;
-}
-.guarantee-box p {
-  font-size: 0.65rem;
-  line-height: 1.2;
-  margin-bottom: 0;
+
+.stats-card h4, .costs-card h4, .guarantee-box h4 {
+  text-align: center !important;
+  margin-bottom: 0 !important;
 }
 
 /* =========================
@@ -831,11 +830,11 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .c-text { font-size: 0.7rem; }
   .c-desc { display: none; }
 
-  .step-row { flex-wrap: wrap; justify-content: center; gap: 2px 6px; font-size: 0.75rem; }
-  .step-item, .step-arrow { font-size: 0.75rem; }
+  .step-row { flex-wrap: nowrap; justify-content: space-between; gap: 2px; font-size: 0.65rem; }
+  .step-item, .step-arrow { font-size: 0.65rem; }
   
-  /* Отменяем флекс 1 для маленьких экранов, чтобы они аккуратно переносились на вторую строку */
-  .step-item-trigger { flex: 0 0 auto; }
+  /* Возвращаем одинаковый размер */
+  .step-item-trigger { flex: 1 1 0; padding: 4px 2px; word-break: break-word; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; }
   
   .step-desc-box { padding: 12px; font-size: 0.8rem; }
   .btn-start-online { padding: 14px 20px !important; font-size: 0.9rem !important; width: 100%; max-width: none; }
