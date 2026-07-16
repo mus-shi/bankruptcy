@@ -879,4 +879,47 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   
   .step-desc-box { padding: 12px; font-size: 0.8rem; }
   .btn-start-online { padding: 14px 20px !important; font-size: 0.9rem !important; width: 100%; max-width: none; }
+
+  /* =========================================
+     НОВЫЕ СТИЛИ ДЛЯ ЛИПКОЙ КНОПКИ И РЕЗЮМЕ
+     ========================================= */
+  
+  /* Стили для плавающей панели внизу */
+  .mobile-sticky-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    padding: 12px 15px;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+    z-index: 1050;
+  }
+
+  /* Добавляем отступ, чтобы футер не перекрывался кнопкой в самом низу страницы */
+  body {
+    padding-bottom: 70px !important; 
+  }
+
+  /* Делаем резюме эксперта компактнее для баланса первого экрана */
+  .expert-resume-card {
+    padding: 10px;
+    max-height: 25vh !important;
+    margin-bottom: 10px;
+  }
+  
+  /* Уменьшаем шрифты внутри резюме */
+  .expert-name {
+    font-size: 0.9rem;
+  }
+  .expert-role {
+    font-size: 0.7rem;
+    margin-bottom: 6px;
+  }
+  .expert-facts {
+    font-size: 0.65rem;
+  }
+  .expert-facts li {
+    margin-bottom: 4px;
+  }
 }
