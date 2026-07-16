@@ -185,7 +185,7 @@ h1, h2, h3, h4, h5 {
    ЭКРАН 1: ГЛАВНЫЙ ЭКРАН
    ========================= */
 .hero-section {
-  background: linear-gradient(to left, rgba(244, 246, 249, 1) 0%, rgba(244, 246, 249, 0.8) 100%), url('../img/bg-main.png') center/cover no-repeat;
+  background: linear-gradient(to left, rgba(244, 246, 249, 1) 0%, rgba(244, 246, 249, 0.8) 100%), url('../img/bg-main.webp') center/cover no-repeat;
   min-height: 100%;
 }
 
