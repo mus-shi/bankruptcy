@@ -873,80 +873,84 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     background-color: var(--primary-color); color: #fff; border-radius: var(--radius-btn);
   }
 
-  /* ==============================================
-     3. ПЕРВЫЙ ЭКРАН (GRID-сетка для юриста и блоков)
+ /* ==============================================
+     3. ПЕРВЫЙ ЭКРАН (GRID-сетка: Текст слева, Фото справа)
      ============================================== */
   .hero-section { padding: 15px 0 5px 0 !important; background-position: top center !important; }
   .hero-section .container { padding: 0 12px !important; }
   
-  /* Создаем умную сетку: 1-я колонка резиновая, 2-я строго 120px под фото */
+  /* Сетка: левая колонка под текст (гибкая), правая строго 120px под фото */
   .hero-section .row.align-items-center {
     display: grid !important;
-    grid-template-columns: 1fr 115px; 
+    grid-template-columns: 1fr 120px; 
+    grid-template-rows: auto auto auto; /* 3 строки: Заголовок, Блоки, Резюме */
     row-gap: 12px;
     align-items: start;
   }
   
-  /* Распаковываем контейнеры, чтобы управлять их содержимым напрямую */
   .mobile-expert-col, .hero-text-col, .hero-text-col > .flex-grow-0 { display: contents !important; }
 
-  /* 1. Заголовок и подзаголовок (на всю ширину, по центру) */
+  /* 1. Заголовок (Слева) */
   .hero-text-col .text-center.mb-3 {
-    grid-column: 1 / 3; /* Занимает обе колонки */
-    grid-row: 1;
-    text-align: center !important;
-    padding: 0 !important;
-  }
-  .hero-title { font-size: 1.3rem !important; text-align: center !important; margin-bottom: 6px !important; line-height: 1.15 !important; }
-  .hero-subtitle { font-size: 0.85rem !important; text-align: center !important; line-height: 1.3; margin-bottom: 0 !important; }
-
-  /* 2. 4 Преимущества в полный рост (В левой колонке) */
-  .hero-text-col .row.g-2 { 
     grid-column: 1 / 2;
-    grid-row: 2;
-    display: flex !important; flex-direction: column !important; /* В столбик */
-    margin: 0 !important; width: 100%;
+    grid-row: 1;
+    text-align: left !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
   }
-  .hero-text-col .row.g-2 > div { width: 100% !important; padding: 3px 0 !important; }
+  .hero-title { font-size: 1.15rem !important; text-align: left !important; margin-bottom: 0 !important; line-height: 1.15 !important; }
   
-  .compact-block { 
-    padding: 8px 10px !important; gap: 10px !important; min-height: 0 !important; 
-    box-shadow: 2px 2px 0 var(--cta-a); margin: 0 !important; 
-    flex-direction: row !important; /* Иконка слева, текст справа */
-    align-items: center !important; justify-content: flex-start;
-  }
-  .c-icon { width: 30px !important; height: 30px !important; flex-shrink: 0; }
-  .c-icon svg { width: 16px !important; height: 16px !important; }
-  .c-title { font-size: 0.65rem !important; line-height: 1.1 !important; }
-  .c-text { font-size: 0.6rem !important; line-height: 1.2 !important; margin-top: 2px; }
-  .c-desc { display: none !important; }
+  /* Скрываем подзаголовок на мобильных */
+  .hero-subtitle { display: none !important; }
 
-  /* 3. Фото юриста (В правой колонке, параллельно преимуществам) */
+  /* 2. Фото юриста (Справа, занимает все 3 строки в высоту) */
   .hero-image-wrapper {
     grid-column: 2 / 3;
-    grid-row: 2;
+    grid-row: 1 / 4;
     width: 100% !important; height: 100% !important;
     position: relative !important; top: 0 !important; right: 0 !important;
     margin: 0 !important;
   }
   .hero-image-wrapper img { 
     object-fit: contain !important; 
-    object-position: right bottom !important; /* Прижимаем вправо и вниз */
+    object-position: right bottom !important; 
   }
 
-  /* 4. Резюме юриста (На всю ширину под блоками) */
+  /* 3. 4 Преимущества (Слева, друг под другом) */
+  .hero-text-col .row.g-2 { 
+    grid-column: 1 / 2;
+    grid-row: 2;
+    display: flex !important; flex-direction: column !important; 
+    margin: 0 !important; width: 100%; gap: 6px !important;
+  }
+  .hero-text-col .row.g-2 > div { width: 100% !important; padding: 0 !important; }
+  
+  .compact-block { 
+    padding: 6px 8px !important; gap: 8px !important; min-height: 0 !important; 
+    box-shadow: 2px 2px 0 var(--cta-a); margin: 0 !important; 
+    flex-direction: row !important; 
+    align-items: center !important; justify-content: flex-start;
+  }
+  .c-icon { width: 24px !important; height: 24px !important; flex-shrink: 0; }
+  .c-icon svg { width: 14px !important; height: 14px !important; }
+  .c-title { font-size: 0.6rem !important; line-height: 1.1 !important; }
+  .c-text { font-size: 0.55rem !important; line-height: 1.2 !important; margin-top: 2px; }
+  .c-desc { display: none !important; }
+
+  /* 4. Резюме юриста (Слева, под преимуществами) */
   .expert-resume-card {
-    grid-column: 1 / 3;
+    grid-column: 1 / 2;
     grid-row: 3;
-    margin: 0 !important; padding: 12px !important; box-shadow: 3px 3px 0 var(--cta-a) !important;
+    margin: 0 !important; padding: 10px !important; box-shadow: 2px 2px 0 var(--cta-a) !important;
     max-height: none !important;
   }
-  .expert-name { font-size: 0.95rem; }
-  .expert-role { font-size: 0.75rem; margin-bottom: 8px; }
-  .expert-facts { font-size: 0.7rem; } .expert-facts li { margin-bottom: 4px; }
+  .expert-name { font-size: 0.8rem; }
+  .expert-role { font-size: 0.65rem; margin-bottom: 6px; }
+  .expert-facts { font-size: 0.6rem; } .expert-facts li { margin-bottom: 4px; padding-left: 10px; }
+  .expert-facts li::before { font-size: 0.45rem; line-height: 2.2; }
 
-  /* 5. Порядок работы (На всю ширину внизу) */
-  .hero-text-col .gap-3.mb-2 { grid-column: 1 / 3; grid-row: 4; justify-content: center !important; margin-top: 10px !important; }
+  /* 5. Порядок работы (На всю ширину внизу, под фото и текстом) */
+  .hero-text-col .gap-3.mb-2 { grid-column: 1 / 3; grid-row: 4; justify-content: center !important; margin-top: 15px !important; }
   .step-container { grid-column: 1 / 3; grid-row: 5; margin-top: 0 !important; }
   
   .step-row { flex-wrap: nowrap !important; justify-content: space-between; gap: 0 !important; font-size: 0.65rem !important; }
