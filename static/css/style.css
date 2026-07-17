@@ -911,14 +911,21 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   }
 
   /* ==============================================
-     3. ПЕРВЫЙ ЭКРАН - ОПТИМИЗИРОВАННАЯ ВЕРСИЯ
+     3. ПЕРВЫЙ ЭКРАН — РОВНО ВЬЮПОРТ, БЕЗ ЛИШНЕГО
      ============================================== */
   .hero-section { 
     padding: 5px 0 0 0 !important; 
-    background-position: top center !important; 
+    background-position: top center !important;
+    /* Фиксируем высоту: viewport минус шапка (100px) и нижняя лента (65px) */
+    min-height: calc(100vh - 165px) !important;
+    height: calc(100vh - 165px) !important;
+    max-height: calc(100vh - 165px) !important;
+    overflow: hidden !important;
   }
   .hero-section .container { 
-    padding: 0 12px !important; 
+    padding: 0 12px !important;
+    height: 100% !important;
+    overflow: hidden !important;
   }
   
   .mobile-expert-col, 
@@ -931,7 +938,9 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     display: grid !important;
     grid-template-columns: 55% 45%; 
     row-gap: 6px;
-    align-items: stretch; 
+    align-items: stretch;
+    height: 100% !important;
+    overflow: hidden !important;
   }
   
   /* Заголовок */
@@ -1025,20 +1034,18 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     transform-origin: bottom center;
   }
 
-  /* === ОБНОВЛЕННЫЙ БЛОК РЕЗЮМЕ - теперь полностью виден === */
+  /* Блок резюме */
   .expert-resume-card {
     grid-column: 1 / 3;
     grid-row: 3;
-    margin: 5px 0 15px 0 !important;
-    padding: 10px 10px !important;
+    margin: 5px 0 0 0 !important;
+    padding: 8px 10px !important;
     box-shadow: 2px 2px 0 var(--cta-a) !important;
     max-height: none !important;
-    min-height: 110px;
+    min-height: 0;
     flex: 0 1 auto;
     overflow: visible !important;
   }
-  
-  /* Уменьшаем шрифты в резюме для экономии места */
   .expert-name { 
     font-size: 0.85rem; 
     margin-bottom: 2px; 
@@ -1060,25 +1067,21 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     line-height: 2; 
   }
 
-  /* === СКРЫВАЕМ БЛОК "ПОРЯДОК РАБОТЫ" НА МОБИЛЬНЫХ === */
-  /* Надпись "Порядок работы" - полностью скрыта */
+  /* Скрываем "Порядок работы" */
   .hero-text-col .gap-3.mb-2 { 
     display: none !important;
   }
-  
-  /* Блок с шагами - полностью скрыт */
   .step-container { 
     display: none !important;
   }
 
-  /* === СКРЫВАЕМ ДУБЛИРУЮЩУЮ КНОПКУ НА МОБИЛЬНЫХ === */
-  /* Кнопка "Оценить перспективы процедуры" в теле страницы - скрыта */
+  /* Скрываем дублирующую кнопку в теле (нижняя липкая и так есть) */
   .hero-text-col .flex-shrink-0.pt-2.d-flex.justify-content-center {
     display: none !important;
   }
 
   /* ==============================================
-     4. НИЖНЯЯ ЛИПКАЯ КНОПКА - ОСТАЕТСЯ
+     4. НИЖНЯЯ ЛИПКАЯ КНОПКА
      ============================================== */
   .mobile-sticky-footer {
     height: auto !important; 
@@ -1099,7 +1102,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   }
 
   /* ==============================================
-     5. ПРАКТИКА, ЦЕНЫ И КОНТАКТЫ
+     5. ПРАКТИКА, ЦЕНЫ, КОНТАКТЫ — ЗА ПРЕДЕЛАМИ 1-ГО ЭКРАНА
      ============================================== */
   .practice-pricing-section { 
     padding: 25px 0 10px 0 !important; 
@@ -1151,7 +1154,6 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     margin-bottom: 20px; 
   }
   
-  /* Дополнительные исправления для карусели на мобильных */
   .slider-arrow-btn {
     width: 28px !important;
     height: 28px !important;
@@ -1164,7 +1166,6 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     right: 2px !important; 
   }
   
-  /* Исправление для цен */
   .price-stage {
     flex-direction: column !important;
     gap: 4px !important;
@@ -1181,25 +1182,5 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   }
   .stage-info span {
     font-size: 0.65rem !important;
-  }
-}
-* Скрываем заголовок "Порядок работы" */
-  .hero-text-col .gap-3.mb-2 {
-    display: none !important;
-  }
-  
-  /* Скрываем контейнер с шагами */
-  .step-container {
-    display: none !important;
-  }
-  
-  /* Скрываем дублирующую кнопку внутри первого экрана */
-  .hero-text-col .flex-shrink-0.pt-2.d-flex.justify-content-center {
-    display: none !important;
-  }
-  
-  /* Добавляем отступ между резюме и следующим контентом */
-  .expert-resume-card {
-    margin-bottom: 15px !important;
   }
 }
