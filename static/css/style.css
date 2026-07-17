@@ -1029,7 +1029,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .expert-resume-card {
     grid-column: 1 / 3;
     grid-row: 3;
-    margin: 5px 0 30px 0 !important;
+    margin: 5px 0 15px 0 !important;
     padding: 10px 10px !important;
     box-shadow: 2px 2px 0 var(--cta-a) !important;
     max-height: none !important;
@@ -1060,89 +1060,25 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     line-height: 2; 
   }
 
-  /* === ОБНОВЛЕННЫЙ БЛОК "ПОРЯДОК РАБОТЫ" === */
-  /* Надпись "Порядок работы" - теперь по центру */
+  /* === СКРЫВАЕМ БЛОК "ПОРЯДОК РАБОТЫ" НА МОБИЛЬНЫХ === */
+  /* Надпись "Порядок работы" - полностью скрыта */
   .hero-text-col .gap-3.mb-2 { 
-    grid-column: 1 / 3; 
-    grid-row: 4; 
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    margin-top: 10px !important;
-    margin-bottom: 8px !important;
-    text-align: center !important;
+    display: none !important;
   }
   
-  /* Сам текст "Порядок работы" по центру */
-  .hero-text-col .gap-3.mb-2 .text-muted {
-    text-align: center !important;
-    width: auto !important;
-  }
-  
-  /* Линия тоже центрируем */
-  .hero-text-col .gap-3.mb-2 .text-muted + div {
-    flex: 0 0 40px !important;
+  /* Блок с шагами - полностью скрыт */
+  .step-container { 
+    display: none !important;
   }
 
-  /* Блок с шагами */
-  .step-container { 
-    grid-column: 1 / 3; 
-    grid-row: 5; 
-    margin-top: 0 !important;
-    padding-bottom: 15px !important;
-  }
-  
-  /* Строка шагов */
-  .step-row { 
-    flex-wrap: nowrap !important; 
-    justify-content: space-between; 
-    gap: 2px !important; 
-    font-size: 0.65rem !important; 
-  }
-  .step-item-trigger { 
-    flex: 1 1 auto !important; 
-    padding: 4px 2px !important; 
-    min-width: 0 !important; 
-    white-space: nowrap !important; 
-    font-size: 0.65rem !important; 
-  }
-  
-  /* Сокращаем текст для 1 и 4 шагов на мобильных */
-  .step-item-trigger[data-step="1"], 
-  .step-item-trigger[data-step="4"] { 
-    font-size: 0 !important; 
-  }
-  .step-item-trigger[data-step="1"] b, 
-  .step-item-trigger[data-step="4"] b { 
-    display: none !important; 
-  }
-  .step-item-trigger[data-step="1"]::before { 
-    content: "1. Консульт."; 
-    font-size: 0.65rem; 
-    font-weight: 700; 
-  }
-  .step-item-trigger[data-step="4"]::before { 
-    content: "4. Решение"; 
-    font-size: 0.65rem; 
-    font-weight: 700; 
-  }
-  
-  /* Стрелки между шагами */
-  .step-arrow { 
-    font-size: 0.7rem; 
-    padding: 0 2px; 
-  }
-  
-  /* Описание шага */
-  .step-desc-box { 
-    padding: 10px !important; 
-    font-size: 0.7rem !important; 
-    line-height: 1.3 !important; 
-    margin-top: 6px !important;
+  /* === СКРЫВАЕМ ДУБЛИРУЮЩУЮ КНОПКУ НА МОБИЛЬНЫХ === */
+  /* Кнопка "Оценить перспективы процедуры" в теле страницы - скрыта */
+  .hero-text-col .flex-shrink-0.pt-2.d-flex.justify-content-center {
+    display: none !important;
   }
 
   /* ==============================================
-     4. НИЖНЯЯ ЛИПКАЯ КНОПКА
+     4. НИЖНЯЯ ЛИПКАЯ КНОПКА - ОСТАЕТСЯ
      ============================================== */
   .mobile-sticky-footer {
     height: auto !important; 
@@ -1154,6 +1090,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     background: #fff; 
     box-shadow: 0 -4px 15px rgba(0,0,0,0.08); 
     z-index: 1050;
+    display: block !important;
   }
   .mobile-sticky-footer .btn-start-online { 
     padding: 12px !important;
