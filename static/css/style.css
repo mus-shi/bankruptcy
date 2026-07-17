@@ -825,16 +825,16 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 
 @media (max-width: 767.98px) {
   /* ==============================================
-     1. ГЛОБАЛЬНЫЙ СБРОС (БЕЗ СПЛЮЩИВАНИЯ И СНАПА)
+     1. ГЛОБАЛЬНЫЙ СБРОС
      ============================================== */
   html, body, main { max-width: 100vw !important; overflow-x: hidden !important; }
-  body { padding-bottom: 75px !important; } /* Отступ для липкой кнопки снизу */
+  body { padding-bottom: 75px !important; } 
   
   .scroll-container {
-    margin-top: 85px !important; /* Отступ под новую шапку */
+    margin-top: 85px !important; 
     height: auto !important; 
     overflow-y: visible !important;
-    scroll-snap-type: none !important; /* Полностью отключили залипание */
+    scroll-snap-type: none !important; 
   }
   .scroll-screen { height: auto !important; min-height: 0 !important; scroll-snap-align: none !important; }
 
@@ -850,100 +850,105 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     row-gap: 8px; 
     align-items: center;
   }
-  /* Логотип (Слева сверху) */
   .sticky-top-bar > div:first-child { grid-area: 1 / 1 / 2 / 2; }
   .sticky-top-bar span.d-none { display: none !important; } 
   .sticky-top-bar img.logo-img, .sticky-top-bar img[alt="БЕЗДОЛГОВ.ЛАЙФ"] { height: 26px !important; width: auto !important; }
 
-  /* Иконки соцсетей (Справа сверху) */
   .sticky-actions { display: contents !important; }
   .sticky-actions > div { grid-area: 1 / 2 / 2 / 3; display: flex; justify-content: space-between; gap: 8px !important; width: 100px; }
   .header-messenger-img { width: 28px; height: 28px; }
 
-  /* Номер телефона (Слева снизу - выровнен по тексту логотипа) */
   .header-phone {
     display: block !important;
     grid-area: 2 / 1 / 3 / 2;
-    font-size: 1.05rem !important; 
-    font-weight: 900;
-    color: var(--primary-color) !important; 
-    text-decoration: none; 
-    text-align: left;
-    padding-left: 34px; /* Отступ равен ширине картинки логотипа + пробел */
-    line-height: 1;
+    font-size: 1.05rem !important; font-weight: 900;
+    color: var(--primary-color) !important; text-decoration: none; text-align: left;
+    padding-left: 34px; line-height: 1;
   }
 
-  /* Кнопка позвонить (Справа снизу - размер равен 3 иконкам) */
   .btn-header-call { 
     grid-area: 2 / 2 / 3 / 3;
-    width: 100px !important; /* Точная ширина как у блока иконок */
-    justify-self: end; 
-    text-align: center; 
-    padding: 6px 0 !important; 
-    font-size: 0.75rem !important;
-    background-color: var(--primary-color); 
-    color: #fff; 
-    border-radius: var(--radius-btn);
+    width: 100px !important; justify-self: end; text-align: center; 
+    padding: 6px 0 !important; font-size: 0.75rem !important;
+    background-color: var(--primary-color); color: #fff; border-radius: var(--radius-btn);
   }
 
   /* ==============================================
-     3. ПЕРВЫЙ ЭКРАН (Юрист виден сразу)
+     3. ПЕРВЫЙ ЭКРАН (GRID-сетка для юриста и блоков)
      ============================================== */
-  .hero-section { padding: 15px 0 !important; background-position: top center !important; }
-  .hero-section .row { display: flex; flex-direction: column; position: relative; }
+  .hero-section { padding: 15px 0 5px 0 !important; background-position: top center !important; }
+  .hero-section .container { padding: 0 12px !important; }
+  
+  /* Создаем умную сетку: 1-я колонка резиновая, 2-я строго 120px под фото */
+  .hero-section .row.align-items-center {
+    display: grid !important;
+    grid-template-columns: 1fr 115px; 
+    row-gap: 12px;
+    align-items: start;
+  }
+  
+  /* Распаковываем контейнеры, чтобы управлять их содержимым напрямую */
+  .mobile-expert-col, .hero-text-col, .hero-text-col > .flex-grow-0 { display: contents !important; }
 
-  /* Меняем порядок: Текст наверх, Резюме вниз */
-  .hero-text-col { order: 1; padding: 0 15px !important; }
-  .mobile-expert-col { order: 2; padding: 0 15px !important; position: static !important; margin-top: 15px !important; }
-
-  /* Текст сдвигаем влево, чтобы справа встало фото */
+  /* 1. Заголовок и подзаголовок (на всю ширину, по центру) */
   .hero-text-col .text-center.mb-3 {
-    text-align: left !important;
-    padding-right: 130px !important; /* Освобождаем место для фото */
-    min-height: 150px; /* Чтобы текст не налез на картинку снизу */
+    grid-column: 1 / 3; /* Занимает обе колонки */
+    grid-row: 1;
+    text-align: center !important;
+    padding: 0 !important;
   }
-  .hero-title { font-size: 1.2rem !important; text-align: left !important; margin-bottom: 8px !important; line-height: 1.15 !important; }
-  .hero-subtitle { font-size: 0.8rem !important; text-align: left !important; line-height: 1.3; margin-bottom: 0 !important; }
+  .hero-title { font-size: 1.3rem !important; text-align: center !important; margin-bottom: 6px !important; line-height: 1.15 !important; }
+  .hero-subtitle { font-size: 0.85rem !important; text-align: center !important; line-height: 1.3; margin-bottom: 0 !important; }
 
-  /* Фото юриста: жестко фиксируем в правом верхнем углу контента */
-  .hero-image-wrapper {
-    position: absolute !important;
-    top: -10px !important;
-    right: -10px !important;
-    width: 150px !important;
-    height: 220px !important;
-    min-height: unset !important;
-    z-index: 1;
-  }
-  .hero-image-wrapper img { object-fit: contain !important; object-position: top right !important; }
-
-  /* Преимущества: Сетка 2x2 под заголовком */
+  /* 2. 4 Преимущества в полный рост (В левой колонке) */
   .hero-text-col .row.g-2 { 
-    display: flex !important; flex-wrap: wrap !important; width: 100%; position: relative; z-index: 2; margin: 0 -4px !important; 
+    grid-column: 1 / 2;
+    grid-row: 2;
+    display: flex !important; flex-direction: column !important; /* В столбик */
+    margin: 0 !important; width: 100%;
   }
-  .hero-text-col .row.g-2 > div { width: 50% !important; padding: 4px !important; }
+  .hero-text-col .row.g-2 > div { width: 100% !important; padding: 3px 0 !important; }
+  
   .compact-block { 
-    padding: 10px !important; gap: 8px !important; min-height: 60px !important; 
+    padding: 8px 10px !important; gap: 10px !important; min-height: 0 !important; 
     box-shadow: 2px 2px 0 var(--cta-a); margin: 0 !important; 
-    flex-direction: column; align-items: flex-start !important; justify-content: center;
+    flex-direction: row !important; /* Иконка слева, текст справа */
+    align-items: center !important; justify-content: flex-start;
   }
-  .c-icon { width: 26px !important; height: 26px !important; }
-  .c-icon svg { width: 14px !important; height: 14px !important; }
+  .c-icon { width: 30px !important; height: 30px !important; flex-shrink: 0; }
+  .c-icon svg { width: 16px !important; height: 16px !important; }
   .c-title { font-size: 0.65rem !important; line-height: 1.1 !important; }
-  .c-text { font-size: 0.6rem !important; line-height: 1.2 !important; margin-top: 4px; }
+  .c-text { font-size: 0.6rem !important; line-height: 1.2 !important; margin-top: 2px; }
   .c-desc { display: none !important; }
 
-  /* Резюме: Компактный блок ниже преимуществ */
+  /* 3. Фото юриста (В правой колонке, параллельно преимуществам) */
+  .hero-image-wrapper {
+    grid-column: 2 / 3;
+    grid-row: 2;
+    width: 100% !important; height: 100% !important;
+    position: relative !important; top: 0 !important; right: 0 !important;
+    margin: 0 !important;
+  }
+  .hero-image-wrapper img { 
+    object-fit: contain !important; 
+    object-position: right bottom !important; /* Прижимаем вправо и вниз */
+  }
+
+  /* 4. Резюме юриста (На всю ширину под блоками) */
   .expert-resume-card {
-    padding: 12px !important; box-shadow: 3px 3px 0 var(--cta-a) !important;
-    max-height: none !important; position: relative; z-index: 2;
+    grid-column: 1 / 3;
+    grid-row: 3;
+    margin: 0 !important; padding: 12px !important; box-shadow: 3px 3px 0 var(--cta-a) !important;
+    max-height: none !important;
   }
   .expert-name { font-size: 0.95rem; }
   .expert-role { font-size: 0.75rem; margin-bottom: 8px; }
   .expert-facts { font-size: 0.7rem; } .expert-facts li { margin-bottom: 4px; }
 
-  /* Шаги: Строго в один ряд */
-  .step-container { margin-top: 20px !important; z-index: 2; position: relative; }
+  /* 5. Порядок работы (На всю ширину внизу) */
+  .hero-text-col .gap-3.mb-2 { grid-column: 1 / 3; grid-row: 4; justify-content: center !important; margin-top: 10px !important; }
+  .step-container { grid-column: 1 / 3; grid-row: 5; margin-top: 0 !important; }
+  
   .step-row { flex-wrap: nowrap !important; justify-content: space-between; gap: 0 !important; font-size: 0.65rem !important; }
   .step-item-trigger { flex: 1 1 auto !important; padding: 6px 2px !important; min-width: 0 !important; white-space: nowrap !important; font-size: 0.65rem !important; }
   .step-item-trigger[data-step="1"], .step-item-trigger[data-step="4"] { font-size: 0 !important; }
@@ -952,7 +957,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .step-item-trigger[data-step="4"]::before { content: "4. Решение"; font-size: 0.65rem; font-weight: 700; }
   .step-desc-box { padding: 12px !important; font-size: 0.75rem !important; line-height: 1.3 !important; }
   
-  #show-form-btn { display: none !important; } /* Убираем дублирующуюся кнопку */
+  #show-form-btn { display: none !important; }
 
   /* ==============================================
      4. НИЖНЯЯ ЛИПКАЯ КНОПКА
@@ -966,7 +971,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .mobile-sticky-footer .btn-start-online { padding: 14px !important; margin: 0 !important; font-size: 0.9rem !important; }
 
   /* ==============================================
-     5. ПРАКТИКА, ЦЕНЫ И КОНТАКТЫ (Нативный скролл)
+     5. ПРАКТИКА, ЦЕНЫ И КОНТАКТЫ
      ============================================== */
   .practice-pricing-section { padding: 25px 0 10px 0 !important; }
   
