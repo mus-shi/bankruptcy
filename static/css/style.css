@@ -1183,3 +1183,23 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     font-size: 0.65rem !important;
   }
 }
+* Скрываем заголовок "Порядок работы" */
+  .hero-text-col .gap-3.mb-2 {
+    display: none !important;
+  }
+  
+  /* Скрываем контейнер с шагами */
+  .step-container {
+    display: none !important;
+  }
+  
+  /* Скрываем дублирующую кнопку внутри первого экрана */
+  .hero-text-col .flex-shrink-0.pt-2.d-flex.justify-content-center {
+    display: none !important;
+  }
+  
+  /* Добавляем отступ между резюме и следующим контентом */
+  .expert-resume-card {
+    margin-bottom: 15px !important;
+  }
+}
