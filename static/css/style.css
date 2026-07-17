@@ -848,7 +848,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   }
 
   /* ==============================================
-     2. ИДЕАЛЬНО СИММЕТРИЧНАЯ ШАПКА
+     2. ШАПКА
      ============================================== */
   .sticky-top-bar { 
     height: auto !important;
@@ -911,14 +911,18 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   }
 
   /* ==============================================
-     3. ПЕРВЫЙ ЭКРАН - ОПТИМИЗИРОВАННАЯ ВЕРСИЯ
+     3. ПЕРВЫЙ ЭКРАН - только заголовок, фото, резюме
      ============================================== */
   .hero-section { 
     padding: 5px 0 0 0 !important; 
     background-position: top center !important; 
+    min-height: 100vh !important; /* Занимает всю высоту экрана */
+    display: flex !important;
+    align-items: stretch !important;
   }
   .hero-section .container { 
-    padding: 0 12px !important; 
+    padding: 0 12px !important;
+    height: 100% !important;
   }
   
   .mobile-expert-col, 
@@ -930,11 +934,14 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .hero-section .row.align-items-center {
     display: grid !important;
     grid-template-columns: 55% 45%; 
+    grid-template-rows: auto 1fr auto;
     row-gap: 6px;
-    align-items: stretch; 
+    align-items: stretch;
+    height: 100% !important;
+    min-height: calc(100vh - 100px) !important;
   }
   
-  /* Заголовок */
+  /* ===== ЗАГОЛОВОК ===== */
   .hero-text-col .text-center.mb-3 {
     grid-column: 1 / 3;
     grid-row: 1;
@@ -952,56 +959,12 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     display: none !important; 
   } 
 
-  /* Преимущества (слева) */
+  /* ===== ПРЕИМУЩЕСТВА (убираем полностью с 1-го экрана) ===== */
   .hero-text-col .row.g-2 { 
-    grid-column: 1 / 2;
-    grid-row: 2;
-    display: flex !important; 
-    flex-direction: column !important; 
-    justify-content: center !important;
-    margin: 0 !important; 
-    width: 100%; 
-    gap: 4px !important;
-  }
-  .hero-text-col .row.g-2 > div { 
-    width: 100% !important; 
-    padding: 0 !important; 
-  }
-  
-  .compact-block { 
-    padding: 4px 6px !important;
-    gap: 6px !important; 
-    min-height: 0 !important; 
-    box-shadow: 2px 2px 0 var(--cta-a); 
-    margin: 0 !important; 
-    flex-direction: row !important; 
-    align-items: center !important; 
-    justify-content: flex-start;
-  }
-  .c-icon { 
-    width: 20px !important; 
-    height: 20px !important; 
-    flex-shrink: 0; 
-  }
-  .c-icon svg { 
-    width: 10px !important; 
-    height: 10px !important; 
-  }
-  .c-title { 
-    font-size: 0.55rem !important; 
-    line-height: 1.1 !important; 
-    margin: 0; 
-  }
-  .c-text { 
-    font-size: 0.45rem !important; 
-    line-height: 1.2 !important; 
-    margin-top: 2px; 
-  }
-  .c-desc { 
-    display: none !important; 
+    display: none !important;
   }
 
-  /* Фото юриста (справа) */
+  /* ===== ФОТО ЮРИСТА ===== */
   .hero-image-wrapper {
     grid-column: 2 / 3;
     grid-row: 2;
@@ -1014,6 +977,7 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     display: flex; 
     align-items: flex-end; 
     justify-content: center;
+    min-height: 200px;
   }
   .hero-image-wrapper img { 
     width: 100% !important;
@@ -1025,20 +989,23 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     transform-origin: bottom center;
   }
 
-  /* === ОБНОВЛЕННЫЙ БЛОК РЕЗЮМЕ - теперь полностью виден === */
+  /* ===== БЛОК РЕЗЮМЕ - занимает всю оставшуюся высоту ===== */
   .expert-resume-card {
     grid-column: 1 / 3;
-    grid-row: 3;
-    margin: 5px 0 15px 0 !important;
-    padding: 10px 10px !important;
+    grid-row: 2;
+    margin: 5px 0 5px 0 !important;
+    padding: 12px 10px !important;
     box-shadow: 2px 2px 0 var(--cta-a) !important;
     max-height: none !important;
-    min-height: 110px;
-    flex: 0 1 auto;
+    min-height: 140px;
+    flex: 1 1 auto;
     overflow: visible !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
   
-  /* Уменьшаем шрифты в резюме для экономии места */
   .expert-name { 
     font-size: 0.85rem; 
     margin-bottom: 2px; 
@@ -1060,25 +1027,28 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     line-height: 2; 
   }
 
-  /* === СКРЫВАЕМ БЛОК "ПОРЯДОК РАБОТЫ" НА МОБИЛЬНЫХ === */
-  /* Надпись "Порядок работы" - полностью скрыта */
+  /* ===== СКРЫВАЕМ ВСЁ, ЧТО ДОЛЖНО БЫТЬ НА 2-М ЭКРАНЕ ===== */
+  
+  /* 1. Блок "Порядок работы" полностью */
   .hero-text-col .gap-3.mb-2 { 
     display: none !important;
   }
-  
-  /* Блок с шагами - полностью скрыт */
   .step-container { 
     display: none !important;
   }
 
-  /* === СКРЫВАЕМ ДУБЛИРУЮЩУЮ КНОПКУ НА МОБИЛЬНЫХ === */
-  /* Кнопка "Оценить перспективы процедуры" в теле страницы - скрыта */
+  /* 2. Кнопка "Оценить перспективы" в теле */
   .hero-text-col .flex-shrink-0.pt-2.d-flex.justify-content-center {
     display: none !important;
   }
 
+  /* 3. Контейнер с преимуществами */
+  .hero-text-col .row.g-2 {
+    display: none !important;
+  }
+
   /* ==============================================
-     4. НИЖНЯЯ ЛИПКАЯ КНОПКА - ОСТАЕТСЯ
+     4. НИЖНЯЯ ЛИПКАЯ КНОПКА (1-й экран)
      ============================================== */
   .mobile-sticky-footer {
     height: auto !important; 
@@ -1099,10 +1069,11 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   }
 
   /* ==============================================
-     5. ПРАКТИКА, ЦЕНЫ И КОНТАКТЫ
+     5. ВТОРОЙ ЭКРАН И ДАЛЬШЕ (ПРАКТИКА, ЦЕНЫ)
      ============================================== */
   .practice-pricing-section { 
     padding: 25px 0 10px 0 !important; 
+    min-height: 100vh !important;
   }
   
   .practice-slider-container { 
@@ -1143,15 +1114,6 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     padding: 15px !important; 
   }
 
-  .contact-audit-card { 
-    padding: 20px !important; 
-  }
-  .map-container-snap { 
-    height: 250px !important; 
-    margin-bottom: 20px; 
-  }
-  
-  /* Дополнительные исправления для карусели на мобильных */
   .slider-arrow-btn {
     width: 28px !important;
     height: 28px !important;
@@ -1163,8 +1125,21 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   .slider-arrow-btn.next { 
     right: 2px !important; 
   }
-  
-  /* Исправление для цен */
+
+  /* ==============================================
+     6. ТРЕТИЙ ЭКРАН (КОНТАКТЫ, КАРТА)
+     ============================================== */
+  .contact-audit-card { 
+    padding: 20px !important; 
+  }
+  .map-container-snap { 
+    height: 250px !important; 
+    margin-bottom: 20px; 
+  }
+
+  /* ==============================================
+     7. ЦЕНЫ
+     ============================================== */
   .price-stage {
     flex-direction: column !important;
     gap: 4px !important;
@@ -1181,5 +1156,12 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   }
   .stage-info span {
     font-size: 0.65rem !important;
+  }
+
+  .costs-card {
+    padding: 0.8rem !important;
+  }
+  .guarantee-box {
+    padding: 0.8rem !important;
   }
 }
