@@ -1102,7 +1102,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
      5. ПРАКТИКА, ЦЕНЫ И КОНТАКТЫ
      ============================================== */
   .practice-pricing-section { 
-    padding: 25px 0 10px 0 !important; 
+    padding: 45px 0 10px 0 !important; 
+    margin-top: 0 !important;
   }
   
   .practice-slider-container { 
@@ -1126,7 +1127,8 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
   
   .sync-header { 
     margin-bottom: 15px !important; 
-    height: auto; 
+    height: auto;
+    padding-top: 20px !important;
   }
   .sub-column-gap { 
     gap: 15px !important; 
@@ -1150,36 +1152,3 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     height: 250px !important; 
     margin-bottom: 20px; 
   }
-  
-  /* Дополнительные исправления для карусели на мобильных */
-  .slider-arrow-btn {
-    width: 28px !important;
-    height: 28px !important;
-    font-size: 1.2rem !important;
-  }
-  .slider-arrow-btn.prev { 
-    left: 2px !important; 
-  }
-  .slider-arrow-btn.next { 
-    right: 2px !important; 
-  }
-  
-  /* Исправление для цен */
-  .price-stage {
-    flex-direction: column !important;
-    gap: 4px !important;
-    padding-bottom: 6px !important;
-    margin-bottom: 6px !important;
-  }
-  .stage-amount {
-    min-width: 50px !important;
-    font-size: 0.7rem !important;
-    padding: 2px 6px !important;
-  }
-  .stage-info strong {
-    font-size: 0.75rem !important;
-  }
-  .stage-info span {
-    font-size: 0.65rem !important;
-  }
-}
