@@ -825,176 +825,162 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 
 @media (max-width: 767.98px) {
   /* ==============================================
-     1. ГЛОБАЛЬНЫЙ ФИКС ШИРИНЫ (БЕЗ СПЛЮЩИВАНИЯ)
+     1. ГЛОБАЛЬНЫЙ СБРОС (БЕЗ СПЛЮЩИВАНИЯ И СНАПА)
      ============================================== */
   html, body, main { max-width: 100vw !important; overflow-x: hidden !important; }
-
-  /* ЖЕСТКАЯ ФИКСАЦИЯ ШАПКИ */
-  .sticky-top-bar { 
-    height: 95px !important;
-    padding: 8px 12px; 
-    display: grid; grid-template-columns: 1fr auto; grid-template-rows: auto auto; row-gap: 8px; align-items: center;
+  body { padding-bottom: 75px !important; } /* Отступ для липкой кнопки снизу */
+  
+  .scroll-container {
+    margin-top: 85px !important; /* Отступ под новую шапку */
+    height: auto !important; 
+    overflow-y: visible !important;
+    scroll-snap-type: none !important; /* Полностью отключили залипание */
   }
-  .sticky-top-bar > div:first-child { grid-column: 1/2; grid-row: 1/2; }
-  .sticky-actions { display: contents !important; }
-  .sticky-top-bar span.d-none { display: none !important; } 
-  .sticky-actions > div { grid-column: 2/3; grid-row: 1/2; justify-content: flex-end; }
-  .header-messenger-img { width: 26px; height: 26px; }
-  .sticky-top-bar img { height: 28px !important; }
+  .scroll-screen { height: auto !important; min-height: 0 !important; scroll-snap-align: none !important; }
 
+  /* ==============================================
+     2. ИДЕАЛЬНО СИММЕТРИЧНАЯ ШАПКА
+     ============================================== */
+  .sticky-top-bar { 
+    height: auto !important;
+    padding: 10px 15px; 
+    display: grid; 
+    grid-template-columns: 1fr auto; 
+    grid-template-rows: auto auto; 
+    row-gap: 8px; 
+    align-items: center;
+  }
+  /* Логотип (Слева сверху) */
+  .sticky-top-bar > div:first-child { grid-area: 1 / 1 / 2 / 2; }
+  .sticky-top-bar span.d-none { display: none !important; } 
+  .sticky-top-bar img.logo-img, .sticky-top-bar img[alt="БЕЗДОЛГОВ.ЛАЙФ"] { height: 26px !important; width: auto !important; }
+
+  /* Иконки соцсетей (Справа сверху) */
+  .sticky-actions { display: contents !important; }
+  .sticky-actions > div { grid-area: 1 / 2 / 2 / 3; display: flex; justify-content: space-between; gap: 8px !important; width: 100px; }
+  .header-messenger-img { width: 28px; height: 28px; }
+
+  /* Номер телефона (Слева снизу - выровнен по тексту логотипа) */
   .header-phone {
     display: block !important;
-    grid-column: 1 / 2; grid-row: 2 / 3;
-    font-size: 0.95rem !important; font-weight: 800;
-    color: var(--primary-color) !important; text-decoration: none; text-align: left;
-  }
-  .btn-header-call { 
-    grid-column: 2 / 3; grid-row: 2 / 3;
-    width: auto !important; justify-self: end; text-align: center; 
-    padding: 6px 14px !important; font-size: 0.8rem !important;
-    background-color: var(--primary-color); color: #fff; border-radius: var(--radius-btn);
+    grid-area: 2 / 1 / 3 / 2;
+    font-size: 1.05rem !important; 
+    font-weight: 900;
+    color: var(--primary-color) !important; 
+    text-decoration: none; 
+    text-align: left;
+    padding-left: 34px; /* Отступ равен ширине картинки логотипа + пробел */
+    line-height: 1;
   }
 
-  /* ИСПРАВЛЕНИЕ ЛИПКОЙ КНОПКИ (Убрали жесткую высоту) */
+  /* Кнопка позвонить (Справа снизу - размер равен 3 иконкам) */
+  .btn-header-call { 
+    grid-area: 2 / 2 / 3 / 3;
+    width: 100px !important; /* Точная ширина как у блока иконок */
+    justify-self: end; 
+    text-align: center; 
+    padding: 6px 0 !important; 
+    font-size: 0.75rem !important;
+    background-color: var(--primary-color); 
+    color: #fff; 
+    border-radius: var(--radius-btn);
+  }
+
+  /* ==============================================
+     3. ПЕРВЫЙ ЭКРАН (Юрист виден сразу)
+     ============================================== */
+  .hero-section { padding: 15px 0 !important; background-position: top center !important; }
+  .hero-section .row { display: flex; flex-direction: column; position: relative; }
+
+  /* Меняем порядок: Текст наверх, Резюме вниз */
+  .hero-text-col { order: 1; padding: 0 15px !important; }
+  .mobile-expert-col { order: 2; padding: 0 15px !important; position: static !important; margin-top: 15px !important; }
+
+  /* Текст сдвигаем влево, чтобы справа встало фото */
+  .hero-text-col .text-center.mb-3 {
+    text-align: left !important;
+    padding-right: 130px !important; /* Освобождаем место для фото */
+    min-height: 150px; /* Чтобы текст не налез на картинку снизу */
+  }
+  .hero-title { font-size: 1.2rem !important; text-align: left !important; margin-bottom: 8px !important; line-height: 1.15 !important; }
+  .hero-subtitle { font-size: 0.8rem !important; text-align: left !important; line-height: 1.3; margin-bottom: 0 !important; }
+
+  /* Фото юриста: жестко фиксируем в правом верхнем углу контента */
+  .hero-image-wrapper {
+    position: absolute !important;
+    top: -10px !important;
+    right: -10px !important;
+    width: 150px !important;
+    height: 220px !important;
+    min-height: unset !important;
+    z-index: 1;
+  }
+  .hero-image-wrapper img { object-fit: contain !important; object-position: top right !important; }
+
+  /* Преимущества: Сетка 2x2 под заголовком */
+  .hero-text-col .row.g-2 { 
+    display: flex !important; flex-wrap: wrap !important; width: 100%; position: relative; z-index: 2; margin: 0 -4px !important; 
+  }
+  .hero-text-col .row.g-2 > div { width: 50% !important; padding: 4px !important; }
+  .compact-block { 
+    padding: 10px !important; gap: 8px !important; min-height: 60px !important; 
+    box-shadow: 2px 2px 0 var(--cta-a); margin: 0 !important; 
+    flex-direction: column; align-items: flex-start !important; justify-content: center;
+  }
+  .c-icon { width: 26px !important; height: 26px !important; }
+  .c-icon svg { width: 14px !important; height: 14px !important; }
+  .c-title { font-size: 0.65rem !important; line-height: 1.1 !important; }
+  .c-text { font-size: 0.6rem !important; line-height: 1.2 !important; margin-top: 4px; }
+  .c-desc { display: none !important; }
+
+  /* Резюме: Компактный блок ниже преимуществ */
+  .expert-resume-card {
+    padding: 12px !important; box-shadow: 3px 3px 0 var(--cta-a) !important;
+    max-height: none !important; position: relative; z-index: 2;
+  }
+  .expert-name { font-size: 0.95rem; }
+  .expert-role { font-size: 0.75rem; margin-bottom: 8px; }
+  .expert-facts { font-size: 0.7rem; } .expert-facts li { margin-bottom: 4px; }
+
+  /* Шаги: Строго в один ряд */
+  .step-container { margin-top: 20px !important; z-index: 2; position: relative; }
+  .step-row { flex-wrap: nowrap !important; justify-content: space-between; gap: 0 !important; font-size: 0.65rem !important; }
+  .step-item-trigger { flex: 1 1 auto !important; padding: 6px 2px !important; min-width: 0 !important; white-space: nowrap !important; font-size: 0.65rem !important; }
+  .step-item-trigger[data-step="1"], .step-item-trigger[data-step="4"] { font-size: 0 !important; }
+  .step-item-trigger[data-step="1"] b, .step-item-trigger[data-step="4"] b { display: none !important; }
+  .step-item-trigger[data-step="1"]::before { content: "1. Консульт."; font-size: 0.65rem; font-weight: 700; }
+  .step-item-trigger[data-step="4"]::before { content: "4. Решение"; font-size: 0.65rem; font-weight: 700; }
+  .step-desc-box { padding: 12px !important; font-size: 0.75rem !important; line-height: 1.3 !important; }
+  
+  #show-form-btn { display: none !important; } /* Убираем дублирующуюся кнопку */
+
+  /* ==============================================
+     4. НИЖНЯЯ ЛИПКАЯ КНОПКА
+     ============================================== */
   .mobile-sticky-footer {
     height: auto !important; 
     padding: 10px 15px !important; 
     position: fixed; bottom: 0; left: 0; width: 100%;
     background: #fff; box-shadow: 0 -4px 15px rgba(0,0,0,0.08); z-index: 1050;
   }
-  body { padding-bottom: 70px !important; } /* Место под кнопку, чтобы контент не перекрывался */
-  .mobile-sticky-footer .btn-start-online { padding: 14px !important; margin: 0 !important; font-size: 0.85rem !important; }
+  .mobile-sticky-footer .btn-start-online { padding: 14px !important; margin: 0 !important; font-size: 0.9rem !important; }
 
   /* ==============================================
-     2. АКТИВАЦИЯ СНАПА
+     5. ПРАКТИКА, ЦЕНЫ И КОНТАКТЫ (Нативный скролл)
      ============================================== */
-  .scroll-container {
-    margin-top: 95px !important;
-    height: calc(100vh - 165px) !important; 
-    height: calc(100dvh - 165px) !important;
-    scroll-snap-type: y mandatory !important;
-    overflow-y: scroll !important;
-    overflow-x: hidden !important;
-    scroll-behavior: smooth;
-    padding: 0 !important;
-  }
-  .scroll-screen { height: auto !important; min-height: 0 !important; scroll-snap-align: none !important; }
+  .practice-pricing-section { padding: 25px 0 10px 0 !important; }
+  
+  .practice-slider-container { margin-bottom: 20px; }
+  .practice-card { flex-direction: column; height: auto; }
+  .practice-img { width: 100%; height: 220px; border-right: none; border-bottom: 2px solid var(--primary-color); padding: 15px; }
+  .practice-content { width: 100%; padding: 15px 20px !important; }
+  
+  .sync-header { margin-bottom: 15px !important; height: auto; }
+  .sub-column-gap { gap: 15px !important; }
+  
+  .main-pricing-block { height: auto !important; min-height: 0 !important; padding: 15px !important; }
+  .sub-block-height { height: auto !important; min-height: 0 !important; padding: 15px !important; }
 
-  /* ==============================================
-     3. ЭКРАНЫ 1 И 2 (GRID МАГИЯ)
-     ============================================== */
-  .hero-section { padding: 0 !important; }
-  .hero-section .container { padding: 0 10px; height: 100%; }
-  
-  .hero-section .row.align-items-center {
-    display: grid !important;
-    grid-template-columns: 1fr;
-    grid-template-rows: calc(100dvh - 165px) calc(100dvh - 165px);
-    margin: 0; padding: 0; width: 100%;
-  }
-  
-  /* Распаковываем контейнеры, чтобы свободно перемещать элементы */
-  .mobile-expert-col, .hero-text-col, .hero-text-col > .flex-grow-0 { display: contents !important; }
-
-  /* --- ЭКРАН 1: ЗАГОЛОВОК + ФОТО + 4 ПРЕИМУЩЕСТВА --- */
-  .hero-text-col > .text-center.mb-3 {
-    grid-row: 1; grid-column: 1;
-    align-self: start; padding-top: 15px; padding-right: 120px !important;
-    scroll-snap-align: start; scroll-snap-stop: always;
-    text-align: left !important; z-index: 2;
-  }
-  .hero-title { font-size: 1.1rem !important; margin-bottom: 6px !important; line-height: 1.1 !important; text-align: left !important; }
-  .hero-subtitle { font-size: 0.75rem !important; line-height: 1.2; text-align: left !important; }
-  
-  .hero-image-wrapper {
-    grid-row: 1; grid-column: 1;
-    align-self: start; justify-self: end;
-    height: 180px !important; width: 120px !important;
-    margin-top: 15px !important; z-index: 1;
-  }
-  .hero-image-wrapper img { object-fit: contain !important; object-position: top right !important; }
-
-  .hero-text-col .row.g-2 { 
-    grid-row: 1; grid-column: 1;
-    align-self: end; margin-bottom: 20px !important;
-    display: flex !important; flex-wrap: wrap !important; width: 100%; z-index: 2; 
-  }
-  .hero-text-col .row.g-2 > div { width: 50% !important; padding: 2px !important; }
-  .compact-block { padding: 6px !important; gap: 6px !important; min-height: 48px !important; box-shadow: 2px 2px 0 var(--cta-a); margin: 0 !important; align-items: flex-start !important; }
-  .c-icon { width: 22px !important; height: 22px !important; flex-shrink: 0; }
-  .c-icon svg { width: 12px !important; height: 12px !important; }
-  .c-title { font-size: 0.55rem !important; line-height: 1.1 !important;}
-  .c-text { font-size: 0.5rem !important; line-height: 1.1 !important; }
-  .c-desc { display: none !important; } 
-
-  /* --- ЭКРАН 2: РЕЗЮМЕ + ШАГИ --- */
-  .expert-resume-card {
-    grid-row: 2; grid-column: 1;
-    align-self: start; margin-top: 20px !important;
-    scroll-snap-align: start; scroll-snap-stop: always;
-    padding: 10px !important; max-height: none !important; z-index: 2;
-  }
-  .expert-name { font-size: 0.85rem; }
-  .expert-role { font-size: 0.65rem; margin-bottom: 4px; }
-  .expert-facts { font-size: 0.6rem; } .expert-facts li { margin-bottom: 2px; }
-
-  .hero-text-col .gap-3.mb-2 {
-    grid-row: 2; grid-column: 1;
-    align-self: center; margin-top: -40px !important; justify-content: center !important; z-index: 2;
-  }
-  
-  .step-container { 
-    grid-row: 2; grid-column: 1;
-    align-self: center; margin-top: 60px !important; z-index: 2;
-  }
-  .step-row { flex-wrap: nowrap !important; justify-content: space-between; gap: 0 !important; font-size: 0.6rem !important; }
-  .step-arrow { margin: 0 1px; font-size: 0.6rem !important; }
-  .step-item-trigger { flex: 1 1 auto !important; padding: 4px 1px !important; min-width: 0 !important; white-space: nowrap !important; font-size: 0.6rem !important; }
-  .step-item-trigger[data-step="1"], .step-item-trigger[data-step="4"] { font-size: 0 !important; }
-  .step-item-trigger[data-step="1"] b, .step-item-trigger[data-step="4"] b { display: none !important; }
-  .step-item-trigger[data-step="1"]::before { content: "1. Консульт."; font-size: 0.6rem; font-weight: 700; }
-  .step-item-trigger[data-step="4"]::before { content: "4. Решение"; font-size: 0.6rem; font-weight: 700; }
-  .step-desc-box { padding: 8px !important; font-size: 0.65rem !important; line-height: 1.3 !important; margin-bottom: 0 !important; }
-  
-  #show-form-btn { display: none !important; }
-
-  /* ==============================================
-     4. ОСТАЛЬНЫЕ ЭКРАНЫ (ИСПРАВЛЕНИЕ ПРАКТИКИ)
-     ============================================== */
-  .practice-pricing-section .row.flex-grow-1,
-  .scroll-screen.bg-white .row {
-    display: flex !important;
-    flex-direction: column !important;
-    flex-wrap: nowrap !important;
-    margin: 0 !important; padding: 0 !important; width: 100%;
-  }
-  
-  .practice-pricing-section .col-lg-6,
-  .scroll-screen.bg-white .col-lg-6 {
-    scroll-snap-align: start; scroll-snap-stop: always;
-    height: calc(100dvh - 165px) !important; 
-    display: flex !important; flex-direction: column; justify-content: center;
-    padding: 10px 15px !important; box-sizing: border-box;
-    flex: 0 0 auto !important; /* Удерживаем точную высоту для карусели */
-  }
-
-  /* Восстанавливаем карусель судебной практики */
-  .practice-slider-container { min-height: 250px !important; display: block !important; position: relative; width: 100%; }
-  .practice-slide-item.active { display: flex !important; }
-  .practice-card { height: auto !important; min-height: 240px !important; }
-  .practice-img { height: 120px !important; padding: 10px !important; }
-  .practice-content { padding: 10px 15px !important; }
-  .case-desc, .case-list { font-size: 0.65rem !important; }
-  
-  .main-pricing-block { padding: 12px !important; }
-  .price-stage { margin-bottom: 4px !important; padding-bottom: 4px !important; }
-  .contact-audit-card { margin-bottom: 10px !important; padding: 15px !important; }
-  .map-container-snap { height: 220px !important; margin-bottom: 0 !important; }
-  
-  footer {
-    scroll-snap-align: start; scroll-snap-stop: always;
-    height: calc(100dvh - 165px);
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 10px 15px; box-sizing: border-box;
-  }
+  .contact-audit-card { padding: 20px !important; }
+  .map-container-snap { height: 250px !important; margin-bottom: 20px; }
 }
