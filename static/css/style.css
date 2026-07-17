@@ -828,27 +828,26 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
 1. ГЛОБАЛЬНЫЙ СБРОС
 ============================================== */
 html, body, main { max-width: 100vw !important; overflow-x: hidden !important; }
-/* Чуть уменьшили нижний отступ, так как кнопка станет компактнее */
 body { padding-bottom: 65px !important; }
 .scroll-container {
-margin-top: 100px !important; /* Уменьшили отступ под более компактную шапку */
-height: auto !important;
-overflow-y: visible !important;
-scroll-snap-type: none !important;
+    margin-top: 100px !important;
+    height: auto !important;
+    overflow-y: visible !important;
+    scroll-snap-type: none !important;
 }
 .scroll-screen { height: auto !important; min-height: 0 !important; scroll-snap-align: none !important; }
 
 /* ==============================================
-2. ИДЕАЛЬНО СИММЕТРИЧНАЯ ШАПКА (ПЕРЕРАБОТАН 2-Й РЯД)
+2. ШАПКА (ПЕРЕРАБОТАН 2-Й РЯД)
 ============================================== */
 .sticky-top-bar {
-height: auto !important;
-padding: 8px 12px !important;
-display: grid;
-grid-template-columns: 1fr auto;
-grid-template-rows: auto auto;
-row-gap: 6px;
-align-items: center;
+    height: auto !important;
+    padding: 8px 12px !important;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    row-gap: 6px;
+    align-items: center;
 }
 .sticky-top-bar > div:first-child { grid-area: 1 / 1 / 2 / 2; }
 .sticky-top-bar span.d-none { display: none !important; }
@@ -867,143 +866,194 @@ align-items: center;
 }
 .header-messenger-img { width: 28px; height: 28px; }
 
-/* 2-й ряд: телефон слева, кнопка справа — аккуратно и симметрично */
 .header-phone {
-display: block !important;
-grid-area: 2 / 1 / 3 / 2;
-font-size: 1.1rem !important; 
-font-weight: 900 !important;
-color: var(--primary-color) !important; 
-text-decoration: none !important; 
-text-align: left;
-padding-left: 0 !important; /* Убрали странный отступ */
-line-height: 1.2;
-letter-spacing: 0.3px;
-white-space: nowrap;
-align-self: center;
+    display: block !important;
+    grid-area: 2 / 1 / 3 / 2;
+    font-size: 1.1rem !important; 
+    font-weight: 900 !important;
+    color: var(--primary-color) !important; 
+    text-decoration: none !important; 
+    text-align: left;
+    padding-left: 0 !important;
+    line-height: 1.2;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    align-self: center;
 }
 .btn-header-call {
-grid-area: 2 / 2 / 3 / 3;
-width: auto !important;
-min-width: 95px !important;
-justify-self: end; 
-text-align: center;
-padding: 8px 14px !important;
-font-size: 0.72rem !important;
-background-color: var(--cta-a) !important; /* Акцентный красный — заметнее */
-color: #fff !important; 
-border: none !important;
-border-radius: var(--radius-btn);
-font-weight: 800 !important;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-box-shadow: 2px 2px 0 var(--primary-color);
-align-self: center;
-line-height: 1;
-transition: all 0.2s ease;
+    grid-area: 2 / 2 / 3 / 3;
+    width: auto !important;
+    min-width: 95px !important;
+    justify-self: end; 
+    text-align: center;
+    padding: 8px 14px !important;
+    font-size: 0.72rem !important;
+    background-color: var(--cta-a) !important;
+    color: #fff !important; 
+    border: none !important;
+    border-radius: var(--radius-btn);
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 2px 2px 0 var(--primary-color);
+    align-self: center;
+    line-height: 1;
+    transition: all 0.2s ease;
 }
 .btn-header-call:hover {
-background-color: var(--cta-b) !important;
-transform: translate(-1px, -1px);
-box-shadow: 3px 3px 0 var(--primary-color);
+    background-color: var(--cta-b) !important;
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 var(--primary-color);
 }
 
 /* ==============================================
-3. СКРЫВАЕМ ДУБЛЬ КНОПКИ КВИЗА В HERO
+3. СКРЫВАЕМ ДУБЛЬ КНОПКИ КВИЗА
 ============================================== */
-#show-form-btn {
-display: none !important;
-}
+#show-form-btn { display: none !important; }
 
 /* ==============================================
-4. ПЕРВЫЙ ЭКРАН (Экономим пространство по высоте)
+4. ПЕРВЫЙ ЭКРАН
 ============================================== */
 .hero-section { padding: 5px 0 0 0 !important; background-position: top center !important; }
 .hero-section .container { padding: 0 12px !important; }
 .mobile-expert-col, .hero-text-col, .hero-text-col > .flex-grow-0 { display: contents !important; }
 .hero-section .row.align-items-center {
-display: grid !important;
-grid-template-columns: 55% 45%;
-row-gap: 8px; /* Уменьшили отступ между заголовком и блоками */
-align-items: stretch;
+    display: grid !important;
+    grid-template-columns: 55% 45%;
+    row-gap: 8px;
+    align-items: stretch;
 }
+
 /* 1. Заголовок */
 .hero-text-col .text-center.mb-3 {
-grid-column: 1 / 3;
-grid-row: 1;
-text-align: center !important;
-padding: 0 !important;
-margin-bottom: 0 !important;
+    grid-column: 1 / 3;
+    grid-row: 1;
+    text-align: center !important;
+    padding: 0 !important;
+    margin-bottom: 0 !important;
 }
 .hero-title { font-size: 1.15rem !important; text-align: center !important; margin-bottom: 0 !important; line-height: 1.15 !important; }
 .hero-subtitle { display: none !important; }
-/* 2. Преимущества (Слева) */
+
+/* 2. Преимущества */
 .hero-text-col .row.g-2 {
-grid-column: 1 / 2;
-grid-row: 2;
-display: flex !important; flex-direction: column !important; justify-content: center !important;
-margin: 0 !important; width: 100%; gap: 4px !important; /* Уменьшили gap с 6px до 4px */
+    grid-column: 1 / 2;
+    grid-row: 2;
+    display: flex !important; flex-direction: column !important; justify-content: center !important;
+    margin: 0 !important; width: 100%; gap: 4px !important;
 }
 .hero-text-col .row.g-2 > div { width: 100% !important; padding: 0 !important; }
 .compact-block {
-padding: 4px 6px !important; /* Ужали внутренний отступ */
-gap: 6px !important; min-height: 0 !important;
-box-shadow: 2px 2px 0 var(--cta-a); margin: 0 !important;
-flex-direction: row !important; align-items: center !important; justify-content: flex-start;
+    padding: 4px 6px !important;
+    gap: 6px !important; min-height: 0 !important;
+    box-shadow: 2px 2px 0 var(--cta-a); margin: 0 !important;
+    flex-direction: row !important; align-items: center !important; justify-content: flex-start;
 }
 .c-icon { width: 20px !important; height: 20px !important; flex-shrink: 0; }
 .c-icon svg { width: 10px !important; height: 10px !important; }
 .c-title { font-size: 0.55rem !important; line-height: 1.1 !important; margin: 0; }
 .c-text { font-size: 0.45rem !important; line-height: 1.2 !important; margin-top: 2px; }
 .c-desc { display: none !important; }
-/* 3. Фото юриста (Справа) */
+
+/* 3. Фото */
 .hero-image-wrapper {
-grid-column: 2 / 3;
-grid-row: 2;
-width: 100% !important;
-height: 100% !important;
-position: relative !important; top: 0 !important; right: 0 !important;
-margin: 0 !important;
-display: flex; align-items: flex-end; justify-content: center;
+    grid-column: 2 / 3;
+    grid-row: 2;
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important; top: 0 !important; right: 0 !important;
+    margin: 0 !important;
+    display: flex; align-items: flex-end; justify-content: center;
 }
 .hero-image-wrapper img {
-width: 100% !important;
-height: 100% !important;
-max-height: 100% !important;
-object-fit: contain !important;
-object-position: bottom center !important;
-transform: scale(1.1);
-transform-origin: bottom center;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: bottom center !important;
+    transform: scale(1.1);
+    transform-origin: bottom center;
 }
-/* 4. Резюме юриста (Растянуто для заполнения пространства) */
+
+/* 4. Резюме + СТРЕЛОЧКА-ПОДСКАЗКА ЧЕРЕЗ ::after */
 .expert-resume-card {
-grid-column: 1 / 3;
-grid-row: 3;
-margin: 5px 0 15px 0 !important; /* Добавили отступ снизу */
-padding: 16px 12px !important;    /* Увеличили внутренние отступы */
-box-shadow: 2px 2px 0 var(--cta-a) !important;
-max-height: none !important;
-flex-grow: 1;                     /* Заставляем блок занять максимум места */
+    grid-column: 1 / 3;
+    grid-row: 3;
+    margin: 5px 0 0 0 !important;
+    padding: 16px 12px 22px 12px !important; /* Добавили padding снизу для стрелочки */
+    box-shadow: 2px 2px 0 var(--cta-a) !important;
+    max-height: none !important;
+    flex-grow: 1;
+    position: relative;
 }
 .expert-name { font-size: 0.9rem; margin-bottom: 4px; }
 .expert-role { font-size: 0.7rem; margin-bottom: 8px; }
 .expert-facts {
-font-size: 0.65rem;
-line-height: 1.4 !important;       /* Увеличили интервал для заполнения места */
+    font-size: 0.65rem;
+    line-height: 1.4 !important;
 }
-.expert-facts li { margin-bottom: 6px; padding-left: 12px; } /* Увеличили отступы между пунктами */
+.expert-facts li { margin-bottom: 6px; padding-left: 12px; }
 .expert-facts li::before { font-size: 0.45rem; line-height: 2.2; }
-/* 5. Порядок работы (Жестко отодвигаем вниз на следующий скролл) */
-.hero-text-col .gap-3.mb-2 {
-grid-column: 1 / 3;
-grid-row: 4;
-justify-content: center !important;
-margin-top: 70px !important; /* Увеличили пропасть между резюме и шагами */
+
+/* Ненавязчивая стрелочка вниз после резюме */
+.expert-resume-card::after {
+    content: '▼';
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    line-height: 1;
+    color: var(--primary-color);
+    opacity: 0.55;
+    animation: bounceArrow 1.6s infinite ease-in-out;
+    pointer-events: none;
 }
+@keyframes bounceArrow {
+    0%, 100% { transform: translate(-50%, 0); opacity: 0.4; }
+    50%      { transform: translate(-50%, 6px); opacity: 0.95; }
+}
+
+/* 5. Порядок работы — декоративный заголовок с линиями + сами шаги */
+.hero-text-col .gap-3.mb-2 {
+    grid-column: 1 / 3;
+    grid-row: 4;
+    justify-content: center !important;
+    margin-top: 30px !important; /* УМЕНЬШЕНО с 70px до 30px */
+}
+
+/* Декоративный заголовок "Порядок работы" с линиями по бокам */
+.section-title-line {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 10px !important;
+}
+.section-title-line::before,
+.section-title-line::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background: var(--primary-color);
+    opacity: 0.55;
+}
+.section-title-line h3,
+.section-title-line h4 {
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: nowrap;
+    font-size: 0.72rem !important;
+    color: var(--primary-color) !important;
+    letter-spacing: 1.2px;
+    font-weight: 900 !important;
+}
+
 .step-container {
-grid-column: 1 / 3;
-grid-row: 5;
-margin-top: 0 !important;
+    grid-column: 1 / 3;
+    grid-row: 5;
+    margin-top: 0 !important;
 }
 .step-row { flex-wrap: nowrap !important; justify-content: space-between; gap: 0 !important; font-size: 0.65rem !important; }
 .step-item-trigger { flex: 1 1 auto !important; padding: 6px 2px !important; min-width: 0 !important; white-space: nowrap !important; font-size: 0.65rem !important; }
@@ -1014,22 +1064,22 @@ margin-top: 0 !important;
 .step-desc-box { padding: 12px !important; font-size: 0.75rem !important; line-height: 1.3 !important; }
 
 /* ==============================================
-6. НИЖНЯЯ ЛИПКАЯ КНОПКА (Делаем чуть тоньше)
+5. НИЖНЯЯ ЛИПКАЯ КНОПКА
 ============================================== */
 .mobile-sticky-footer {
-height: auto !important;
-padding: 8px 12px !important; /* Уменьшили высоту ленты */
-position: fixed; bottom: 0; left: 0; width: 100%;
-background: #fff; box-shadow: 0 -4px 15px rgba(0,0,0,0.08); z-index: 1050;
+    height: auto !important;
+    padding: 8px 12px !important;
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background: #fff; box-shadow: 0 -4px 15px rgba(0,0,0,0.08); z-index: 1050;
 }
 .mobile-sticky-footer .btn-start-online {
-padding: 12px !important; /* Уменьшили саму кнопку */
-margin: 0 !important;
-font-size: 0.9rem !important;
+    padding: 12px !important;
+    margin: 0 !important;
+    font-size: 0.9rem !important;
 }
 
 /* ==============================================
-7. ПРАКТИКА, ЦЕНЫ И КОНТАКТЫ
+6. ПРАКТИКА, ЦЕНЫ И КОНТАКТЫ
 ============================================== */
 .practice-pricing-section { padding: 25px 0 10px 0 !important; }
 .practice-slider-container { margin-bottom: 20px; }
