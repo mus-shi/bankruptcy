@@ -940,20 +940,23 @@ input[type="range"] { width: 100%; accent-color: var(--accent-color); }
     transform: scale(1.1); 
     transform-origin: bottom center;
   }
-
-  /* 4. Резюме юриста (Делаем супер-компактным) */
+/* 4. Резюме юриста (Растянуто для заполнения пространства) */
   .expert-resume-card {
     grid-column: 1 / 3;
     grid-row: 3;
-    margin: 0 !important; 
-    padding: 8px 10px !important; /* Срезали отступы */
+    margin: 5px 0 15px 0 !important; /* Добавили отступ снизу */
+    padding: 16px 12px !important;    /* Увеличили внутренние отступы */
     box-shadow: 2px 2px 0 var(--cta-a) !important;
     max-height: none !important;
+    flex-grow: 1;                     /* Заставляем блок занять максимум места */
   }
-  .expert-name { font-size: 0.8rem; margin-bottom: 2px; }
-  .expert-role { font-size: 0.6rem; margin-bottom: 4px; }
-  .expert-facts { font-size: 0.6rem; line-height: 1.15; } /* Уменьшили межстрочный интервал */
-  .expert-facts li { margin-bottom: 2px; padding-left: 10px; }
+  .expert-name { font-size: 0.9rem; margin-bottom: 4px; }
+  .expert-role { font-size: 0.7rem; margin-bottom: 8px; }
+  .expert-facts { 
+    font-size: 0.65rem; 
+    line-height: 1.4 !important;      /* Увеличили интервал для заполнения места */
+  } 
+  .expert-facts li { margin-bottom: 6px; padding-left: 12px; } /* Увеличили отступы между пунктами */
   .expert-facts li::before { font-size: 0.45rem; line-height: 2.2; }
 
   /* 5. Порядок работы (Жестко отодвигаем вниз на следующий скролл) */
